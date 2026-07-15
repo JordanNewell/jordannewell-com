@@ -1,0 +1,25 @@
+---
+import TagPill from "./TagPill.astro";
+import type { CollectionEntry } from "astro:content";
+
+const { post } = Astro.props as { post: CollectionEntry<"posts"> };
+const { title, description, pubDate, tags } = post.data;
+const dateStr = pubDate.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<article class="border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors">
+  <div class="flex items-center gap-3 text-xs font-mono text-fg-muted mb-2">
+    <time datetime={pubDate.toISOString()}>{dateStr}</time>
+    {tags.slice(0, 2).map((tag) => <TagPill tag={tag} />)}
+  </div>
+  <h3 class="font-display font-bold text-lg mb-1">
+    <a href={`/posts/${post.id}`} class="hover:text-green transition-colors">
+      {title}
+    </a>
+  </h3>
+  <p class="text-fg-secondary text-sm">{description}</p>
+</article>

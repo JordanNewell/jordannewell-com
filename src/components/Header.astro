@@ -1,0 +1,24 @@
+---
+import { NAV_LINKS, SITE } from "../lib/site";
+const { path } = Astro.props;
+---
+
+<header class="border-b border-border bg-bg/80 backdrop-blur-sm sticky top-0 z-10">
+  <div class="max-w-prose mx-auto px-5 py-4 flex items-center justify-between">
+    <a href="/" class="font-display font-bold text-fg hover:text-green transition-colors">
+      {SITE.title}
+    </a>
+    <nav class="flex items-center gap-5 text-sm">
+      {NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class={`font-mono transition-colors ${
+            path === link.href ? "text-green" : "text-fg-secondary hover:text-fg"
+          }`}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>

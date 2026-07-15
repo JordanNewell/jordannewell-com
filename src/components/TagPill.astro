@@ -1,0 +1,14 @@
+---
+import { TAG_COLORS } from "../lib/site";
+const { tag, size = "sm" } = Astro.props as { tag: string; size?: "sm" | "md" };
+const color = TAG_COLORS[tag] ?? "#A1A1AA";
+const sizeClass = size === "md" ? "px-3 py-1 text-sm" : "px-2 py-0.5 text-xs";
+---
+
+<a
+  href={`/tags/${tag}`}
+  class={`inline-block font-mono rounded border ${sizeClass}`}
+  style={`color: ${color}; border-color: ${color}40; background-color: ${color}10;`}
+>
+  /{tag}
+</a>

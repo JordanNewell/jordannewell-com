@@ -1,0 +1,22 @@
+---
+import { SITE } from "../lib/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-border mt-24">
+  <div class="max-w-prose mx-auto px-5 py-8 text-center text-sm text-fg-muted font-mono">
+    <p>
+      <a href="/rss.xml" class="hover:text-green">RSS</a>
+      <span class="mx-2">·</span>
+      <a href="/feed.json" class="hover:text-green">JSON Feed</a>
+      <span class="mx-2">·</span>
+      <a href="/llms.txt" class="hover:text-green">llms.txt</a>
+    </p>
+    <p class="mt-3">
+      Built in public by {SITE.author.name}. {year}.
+    </p>
+    <p class="mt-1 text-xs">
+      <a href="https://github.com/jordannewell/jordannewell-blog" class="hover:text-green">source</a>
+    </p>
+  </div>
+</footer>

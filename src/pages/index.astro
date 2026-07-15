@@ -99,6 +99,21 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
         }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
+        .hero-cta {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 20px; padding: 8px 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; color: var(--fg-secondary);
+            text-decoration: none; border: 1px solid var(--border);
+            background: var(--bg-card); letter-spacing: 0.04em;
+            transition: border-color 0.15s, color 0.15s, background 0.15s;
+        }
+        .hero-cta:hover {
+            border-color: var(--border-light);
+            color: var(--fg); background: var(--bg-card-hover);
+        }
+        .hero-cta svg { width: 12px; height: 12px; }
+
         .section { margin-bottom: 40px; }
         .section-label {
             font-family: 'JetBrains Mono', monospace;
@@ -244,6 +259,10 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
             <span class="status-dot"></span>
             Open to: advisory · security · ventures
         </div>
+        <a href="/posts/day-0/" class="hero-cta">
+            New here? Start with Day 0
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </a>
     </section>
 
     <section class="section">

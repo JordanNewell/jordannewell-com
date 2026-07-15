@@ -7,10 +7,8 @@ export const SITE = {
     email: "jordan@jordannewell.com",
     url: "https://jordannewell.com/about",
     sameAs: [
-      "https://github.com/jordannewell",  // UPDATE: real GitHub username
+      "https://github.com/jordannewell",
       "https://matrix.to/#/@jordan:<tailnet>.ts.net",
-      "https://x.com/jordannewell",       // UPDATE: real handle
-      "https://bsky.app/profile/jordannewell.com",  // UPDATE: real handle
     ],
   },
   social: {

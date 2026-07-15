@@ -4,7 +4,6 @@ description: "Task queue + audit log + dashboard for a 15-agent OpenClaw fleet. 
 status: "active"
 tags: ["infra"]
 startDate: 2026-06-01
-repo: https://github.com/jordannewell/<codename>
 order: 2
 ---
 

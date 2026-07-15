@@ -5,7 +5,6 @@ status: "shipped"
 tags: ["projects", "crypto"]
 startDate: 2026-07-09
 shipDate: 2026-07-12
-repo: https://github.com/jordannewell/crypto-key-classifier
 order: 4
 ---
 

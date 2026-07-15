@@ -1,10 +1,26 @@
 ---
 import { getCollection } from "astro:content";
+import { execSync } from "child_process";
 import { TAG_COLORS } from "../lib/site";
 
 const posts = (await getCollection("posts", ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);
+
+// Capture last commit info at build time — graceful fallback if git unavailable
+let lastCommitSha: string | null = null;
+let lastCommitDate: Date | null = null;
+try {
+  lastCommitSha = execSync("git rev-parse --short HEAD").toString().trim();
+  const ts = execSync("git log -1 --format=%cI").toString().trim();
+  lastCommitDate = new Date(ts);
+} catch {
+  lastCommitSha = null;
+  lastCommitDate = null;
+}
+
+// Build timestamp (UTC)
+const buildTime = new Date();
 ---
 
 <!DOCTYPE html>
@@ -236,6 +252,66 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
             .avatar { width: 64px; height: 64px; }
             .name { font-size: 1.2rem; }
         }
+
+        .live-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+        .live-item {
+            background: var(--bg-card);
+            padding: 14px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .live-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            color: var(--fg-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .live-value {
+            font-size: 0.82rem;
+            color: var(--fg);
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .mono-sha {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--green);
+        }
+        .live-link {
+            color: var(--fg);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: border-color 0.15s, color 0.15s;
+        }
+        .live-link:hover {
+            color: var(--green);
+            border-bottom-color: var(--green);
+        }
+        .live-relative {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--fg-muted);
+        }
+
+        /* 2-col on wider viewports */
+        @media (min-width: 480px) {
+            .live-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .live-item:last-child {
+                grid-column: span 2;
+            }
+        }
     </style>
     <!-- Cloudflare Web Analytics — replace __CF_BEACON_TOKEN__ with real token from CF dashboard → Analytics & Logs → Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "__CF_BEACON_TOKEN__", "version": "2026.7.1"}'></script>
@@ -263,6 +339,36 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
             New here? Start with Day 0
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </a>
+    </section>
+
+    <section class="section live-section">
+        <div class="section-label">Live</div>
+        <div class="live-grid">
+            {lastCommitSha && lastCommitDate && (
+                <div class="live-item">
+                    <div class="live-label">Last commit</div>
+                    <div class="live-value">
+                        <span class="mono-sha">{lastCommitSha}</span>
+                        <span class="live-relative" data-timestamp={lastCommitDate.toISOString()}>…</span>
+                    </div>
+                </div>
+            )}
+            {posts[0] && (
+                <div class="live-item">
+                    <div class="live-label">Latest post</div>
+                    <div class="live-value">
+                        <a href={`/posts/${posts[0].id}/`} class="live-link">{posts[0].data.title}</a>
+                        <span class="live-relative" data-timestamp={posts[0].data.pubDate.toISOString()}>…</span>
+                    </div>
+                </div>
+            )}
+            <div class="live-item">
+                <div class="live-label">Built</div>
+                <div class="live-value">
+                    <span class="live-relative" data-timestamp={buildTime.toISOString()}>…</span>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="section">
@@ -343,6 +449,31 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
 
 <script is:inline>
 (function() {
+    function formatRelative(iso) {
+        var then = new Date(iso).getTime();
+        var now = Date.now();
+        var diff = Math.max(0, now - then);
+        var sec = Math.floor(diff / 1000);
+        var min = Math.floor(sec / 60);
+        var hr = Math.floor(min / 60);
+        var day = Math.floor(hr / 24);
+        if (sec < 60) return 'just now';
+        if (min < 60) return min + 'm ago';
+        if (hr < 24) return hr + 'h ago';
+        if (day === 1) return 'yesterday';
+        if (day < 30) return day + 'd ago';
+        var date = new Date(iso);
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+    function updateRelativeTimes() {
+        document.querySelectorAll('.live-relative').forEach(function(el) {
+            var ts = el.getAttribute('data-timestamp');
+            if (ts) el.textContent = formatRelative(ts);
+        });
+    }
+    updateRelativeTimes();
+    setInterval(updateRelativeTimes, 60000);
+
     var badge = document.getElementById('status-badge');
     var text = document.getElementById('status-text');
     async function check() {

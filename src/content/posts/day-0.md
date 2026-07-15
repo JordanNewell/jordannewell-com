@@ -30,26 +30,17 @@ Three pillars, plus a projects surface.
 
 Real software I've built lives at [`/projects`](/projects) (pages coming soon). Bugs I've filed against OSS projects I use live at [`/contributions`](/contributions) — that page has its first entry already. Both accumulate over time. They are how "no accolades" stops being true.
 
-## Voice
-
-Default voice: rigorous, sourced, opinionated-with-evidence. Sentence-level care. No filler. (If you read Byrne Hobart's *The Diff*, you're already calibrated.)
-
-Escalation voice: reserved for claims worth dropping — manifestos, theses, project launches that I believe genuinely change a conversation. (If you read Justin Murphy, you know the mode.) Maybe one in four posts. Not the default.
-
-Frustration is allowed. Defeat isn't. Numbers go in the open when relevant.
-
 ## The next 90 days
 
 Concrete targets, in public:
 
 - 10 substantial posts shipped
-- 100 newsletter subscribers (sign up below — Buttondown, markdown-native, no spam)
 - 1 Hacker News front-page or equivalent earned pickup
 - 1 manifesto-style drop
 - At least 3 project pages live
 - At least 3 OSS contribution entries logged
 
-I'll report against these publicly each month. If I miss, you'll see it. If I make them, you'll see that too.
+I'll revisit these as I go — wins and misses both visible in the archive.
 
 ## Start here
 

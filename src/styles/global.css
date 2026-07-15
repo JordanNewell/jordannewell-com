@@ -136,3 +136,21 @@
   background-size: 24px 24px;
   opacity: 0.3;
 }
+
+/* Murphy-mode variant — manifesto-style posts */
+.murphy-mode h1 {
+  text-shadow: 0 0 30px rgba(248, 113, 113, 0.3);
+}
+.murphy-mode blockquote {
+  border-left-color: var(--color-red);
+  color: var(--color-fg);
+  font-style: italic;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.25rem;
+  margin-block: 2rem;
+  padding-left: 1.5rem;
+}
+.murphy-mode .post-content {
+  color: var(--color-fg);
+}

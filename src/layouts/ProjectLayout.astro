@@ -1,0 +1,37 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import TagPill from "../components/TagPill.astro";
+import type { CollectionEntry } from "astro:content";
+
+const { project } = Astro.props as { project: CollectionEntry<"projects"> };
+const { title, description, status, repo, liveUrl, tags } = project.data;
+
+const statusColors: Record<string, string> = {
+  active: "text-green",
+  shipped: "text-blue",
+  exploratory: "text-amber",
+  "venture-track": "text-violet",
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="prose">
+    <header class="mb-10">
+      <div class="flex items-center gap-3 text-sm font-mono mb-3">
+        <span class:list={["px-2 py-0.5 rounded", statusColors[status]]}>
+          {status}
+        </span>
+        {tags.map((tag) => <TagPill tag={tag} />)}
+      </div>
+      <h1 class="font-display font-bold text-4xl md:text-5xl leading-tight mb-3">{title}</h1>
+      <p class="text-xl text-fg-secondary">{description}</p>
+      {(repo || liveUrl) && (
+        <div class="flex gap-4 mt-4 text-sm font-mono">
+          {repo && <a href={repo} class="text-green hover:underline">source ↗</a>}
+          {liveUrl && <a href={liveUrl} class="text-green hover:underline">live ↗</a>}
+        </div>
+      )}
+    </header>
+    <slot />
+  </article>
+</BaseLayout>

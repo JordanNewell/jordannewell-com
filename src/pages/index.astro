@@ -266,22 +266,6 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
     </section>
 
     <section class="section">
-        <div class="section-label">Ventures</div>
-
-        <div class="role-card">
-            <div class="role-header">
-                <div class="role-title">Director, Richmond Park Group</div>
-                <a href="https://richmondpark.co" target="_blank" rel="noopener" class="role-link">
-                    Visit
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-            <div class="role-tags">Government contracting · Defense · Federal IT</div>
-            <p class="role-desc">IT modernization, software development, management consulting for defense and federal agencies. CMMC, NIST 800-171, cybersecurity.</p>
-        </div>
-    </section>
-
-    <section class="section">
         <div class="section-label">Latest from the blog</div>
         {posts.map((post) => (
             <a href={`/posts/${post.id}/`} class="post-item">
@@ -298,6 +282,22 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
             </a>
         ))}
         <a href="/posts/" class="view-all">View all posts →</a>
+    </section>
+
+    <section class="section">
+        <div class="section-label">Ventures</div>
+
+        <div class="role-card">
+            <div class="role-header">
+                <div class="role-title">Director, Richmond Park Group</div>
+                <a href="https://richmondpark.co" target="_blank" rel="noopener" class="role-link">
+                    Visit
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div class="role-tags">Government contracting · Defense · Federal IT</div>
+            <p class="role-desc">IT modernization, software development, management consulting for defense and federal agencies. CMMC, NIST 800-171, cybersecurity.</p>
+        </div>
     </section>
 
     <a href="mailto:hello@jordannewell.com" class="contact-bar">

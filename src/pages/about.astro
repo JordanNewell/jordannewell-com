@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { personSchema } from "../lib/schema";
+import { SITE } from "../lib/site";
+
+const schema = [personSchema()];
+---
+
+<BaseLayout title="About" description="Operator rebuilding in public across sectors." schema={schema}>
+  <article class="prose">
+    <h1>About</h1>
+    <p>
+      I'm Jordan Newell. I build and operate the systems behind ambitious ventures —
+      a self-hosted fleet of AI agents, infrastructure across a dozen hosts, and a
+      growing collection of software projects I'm bringing into the world.
+    </p>
+    <p>
+      I'm starting this blog at a moment of forced clarity: a critical-influx week
+      where my main infrastructure host went down at the worst possible time, and I
+      haven't shipped a product or flipped a business yet. Instead of treating that
+      as a liability, I'm making it the premise.
+    </p>
+    <p>
+      <strong>This is the operator's desk.</strong> Field notes, post-mortems,
+      manifestos when warranted. Voice default is rigorous and sourced. Escalates
+      to manifesto when there's a claim worth dropping.
+    </p>
+
+    <h2>What I'm working on</h2>
+    <p>
+      See <a href="/now">/now</a> for current focus. See <a href="/projects">/projects</a>
+      for the portfolio surface. See <a href="/contributions">/contributions</a> for
+      OSS work I've shipped to others' projects.
+    </p>
+
+    <h2>Find me</h2>
+    <ul>
+      {SITE.author.sameAs.map((url) => <li><a href={url}>{url}</a></li>)}
+    </ul>
+  </article>
+</BaseLayout>

@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const contributions = (await getCollection("contributions"))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Contributions" description="Verifiable OSS contributions — bugs filed, PRs merged, community engagement.">
+  <header class="mb-10">
+    <h1 class="font-display font-bold text-4xl mb-3">/contributions</h1>
+    <p class="text-fg-secondary">
+      Bugs I've filed, PRs I've merged, community engagement on OSS projects I use.
+      Most "builders" in the AI era are pure consumers — this is the differentiator.
+    </p>
+  </header>
+  <div class="space-y-5">
+    {contributions.map((c) => (
+      <article class="border-l-2 border-cyan pl-4">
+        <div class="text-xs font-mono text-fg-muted mb-1">
+          {c.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short" })}
+          · <span class="text-cyan">{c.data.type}</span>
+          · {c.data.project}
+        </div>
+        <h2 class="font-display font-semibold mb-1">
+          <a href={c.data.url} class="hover:text-cyan">{c.data.title}</a>
+        </h2>
+        <p class="text-sm text-fg-secondary mb-1">{c.data.description}</p>
+        <p class="text-xs font-mono text-green">→ {c.data.outcome}</p>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

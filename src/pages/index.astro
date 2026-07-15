@@ -80,7 +80,11 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
         }
         .tagline {
             font-size: 1.05rem; color: var(--fg-secondary);
-            line-height: 1.5; margin-bottom: 16px; font-weight: 400;
+            line-height: 1.5; margin-bottom: 12px; font-weight: 400;
+        }
+        .tagline-sub {
+            font-size: 0.88rem; color: var(--fg-muted);
+            line-height: 1.55; margin-bottom: 16px; font-weight: 400;
         }
         .status-line {
             display: inline-flex; align-items: center; gap: 6px;
@@ -229,13 +233,14 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
             <img src="/profile-v5.jpg" alt="Jordan Newell" class="avatar">
             <div class="hero-id">
                 <h1 class="name">Jordan Newell</h1>
-                <span class="hero-handle">systems builder / operator</span>
+                <span class="hero-handle">rebuilding in public</span>
             </div>
         </div>
         <p class="tagline">I build and operate the systems behind ambitious ventures.</p>
+        <p class="tagline-sub">Field notes from the rebuild — AI agents, self-hosted infra, crypto tooling, venture research. Written as it ships.</p>
         <div class="status-line">
             <span class="status-dot"></span>
-            Available for select opportunities
+            Open to: advisory · security · ventures
         </div>
     </section>
 

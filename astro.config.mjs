@@ -7,9 +7,15 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://jordannewell.com',
   vite: {
     plugins: [tailwindcss()]
   },
-
+  markdown: {
+    shikiConfig: {
+      theme: 'github-dark',
+      wrap: true,
+    },
+  },
   integrations: [sitemap()]
 });

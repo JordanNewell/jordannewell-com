@@ -1,36 +1,357 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import PostCard from "../components/PostCard.astro";
-import { websiteSchema } from "../lib/schema";
-import { SITE } from "../lib/site";
+import { TAG_COLORS } from "../lib/site";
 
 const posts = (await getCollection("posts", ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-  .slice(0, 5);
-
-const schema = [websiteSchema()];
+  .slice(0, 3);
 ---
 
-<BaseLayout schema={schema}>
-  <section class="mb-16">
-    <h1 class="font-display font-bold text-3xl mb-4">{SITE.title}</h1>
-    <p class="text-lg text-fg-secondary leading-7">
-      {SITE.description}
-    </p>
-    <p class="mt-4 text-sm font-mono text-fg-muted">
-      Start here: <a href="/about" class="text-green hover:underline">about</a>
-      · <a href="/now" class="text-green hover:underline">what I'm doing now</a>
-    </p>
-  </section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jordan Newell</title>
+    <meta name="description" content="I build and operate the systems behind ambitious ventures.">
+    <meta property="og:title" content="Jordan Newell">
+    <meta property="og:description" content="I build and operate the systems behind ambitious ventures.">
+    <meta property="og:image" content="https://jordannewell.com/profile-v5.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jordannewell.com">
+    <meta name="twitter:card" content="summary">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/rss+xml" title="Jordan Newell" href="/rss.xml">
+    <link rel="alternate" type="application/json" title="Jordan Newell" href="/feed.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  <section>
-    <h2 class="font-display font-bold text-xl mb-5 text-fg-muted">Latest</h2>
-    <div class="space-y-4">
-      {posts.map((post) => <PostCard post={post} />)}
-    </div>
-    <p class="mt-6 text-sm font-mono text-fg-muted">
-      <a href="/rss.xml" class="hover:text-green">subscribe via RSS</a>
-    </p>
-  </section>
-</BaseLayout>
+        :root {
+            --bg: #09090B;
+            --bg-card: #111113;
+            --bg-card-hover: #18181B;
+            --border: #27272A;
+            --border-light: #3F3F46;
+            --fg: #FAFAFA;
+            --fg-secondary: #A1A1AA;
+            --fg-muted: #71717A;
+            --accent: #F4F4F5;
+            --green: #34D399;
+            --green-dim: rgba(52,211,153,0.1);
+            --green-border: rgba(52,211,153,0.2);
+            --blue: #60A5FA;
+            --amber: #FBBF24;
+            --violet: #A78BFA;
+        }
+
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.5;
+        }
+
+        .dot-grid {
+            position: fixed; inset: 0; pointer-events: none; z-index: 0;
+            background-image: radial-gradient(circle, #27272A 1px, transparent 1px);
+            background-size: 24px 24px; opacity: 0.3;
+        }
+
+        .page {
+            position: relative; z-index: 1;
+            max-width: 520px; margin: 0 auto; padding: 48px 20px 64px;
+        }
+
+        .hero { margin-bottom: 48px; }
+        .hero-header { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+        .avatar {
+            width: 72px; height: 72px; border-radius: 8px;
+            object-fit: cover; border: 1px solid var(--border);
+        }
+        .hero-id { display: flex; flex-direction: column; gap: 4px; }
+        .name { font-size: 1.35rem; font-weight: 700; color: var(--fg); letter-spacing: -0.03em; }
+        .hero-handle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; color: var(--fg-muted); letter-spacing: 0.04em;
+        }
+        .tagline {
+            font-size: 1.05rem; color: var(--fg-secondary);
+            line-height: 1.5; margin-bottom: 16px; font-weight: 400;
+        }
+        .status-line {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem; color: var(--green);
+            letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 4px 8px; background: var(--green-dim); border: 1px solid var(--green-border);
+        }
+        .status-dot {
+            width: 6px; height: 6px; background: var(--green);
+            border-radius: 50%; animation: blink 2s ease-in-out infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .section { margin-bottom: 40px; }
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem; color: var(--fg-muted);
+            letter-spacing: 0.15em; text-transform: uppercase;
+            margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+        }
+        .section-label::before {
+            content: ''; width: 12px; height: 1px; background: var(--fg-muted);
+        }
+
+        .expertise-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+            background: var(--border); border: 1px solid var(--border);
+        }
+        .expertise-card {
+            background: var(--bg-card); padding: 20px 18px; transition: background 0.15s;
+        }
+        .expertise-card:hover { background: var(--bg-card-hover); }
+        .expertise-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;
+        }
+        .expertise-card:nth-child(1) .expertise-label { color: var(--blue); }
+        .expertise-card:nth-child(2) .expertise-label { color: var(--amber); }
+        .expertise-card:nth-child(3) .expertise-label { color: var(--violet); }
+        .expertise-card:nth-child(4) .expertise-label { color: var(--green); }
+        .expertise-title { font-size: 0.9rem; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+        .expertise-desc { font-size: 0.78rem; color: var(--fg-muted); line-height: 1.45; }
+
+        .role-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            padding: 20px; margin-bottom: 10px; transition: border-color 0.15s;
+        }
+        .role-card:hover { border-color: var(--border-light); }
+        .role-header {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            gap: 12px; margin-bottom: 4px;
+        }
+        .role-title { font-size: 0.95rem; font-weight: 600; color: var(--fg); }
+        .role-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem; color: var(--fg-muted); text-decoration: none;
+            letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap;
+            display: inline-flex; align-items: center; gap: 4px; transition: color 0.15s;
+        }
+        .role-link:hover { color: var(--fg); }
+        .role-link svg { width: 12px; height: 12px; }
+        .role-tags {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem; color: var(--fg-muted);
+            letter-spacing: 0.04em; margin-bottom: 12px;
+        }
+        .role-desc { font-size: 0.82rem; color: var(--fg-secondary); line-height: 1.5; }
+
+        .post-item {
+            display: block; background: var(--bg-card);
+            border: 1px solid var(--border); padding: 16px 18px;
+            margin-bottom: 8px; text-decoration: none;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .post-item:hover { border-color: var(--border-light); background: var(--bg-card-hover); }
+        .post-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem; color: var(--fg-muted);
+            letter-spacing: 0.04em; margin-bottom: 6px;
+        }
+        .post-title {
+            font-size: 0.92rem; font-weight: 600; color: var(--fg);
+            margin-bottom: 4px; line-height: 1.35;
+        }
+        .post-desc { font-size: 0.78rem; color: var(--fg-secondary); line-height: 1.5; margin-bottom: 8px; }
+        .post-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag-pill { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; letter-spacing: 0.04em; }
+        .view-all {
+            display: inline-block; margin-top: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem; color: var(--fg-muted); text-decoration: none;
+            letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.15s;
+        }
+        .view-all:hover { color: var(--fg); }
+
+        .contact-bar {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 14px; background: var(--bg-card); border: 1px solid var(--border);
+            text-decoration: none; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; color: var(--fg-secondary);
+            letter-spacing: 0.04em; transition: all 0.15s;
+        }
+        .contact-bar:hover { border-color: var(--border-light); color: var(--fg); }
+        .contact-bar svg { width: 14px; height: 14px; }
+
+        .footer {
+            text-align: center; padding-top: 40px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem; color: var(--fg-muted);
+            letter-spacing: 0.15em; text-transform: uppercase;
+        }
+
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            color: var(--fg-muted); text-decoration: none; transition: color 0.15s ease;
+        }
+        .status-badge:hover { color: var(--fg-secondary); }
+        .status-badge .status-dot {
+            width: 6px; height: 6px; border-radius: 50%; background: var(--fg-muted);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+        .status-badge.is-up .status-dot {
+            background: var(--green); box-shadow: 0 0 8px rgba(52,211,153,0.5);
+        }
+        .status-badge.is-up #status-text { color: var(--green); }
+        .status-badge.is-down .status-dot { background: #F87171; box-shadow: 0 0 8px rgba(248,113,113,0.4); }
+        .status-badge.is-down #status-text { color: #F87171; }
+        .footer-sep { margin: 0 10px; opacity: 0.4; }
+
+        @media (max-width: 480px) {
+            .page { padding: 32px 16px 48px; }
+            .hero-header { gap: 16px; }
+            .avatar { width: 64px; height: 64px; }
+            .name { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dot-grid"></div>
+
+<div class="page">
+    <section class="hero">
+        <div class="hero-header">
+            <img src="/profile-v5.jpg" alt="Jordan Newell" class="avatar">
+            <div class="hero-id">
+                <h1 class="name">Jordan Newell</h1>
+                <span class="hero-handle">systems builder / operator</span>
+            </div>
+        </div>
+        <p class="tagline">I build and operate the systems behind ambitious ventures.</p>
+        <div class="status-line">
+            <span class="status-dot"></span>
+            Available for select opportunities
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-label">Core</div>
+        <div class="expertise-grid">
+            <div class="expertise-card">
+                <div class="expertise-label">01</div>
+                <div class="expertise-title">Build</div>
+                <p class="expertise-desc">Design, build, and operate. Not from the sidelines.</p>
+            </div>
+            <div class="expertise-card">
+                <div class="expertise-label">02</div>
+                <div class="expertise-title">Fortify</div>
+                <p class="expertise-desc">Security baked in from day one. Not bolted on after.</p>
+            </div>
+            <div class="expertise-card">
+                <div class="expertise-label">03</div>
+                <div class="expertise-title">Scale</div>
+                <p class="expertise-desc">From one server to a fleet. Systems that grow with the mission.</p>
+            </div>
+            <div class="expertise-card">
+                <div class="expertise-label">04</div>
+                <div class="expertise-title">Ship</div>
+                <p class="expertise-desc">Opinions backed by working software. Not decks—deployments.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-label">Ventures</div>
+
+        <div class="role-card">
+            <div class="role-header">
+                <div class="role-title">Director, Richmond Park Group</div>
+                <a href="https://richmondpark.co" target="_blank" rel="noopener" class="role-link">
+                    Visit
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div class="role-tags">Government contracting · Defense · Federal IT</div>
+            <p class="role-desc">IT modernization, software development, management consulting for defense and federal agencies. CMMC, NIST 800-171, cybersecurity.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-label">Latest from the blog</div>
+        {posts.map((post) => (
+            <a href={`/posts/${post.id}/`} class="post-item">
+                <div class="post-date">
+                    {post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+                </div>
+                <div class="post-title">{post.data.title}</div>
+                <div class="post-desc">{post.data.description}</div>
+                <div class="post-tags">
+                    {post.data.tags.map((t) => (
+                        <span class="tag-pill" style={`color: ${TAG_COLORS[t] ?? "#A1A1AA"}`}>/{t}</span>
+                    ))}
+                </div>
+            </a>
+        ))}
+        <a href="/posts/" class="view-all">View all posts →</a>
+    </section>
+
+    <a href="mailto:hello@jordannewell.com" class="contact-bar">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Say hello
+    </a>
+
+    <a href="/book" class="contact-bar" style="margin-top: -1px;">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Book a call
+    </a>
+
+    <footer class="footer">
+        <a href="https://status.jordannewell.com" class="status-badge" id="status-badge" target="_blank" rel="noopener" aria-label="System status">
+            <span class="status-dot" id="status-dot"></span>
+            <span id="status-text">Checking systems…</span>
+        </a>
+        <span class="footer-sep">·</span>
+        Jordan Newell
+    </footer>
+</div>
+
+<script is:inline>
+(function() {
+    var badge = document.getElementById('status-badge');
+    var text = document.getElementById('status-text');
+    async function check() {
+        try {
+            var r = await fetch('https://status.jordannewell.com/api/status-page/heartbeat/public', {cache: 'no-store'});
+            if (!r.ok) throw new Error(r.status);
+            var data = await r.json();
+            var lists = Object.values(data.heartbeatList || {});
+            if (!lists.length) { text.textContent = 'Status unavailable'; return; }
+            var latest = lists.map(function(arr){ return arr[arr.length - 1] && arr[arr.length - 1].status; });
+            var down = latest.filter(function(s){ return s !== 1; }).length;
+            badge.classList.remove('is-up', 'is-down');
+            if (down === 0) {
+                badge.classList.add('is-up');
+                text.textContent = 'All systems operational';
+            } else if (down < latest.length) {
+                badge.classList.add('is-down');
+                text.textContent = down + ' of ' + latest.length + ' services degraded';
+            } else {
+                badge.classList.add('is-down');
+                text.textContent = 'Major outage';
+            }
+        } catch (e) {
+            text.textContent = 'Status unknown';
+        }
+    }
+    check();
+    setInterval(check, 60000);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+---
+
+<BaseLayout title="Posts" description="Field notes from the operator's desk.">
+  <header class="mb-12">
+    <p class="text-sm font-mono text-fg-muted mb-2">the blog</p>
+    <h1 class="font-display font-bold text-4xl mb-3">Posts</h1>
+    <p class="text-fg-secondary">
+      Field notes from an operator rebuilding in public across sectors.
+      Sectors are tags; the operator is the brand.
+    </p>
+    <div class="flex flex-wrap gap-2 mt-5">
+      <a href="/" class="font-mono text-xs text-fg-muted hover:text-fg">all</a>
+      {allTags.map((tag) => (
+        <a href={`/tags/${tag}`} class="font-mono text-xs text-fg-muted hover:text-fg">/{tag}</a>
+      ))}
+    </div>
+  </header>
+
+  <div class="space-y-4">
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+
+  <p class="mt-10 text-sm font-mono text-fg-muted">
+    <a href="/rss.xml" class="hover:text-green">subscribe via RSS</a>
+    · <a href="/feed.json" class="hover:text-green">JSON feed</a>
+    · <a href="/ai-feed.json" class="hover:text-green">AI/LLM feed</a>
+  </p>
+</BaseLayout>

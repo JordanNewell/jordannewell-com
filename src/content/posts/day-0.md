@@ -28,7 +28,7 @@ Three pillars, plus a projects surface.
 - `/infra` — technical depth. Self-hosted fleet, Matrix, Tailscale, observability. The home-turf writing.
 - `/ventures` — strategy, acquisitions, market theses. The forward-looking work.
 
-Real software I've built lives at `/projects`. Bugs I've filed against OSS projects I use live at `/contributions`. Both will accumulate over time. They are how "no accolades" stops being true.
+Real software I've built lives at [`/projects`](/projects) (pages coming soon). Bugs I've filed against OSS projects I use live at [`/contributions`](/contributions) — that page has its first entry already. Both accumulate over time. They are how "no accolades" stops being true.
 
 ## Voice
 

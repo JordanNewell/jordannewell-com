@@ -9,6 +9,7 @@ export const SITE = {
     sameAs: [
       "https://github.com/jordannewell",
       "https://matrix.to/#/@jordan:<tailnet>.ts.net",
+      "https://x.com/newellops",
     ],
   },
   social: {

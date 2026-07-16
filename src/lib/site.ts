@@ -10,6 +10,7 @@ export const SITE = {
       "https://github.com/jordannewell",
       "https://matrix.to/#/@jordan:<tailnet>.ts.net",
       "https://x.com/newellops",
+      "https://bsky.app/profile/jordannewell.com",
     ],
   },
   social: {

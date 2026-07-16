@@ -1,0 +1,15 @@
+---
+interface Props {
+  era: string;
+}
+const { era } = Astro.props;
+
+const eraLabels: Record<string, string> = {
+  "2025-curtis": "Originally logged 2025 — pre-fleet",
+  "2026-fleet": "2026 — fleet era",
+};
+
+const label = eraLabels[era] ?? era;
+---
+
+<span class="text-xs font-mono text-fg-muted italic">{label}</span>

@@ -2,6 +2,15 @@
   "name": "jordannewell-blog",
   "type": "module",
   "version": "0.0.1",
+  "description": "Source for https://jordannewell.com — Astro SSG, deployed via tar-over-ssh to a Hetzner host behind Cloudflare.",
+  "author": "Jordan Newell <jordan@jordannewell.com> (https://jordannewell.com)",
+  "license": "MIT",
+  "homepage": "https://jordannewell.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jordannewell/jordannewell-blog"
+  },
+  "keywords": ["astro", "blog", "operator", "build-in-public", "jordannewell"],
   "engines": {
     "node": ">=22.12.0"
   },

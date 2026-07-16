@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright (c) 2026 Jordan Newell. Licensed under MIT.
+# Source: https://github.com/jordannewell/jordannewell-blog
+#
 # Greps nginx access logs on production for AI crawler activity.
 # Run weekly to verify LLMs are actually fetching the site.
 

@@ -2,8 +2,8 @@ export interface SeriesMeta {
   slug: string;
   name: string;
   description: string;
-  tool?: string;
-  era?: string;
+  tool?: "claude-code" | "grok" | "gpt" | "gemini" | "cursor" | "aider" | "other";
+  era?: "2025-curtis" | "2026-fleet";
   order: number;
 }
 

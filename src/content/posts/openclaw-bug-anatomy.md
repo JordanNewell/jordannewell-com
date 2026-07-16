@@ -5,6 +5,7 @@ pubDate: 2026-07-15
 tags: ["rebuild", "contributions"]
 mode: "hobart"
 project: "openclaw"
+kind: "tooling"
 ---
 
 On 2026-05-12 I filed a bug against [OpenClaw](https://github.com/openclaw/openclaw). Other users had documented the same pattern in related issues. The maintainer shipped a fix and closed my issue on 2026-05-18 — six days from filed to fixed.

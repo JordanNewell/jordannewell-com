@@ -1,0 +1,19 @@
+---
+interface Props {
+  kind: string;
+}
+const { kind } = Astro.props;
+
+const kindLabels: Record<string, string> = {
+  postmortem: "postmortem",
+  win: "win",
+  decision: "decision",
+  "debug-story": "debug story",
+  tooling: "tooling",
+  conversation: "conversation",
+};
+
+const label = kindLabels[kind] ?? kind;
+---
+
+<span class="text-xs font-mono text-fg-muted uppercase tracking-wider">{label}</span>

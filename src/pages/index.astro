@@ -250,6 +250,16 @@ const buildTime = new Date();
             font-size: 0.55rem; color: var(--fg-muted);
             letter-spacing: 0.15em; text-transform: uppercase;
         }
+        .footer-row {
+            margin-bottom: 10px;
+        }
+        .footer-row:last-child { margin-bottom: 0; }
+        .footer-row a {
+            color: var(--fg-muted);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .footer-row a:hover { color: var(--fg); }
 
         .status-badge {
             display: inline-flex; align-items: center; gap: 6px;
@@ -471,12 +481,33 @@ const buildTime = new Date();
     </a>
 
     <footer class="footer">
-        <a href="https://status.jordannewell.com" class="status-badge" id="status-badge" target="_blank" rel="noopener" aria-label="System status">
-            <span class="status-dot" id="status-dot"></span>
-            <span id="status-text">Checking systems…</span>
-        </a>
-        <span class="footer-sep">·</span>
-        Jordan Newell
+        <p class="footer-row">
+            <a href="https://x.com/newellops" target="_blank" rel="noopener">x</a>
+            <span class="footer-sep">·</span>
+            <a href="https://bsky.app/profile/jordannewell.com" target="_blank" rel="noopener">bluesky</a>
+            <span class="footer-sep">·</span>
+            <a href="https://github.com/jordannewell" target="_blank" rel="noopener">github</a>
+            <span class="footer-sep">·</span>
+            <a href="https://matrix.to/#/@jordan:<tailnet>.ts.net" target="_blank" rel="noopener">matrix</a>
+            <span class="footer-sep">·</span>
+            <a href="mailto:hello@jordannewell.com">email</a>
+        </p>
+        <p class="footer-row">
+            <a href="/rss.xml">rss</a>
+            <span class="footer-sep">·</span>
+            <a href="/feed.json">json</a>
+            <span class="footer-sep">·</span>
+            <a href="/llms.txt">llms.txt</a>
+            <span class="footer-sep">·</span>
+            <a href="https://github.com/jordannewell/jordannewell-blog" target="_blank" rel="noopener">source</a>
+        </p>
+        <p class="footer-row">
+            <a href="https://status.jordannewell.com" class="status-badge" id="status-badge" target="_blank" rel="noopener" aria-label="System status">
+                <span class="status-dot" id="status-dot"></span>
+                <span id="status-text">Checking systems…</span>
+            </a>
+        </p>
+        <p class="footer-row">Built in public by Jordan Newell · 2026</p>
     </footer>
 </div>
 

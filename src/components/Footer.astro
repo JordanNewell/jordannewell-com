@@ -5,18 +5,72 @@ const year = new Date().getFullYear();
 
 <footer class="border-t border-border mt-24">
   <div class="max-w-prose mx-auto px-5 py-8 text-center text-sm text-fg-muted font-mono">
-    <p>
-      <a href="/rss.xml" class="hover:text-green">RSS</a>
+    <p class="mb-2">
+      <a href="https://x.com/newellops" target="_blank" rel="noopener" class="hover:text-green">x</a>
       <span class="mx-2">·</span>
-      <a href="/feed.json" class="hover:text-green">JSON Feed</a>
+      <a href="https://bsky.app/profile/jordannewell.com" target="_blank" rel="noopener" class="hover:text-green">bluesky</a>
+      <span class="mx-2">·</span>
+      <a href="https://github.com/jordannewell" target="_blank" rel="noopener" class="hover:text-green">github</a>
+      <span class="mx-2">·</span>
+      <a href="https://matrix.to/#/@jordan:<tailnet>.ts.net" target="_blank" rel="noopener" class="hover:text-green">matrix</a>
+      <span class="mx-2">·</span>
+      <a href="mailto:hello@jordannewell.com" class="hover:text-green">email</a>
+    </p>
+    <p class="mb-2">
+      <a href="/rss.xml" class="hover:text-green">rss</a>
+      <span class="mx-2">·</span>
+      <a href="/feed.json" class="hover:text-green">json</a>
       <span class="mx-2">·</span>
       <a href="/llms.txt" class="hover:text-green">llms.txt</a>
+      <span class="mx-2">·</span>
+      <a href="https://github.com/jordannewell/jordannewell-blog" target="_blank" rel="noopener" class="hover:text-green">source</a>
     </p>
-    <p class="mt-3">
-      Built in public by {SITE.author.name}. {year}.
+    <p class="mb-3">
+      <a href="https://status.jordannewell.com" class="inline-flex items-center gap-1.5 hover:text-green" id="status-badge-footer" target="_blank" rel="noopener" aria-label="System status">
+        <span id="status-dot-footer" class="inline-block w-1.5 h-1.5 rounded-full bg-fg-muted"></span>
+        <span id="status-text-footer">Checking systems…</span>
+      </a>
     </p>
-    <p class="mt-1 text-xs">
-      <a href="https://github.com/jordannewell/jordannewell-blog" class="hover:text-green">source</a>
-    </p>
+    <p>Built in public by {SITE.author.name} · {year}</p>
   </div>
 </footer>
+
+<script is:inline>
+(function() {
+    var badge = document.getElementById('status-badge-footer');
+    var dot = document.getElementById('status-dot-footer');
+    var text = document.getElementById('status-text-footer');
+    if (!badge || !dot || !text) return;
+    async function check() {
+        try {
+            var r = await fetch('https://status.jordannewell.com/api/status-page/heartbeat/public', {cache: 'no-store'});
+            if (!r.ok) throw new Error(r.status);
+            var data = await r.json();
+            var lists = Object.values(data.heartbeatList || {});
+            if (!lists.length) { text.textContent = 'Status unavailable'; return; }
+            var latest = lists.map(function(arr){ return arr[arr.length - 1] && arr[arr.length - 1].status; });
+            var down = latest.filter(function(s){ return s !== 1; }).length;
+            if (down === 0) {
+                dot.style.background = '#34D399';
+                dot.style.boxShadow = '0 0 8px rgba(52,211,153,0.5)';
+                text.style.color = '#34D399';
+                text.textContent = 'All systems operational';
+            } else if (down < latest.length) {
+                dot.style.background = '#F87171';
+                dot.style.boxShadow = '0 0 8px rgba(248,113,113,0.4)';
+                text.style.color = '#F87171';
+                text.textContent = down + ' of ' + latest.length + ' services degraded';
+            } else {
+                dot.style.background = '#F87171';
+                dot.style.boxShadow = '0 0 8px rgba(248,113,113,0.4)';
+                text.style.color = '#F87171';
+                text.textContent = 'Major outage';
+            }
+        } catch (e) {
+            text.textContent = 'Status unknown';
+        }
+    }
+    check();
+    setInterval(check, 60000);
+})();
+</script>

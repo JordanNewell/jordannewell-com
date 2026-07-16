@@ -12,6 +12,12 @@ const posts = defineCollection({
     mode: z.enum(["hobart", "murphy"]).default("hobart"),
     draft: z.boolean().default(false),
     project: z.string().optional(),
+    // Sessions from the Vault additions (all optional, backwards-compatible)
+    series: z.array(z.string()).default([]),
+    tool: z.enum(["claude-code", "grok", "gpt", "gemini", "cursor", "aider", "other"]).optional(),
+    era: z.enum(["2025-curtis", "2026-fleet"]).optional(),
+    session: z.string().optional(),
+    kind: z.enum(["postmortem", "win", "decision", "debug-story", "tooling", "conversation"]).optional(),
   }),
 });
 

@@ -1,0 +1,23 @@
+---
+import { getSeries } from "../content/series";
+
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+const meta = getSeries(slug);
+if (!meta) {
+  console.warn(`[SeriesBadge] Unknown series slug: ${slug}`);
+}
+---
+
+{
+  meta && (
+    <a
+      href={`/series/${slug}/`}
+      class="inline-block font-mono rounded border border-border px-2 py-0.5 text-xs text-fg-muted hover:border-fg-muted hover:text-fg transition-colors"
+    >
+      {meta.name}
+    </a>
+  )
+}

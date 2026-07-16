@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { series, getSeries } from "../../content/series";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  return series.map((s) => ({ params: { series: s.slug } }));
+}
+
+const { series: slug } = Astro.params;
+const meta = getSeries(slug!);
+// slug is always valid — getStaticPaths enumerates from series data file.
+// Defensive fallback in case of manual URL hit on non-existent series:
+if (!meta) {
+  return Astro.redirect("/404");
+}
+
+const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+const posts = allPosts
+  .filter((p) => p.data.series.includes(slug))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout title={`${meta.name} — Jordan Newell`} description={meta.description}>
+  <main class="max-w-prose mx-auto px-5 py-12">
+    <header class="mb-12">
+      <p class="text-sm font-mono text-fg-muted mb-2"><a href="/series/" class="hover:text-fg">series</a></p>
+      <h1 class="font-display font-bold text-4xl mb-3">{meta.name}</h1>
+      <p class="text-fg-secondary">{meta.description}</p>
+      <p class="text-sm font-mono text-fg-muted mt-3">{posts.length} posts</p>
+    </header>
+    <div class="space-y-4">
+      {
+        posts.map((p) => (
+          <article class="border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors">
+            <div class="flex items-center gap-3 text-xs font-mono text-fg-muted mb-2">
+              <time datetime={p.data.pubDate.toISOString()}>
+                {p.data.pubDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+              </time>
+              {p.data.kind && <span class="uppercase tracking-wider">{p.data.kind}</span>}
+            </div>
+            <h3 class="font-display font-bold text-lg mb-1">
+              <a href={`/posts/${p.id}/`} class="hover:text-green transition-colors">{p.data.title}</a>
+            </h3>
+            <p class="text-fg-secondary text-sm">{p.data.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { series } from "../../content/series";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("posts", ({ data }) => !data.draft);
+
+const postCountBySeries = new Map<string, number>();
+for (const post of posts) {
+  for (const slug of post.data.series) {
+    postCountBySeries.set(slug, (postCountBySeries.get(slug) ?? 0) + 1);
+  }
+}
+
+const visibleSeries = series
+  .filter((s) => (postCountBySeries.get(s.slug) ?? 0) > 0)
+  .sort((a, b) => a.order - b.order);
+---
+
+<BaseLayout title="Series — Jordan Newell" description="Recurring content series: Off-Model (LLM sessions), Heritage (pre-fleet origin).">
+  <main class="max-w-prose mx-auto px-5 py-12">
+    <header class="mb-12">
+      <p class="text-sm font-mono text-fg-muted mb-2">recurring</p>
+      <h1 class="font-display font-bold text-4xl mb-3">Series</h1>
+      <p class="text-fg-secondary">Thematic collections across the blog. Tool-themed, era-themed, or cross-cutting.</p>
+    </header>
+    <div class="space-y-4">
+      {
+        visibleSeries.map((s) => (
+          <a href={`/series/${s.slug}/`} class="block border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors">
+            <div class="flex items-baseline justify-between mb-1">
+              <h2 class="font-display font-bold text-lg">{s.name}</h2>
+              <span class="text-xs font-mono text-fg-muted">{postCountBySeries.get(s.slug)} posts</span>
+            </div>
+            <p class="text-fg-secondary text-sm">{s.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+</BaseLayout>

@@ -56,3 +56,4 @@ Read both before drafting:
 ## Voice lint spec
 
 Implemented in `scripts/voice-lint.sh`. Runs as pre-commit hook on all staged `.md` files. Exits non-zero on anti-pattern match or hedge word found.
+

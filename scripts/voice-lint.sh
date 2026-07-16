@@ -40,6 +40,14 @@ for file in "$@"; do
     continue
   fi
 
+  # VOICE.md documents the anti-patterns literally — exempt it from the lint
+  case "$file" in
+    VOICE.md|*/VOICE.md)
+      echo "SKIP: $file (voice rulebook, exempt)"
+      continue
+      ;;
+  esac
+
   # Anti-pattern scan
   for pattern in "${anti_patterns[@]}"; do
     if grep -qiE "$pattern" "$file"; then

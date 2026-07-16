@@ -43,7 +43,52 @@ Read both before drafting:
 | Headers like "Conclusion" | Corporate | Use punchy: "The point", "What happened next" |
 | Apologizing for opinions | "This is just my view..." | Cut the apology |
 
-## Drafting protocol
+## OPSEC (Operational Security)
+
+Jordan has a defense / federal IT track (Richmond Park Group). Public writing is subject to a stricter threat model than typical dev bloggers. Before publishing any post, scan for the following and strip or generalize.
+
+### Never disclose publicly
+
+| Category | Example | Why |
+|---|---|---|
+| Internal IPs (Tailscale or otherwise) | `100.x.x.x` | Fingerprint material for targeted attackers |
+| Exact service counts | "9 OpenClaw agents", "32 TailVIPs", "~70 containers" | Reveals fleet scope + attack surface |
+| Internal paths | `/mnt/<host>-root`, `/opt/<service>/`, `/usr/local/bin/...` | Shows filesystem layout, useful for post-exploit |
+| Specific error strings from internal systems | `mau.crypto: No one-time keys...` | Useful for fingerprinting stack + version |
+| Exact host hardware models + failure modes | "<desktop-model> PSU" | Identifies your gear, attacker shopping list |
+| Fleet topology details | which agents run where, transport splits (Discord vs Matrix) | Reveals coordination patterns |
+| Recovery procedures | "vgrename to avoid collision", specific mount strategies | Could be reverse-engineered |
+| Internal session/handoff numbering | "Sxxx", "<codename>", "<codename>" | Exposes internal ops vocabulary |
+| Exact tool versions where exploitable | "Synapse <version>", "tailscaled <version>" | Vulnerability matching |
+| Specific chip-level details | "<usb-bridge-model>" | Useful for hardware attackers |
+| Hostnames tied to specific roles | naming the host that runs Synapse | Target identification |
+
+### Safe to disclose
+
+| Category | Example |
+|---|---|
+| General tech categories | "Matrix homeserver", "Tailscale", "Jellyfin", "OpenClaw agents" (already public via homepage) |
+| Vendor names if already public | Tailscale, Cloudflare, Hetzner (already named in existing posts) |
+| Story arc + stakes | What broke, when, what I did, what I learned |
+| Costs + decision framing | $80 vs $300, time tradeoffs |
+| General lessons | "Monitor hardware age", "test recovery before you need it" |
+| OSS contributions | The bug + repro (not your internal infra) |
+| Conceptual architecture | "Single-host homeserver is fragile" without naming specifics |
+| Personal reflection | Frustration, learning, decisions |
+
+### OPSEC pre-publish pass
+
+Before any post goes live, run this checklist:
+
+1. **IP scan.** Search the draft for `100.` (Tailscale CGNAT range) and any RFC1918 addresses. Remove or generalize to "another host" / "the homeserver".
+2. **Path scan.** Search for `/mnt/`, `/opt/`, `/usr/local/`, `~/.` followed by internal dir names. Generalize.
+3. **Count scan.** Search for specific numbers of agents/containers/services. Generalize to "dozens of", "a fleet of", or omit.
+4. **Model scan.** Search for specific hardware models (Dell, HP, Lenovo model numbers). Generalize to "small-form-factor desktop", "1U server", etc.
+5. **Error string scan.** Search for backtick-quoted error text from internal services. Generalize to "the homeserver refused connections" or omit.
+6. **Internal-name scan.** Search for hostnames, project names (<codename>, <codename>, etc.), session IDs (S\d{3}). Strip.
+7. **Version scan.** Strip exact version strings unless disclosing for OSS contribution context.
+
+
 
 1. Read both canonical posts in full. Internalize cadence.
 2. Draft the hook first — 1-3 sentences, stakes-first.

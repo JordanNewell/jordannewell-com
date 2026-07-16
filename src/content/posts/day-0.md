@@ -12,7 +12,7 @@ My main infrastructure host went down about a day ago. Tailscale shows it offlin
 
 The conventional advice would be to wait. Get the house in order. Fix the server, ship something, get a win on the board, *then* start the blog.
 
-I think the conventional advice is wrong, and I think it's especially wrong in 2026.
+I think the conventional advice is wrong, and I think it's especially wrong in 2026. At least, that's what the AI keeps telling me.
 
 ## Why now
 

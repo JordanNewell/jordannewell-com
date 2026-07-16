@@ -39,10 +39,11 @@ const buildTime = new Date();
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="alternate" type="application/rss+xml" title="Jordan Newell" href="/rss.xml">
     <link rel="alternate" type="application/json" title="Jordan Newell" href="/feed.json">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        @import "@fontsource-variable/inter";
+        @import "@fontsource/jetbrains-mono";
+        @import "@fontsource-variable/inter-tight";
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -355,10 +356,10 @@ const buildTime = new Date();
 
 <nav class="top-nav">
     <div class="top-nav-inner">
-        <a href="/" class="active">home</a>
         <a href="/posts">posts</a>
         <a href="/about">about</a>
         <a href="/now">now</a>
+        <a href="/ventures">ventures</a>
         <a href="/projects">projects</a>
         <a href="/contributions">contributions</a>
     </div>

@@ -1,12 +1,14 @@
 ---
 title: "OpenClaw Fleet"
-description: "15 OpenClaw agents across <host> + a <agent-name> shield agent, Tailscale-networked, Matrix-E2EE'd for comms."
+description: "17 OpenClaw agents across 10 Tailscale-networked hosts. Roles span ops, security, research, comms. Matrix-E2EE'd."
 status: "active"
 tags: ["infra", "ai"]
 startDate: 2026-01-01
 order: 3
 ---
 
-15 agents on <host> (<agent-name>, <agent-name>, <agent-name>, <agent-name>, cj, <agent-name>, <agent-name>, <agent-name>, <agent-name>, <agent-name>, <agent-name>, <agent-name>, <agent-name>, <agent-name>, <agent-name>) + @vault on <host> + <agent-name> shield agent. All talk via Synapse on <host> (currently down — being migrated or restored).
+17 OpenClaw agents in production across 10 Tailscale-networked hosts. Roles span operations, security, research, and comms. All communicate via Matrix (Synapse) with E2EE; two bridge agents handle channel federation across Discord + Matrix.
 
-Each agent has a defined role (see fleet table in CLAUDE.md). Hermes <agent-name> + <agent-name> provide channel bridging.
+Built up over ~18 months. The fleet runs ops cadence (standups, briefings, postmortems), probes for infrastructure drift, and acts as a working lab for agent-OS patterns. Started as one personal-assistant agent; reframed as an operating system in mid-2025; crossed into multi-agent fleet territory early 2026.
+
+Architecture lessons surface in the blog under `/infra` and the `claude` series.

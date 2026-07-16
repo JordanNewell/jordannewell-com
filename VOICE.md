@@ -45,6 +45,11 @@ Read both before drafting:
 
 ## OPSEC (Operational Security)
 
+**Two hard rules — never violate, no exceptions:**
+
+1. **No actual machine names.** No hostnames (`<host>`, `<host>`, `<host>`, etc.), no tailnet names (`<tailnet>.ts.net`), no internal project codenames (`<codename>`, `<codename>`, etc.), no agent names that map to Matrix handles (<agent-name>, <agent-name>, <agent-name>, etc.). Generalize: "the host", "the homeserver", "a Tailscale-networked host", "the orchestration layer", "a bridge agent".
+2. **No real paths.** No `/usr/local/bin/<your-script>.sh`, no `/mnt/<your-mount>`, no `/opt/<your-project>/`, no `~/.claude/<internal>`. Standard Linux paths (`/etc/nginx/`, `/var/log/`) are fine; paths containing your internal dir names are not. Generalize: "a watchdog script", "the recovered disks", "the local config".
+
 Jordan has a defense / federal IT track (Richmond Park Group). Public writing is subject to a stricter threat model than typical dev bloggers. Before publishing any post, scan for the following and strip or generalize.
 
 ### Never disclose publicly

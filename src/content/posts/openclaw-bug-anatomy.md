@@ -74,7 +74,7 @@ I did list four suggested fix directions in a separate section (worker threads, 
 
 **Day 0 (2026-05-12):** Filed the issue with the repro, the diagnostic, and the suggested-fix list.
 
-**Days 1-3:** Watchdog mitigation deployed fleet-wide on <host> (`/usr/local/bin/agent-<host>.sh`) — detects `eventLoopDelayMaxMs > 10000` or `memory_search` stuck for 60s+, restarts the agent. Reduces user-visible downtime from indefinite to ~2 minutes.
+**Days 1-3:** Watchdog mitigation deployed fleet-wide — detects `eventLoopDelayMaxMs > 10000` or `memory_search` stuck for 60s+, restarts the agent. Reduces user-visible downtime from indefinite to ~2 minutes.
 
 **Days 3-5:** Other users chimed in via the related issues confirming the same pattern. The repro was clean — anyone with `memory-core` enabled could trigger it on a DM.
 

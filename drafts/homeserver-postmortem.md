@@ -89,7 +89,7 @@ C1 is the call. The proprietary-PSU problem is the actual issue. A refurb tower 
 Three things:
 
 1. **Monitor hardware age.** The dead PSU had ~18 months on it. That's the death window for this class of hardware. Calendar reminder at the 12-month mark for any proprietary-PSU host.
-2. **Distribute services earlier.** Single-host homeserver is the real pain. Should have run the primary on host A with host B as a standby. The <codename> work was supposed to get there; it didn't.
+2. **Distribute services earlier.** Single-host homeserver is the real pain. Should have run the primary on host A with host B as a standby. The orchestration work was supposed to get there; it didn't.
 3. **Test disk recovery before you need it.** I assumed WSL2 could mount ext4 via USB dock. It can't. That cost me half a day. Verify the recovery path before the failure.
 
 ## What happens next

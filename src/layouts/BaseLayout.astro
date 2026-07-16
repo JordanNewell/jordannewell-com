@@ -39,8 +39,8 @@ const ogTitle = title === SITE.title ? title : `${title} — ${SITE.title}`;
     <link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
     <link rel="alternate" type="application/json" title={SITE.title} href="/feed.json" />
     <SchemaOrg schema={schema} />
-    <!-- Cloudflare Web Analytics — replace __CF_BEACON_TOKEN__ with real token from CF dashboard → Analytics & Logs → Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "__CF_BEACON_TOKEN__", "version": "2026.7.1"}'></script>
+    <!-- Cloudflare Web Analytics -->
+    <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "012b8a7bc7594c91aff6f05cab5951fd"}'></script>
   </head>
   <body>
     <div class="dot-grid"></div>

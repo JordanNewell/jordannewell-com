@@ -12,8 +12,6 @@ const year = new Date().getFullYear();
       <span class="mx-2">·</span>
       <a href="https://github.com/jordannewell" target="_blank" rel="noopener" class="hover:text-green">github</a>
       <span class="mx-2">·</span>
-      <a href="https://matrix.to/#/@jordan:<tailnet>.ts.net" target="_blank" rel="noopener" class="hover:text-green">matrix</a>
-      <span class="mx-2">·</span>
       <a href="mailto:hello@jordannewell.com" class="hover:text-green">email</a>
     </p>
     <p class="mb-2">
@@ -42,8 +40,14 @@ const year = new Date().getFullYear();
     var text = document.getElementById('status-text-footer');
     if (!badge || !dot || !text) return;
     async function check() {
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function(){ controller.abort(); }, 3000);
         try {
-            var r = await fetch('https://status.jordannewell.com/api/status-page/heartbeat/public', {cache: 'no-store'});
+            var r = await fetch('https://status.jordannewell.com/api/status-page/heartbeat/public', {
+                cache: 'no-store',
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
             if (!r.ok) throw new Error(r.status);
             var data = await r.json();
             var lists = Object.values(data.heartbeatList || {});
@@ -67,6 +71,7 @@ const year = new Date().getFullYear();
                 text.textContent = 'Major outage';
             }
         } catch (e) {
+            clearTimeout(timeoutId);
             text.textContent = 'Status unknown';
         }
     }

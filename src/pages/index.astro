@@ -488,8 +488,6 @@ const buildTime = new Date();
             <span class="footer-sep">·</span>
             <a href="https://github.com/jordannewell" target="_blank" rel="noopener">github</a>
             <span class="footer-sep">·</span>
-            <a href="https://matrix.to/#/@jordan:<tailnet>.ts.net" target="_blank" rel="noopener">matrix</a>
-            <span class="footer-sep">·</span>
             <a href="mailto:hello@jordannewell.com">email</a>
         </p>
         <p class="footer-row">
@@ -541,8 +539,14 @@ const buildTime = new Date();
     var badge = document.getElementById('status-badge');
     var text = document.getElementById('status-text');
     async function check() {
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function(){ controller.abort(); }, 3000);
         try {
-            var r = await fetch('https://status.jordannewell.com/api/status-page/heartbeat/public', {cache: 'no-store'});
+            var r = await fetch('https://status.jordannewell.com/api/status-page/heartbeat/public', {
+                cache: 'no-store',
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
             if (!r.ok) throw new Error(r.status);
             var data = await r.json();
             var lists = Object.values(data.heartbeatList || {});
@@ -561,6 +565,7 @@ const buildTime = new Date();
                 text.textContent = 'Major outage';
             }
         } catch (e) {
+            clearTimeout(timeoutId);
             text.textContent = 'Status unknown';
         }
     }

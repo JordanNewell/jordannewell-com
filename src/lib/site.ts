@@ -8,14 +8,11 @@ export const SITE = {
     url: "https://jordannewell.com/about",
     sameAs: [
       "https://github.com/jordannewell",
-      "https://matrix.to/#/@jordan:<tailnet>.ts.net",
       "https://x.com/newellops",
       "https://bsky.app/profile/jordannewell.com",
     ],
   },
-  social: {
-    matrixRoom: "#<codename>-activity:<tailnet>.ts.net",
-  },
+  social: {},
 } as const;
 
 export const NAV_LINKS = [

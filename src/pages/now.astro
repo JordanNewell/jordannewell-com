@@ -6,27 +6,29 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <article class="prose">
     <h1>/now</h1>
     <p class="text-fg-muted text-sm font-mono">
-      Updated 2026-07-15. Pattern from <a href="https://nownownow.com">nownownow.com</a>.
+      Updated 2026-07-16. Pattern from <a href="https://nownownow.com">nownownow.com</a>.
     </p>
 
     <h2>Current focus</h2>
     <ul>
-      <li><strong>Writing in public.</strong> The blog is live; first posts shipped. Forming a weekly cadence.</li>
-      <li><strong>Stabilizing infrastructure after a recent outage.</strong> Post-mortem incoming once root cause is fully understood.</li>
-      <li><strong>A venture-track project in active development.</strong> Multi-component, not yet ready to tease publicly. More when there's something real to show.</li>
+      <li><strong>The blog.</strong> Live and evolving. Just shipped the platform for Sessions from the Vault — a recurring content series themed by AI tool (Claude, Grok, GPT, Gemini) plus a Heritage track for origin-story work. First new post (<host> postmortem) is drafted, in edit.</li>
+      <li><strong><host> hardware decision.</strong> Server's been down since July 14. Cause: dead PSU in a small-form-factor host with proprietary power supply. Decided: refurb tower with standard ATX parts. Ordering this week.</li>
+      <li><strong>DW Trim.</strong> Joining as Managing Partner — carpentry company scaling past greater Tampa Bay. Backend ops + scaling playbook is mine; the trade belongs to the principal craftsman. See <a href="/ventures">/ventures</a>.</li>
+      <li><strong>Agent fleet + self-hosted infra.</strong> Always. 17 OpenClaw agents across 10 hosts, Matrix-E2EE'd. Current work: <codename> Phase 2 shipped (audit log + parent/child tasks + Prometheus).</li>
     </ul>
 
     <h2>This week</h2>
     <ul>
-      <li>Ship the next post — technical deep-dive on the agent fleet.</li>
-      <li>Resume infrastructure work that paused during the outage.</li>
-      <li>Begin content distribution. Platforms are wired up.</li>
+      <li>Publish the <host> postmortem once edited.</li>
+      <li>Order the refurb tower; migrate Synapse + agent state off recovered disks when it arrives.</li>
+      <li>Resume launch batch for Sessions from the Vault — posts 3-5 after <host>.</li>
     </ul>
 
     <h2>Not doing</h2>
     <ul>
       <li>Client work. Building only.</li>
       <li>Conferences. Maybe Q4.</li>
+      <li>HN/Reddit self-promo. Archive needs 5-7 posts first.</li>
     </ul>
   </article>
 </BaseLayout>

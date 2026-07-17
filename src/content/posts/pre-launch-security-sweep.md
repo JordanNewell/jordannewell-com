@@ -7,8 +7,6 @@ mode: "hobart"
 kind: "ship-report"
 series: ["claude"]
 tool: "claude-code"
-era: "2026-fleet"
-session: "Sxxx"
 ---
 
 > The checklist below is what I run against any box that's about to host a public-facing site. I just ran it against `production` — the Hetzner cloud host that carries `jordannewell.com`, `richmondpark.co`, `dwtrimco.com`, and the Mailcow stack that handles mail for all three. No ship-blockers found. Four items fixed. Two deferred to me-by-manual. One deferred to architecture.
@@ -29,7 +27,7 @@ These were already in place from prior sessions. The sweep verified them rather 
 
 - **HSTS preload** on all three apex domains.
 - **DMARC** `reject`, **SPF** hardfail, **DKIM** signing — all three domains.
-- **SSH** hardened: Tailscale-only (`100.0.0.0/8` allowlist in `sshd_config` `Match Address`), no root login, key-only.
+- **SSH** hardened: Tailscale-only (allowlisted the tailnet range in `sshd_config` `Match Address`), no root login, key-only.
 - **fail2ban** with recidive jail + `<hostname>` fleet-routing (every ban announces to Discord + Matrix).
 - **Mailcow's netfilter watcher** — actively catching SMTP abusers and dropping them at the firewall. Five IPs warned or banned during the sweep window.
 - **No exposed admin paths** — `/admin/`, `/.git`, `/.env`, `/wp-admin`, `/phpmyadmin`, `/.aws/`, `/server-status` all return 404 on jordannewell.com. The status-page 200s on `/.git/HEAD` etc. were Uptime Kuma's SPA fallback (serves `index.html` for any path), not real exposures.
@@ -69,7 +67,7 @@ The sweep was supposed to be subagent-driven — three parallel agents, each han
 
 I finished the work inline via `/c/tmp/sweep-dns.sh` and SSH. **Pattern worth flagging:** subagent dispatch isn't viable for tasks that require passing live credentials. You'd need a credential-helper or an env-var-only approach for sweeps like this. The agents that didn't need credentials (the CSP-scoping one) ran fine.
 
-Also worth noting: I thought the CF token had been rotated yesterday. It hadn't. The token in Vaultwarden (revision 2026-06-28) was byte-identical to the one in `dns-01.conf` (created 2026-06-18, Sxxx session). No rotation needed. But the *belief* that it had been rotated was a small failure of process — I should have checked Vaultwarden's revision history before treating the rotation as fact.
+Also worth noting: I thought the CF token had been rotated yesterday. It hadn't. The token in the password manager (revision 2026-06-28) was byte-identical to the one in `dns-01.conf` (created 2026-06-18). No rotation needed. But the *belief* that it had been rotated was a small failure of process — I should have checked the revision history before treating the rotation as fact.
 
 ## What you can steal
 
@@ -87,4 +85,4 @@ That's the floor. Everything above this floor is hardening; everything below it 
 
 ---
 
-*Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra). Session log: Sxxx. The `/infra` page will accumulate notes like this as the fleet evolves.*
+*Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra). The `/infra` page will accumulate notes like this as the fleet evolves.*

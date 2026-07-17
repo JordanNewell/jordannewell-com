@@ -7,17 +7,15 @@ mode: "hobart"
 kind: "ship-report"
 series: ["claude"]
 tool: "claude-code"
-era: "2026-fleet"
-session: "Sxxx"
 ---
 
 > `status.jordannewell.com` is supposed to be the page that's up when everything else is down. Last week its upstream monitor went dark and the status page went dark with it. I shipped three iterations of fix in a day. Each one was faster. Only the last one was right.
 
 ## The setup
 
-Status page is served by nginx on `production`. It proxies to Uptime Kuma running on `<host>` — a different host in the fleet. The page itself is publicly reachable via Cloudflare. The Kuma instance it proxies to is tailnet-only.
+Status page is served by nginx on the production box. It proxies to Uptime Kuma running on a different host in the fleet. The page itself is publicly reachable via Cloudflare. The Kuma instance it proxies to is tailnet-only.
 
-When `<host>` went down (dead PSU, separate postmortem), the status page started returning 502. Cloudflare's edge would retry, hit the bad upstream, retry, return 502 to the visitor. The page that's supposed to be up when everything else is down was itself down.
+When that upstream host went down (dead PSU, separate postmortem), the status page started returning 502. Cloudflare's edge would retry, hit the bad upstream, retry, return 502 to the visitor. The page that's supposed to be up when everything else is down was itself down.
 
 The job: serve a static "we know, we're on it" page when Kuma is unreachable, and do it fast.
 
@@ -39,7 +37,7 @@ Three-second connect timeout, three-second read timeout. Better. Still terrible.
 
 ```nginx
 upstream kuma-upstream {
-    server 100.x.x.x:3001 max_fails=1 fail_timeout=10s;
+    server <kuma-host>:3001 max_fails=1 fail_timeout=10s;
 }
 
 proxy_connect_timeout 1s;
@@ -109,4 +107,4 @@ The static `incident.html` was themed to match `jordannewell.com`'s zinc palette
 
 ---
 
-*Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra). Session log: Sxxx. The `nginx sentinel fallback` reference page in the ops vault has the full recipe and the engage/disengage one-liners.*
+*Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra). The `nginx sentinel fallback` reference page in the ops vault has the full recipe and the engage/disengage one-liners.*

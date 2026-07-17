@@ -8,8 +8,6 @@ project: "crypto-key-classifier"
 kind: "ship-report"
 series: ["claude"]
 tool: "claude-code"
-era: "2026-fleet"
-session: "Sxxx"
 ---
 
 Four days ago I shipped a tool I've wanted for years. Today it's public: [`crypto-key-classifier`](https://github.com/JordanNewell/crypto-key-classifier) — `classify-key` on the command line, `ckc` if you're pip-installing it.
@@ -56,7 +54,7 @@ Four plans. The brainstorm→spec→plan→subagent-execute cycle ran four times
 - `v0.3.0-mnemonic` — BIP-39 wordlist + Levenshtein repair for OCR-corrupted seed phrases.
 - `v0.4.0-hardened` — hypothesis property tests, fuzz aggregate, recovery-rate floor.
 
-Each plan was a separate subagent dispatch with a bounded scope. The pattern matters more than the code: a three-page spec, a numbered plan, a subagent with a clear contract, a tag at the end. Four iterations of that. None of the plans took more than a few hours of wall time. The Claude Code session log for Sxxx has the receipts.
+Each plan was a separate subagent dispatch with a bounded scope. The pattern matters more than the code: a three-page spec, a numbered plan, a subagent with a clear contract, a tag at the end. Four iterations of that. None of the plans took more than a few hours of wall time.
 
 ## The bug that shipped anyway
 

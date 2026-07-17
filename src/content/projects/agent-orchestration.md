@@ -1,5 +1,5 @@
 ---
-title: "Fleet Cabinet"
+title: "Agent Orchestration"
 description: "Task queue + audit log + dashboard for the OpenClaw fleet. Pokémon-sprite office scene UI, live activity ticker."
 status: "active"
 tags: ["infra"]

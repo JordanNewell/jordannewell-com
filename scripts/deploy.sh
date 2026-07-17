@@ -8,8 +8,10 @@
 
 set -euo pipefail
 
-REMOTE_HOST="${REMOTE_HOST:-user@<host>}"
-REMOTE_PATH="${REMOTE_PATH:-/opt/www/<site>}"
+# Configure REMOTE_HOST (SSH alias from ~/.ssh/config) and REMOTE_PATH (web root
+# on the remote host) via env vars or by editing these defaults to match your setup.
+REMOTE_HOST="${REMOTE_HOST:-user@your-ssh-alias}"
+REMOTE_PATH="${REMOTE_PATH:-/var/www/jordannewell}"
 
 echo "==> Building Astro site"
 npm run build

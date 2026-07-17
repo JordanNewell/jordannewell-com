@@ -27,4 +27,12 @@ This repo uses a local pre-commit hook (`core.hooksPath = .git/hooks`) that chai
 
 The local `.git/hooks/pre-commit` already exists in this checkout — the config just tells git to use the local path instead of the global default.
 
+## Deploy
+
+Deploy is `tar-over-ssh` (no rsync dependency). Configure target via env vars:
+
+    REMOTE_HOST=user@<host> REMOTE_PATH=/opt/www/<site> ./scripts/deploy.sh
+
+Or edit the defaults in `scripts/deploy.sh` to match your SSH alias + web root.
+
 See `docs/IDENTITY.md` for voice rules. See spec at `<local-vault>/docs/superpowers/specs/2026-07-15-jordannewell-blog-design.md`.

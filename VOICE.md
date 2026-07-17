@@ -80,6 +80,20 @@ Jordan has a defense / federal IT track (Richmond Park Group). Public writing is
 | OSS contributions | The bug + repro (not your internal infra) |
 | Conceptual architecture | "Single-host homeserver is fragile" without naming specifics |
 | Personal reflection | Frustration, learning, decisions |
+| **Project names with public artifacts** | OSS repos, released products, public-facing services. Earn a branded name. Internal-only tools get functional descriptions, not branded names. |
+
+### Naming rule (formalized)
+
+A project gets a branded name on the public site iff it has a public artifact (OSS repo, released product, public-facing service). Otherwise it gets a functional description.
+
+| Public name | Has public artifact? | Reasoning |
+|---|---|---|
+| Crypto Key Classifier | Yes (GitHub repo shipping) | Real artifact, earns the name |
+| Agent Orchestration | No (internal tool) | Renamed from prior internal codename — described by function |
+| Agent Fleet | N/A (the agents themselves, not a project) | Generic description, not branded |
+| PCP | No (venture-track, unannounced) | Functional only until public launch |
+
+When in doubt: functional description. Reserve brand names for actual branded releases.
 
 ### OPSEC pre-publish pass
 

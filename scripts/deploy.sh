@@ -8,10 +8,26 @@
 
 set -euo pipefail
 
-# Configure REMOTE_HOST (SSH alias from ~/.ssh/config) and REMOTE_PATH (web root
-# on the remote host) via env vars or by editing these defaults to match your setup.
-REMOTE_HOST="${REMOTE_HOST:-user@your-ssh-alias}"
-REMOTE_PATH="${REMOTE_PATH:-/var/www/jordannewell}"
+# Defaults match the canonical deploy target (production Hetzner host via Tailscale).
+# Override via env vars only if deploying elsewhere.
+REMOTE_HOST="${REMOTE_HOST:-user@<host>}"
+REMOTE_PATH="${REMOTE_PATH:-/opt/www/<site>}"
+
+# Preflight: SSH connectivity check. Fails fast and loud before any destructive step.
+echo "==> Preflight: verifying SSH connectivity to ${REMOTE_HOST}"
+if ! ssh -o ConnectTimeout=5 -o BatchMode=yes "${REMOTE_HOST}" "true" 2>/dev/null; then
+  echo "FATAL: Cannot reach ${REMOTE_HOST} via SSH. Aborting before build." >&2
+  echo "" >&2
+  echo "Debug:" >&2
+  echo "  ssh ${REMOTE_HOST} 'echo ok'" >&2
+  echo "" >&2
+  echo "Common causes:" >&2
+  echo "  - SSH alias not in ~/.ssh/config (set REMOTE_HOST=user@ip to bypass)" >&2
+  echo "  - Tailscale/MagicDNS offline on local or remote" >&2
+  echo "  - Remote host down" >&2
+  exit 1
+fi
+echo "    SSH OK."
 
 echo "==> Building Astro site"
 npm run build
@@ -25,6 +41,8 @@ bash scripts/backup-existing-site.sh
 echo "==> Deploying new build via tar-over-ssh"
 # Stream the dist tarball over SSH. Clears target first, extracts, ensures ownership.
 # Uses sudo only if needed (first deploy after root-owned dir; subsequent runs won't).
+# Capture PIPESTATUS so we can diagnose which half of the pipe failed.
+set +e
 tar -C dist -czf - . | ssh "${REMOTE_HOST}" "
   set -e
   if [ -w '${REMOTE_PATH}' ]; then
@@ -33,9 +51,28 @@ tar -C dist -czf - . | ssh "${REMOTE_HOST}" "
     sudo bash -c \"cd '${REMOTE_PATH}' && rm -rf ./* && tar -xzf - && chown -R newell:newell .\"
   fi
 "
+PIPE_STATUS=("${PIPESTATUS[@]}")
+set -e
+
+TAR_EXIT="${PIPE_STATUS[0]}"
+SSH_EXIT="${PIPE_STATUS[1]}"
+
+if [ "$TAR_EXIT" != "0" ] || [ "$SSH_EXIT" != "0" ]; then
+  echo "" >&2
+  echo "FATAL: Deploy failed mid-pipe (tar exit=${TAR_EXIT}, ssh exit=${SSH_EXIT})." >&2
+  echo "Production site may be in a partially-deployed state." >&2
+  echo "" >&2
+  echo "Recovery options:" >&2
+  echo "  1. Roll back to latest backup:" >&2
+  echo "     ssh ${REMOTE_HOST} 'ls -t /opt/www/_backups/jordannewell/ | head -3'" >&2
+  echo "     ssh ${REMOTE_HOST} 'sudo rm -rf ${REMOTE_PATH}/* && sudo cp -a /opt/www/_backups/jordannewell/<TIMESTAMP>/* ${REMOTE_PATH}/'" >&2
+  echo "" >&2
+  echo "  2. Diagnose and re-run:" >&2
+  echo "     ssh ${REMOTE_HOST} 'ls -la ${REMOTE_PATH}/'" >&2
+  exit 1
+fi
 
 echo "==> Deploy complete"
 echo "Visit: https://jordannewell.com"
 echo "Verify: curl -sI https://jordannewell.com | head -3"
 echo "LLM check: curl -s https://jordannewell.com/llms.txt | head"
-

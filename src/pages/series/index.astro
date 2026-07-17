@@ -24,9 +24,14 @@ const visibleSeries = series
       <h1 class="font-display font-bold text-4xl mb-3">Series</h1>
       <p class="text-fg-secondary">Thematic collections across the blog. Tool-themed, era-themed, or cross-cutting.</p>
     </header>
-    <div class="space-y-4">
-      {
-        visibleSeries.map((s) => (
+    {visibleSeries.length === 0 ? (
+      <p class="text-fg-muted text-sm border border-dashed border-border rounded-lg p-5">
+        No series active yet. Posts will populate series pages as they ship —
+        see <a href="/posts/" class="text-green hover:underline">/posts</a> for current writing.
+      </p>
+    ) : (
+      <div class="space-y-4">
+        {visibleSeries.map((s) => (
           <a href={`/series/${s.slug}/`} class="block border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors">
             <div class="flex items-baseline justify-between mb-1">
               <h2 class="font-display font-bold text-lg">{s.name}</h2>
@@ -34,8 +39,8 @@ const visibleSeries = series
             </div>
             <p class="text-fg-secondary text-sm">{s.description}</p>
           </a>
-        ))
-      }
-    </div>
+        ))}
+      </div>
+    )}
   </main>
 </BaseLayout>

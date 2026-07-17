@@ -4,7 +4,12 @@ import { series, getSeries } from "../../content/series";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  return series.map((s) => ({ params: { series: s.slug } }));
+  const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+  // Only emit series pages that have at least one post — avoids dead-end
+  // empty series pages (no inbound links from posts = no need for the page).
+  return series
+    .filter((s) => allPosts.some((p) => p.data.series.includes(s.slug)))
+    .map((s) => ({ params: { series: s.slug } }));
 }
 
 const { series: slug } = Astro.params;

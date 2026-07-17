@@ -1,5 +1,16 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("projects"))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const statusColors: Record<string, string> = {
+  active: "#34D399",
+  shipped: "#60A5FA",
+  exploratory: "#A1A1AA",
+  "venture-track": "#FBBF24",
+};
 ---
 
 <BaseLayout title="Projects" description="What I've built, in public.">
@@ -10,14 +21,23 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     </p>
   </header>
 
-  <div class="border border-dashed border-border rounded-lg p-10 text-center">
-    <p class="font-mono text-fg-muted text-sm mb-2">coming soon</p>
-    <p class="text-fg-secondary">
-      Project pages are being written. In the meantime, the
-      <a href="/posts/" class="text-green hover:underline">blog</a>
-      covers what's currently shipping, and
-      <a href="/contributions/" class="text-green hover:underline">/contributions</a>
-      logs verifiable OSS work.
-    </p>
+  <div class="space-y-4">
+    {projects.map((p) => (
+      <a
+        href={`/projects/${p.id}/`}
+        class="block border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors"
+      >
+        <div class="flex items-baseline justify-between mb-1 gap-4">
+          <h2 class="font-display font-bold text-lg">{p.data.title}</h2>
+          <span
+            class="text-xs font-mono whitespace-nowrap uppercase tracking-wider"
+            style={`color: ${statusColors[p.data.status] ?? "#A1A1AA"}`}
+          >
+            {p.data.status}
+          </span>
+        </div>
+        <p class="text-fg-secondary text-sm">{p.data.description}</p>
+      </a>
+    ))}
   </div>
 </BaseLayout>

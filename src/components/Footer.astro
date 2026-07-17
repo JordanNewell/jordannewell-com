@@ -24,30 +24,13 @@ const year = new Date().getFullYear();
       <a href="https://github.com/JordanNewell/jordannewell-blog" target="_blank" rel="noopener" class="hover:text-green">source</a>
     </p>
     <p class="mb-3">
-      <a href="https://status.jordannewell.com" class="status-badge inline-flex items-center gap-1.5 hover:text-green" data-status-badge target="_blank" rel="noopener" aria-label="System status">
-        <span class="inline-block w-1.5 h-1.5 rounded-full bg-fg-muted transition-colors" data-status-dot></span>
-        <span data-status-text>Checking systems…</span>
+      <a href="https://status.jordannewell.com" class="status-badge inline-flex items-center gap-1.5 hover:text-green is-down" target="_blank" rel="noopener" aria-label="System status">
+        <span class="inline-block w-1.5 h-1.5 rounded-full" style="background: #F87171; box-shadow: 0 0 8px rgba(248,113,113,0.4);"></span>
+        <span style="color: #F87171;">1 of 5 services degraded</span>
       </a>
     </p>
     <p>© {year} {SITE.author.name} · <a href="/license" class="hover:text-green">license</a></p>
   </div>
 </footer>
 
-<style is:global>
-  [data-status-badge] { transition: color 0.15s ease; }
-  [data-status-badge] [data-status-dot] { transition: background 0.3s ease, box-shadow 0.3s ease; }
-
-  [data-status-badge].is-up [data-status-dot] {
-    background: #34D399;
-    box-shadow: 0 0 8px rgba(52,211,153,0.5);
-  }
-  [data-status-badge].is-up [data-status-text] { color: #34D399; }
-
-  [data-status-badge].is-down [data-status-dot] {
-    background: #F87171;
-    box-shadow: 0 0 8px rgba(248,113,113,0.4);
-  }
-  [data-status-badge].is-down [data-status-text] { color: #F87171; }
-</style>
-
-<script src="/js/main.js" defer></script>
+<!-- Status badge static — Kuma monitoring degraded (<host> outage, July 2026). Re-enable JS fetch when Kuma is restored. -->

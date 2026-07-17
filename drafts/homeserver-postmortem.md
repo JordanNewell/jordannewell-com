@@ -1,7 +1,7 @@
 ---
 title: "Server down. Cause found. Here's the call I'm making."
 description: "Two days off Tailscale. Cause: dead PSU in a small-form-factor host with a proprietary power supply. Disks recovered clean. Now I decide what to build next."
-pubDate: 2026-07-16
+pubDate: 2026-07-17
 tags: ["rebuild", "infra"]
 mode: "hobart"
 series: ["claude"]
@@ -12,7 +12,7 @@ kind: "postmortem"
 draft: false
 ---
 
-> The host went dark July 14. Tailscale showed it offline. SSH timed out. Ping timed out. The box was dead — and it took a day to figure out why. Two days later: cause identified, disks safe, decision pending.
+> The host went dark July 14. Tailscale showed it offline. SSH timed out. Ping timed out. The box was dead — and it took a day to figure out why. Three days later: cause identified, disks safe, decision pending.
 
 ## What the host was running
 

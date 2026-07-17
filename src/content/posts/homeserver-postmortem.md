@@ -82,7 +82,7 @@ C1 breaks the proprietary-PSU loop. Standard ATX means I can swap a dead PSU in 
 
 C3 is the over-engineered answer. Lower power draw, smaller footprint, harder to justify on a personal-fleet budget.
 
-C1 is the call. The proprietary-PSU problem is the actual issue. A refurb tower with standard parts kills the recurring failure mode permanently.
+C1 is the right answer technically. Cash flow is the constraint. A refurb tower is ~$300 — not nothing on a personal-fleet budget, especially with the blog and the agent stack both pre-revenue. So I'm sitting with the options open. Buying A buys time. Buying C1 buys out of the loop. Either is honest; I just haven't picked yet.
 
 ## What I'd do differently
 
@@ -94,6 +94,6 @@ Three things:
 
 ## What happens next
 
-Order the refurb tower. Migrate services to it. The dead host's disks stay mounted read-only until the migration is complete and verified.
+The dead host's disks stay mounted read-only on a recovery host until I commit to hardware. Services stay down until then. It's not the cleanest place to be, but it's where the rebuild actually is.
 
-Server's down. Next post is whatever I build to replace it.
+Server's down. Next post is whatever ships next.

@@ -51,6 +51,48 @@ export function articleSchema(opts: {
   };
 }
 
+export function organizationSchema(opts: {
+  name: string;
+  url: string; // external org URL (e.g. https://dwtrimco.com)
+  description: string;
+  employeeRole?: string; // e.g. "Managing Partner"
+  pageUrl?: string; // canonical page on this site (defaults to /ventures/)
+}) {
+  return {
+    "@type": "Organization",
+    "@id": `${opts.pageUrl ?? `${SITE.url}/ventures/`}#org-${opts.name.toLowerCase().replace(/\s+/g, "-")}`,
+    name: opts.name,
+    url: opts.url,
+    description: opts.description,
+    employee: {
+      "@type": "Person",
+      "@id": `${SITE.url}/#person`,
+      jobTitle: opts.employeeRole ?? "Member",
+    },
+  };
+}
+
+export function creativeWorkSchema(opts: {
+  name: string;
+  description: string;
+  slug: string; // project slug for URL
+  repo?: string;
+  status?: string;
+  tags?: string[];
+}) {
+  return {
+    "@type": "CreativeWork",
+    "@id": `${SITE.url}/projects/${opts.slug}#work`,
+    name: opts.name,
+    description: opts.description,
+    url: `${SITE.url}/projects/${opts.slug}`,
+    author: { "@id": `${SITE.url}/#person` },
+    ...(opts.repo && { codeRepository: opts.repo }),
+    ...(opts.status && { creativeWorkStatus: opts.status }),
+    ...(opts.tags && opts.tags.length > 0 && { keywords: opts.tags.join(", ") }),
+  };
+}
+
 export function graphSchema(...types: object[]) {
   return {
     "@context": "https://schema.org",

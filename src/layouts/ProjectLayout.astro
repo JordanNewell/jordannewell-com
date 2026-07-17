@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import TagPill from "../components/TagPill.astro";
+import { creativeWorkSchema } from "../lib/schema";
 import type { CollectionEntry } from "astro:content";
 
 const { project } = Astro.props as { project: CollectionEntry<"projects"> };
@@ -12,9 +13,20 @@ const statusColors: Record<string, string> = {
   exploratory: "text-amber",
   "venture-track": "text-violet",
 };
+
+const schema = [
+  creativeWorkSchema({
+    name: title,
+    description,
+    slug: project.id,
+    repo,
+    status,
+    tags,
+  }),
+];
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} schema={schema}>
   <article class="prose">
     <header class="mb-10">
       <div class="flex items-center gap-3 text-sm font-mono mb-3">

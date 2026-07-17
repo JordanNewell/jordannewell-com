@@ -1,8 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { organizationSchema } from "../lib/schema";
+
+const dwTrim = organizationSchema({
+  name: "DW Trim",
+  url: "https://dwtrimco.com",
+  description: "Carpentry company scaling past greater Tampa Bay. Principal craftsman owns the trade; managing partner owns the backend.",
+  employeeRole: "Managing Partner",
+});
+
+const schema = [dwTrim];
 ---
 
-<BaseLayout title="Ventures" description="Operating roles with real stake — not advisory, not passive.">
+<BaseLayout title="Ventures" description="Operating roles with real stake — not advisory, not passive." schema={schema}>
   <main class="max-w-prose mx-auto px-5 py-12">
     <header class="mb-12">
       <p class="text-sm font-mono text-fg-muted mb-2">operating</p>

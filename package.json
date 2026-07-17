@@ -8,7 +8,7 @@
   "homepage": "https://jordannewell.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jordannewell/jordannewell-blog"
+    "url": "https://github.com/JordanNewell/jordannewell-blog"
   },
   "keywords": ["astro", "blog", "operator", "build-in-public", "jordannewell"],
   "engines": {

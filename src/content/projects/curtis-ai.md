@@ -1,7 +1,7 @@
 ---
 title: "Curtis AI"
 description: "Federated MCP-native AI platform. Personal AI operating system with compliance and trading modules."
-status: "shelved"
+status: "exploratory"
 tags: ["projects", "ai", "heritage"]
 startDate: 2025-08-01
 order: 13

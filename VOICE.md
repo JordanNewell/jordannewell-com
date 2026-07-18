@@ -97,15 +97,26 @@ When in doubt: functional description. Reserve brand names for actual branded re
 
 ### OPSEC pre-publish pass
 
-Before any post goes live, run this checklist:
+Before any post goes live, run this checklist. **All scans include frontmatter, not just body prose.**
 
 1. **IP scan.** Search the draft for `100.` (Tailscale CGNAT range) and any RFC1918 addresses. Remove or generalize to "another host" / "the homeserver".
 2. **Path scan.** Search for `/mnt/`, `/opt/`, `/usr/local/`, `~/.` followed by internal dir names. Generalize.
 3. **Count scan.** Search for specific numbers of agents/containers/services. Generalize to "dozens of", "a fleet of", or omit.
 4. **Model scan.** Search for specific hardware models (Dell, HP, Lenovo model numbers). Generalize to "small-form-factor desktop", "1U server", etc.
 5. **Error string scan.** Search for backtick-quoted error text from internal services. Generalize to "the homeserver refused connections" or omit.
-6. **Internal-name scan.** Search for hostnames, project names (<codename>, <codename>, etc.), session IDs (S\d{3}). Strip.
+6. **Internal-name scan.** Search for hostnames, project names (<codename>, <codename>, etc.), session IDs (`S\d{3}`). Strip — including the `session:` frontmatter field. Session IDs in frontmatter are an OPSEC violation; the body makes the era/topic clear without them.
 7. **Version scan.** Strip exact version strings unless disclosing for OSS contribution context.
+
+### Frontmatter-specific rules
+
+| Field | Rule |
+|---|---|
+| `session:` | **Never include.** Internal numbering leaks your operating cadence + cross-references the internal session-tracking system. |
+| `era:` | Optional. Include **only** on Heritage posts where the EraBadge adds reader value. Current-era posts don't need it — body + pubDate make era obvious. |
+| `tool:` | Keep. `claude-code` / `grok` / `gpt` / `gemini` is content metadata, not OPSEC-sensitive. |
+| `series:` | Keep. `claude` / `grok` / `heritage` / etc. is public-facing series taxonomy. |
+| `kind:` | Keep. `postmortem` / `win` / `decision` / etc. is content metadata. |
+
 
 
 

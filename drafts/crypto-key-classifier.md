@@ -6,8 +6,6 @@ tags: ["rebuild"]
 mode: "hobart"
 series: ["claude"]
 tool: "claude-code"
-era: "2026-fleet"
-session: "Sxxx"
 kind: "win"
 draft: false
 ---

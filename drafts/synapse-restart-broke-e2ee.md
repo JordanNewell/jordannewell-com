@@ -6,8 +6,6 @@ tags: ["rebuild", "infra"]
 mode: "hobart"
 series: ["claude", "synapse-wars"]
 tool: "claude-code"
-era: "2026-fleet"
-session: "Sxxx"
 kind: "postmortem"
 draft: false
 ---

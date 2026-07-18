@@ -6,7 +6,6 @@ tags: ["ventures"]
 mode: "hobart"
 series: ["grok"]
 tool: "grok"
-era: "2026-fleet"
 kind: "conversation"
 draft: false
 ---

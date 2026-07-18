@@ -1,7 +1,7 @@
 ---
 title: "Day 0: Why I'm starting this blog now"
 description: "Server down, no shipped, no flipped. The premise, not the liability."
-pubDate: 2026-07-18
+pubDate: 2026-07-14
 tags: ["rebuild"]
 mode: "hobart"
 ---

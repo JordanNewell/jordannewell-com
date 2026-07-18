@@ -1,7 +1,7 @@
 ---
 title: "The reframe that landed before 'agent OS' was a category: OS, not tool"
 description: "Eleven months ago I wrote down a one-line reframe that predicted where the agent stack was going: integration is the moat, models are commodity, the unit is the operating system, not the tool. The industry caught up. Here's what held up and what didn't."
-pubDate: 2026-07-17
+pubDate: 2026-07-15
 tags: ["rebuild"]
 mode: "hobart"
 series: ["heritage"]

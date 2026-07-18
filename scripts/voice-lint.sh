@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Copyright (c) 2026 Jordan Newell. Licensed under MIT.
-# Source: https://github.com/jordannewell/jordannewell-blog
+# Source: https://github.com/jordannewell/jordannewell
 #
-# Voice lint — flags Claude-isms + hedge words in markdown drafts/posts.
+# Voice lint — flags Claude-isms + hedge words + OPSEC leaks in markdown drafts/posts.
 # Exits non-zero on any match. Designed as pre-commit hook.
 
 set -euo pipefail
@@ -31,6 +31,11 @@ anti_patterns=(
 
 # Hedge words (case-insensitive, word-boundary match)
 hedge_patterns='maybe|I think|I believe|in my opinion|essentially|basically|actually,|simply put'
+
+# OPSEC patterns — see VOICE.md § OPSEC. NEVER merge content containing these.
+# Machine names, tailnet, internal IPs, session codes, internal project codenames,
+# agent handles that map to Matrix identities, internal paths.
+opsec_patterns='\bS[0-9]{3}\b|100\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}|<tailnet>|<codename>|<codename>|\b(<agent-name>|<agent-name>|<agent-name>|<agent-name>)\b'
 
 failed=0
 
@@ -64,11 +69,19 @@ for file in "$@"; do
     grep -inE "\b($hedge_patterns)\b" "$file" | head -5
     failed=1
   fi
+
+  # OPSEC scan — would have caught the 2026-07-17 docs/ leak
+  opsec_count=$(grep -cE "$opsec_patterns" "$file" || true)
+  if [ "$opsec_count" -gt 0 ]; then
+    echo "FAIL: $file — $opsec_count OPSEC leak(s)"
+    grep -nE "$opsec_patterns" "$file" | head -10
+    failed=1
+  fi
 done
 
 if [ "$failed" -ne 0 ]; then
   echo ""
-  echo "Voice lint failed. See VOICE.md for fixes."
+  echo "Lint failed. See VOICE.md for fixes (anti-patterns, hedges, OPSEC)."
   exit 1
 fi
 

@@ -17,10 +17,5 @@ export default defineConfig({
       wrap: true,
     },
   },
-  redirects: {
-    // OPSEC rename July 2026: <codename> -> agent-orchestration (no public artifact)
-    '/projects/<codename>': '/projects/agent-orchestration/',
-    '/projects/<codename>/': '/projects/agent-orchestration/',
-  },
   integrations: [sitemap()]
 });

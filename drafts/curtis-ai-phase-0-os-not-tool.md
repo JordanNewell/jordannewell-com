@@ -42,9 +42,9 @@ That framing was contrarian in August 2025. "Agent OS" was not a term anyone was
 
 Eleven months later, the reframe itself held up completely. The industry arrived at the same place. By mid-2026, "agent operating system" was a category. The integration-layer thesis — that orchestration, context management, and tool mediation are the asset — became consensus. Every serious agent framework now describes itself in operating-system terms. The 80/20 split turned out to be generous to the model layer. Models commoditized faster than the document predicted.
 
-Two things did not hold up.
+Two things shifted.
 
-First, the Windows-enterprise wedge. The document bet heavily on Windows-native integration as the defensible niche. That bet did not survive contact with my own infrastructure. By early 2026 my entire fleet was Linux. The agent stack I actually run today lives on Linux hosts, containerized, coordinated over a mesh network. The Windows service layer was correct architecture for the wrong target. The integration insight was right; the platform choice was wrong.
+First, the platform. The document bet heavily on Windows-native integration as the defensible niche. I'd been thinking about Linux quietly — modularity, control, finite integration boundaries instead of infinite enterprise sprawl. The catalyst was August 2025: my cousin saw what I was building and asked the obvious question — why aren't you running local servers? The light had been flickering. That question turned it on. After that, the shift to Linux-first was gradual but deliberate. The Curtis AI Windows work isn't dead — it's shelved. The agent layer is still being worked on, still functional. It's just not the active surface I'm building on today.
 
 Second, the scale of the aspiration. The document floated phrases like "the Kubernetes of AI development." That was aspirational, not shipped. What I had built was a personal operating system for one operator. The jump from that to a platform other people depend on is the work, and it is still the work.
 

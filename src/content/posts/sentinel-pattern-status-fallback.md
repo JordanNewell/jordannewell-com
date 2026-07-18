@@ -13,7 +13,7 @@ tool: "claude-code"
 
 ## The setup
 
-Status page is nginx on the production box, proxying to Uptime Kuma on a different host in the fleet. Page is public via Cloudflare. Kuma is tailnet-only.
+Status page is nginx proxying to an upstream monitor on another host in the fleet. Page is public via Cloudflare. The monitor itself is tailnet-only.
 
 When that upstream host went down (dead PSU, separate postmortem), the status page started returning 502. Cloudflare's edge would retry, hit the bad upstream, retry, return 502 to the visitor. The page that's supposed to be up when everything else is down was itself down.
 
@@ -104,4 +104,4 @@ The fallback is part of the product, not an apology for the product.
 
 ---
 
-*Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra). The nginx sentinel fallback reference page in the ops vault has the full recipe and the engage/disengage one-liners.*
+*Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra). The engage/disengage one-liners above are the full recipe.*

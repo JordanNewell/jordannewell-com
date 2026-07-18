@@ -5,7 +5,7 @@ pubDate: 2026-07-17
 tags: ["rebuild", "infra", "projects"]
 mode: "hobart"
 project: "crypto-key-classifier"
-kind: "ship-report"
+kind: "win"
 series: ["claude"]
 tool: "claude-code"
 ---

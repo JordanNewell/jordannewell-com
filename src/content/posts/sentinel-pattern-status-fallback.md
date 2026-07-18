@@ -4,7 +4,7 @@ description: "When status.jordannewell.com's upstream went down, my first two fi
 pubDate: 2026-07-17
 tags: ["rebuild", "infra"]
 mode: "hobart"
-kind: "ship-report"
+kind: "tooling"
 series: ["claude"]
 tool: "claude-code"
 ---

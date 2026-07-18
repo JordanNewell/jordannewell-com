@@ -4,7 +4,7 @@ description: "CAA, MTA-STS, TLS-RPT, CSP, and the list of things I check before 
 pubDate: 2026-07-17
 tags: ["rebuild", "infra"]
 mode: "hobart"
-kind: "ship-report"
+kind: "tooling"
 series: ["claude"]
 tool: "claude-code"
 ---

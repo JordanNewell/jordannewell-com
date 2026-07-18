@@ -17,9 +17,9 @@ draft: false
 Before it died, this was the second-most-important host in the fleet. It ran:
 
 - The Matrix homeserver (if down, every agent on the tailnet loses encrypted chat)
-- The media stack — Radarr, Sonarr, qBittorrent, Jellyfin
+- The media stack — download client, media trackers, media server
 - A local LLM frontend
-- Prometheus metrics for the fleet
+- Fleet metrics collection
 - Vault sync
 - A chunk of the OpenClaw agents
 - Dozens of containers behind Tailscale service IPs
@@ -59,8 +59,8 @@ State captured. Nothing lost.
 The services that ran on the dead host are all down. Most can be rebuilt elsewhere — configs are in the recovered disks. Some are painful:
 
 - **The Matrix homeserver** — can be rebuilt from Postgres backups. But every agent on the tailnet will need to re-authenticate, which means the OTK-exhaustion dance across the fleet.
-- **The Jellyfin library** — safe on the recovered RAID disk. Mountable on a new host.
-- **Prometheus metrics history** — safe on the recovered disk. Spin up on a new host with the old data.
+- **The media library** — safe on the recovered RAID disk. Mountable on a new host.
+- **Metrics history** — safe on the recovered disk. Spin up on a new host with the old data.
 - **The agents** — each has its own state dir. Recovered. Each needs to be re-homed on whatever new host I pick.
 
 ## The decision

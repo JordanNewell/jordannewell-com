@@ -1,6 +1,6 @@
 ---
 title: "Molana"
-description: "MCP ecosystem for institutional-level retail trading. The edge that shouldn't exist at retail scale."
+description: "MCP ecosystem for advanced trading analysis and execution capabilities."
 status: "exploratory"
 tags: ["projects", "crypto", "trading"]
 order: 14

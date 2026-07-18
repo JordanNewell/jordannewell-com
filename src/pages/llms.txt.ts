@@ -26,6 +26,12 @@ export async function GET() {
     `- [RSS](${SITE.url}/rss.xml)`,
     `- [AI Feed](${SITE.url}/ai-feed.json)`,
     ``,
+    `## License`,
+    `- Content: CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/)`,
+    `- Code: MIT (https://opensource.org/licenses/MIT)`,
+    `- Brand: All Rights Reserved`,
+    `- DMCA: jordan@jordannewell.com`,
+    ``,
   ];
 
   return new Response(lines.join("\n"), {

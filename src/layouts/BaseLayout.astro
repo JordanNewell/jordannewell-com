@@ -36,6 +36,8 @@ const ogTitle = title === SITE.title ? title : `${title} — ${SITE.title}`;
     <meta property="og:url" content={Astro.url.href} />
     <meta property="og:image" content={`${SITE.url}/profile-v5.jpg`} />
     <meta name="twitter:card" content="summary" />
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" />
+    <meta name="copyright" content="© 2026 Jordan Newell. CC BY-NC 4.0." />
     <link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
     <link rel="alternate" type="application/json" title={SITE.title} href="/feed.json" />
     <SchemaOrg schema={schema} />

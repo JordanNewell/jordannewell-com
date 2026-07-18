@@ -23,21 +23,32 @@ const statusColors: Record<string, string> = {
 
   <div class="space-y-4">
     {projects.map((p) => (
-      <a
-        href={`/projects/${p.id}/`}
-        class="block border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors"
-      >
-        <div class="flex items-baseline justify-between mb-1 gap-4">
-          <h2 class="font-display font-bold text-lg">{p.data.title}</h2>
-          <span
-            class="text-xs font-mono whitespace-nowrap uppercase tracking-wider"
-            style={`color: ${statusColors[p.data.status] ?? "#A1A1AA"}`}
-          >
-            {p.data.status}
-          </span>
+      <div class="border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors">
+        <a href={`/projects/${p.id}/`} class="block">
+          <div class="flex items-baseline justify-between mb-1 gap-4">
+            <h2 class="font-display font-bold text-lg">{p.data.title}</h2>
+            <span
+              class="text-xs font-mono whitespace-nowrap uppercase tracking-wider"
+              style={`color: ${statusColors[p.data.status] ?? "#A1A1AA"}`}
+            >
+              {p.data.status}
+            </span>
+          </div>
+          <p class="text-fg-secondary text-sm mb-3">{p.data.description}</p>
+        </a>
+        <div class="flex gap-2 items-center">
+          {p.data.repo ? (
+            <a href={p.data.repo} target="_blank" rel="noopener" class="text-xs font-mono px-2 py-0.5 rounded border border-border text-green hover:border-green transition-colors">src ↗</a>
+          ) : (
+            <span class="text-xs font-mono px-2 py-0.5 rounded border border-border text-fg-muted opacity-40 cursor-default">src</span>
+          )}
+          {p.data.liveUrl ? (
+            <a href={p.data.liveUrl} target="_blank" rel="noopener" class="text-xs font-mono px-2 py-0.5 rounded border border-border text-green hover:border-green transition-colors">live ↗</a>
+          ) : (
+            <span class="text-xs font-mono px-2 py-0.5 rounded border border-border text-fg-muted opacity-40 cursor-default">live</span>
+          )}
         </div>
-        <p class="text-fg-secondary text-sm">{p.data.description}</p>
-      </a>
+      </div>
     ))}
   </div>
 </BaseLayout>

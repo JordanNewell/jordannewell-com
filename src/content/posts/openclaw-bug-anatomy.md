@@ -4,7 +4,7 @@ description: "What a good bug report looks like, demonstrated via a real one I f
 pubDate: 2026-07-15
 tags: ["rebuild", "contributions"]
 mode: "hobart"
-project: "openclaw"
+project: "openclaw-fleet"
 kind: "tooling"
 ---
 

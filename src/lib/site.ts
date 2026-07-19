@@ -1,6 +1,6 @@
 export const SITE = {
   title: "Jordan Newell",
-  description: "Field notes from an operator rebuilding in public across sectors.",
+  description: "Field notes from an operator shipping in public across sectors.",
   url: "https://jordannewell.com",
   author: {
     name: "Jordan Newell",

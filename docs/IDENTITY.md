@@ -5,7 +5,7 @@
 
 ## Brand thesis
 
-Field notes from an operator rebuilding in public across sectors.
+Field notes from an operator shipping in public across sectors.
 Sectors are tags. Jordan is the brand.
 
 ## Voice target

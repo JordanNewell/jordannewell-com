@@ -1,13 +1,18 @@
 #!/usr/bin/env bash
 # Copyright (c) 2026 Jordan Newell. Licensed under MIT.
-# Source: https://github.com/jordannewell/jordannewell-blog
+# Source: https://github.com/JordanNewell/jordannewell
 #
 # Greps nginx access logs on production for AI crawler activity.
 # Run weekly to verify LLMs are actually fetching the site.
 
 set -euo pipefail
 
-REMOTE_HOST="${REMOTE_HOST:-user@<host>}"
+# Load .env if present (gitignored — see .env.example for required vars)
+[ -f .env ] && set -a && . .env && set +a
+
+# Required env vars — fail loud if missing. See .env.example.
+: "${REMOTE_HOST:?REMOTE_HOST required — copy .env.example to .env and fill in real values}"
+# LOG_PATH is optional — /var/log/nginx/access.log is standard on most Debian/Ubuntu
 LOG_PATH="${LOG_PATH:-/var/log/nginx/access.log}"
 
 echo "=== AI crawler activity (last 7 days) ==="

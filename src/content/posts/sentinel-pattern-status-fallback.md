@@ -37,7 +37,7 @@ Three-second connect, three-second read. Better. Still terrible. A visitor hits 
 
 ```nginx
 upstream kuma-upstream {
-    server <kuma-host>:3001 max_fails=1 fail_timeout=10s;
+    server 127.0.0.1:3001 max_fails=1 fail_timeout=10s;
 }
 
 proxy_connect_timeout 1s;

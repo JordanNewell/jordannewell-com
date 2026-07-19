@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Blog-local pre-push hook (tracked in .githooks/ via core.hooksPath).
+# Runs `npm run build` to catch path/config issues that voice-lint can't see.
+# Triggered by `git push`. Bypass with `git push --no-verify` if needed.
+#
+# Catches the class of bug that bit us 2026-07-18: an OPSEC scrub replaced a
+# literal project codename in astro.config.mjs with a `<codename>` placeholder,
+# Astro tried to mkdir with literal `<>` in the path, Windows refused, every
+# build silently broke. This hook makes that class of failure loud, at push time.
+
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+cd "$REPO_ROOT"
+
+# Pre-push hook receives refs on stdin; we don't inspect them, just build.
+while read -r _local_ref _local_sha _remote_ref _remote_sha; do
+  : # drain stdin so the hook exits cleanly
+done
+
+echo "==> Pre-push: verifying build (npm run build)"
+if ! npm run build --silent > /tmp/jordannewell-build.log 2>&1; then
+  echo "FATAL: Build failed. Push aborted." >&2
+  echo "" >&2
+  echo "Build log:" >&2
+  tail -50 /tmp/jordannewell-build.log >&2
+  echo "" >&2
+  echo "Bypass with: git push --no-verify (only if you understand why)" >&2
+  exit 1
+fi
+
+echo "    Build OK."

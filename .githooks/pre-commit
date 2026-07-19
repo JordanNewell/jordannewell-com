@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Blog-local pre-commit hook (tracked in .githooks/ via core.hooksPath).
+# 1. Delegates to the global hook (~/.githooks/pre-commit) for secret scanning.
+# 2. Voice lint staged markdown + Astro components (catches Claude-isms, hedges, OPSEC leaks).
+
+set -euo pipefail
+
+# Resolve repo root regardless of where the hook was invoked from
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+cd "$REPO_ROOT"
+
+# 1. Run global secret scanner (lives outside the repo, in user's home)
+if [ -x "$HOME/.githooks/pre-commit" ]; then
+  if ! bash "$HOME/.githooks/pre-commit"; then
+    exit 1
+  fi
+fi
+
+# 2. Voice lint staged markdown + .astro components (OPSEC scan covers both)
+staged=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(md|astro)$' || true)
+if [ -n "$staged" ]; then
+  echo "==> Voice linting staged markdown + .astro:"
+  echo "$staged"
+  bash scripts/voice-lint.sh $staged
+fi

@@ -13,20 +13,25 @@ Source for [jordannewell.com](https://jordannewell.com) — operator rebuild-in-
 
 ## Deploy
 
+    cp .env.example .env
+    # edit .env to fill in real values for REMOTE_HOST, REMOTE_PATH, BACKUP_DIR
     bash scripts/deploy.sh
 
-Defaults target `user@<host>:/opt/www/<site>` (no env vars needed). Override only if deploying elsewhere:
+Deploy scripts read env vars from `.env` (gitignored — see `.env.example` for the contract). Required: `REMOTE_HOST`, `REMOTE_PATH`, `BACKUP_DIR`. Scripts fail loud with a pointer to `.env.example` if any are missing.
+
+To override per-invocation without editing `.env`:
 
     REMOTE_HOST=user@other-host REMOTE_PATH=/custom/path bash scripts/deploy.sh
 
 ### What deploy.sh does (in order)
 
-1. **Preflight** — `ssh -o ConnectTimeout=5 user@<host> true`. Fails fast and loud if SSH is broken (alias wrong, host down, Tailscale offline). Exits *before* any destructive step.
-2. **Build** — `npm run build` (Astro, ~2-3s)
-3. **MD mirrors** — `scripts/generate-md-mirrors.sh` copies `src/content/posts/*.md` to `dist/posts/<slug>.md` so LLMs can fetch clean markdown source at `jordannewell.com/posts/<slug>.md`
-4. **Backup** — `scripts/backup-existing-site.sh` snapshots current production to `/opt/www/_backups/jordannewell/<UTC-timestamp>/`
-5. **Ship** — tar-over-ssh pipe: `tar -C dist -czf - . | ssh user@<host> 'cd <path> && rm -rf ./* && tar -xzf -'`. Uses `sudo` + `chown` if target dir isn't writable by `newell`.
-6. **Verify** — prints curl commands for spot-checking the live site
+1. **Load env** — sources `.env` if present, then asserts `REMOTE_HOST`, `REMOTE_PATH`, `BACKUP_DIR` are set
+2. **Preflight** — `ssh -o ConnectTimeout=5 "$REMOTE_HOST" true`. Fails fast and loud if SSH is broken (alias wrong, host down, Tailscale offline). Exits *before* any destructive step.
+3. **Build** — `npm run build` (Astro, ~2-3s)
+4. **MD mirrors** — `scripts/generate-md-mirrors.sh` copies `src/content/posts/*.md` to `dist/posts/<slug>.md` so LLMs can fetch clean markdown source at `jordannewell.com/posts/<slug>.md`
+5. **Backup** — `scripts/backup-existing-site.sh` snapshots current production to `${BACKUP_DIR}/<UTC-timestamp>/`
+6. **Ship** — tar-over-ssh pipe: `tar -C dist -czf - . | ssh "$REMOTE_HOST" 'cd "$REMOTE_PATH" && rm -rf ./* && tar -xzf -'`. Uses `sudo` + `chown` if target dir isn't writable by the SSH user.
+7. **Verify** — prints curl commands for spot-checking the live site
 
 ### Deploy failure recovery
 
@@ -34,13 +39,13 @@ The script captures `PIPESTATUS` and exits non-zero if either `tar` or `ssh` fai
 
 **Roll back to latest backup:**
 
-    ssh user@<host> 'ls -t /opt/www/_backups/jordannewell/ | head -3'
+    ssh "$REMOTE_HOST" 'ls -t "$BACKUP_DIR"/ | head -3'
     # Pick a timestamp from the output, then:
-    ssh user@<host> 'sudo rm -rf /opt/www/<site>/* && sudo cp -a /opt/www/_backups/jordannewell/<TIMESTAMP>/* /opt/www/<site>/'
+    ssh "$REMOTE_HOST" 'sudo rm -rf "$REMOTE_PATH"/* && sudo cp -a "$BACKUP_DIR"/<TIMESTAMP>/* "$REMOTE_PATH"/'
 
 **Diagnose and re-run:**
 
-    ssh user@<host> 'ls -la /opt/www/<site>/'
+    ssh "$REMOTE_HOST" 'ls -la "$REMOTE_PATH"/'
     # Inspect what's there, fix the underlying issue, then:
     bash scripts/deploy.sh
 

@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
 # Copyright (c) 2026 Jordan Newell. Licensed under MIT.
-# Source: https://github.com/jordannewell/jordannewell-blog
+# Source: https://github.com/JordanNewell/jordannewell
 #
 # Snapshots the current jordannewell.com site before a deploy clobbers it.
 # Idempotent: timestamped directories, never overwrites.
 
 set -euo pipefail
 
-REMOTE_HOST="${REMOTE_HOST:-user@<host>}"
-REMOTE_PATH="${REMOTE_PATH:-/opt/www/<site>}"
-BACKUP_DIR="${BACKUP_DIR:-/opt/www/_backups/jordannewell}"
+# Load .env if present (gitignored — see .env.example for required vars)
+[ -f .env ] && set -a && . .env && set +a
+
+# Required env vars — fail loud if missing. See .env.example.
+: "${REMOTE_HOST:?REMOTE_HOST required — copy .env.example to .env and fill in real values}"
+: "${REMOTE_PATH:?REMOTE_PATH required — copy .env.example to .env and fill in real values}"
+: "${BACKUP_DIR:?BACKUP_DIR required — copy .env.example to .env and fill in real values}"
+
 TIMESTAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 
 echo "Backing up ${REMOTE_HOST}:${REMOTE_PATH} → ${BACKUP_DIR}/${TIMESTAMP}"

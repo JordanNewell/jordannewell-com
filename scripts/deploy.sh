@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (c) 2026 Jordan Newell. Licensed under MIT.
-# Source: https://github.com/jordannewell/jordannewell-blog
+# Source: https://github.com/JordanNewell/jordannewell
 #
 # Builds the Astro site, generates .md mirrors, backs up the current production site,
 # and ships the new build via tar-over-ssh (no rsync dependency).
@@ -8,10 +8,13 @@
 
 set -euo pipefail
 
-# Defaults match the canonical deploy target (production Hetzner host via Tailscale).
-# Override via env vars only if deploying elsewhere.
-REMOTE_HOST="${REMOTE_HOST:-user@<host>}"
-REMOTE_PATH="${REMOTE_PATH:-/opt/www/<site>}"
+# Load .env if present (gitignored — see .env.example for required vars)
+[ -f .env ] && set -a && . .env && set +a
+
+# Required env vars — fail loud if missing. See .env.example.
+: "${REMOTE_HOST:?REMOTE_HOST required — copy .env.example to .env and fill in real values}"
+: "${REMOTE_PATH:?REMOTE_PATH required — copy .env.example to .env and fill in real values}"
+: "${BACKUP_DIR:?BACKUP_DIR required — copy .env.example to .env and fill in real values}"
 
 # Preflight: SSH connectivity check. Fails fast and loud before any destructive step.
 echo "==> Preflight: verifying SSH connectivity to ${REMOTE_HOST}"
@@ -64,8 +67,8 @@ if [ "$TAR_EXIT" != "0" ] || [ "$SSH_EXIT" != "0" ]; then
   echo "" >&2
   echo "Recovery options:" >&2
   echo "  1. Roll back to latest backup:" >&2
-  echo "     ssh ${REMOTE_HOST} 'ls -t /opt/www/_backups/jordannewell/ | head -3'" >&2
-  echo "     ssh ${REMOTE_HOST} 'sudo rm -rf ${REMOTE_PATH}/* && sudo cp -a /opt/www/_backups/jordannewell/<TIMESTAMP>/* ${REMOTE_PATH}/'" >&2
+  echo "     ssh ${REMOTE_HOST} 'ls -t ${BACKUP_DIR}/ | head -3'" >&2
+  echo "     ssh ${REMOTE_HOST} 'sudo rm -rf ${REMOTE_PATH}/* && sudo cp -a ${BACKUP_DIR}/<TIMESTAMP>/* ${REMOTE_PATH}/'" >&2
   echo "" >&2
   echo "  2. Diagnose and re-run:" >&2
   echo "     ssh ${REMOTE_HOST} 'ls -la ${REMOTE_PATH}/'" >&2

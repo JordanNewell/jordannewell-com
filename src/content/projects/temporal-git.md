@@ -19,4 +19,5 @@ stack:
   - "TypeScript"
   - "VS Code Extension API"
 ---
+
 VS Code extension that visualizes code history as a timeline. Go back to any point, see what changed, trace when a bug was introduced. Exploratory — concept validated, extension prototype built.

@@ -62,6 +62,19 @@ const schema = [
         </div>
       </section>
     )}
+    {project.data.highlights && project.data.highlights.length > 0 && (
+      <section class="mb-8">
+        <h2 class="font-mono text-xs uppercase tracking-widest text-fg-muted mb-3">Highlights</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          {project.data.highlights.map((h) => (
+            <div class="border border-border rounded-md px-4 py-3 hover:border-border-light hover:bg-bg-card-hover transition-colors">
+              <div class="font-display font-semibold text-base mb-1">{h.title}</div>
+              <div class="text-sm text-fg-secondary leading-relaxed">{h.body}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
     <slot />
   </article>
 </BaseLayout>

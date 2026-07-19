@@ -45,9 +45,9 @@ for file in "$@"; do
     continue
   fi
 
-  # VOICE.md documents the anti-patterns literally — exempt it from the lint
+  # VOICE.md + IDENTITY.md document the anti-patterns literally — exempt them
   case "$file" in
-    VOICE.md|*/VOICE.md)
+    VOICE.md|*/VOICE.md|docs/IDENTITY.md|*/IDENTITY.md)
       echo "SKIP: $file (voice rulebook, exempt)"
       continue
       ;;

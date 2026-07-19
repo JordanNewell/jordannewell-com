@@ -117,6 +117,42 @@ Before any post goes live, run this checklist. **All scans include frontmatter, 
 | `series:` | Keep. `claude` / `grok` / `heritage` / etc. is public-facing series taxonomy. |
 | `kind:` | Keep. `postmortem` / `win` / `decision` / etc. is content metadata. |
 
+### Operational files vs content files
+
+The OPSEC rules above apply to **content** — `.md` posts and prose that renders to public HTML. **Operational files** (`.sh` scripts, `astro.config.mjs`, `.github/workflows/*.yml`, `.githooks/*`, `package.json`) need different treatment: a `<placeholder>` literal here breaks things at build/runtime.
+
+**The 2026-07-18 incident (cautionary tale):** an OPSEC scrub replaced a real internal codename in `astro.config.mjs` redirects with `<codename>`. Astro tried to mkdir a path containing literal `<>` — Windows refused — every build broke silently. Same scrub pass replaced real values in deploy script defaults (`user@<host>`, `/opt/www/<site>`) with placeholders, breaking deploys until env vars were passed explicitly. Both went undetected for hours because no build verification existed.
+
+**Three categories, three rules:**
+
+| File type | Placeholder rule | Example |
+|---|---|---|
+| Content (`.md`, `.astro` prose) | `<placeholder>` is the desired end state | "the `<host>` homeserver" in a post |
+| Operational (`.sh`, configs, workflows) | Real values must come from env vars or gitignored config — never literal `<placeholder>` | `REMOTE_HOST="${REMOTE_HOST:-user@host}"` + `.env` for real value |
+| Cosmetic (HTML comments, doc strings) | Acceptable, but consider whether the placeholder itself draws attention | `<!-- Kuma degraded (<host> outage, July 2026) -->` — last user-visible hint that scrubbing happened |
+
+**The pattern for operational files** (codified in `scripts/deploy.sh`):
+
+```bash
+# Load .env if present (gitignored — see .env.example for required vars)
+[ -f .env ] && set -a && . .env && set +a
+
+# Required env vars — fail loud if missing. See .env.example.
+: "${REMOTE_HOST:?REMOTE_HOST required — copy .env.example to .env and fill in real values}"
+```
+
+Real values live in gitignored `.env`. The contract is documented in tracked `.env.example`. Scripts fail loud if env is missing — no silent bad defaults.
+
+**Verification (run after every OPSEC-motivated commit):**
+
+```bash
+bash scripts/verify-scrub.sh
+```
+
+Three checks: build still passes, voice lint still passes on all content, no unresolved `<placeholder>` tokens in operational files. CI runs the same checks on push via `.github/workflows/ci.yml`.
+
+**Known limitation (TODO):** `scripts/voice-lint.sh` currently contains placeholder tokens in its own `opsec_patterns` regex — the patterns themselves were scrubbed to avoid leaking tailnet name + codenames + agent handle names in the public repo. This means the lint can't catch those specific tokens today. Refactor TODO: source real patterns from a gitignored `scripts/opsec-patterns.local` file at runtime; CI runs the lint without the local file (still catches machine names, IPs, paths, session codes — just not the scrubbed-out tokens).
+
 
 
 

@@ -6,6 +6,7 @@ date: 2026-05-12
 type: "bug-report"
 url: "https://github.com/openclaw/openclaw/issues/81172"
 outcome: "Fixed upstream, closed 2026-05-18 (6 days)"
+status: "shipped"
 order: 1
 ---
 

@@ -46,6 +46,7 @@ const contributions = defineCollection({
     type: z.enum(["bug-report", "pr-merged", "community", "research"]).default("bug-report"),
     url: z.string().url(),
     outcome: z.string(),
+    status: z.enum(["shipped", "open", "investigating", "closed-wontfix"]).default("shipped"),
     order: z.number().default(99),
   }),
 });

@@ -1,0 +1,147 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel in-progress runs for the same ref when a new commit lands.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (Astro)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        # Catches path/config bugs at build time — e.g. an OPSEC scrub that
+        # leaves a `<placeholder>` literal in astro.config.mjs redirects would
+        # fail here with a filesystem error.
+
+  voice-lint:
+    name: Voice lint (Claude-isms + hedges + OPSEC)
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint all markdown + Astro components
+        run: |
+          # Collect all .md and .astro files (excluding node_modules)
+          mapfile -t files < <(find src content docs -type f \( -name '*.md' -o -name '*.astro' \) 2>/dev/null || true)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "No files to lint"
+            exit 0
+          fi
+          printf '%s\n' "${files[@]}"
+          bash scripts/voice-lint.sh "${files[@]}"
+
+  secret-scan:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # gitleaks needs history for full scan
+
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITLEAKS_LICENSE: not set → runs in OSS mode (sufficient for public repo)
+
+  shellcheck:
+    name: Shellcheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run shellcheck on all .sh + .githooks/*
+        run: |
+          # SC1090/1091: don't follow sourced files (we source .env conditionally)
+          # SC2155: allow declare-and-assign on same line (used in setup.sh)
+          mapfile -t scripts < <(find scripts .githooks -type f -name '*.sh' 2>/dev/null)
+          # Also include hook files without .sh extension
+          mapfile -t hooks < <(find .githooks -maxdepth 1 -type f ! -name '*.sh' ! -name 'setup.sh' 2>/dev/null || true)
+          # pre-commit/pre-push have no extension — include them via shebang check
+          for f in .githooks/pre-commit .githooks/pre-push; do
+            [ -f "$f" ] && scripts+=("$f")
+          done
+          if [ "${#scripts[@]}" -eq 0 ]; then
+            echo "No shell scripts to check"
+            exit 0
+          fi
+          printf '%s\n' "${scripts[@]}"
+          # Use shellcheck action via docker for reproducibility
+          docker run --rm -v "$PWD":/mnt -w /mnt koalaman/shellcheck:stable \
+            --exclude=SC1090,SC1091,SC2155 \
+            "${scripts[@]}"
+
+  placeholder-scan:
+    name: Placeholder scan (operational files)
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scan operational files for unresolved placeholders
+        # Catches the exact bug class that broke us 2026-07-18: an OPSEC scrub
+        # that replaced a real hostname with `<placeholder>` in a deploy script
+        # default, an astro.config.mjs redirect, or similar operational path.
+        # Placeholders in content (.md posts, prose) are allowed — only scan files
+        # that affect build/runtime behavior. Comment lines are skipped so
+        # documentation/usage strings don't false-positive.
+        run: |
+          set -euo pipefail
+          # Files where `<placeholder>` means "this will break at runtime"
+          PATTERNS=(
+            'scripts/*.sh'
+            '.githooks/*'
+            'astro.config.mjs'
+            '.github/workflows/*.yml'
+            'package.json'
+          )
+          found=0
+          # voice-lint.sh defines the pattern vocabulary itself — allow its pattern line
+          ALLOW_PLACEHOLDERS=('scripts/voice-lint.sh')
+          for pattern in "${PATTERNS[@]}"; do
+            while IFS= read -r file; do
+              [ -f "$file" ] || continue
+              skip=0
+              for a in "${ALLOW_PLACEHOLDERS[@]}"; do
+                [ "$file" = "$a" ] && skip=1 && break
+              done
+              [ "$skip" -eq 1 ] && continue
+              # Strip shell/YAML comment lines + Usage-echo lines before scanning
+              matches=$(grep -vE '^[[:space:]]*#|Usage:' "$file" 2>/dev/null | grep -nE '<[a-z][-a-z0-9]*[a-z0-9]>' || true)
+              if [ -n "$matches" ]; then
+                echo "FAIL: $file has unresolved placeholder(s) on non-comment line(s):"
+                echo "$matches"
+                found=1
+              fi
+            done < <(eval ls -1 $pattern 2>/dev/null || true)
+          done
+          if [ "$found" -ne 0 ]; then
+            echo ""
+            echo "Operational files must not contain placeholder tokens on non-comment lines."
+            echo "Either substitute a real value via env var, or move the value to .env."
+            echo "See VOICE.md § OPSEC · Operational files for the methodology."
+            exit 1
+          fi
+          echo "OK: no unresolved placeholders in operational files."

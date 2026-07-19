@@ -1,10 +1,12 @@
 ---
 title: "jordannewell.com"
-description: "Source for the site you're reading. Astro SSG, deployed via tar-over-ssh to a Hetzner host behind Cloudflare."
+description: "This site. Astro SSG, Swiss Minimal dark theme, LLM-discoverable. Build-in-public field notes from an operator's desk."
 status: "active"
 tags: ["projects", "web", "oss"]
+startDate: 2026-07-15
 repo: "https://github.com/JordanNewell/jordannewell"
-order: 7
+liveUrl: "https://jordannewell.com"
+order: 3
 facts:
   - k: "framework"
     v: "Astro 7"

@@ -15,7 +15,7 @@ facts:
   - k: "license"
     v: "MIT"
   - k: "clis"
-    v: "pa · pad"
+    v: "pa · pa-platform · pad"
 highlights:
   - title: "Zero-config HTTPS"
     body: "mkcert, Caddy CA, or self-signed fallback. Trust once, forget it."
@@ -56,4 +56,4 @@ pa run --name=myapp --prefer=3000 python app.py
 # → https://myapp.pa.local (automatic HTTPS)
 ```
 
-Source and install instructions on GitHub. MIT, pip-installable, comprehensive test suite across 12 categories and 9 platform combinations.
+Source and install instructions on GitHub. MIT, pip-installable. 12 test categories across 9 platform combinations.

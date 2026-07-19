@@ -1,6 +1,6 @@
 # jordannewell.com
 
-Source for [jordannewell.com](https://jordannewell.com) — operator rebuild-in-public blog. Astro SSG, deployed via `tar-over-ssh` to a Hetzner host behind Cloudflare.
+Source for [jordannewell.com](https://jordannewell.com) — shipping-in-public field notes on AI agents, self-hosted infra, crypto tooling, and venture research. Astro SSG, deployed via `tar-over-ssh` to a Hetzner host behind Cloudflare.
 
 ## Quick start
 

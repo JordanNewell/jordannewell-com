@@ -49,6 +49,19 @@ const schema = [
       style="background: linear-gradient(90deg, color-mix(in srgb, var(--color-green) 60%, transparent), color-mix(in srgb, var(--color-green) 20%, transparent) 30%, transparent 70%);"
     >
     </div>
+    {project.data.facts && project.data.facts.length > 0 && (
+      <section class="mb-8">
+        <h2 class="font-mono text-xs uppercase tracking-widest text-fg-muted mb-3">At a glance</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {project.data.facts.map((fact) => (
+            <div class="border border-border rounded-md px-3 py-2 hover:border-border-light transition-colors">
+              <div class="font-mono text-xs uppercase tracking-wider text-fg-muted">{fact.k}</div>
+              <div class="font-display font-semibold text-sm">{fact.v}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
     <slot />
   </article>
 </BaseLayout>

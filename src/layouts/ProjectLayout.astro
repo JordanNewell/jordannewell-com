@@ -2,10 +2,15 @@
 import BaseLayout from "./BaseLayout.astro";
 import TagPill from "../components/TagPill.astro";
 import { creativeWorkSchema } from "../lib/schema";
-import type { CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 const { project } = Astro.props as { project: CollectionEntry<"projects"> };
 const { title, description, status, repo, liveUrl, tags } = project.data;
+
+const allPosts = await getCollection("posts");
+const relatedPosts = allPosts
+  .filter((p) => p.data.project === project.id)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const statusColors: Record<string, string> = {
   active: "text-green",
@@ -88,5 +93,25 @@ const schema = [
       </section>
     )}
     <slot />
+    {relatedPosts.length > 0 && (
+      <section class="mt-12">
+        <h2 class="font-mono text-xs uppercase tracking-widest text-fg-muted mb-3">Related</h2>
+        <ul class="divide-y divide-border">
+          {relatedPosts.map((p) => (
+            <li>
+              <a
+                href={`/posts/${p.id}/`}
+                class="flex items-baseline justify-between gap-4 py-2 hover:text-green transition-colors"
+              >
+                <span class="text-sm">{p.data.title}</span>
+                <span class="font-mono text-xs text-fg-muted whitespace-nowrap">
+                  {p.data.pubDate.toISOString().slice(0, 10)}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
   </article>
 </BaseLayout>

@@ -35,7 +35,22 @@ hedge_patterns='maybe|I think|I believe|in my opinion|essentially|basically|actu
 # OPSEC patterns — see VOICE.md § OPSEC. NEVER merge content containing these.
 # Machine names, tailnet, internal IPs, session codes, internal project codenames,
 # agent handles that map to Matrix identities, internal paths.
+#
+# Blog-specific baseline (paths + script patterns from jordannewell-blog infra):
 opsec_patterns='\bS[0-9]{3}\b|100\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}|<tailnet>|<codename>|<codename>|\b(<agent-name>|<agent-name>|<agent-name>|<agent-name>)\b'
+
+# Layer in machine-level patterns from git-hygiene's opsec-scan.sh if available.
+# Sources real values from ~/.config/opsec-patterns.local (hostnames, tailnet,
+# agent handles, codenames). EXTENDS the blog baseline above — both apply.
+# See ~/.githooks/opsec-patterns.local.example for the contract.
+for _candidate in "$HOME/.githooks/opsec-scan.sh" "$HOME/git-hygiene/hooks/opsec-scan.sh"; do
+  if [ -f "$_candidate" ]; then
+    # shellcheck disable=SC1091
+    source "$_candidate"
+    break
+  fi
+done
+unset _candidate
 
 failed=0
 

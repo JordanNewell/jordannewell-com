@@ -118,10 +118,20 @@ const buildTime = new Date();
     <a href="/posts/" class="view-all">View all posts →</a>
   </section>
 
-  <a href="mailto:hello@jordannewell.com" class="contact-bar">
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-    Say hello
-  </a>
+  <div class="contact-stack">
+    <a href="mailto:hello@jordannewell.com" class="contact-bar">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      Say hello
+    </a>
+    <a href="https://github.com/sponsors/JordanNewell" target="_blank" rel="noopener" class="contact-bar">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>
+      Buy me a coffee
+    </a>
+    <a href="https://github.com/sponsors/JordanNewell" target="_blank" rel="noopener" class="contact-bar">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      Support my work
+    </a>
+  </div>
 </BaseLayout>
 
 <style>
@@ -247,6 +257,7 @@ const buildTime = new Date();
   }
   .view-all:hover { color: var(--color-fg); }
 
+  .contact-stack { display: flex; flex-direction: column; gap: 8px; }
   .contact-bar {
     display: flex; align-items: center; justify-content: center; gap: 8px;
     padding: 14px; background: var(--color-bg-card);

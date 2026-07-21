@@ -42,6 +42,7 @@ Read both before drafting:
 | Concluding summary paragraph | Jordan implies | Cut, or convert to forward-looking line |
 | Headers like "Conclusion" | Corporate | Use punchy: "The point", "What happened next" |
 | Apologizing for opinions | "This is just my view..." | Cut the apology |
+| `<host>` / `<codename>` tokens in prose | Tells readers scrubbing happened | Functional descriptors: "the homeserver", "the orchestration layer" |
 
 ## OPSEC (Operational Security)
 
@@ -151,7 +152,7 @@ bash scripts/verify-scrub.sh
 
 Three checks: build still passes, voice lint still passes on all content, no unresolved `<placeholder>` tokens in operational files. CI runs the same checks on push via `.github/workflows/ci.yml`.
 
-**Known limitation (TODO):** `scripts/voice-lint.sh` currently contains placeholder tokens in its own `opsec_patterns` regex — the patterns themselves were scrubbed to avoid leaking tailnet name + codenames + agent handle names in the public repo. This means the lint can't catch those specific tokens today. Refactor TODO: source real patterns from a gitignored `scripts/opsec-patterns.local` file at runtime; CI runs the lint without the local file (still catches machine names, IPs, paths, session codes — just not the scrubbed-out tokens).
+**Resolved 2026-07-20:** `scripts/voice-lint.sh` now sources real patterns from a gitignored `scripts/opsec-patterns.local` file at runtime. The tracked `scripts/opsec-patterns.local.example` documents the contract (categories: hostnames, tailnet, codenames, agent handles, services) — copy to `.local` and replace placeholders with real values. CI runs without the `.local` file (catches hardcoded patterns only: session IDs, Tailscale CGNAT IPs). Local runs catch everything.
 
 
 

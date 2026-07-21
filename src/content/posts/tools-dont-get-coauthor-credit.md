@@ -9,7 +9,7 @@ series: ["claude"]
 tool: "claude-code"
 ---
 
-Every AI coding tool wants its name on your work. Claude Code, GitHub Copilot, Cursor — they all default to adding `Co-Authored-By: <tool>` as a trailer on your git commits. Most developers let it happen. Most developers are wrong to.
+Every AI coding tool wants its name on your work. Claude Code, GitHub Copilot, Cursor — they all default to adding a `Co-Authored-By:` trailer crediting the tool on your git commits. Most developers let it happen. Most developers are wrong to.
 
 ```
 commit 8cff66e

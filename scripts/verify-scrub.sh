@@ -45,13 +45,14 @@ echo "==> [3/3] Placeholder scan (operational files)"
 # Skips comment lines AND usage-echo strings (e.g. `echo "Usage: ... <slug>"`)
 # so documentation doesn't false-positive.
 #
-# Known limitation: scripts/voice-lint.sh itself contains placeholder tokens
-# in its opsec_patterns regex (result of the 2026-07-17 scrub). The patterns
-# themselves were scrubbed to avoid leaking tailnet name, codenames, and agent
-# handle names in the public repo — but this means the lint currently CAN'T
-# catch those specific tokens. TODO: refactor to source real patterns from a
-# gitignored scripts/opsec-patterns.local file. See VOICE.md § OPSEC · Operational
-# files for the full TODO.
+# RESOLVED 2026-07-20: voice-lint.sh now sources real patterns from gitignored
+# `scripts/opsec-patterns.local` at runtime (opsec-patterns.local.example is the
+# tracked contract). CI runs without the local file — catches hardcoded patterns
+# (session IDs, Tailscale CGNAT IPs) only. Local runs catch
+# everything: hardcoded + real hostnames, tailnet, agent handles, codenames.
+# voice-lint.sh is still exempt from this placeholder scan because its own
+# opsec_patterns string contains literal `<tailnet>`/`<codename>`/`<agent-name>`
+# tokens (the scrubbed baseline patterns).
 PATTERNS=(
   'scripts/*.sh'
   '.githooks/*'
@@ -73,7 +74,7 @@ for pattern in "${PATTERNS[@]}"; do
   while IFS= read -r file; do
     [ -f "$file" ] || continue
     if is_allowed "$file"; then
-      echo "SKIP: $file (defines pattern vocabulary — see TODO above)"
+      echo "SKIP: $file (defines pattern vocabulary — see RESOLVED comment above)"
       continue
     fi
     matches=$(grep -vE '^[[:space:]]*#|Usage:' "$file" 2>/dev/null | grep -nE '<[a-z][-a-z0-9]*[a-z0-9]>' || true)

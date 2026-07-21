@@ -11,6 +11,10 @@ npm-debug.log*
 .env
 .env.production
 
+# OPSEC patterns — real machine names, tailnet, agent handles
+# See scripts/opsec-patterns.local.example for the contract
+scripts/opsec-patterns.local
+
 # macOS-specific files
 .DS_Store
 

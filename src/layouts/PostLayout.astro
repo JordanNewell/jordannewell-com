@@ -4,11 +4,15 @@ import TagPill from "../components/TagPill.astro";
 import SeriesBadge from "../components/SeriesBadge.astro";
 import EraBadge from "../components/EraBadge.astro";
 import KindBadge from "../components/KindBadge.astro";
+import PostShare from "../components/PostShare.astro";
 import { articleSchema } from "../lib/schema";
+import { SITE } from "../lib/site";
 import type { CollectionEntry } from "astro:content";
 
 const { post } = Astro.props as { post: CollectionEntry<"posts"> };
 const { title, description, pubDate, updatedDate, tags, mode, series, era, kind } = post.data;
+
+const shareUrl = `${SITE.url}/posts/${post.id}/`;
 
 const dateStr = pubDate.toLocaleDateString("en-US", {
   year: "numeric",
@@ -48,5 +52,6 @@ const schema = [articleSchema({
     <div class="post-content">
       <slot />
     </div>
+    <PostShare url={shareUrl} title={title} />
   </article>
 </BaseLayout>

@@ -1,0 +1,309 @@
+---
+// PostShare — flat blue cartoon thumbs-up + drop-up share popup
+// Renders at the bottom of every post (via PostLayout).
+// Pure vanilla JS — no framework deps.
+
+interface Props {
+  url: string;
+  title: string;
+}
+const { url, title } = Astro.props;
+
+const encodedUrl = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(title);
+
+const platforms = [
+  { id: "x", label: "X", color: "#fafafa", bg: "#0f0f0f", href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}` },
+  { id: "linkedin", label: "in", color: "#fff", bg: "#0a66c2", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}` },
+  { id: "hn", label: "Y", color: "#ff6600", bg: "#1a1a1a", href: `https://news.ycombinator.com/submitlink?u=${encodedUrl}&t=${encodedTitle}` },
+  { id: "reddit", label: "r/", color: "#ff4500", bg: "#1a1a1a", href: `https://reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}` },
+  { id: "email", label: "@", color: "#60A5FA", bg: "#1a1a1a", href: `mailto:?subject=${encodedTitle}&body=${encodedUrl}` },
+];
+---
+
+<div class="post-share" data-share-root>
+  <button
+    class="share-btn"
+    type="button"
+    aria-label="Share this post"
+    aria-haspopup="true"
+    aria-expanded="false"
+    data-share-btn
+  >
+    <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <!-- Cuff (the glove wrist) -->
+      <rect x="2" y="15" width="20" height="6" rx="1.5" fill="#fafafa" stroke="#1e3a8a" stroke-width="1.2"/>
+      <!-- Cuff band (blue stripe) -->
+      <rect x="2" y="17.5" width="20" height="2" fill="#60A5FA"/>
+      <!-- Fist -->
+      <path d="M5 15 L5 11 Q5 8.5 7.5 8.5 L14 8.5 Q16.5 8.5 16.5 11 L16.5 15 Z" fill="#60A5FA" stroke="#1e3a8a" stroke-width="1.2" stroke-linejoin="round"/>
+      <!-- Thumb -->
+      <path d="M14 8.5 Q14 4 11.5 3.5 Q9 3.5 9 6.5 L9 8.5" fill="#60A5FA" stroke="#1e3a8a" stroke-width="1.2" stroke-linejoin="round"/>
+      <!-- Knuckle detail -->
+      <path d="M7 12.5 Q9 13.5 11 12.5" stroke="#1e3a8a" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="share-label">Like / share</span>
+  </button>
+
+  <div class="share-popup" data-share-popup hidden>
+    <div class="share-popup-header">
+      <span>Pass it along</span>
+      <button class="share-close" type="button" aria-label="Close" data-share-close>×</button>
+    </div>
+    <div class="share-grid">
+      {platforms.map((p) => (
+        <a
+          href={p.href}
+          target="_blank"
+          rel="noopener"
+          class="share-platform"
+          style={`--p-bg:${p.bg};--p-color:${p.color};`}
+          aria-label={`Share to ${p.id}`}
+        >
+          <span class="share-platform-label">{p.label}</span>
+        </a>
+      ))}
+      <button
+        class="share-copy"
+        type="button"
+        aria-label="Copy link"
+        data-share-copy
+        data-copy-url={url}
+      >
+        <span class="share-copy-label">Copy</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .post-share {
+    position: relative;
+    margin: 48px 0 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--fg-secondary);
+    padding: 10px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    user-select: none;
+  }
+  .share-btn:hover {
+    border-color: var(--border-light);
+    color: var(--fg);
+  }
+  .share-btn:focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 2px;
+  }
+
+  .share-icon {
+    width: 32px;
+    height: 32px;
+    display: block;
+    transform-origin: 50% 70%;
+    transition: transform 0.15s ease;
+    filter: drop-shadow(0 2px 6px rgba(96, 165, 250, 0.25));
+  }
+
+  /* Idle wiggle — subtle hint that it's alive */
+  @keyframes idle-wiggle {
+    0%, 92%, 100% { transform: rotate(0deg); }
+    94% { transform: rotate(-3deg); }
+    96% { transform: rotate(2deg); }
+    98% { transform: rotate(-1deg); }
+  }
+  .share-icon {
+    animation: idle-wiggle 5s ease-in-out infinite;
+  }
+
+  /* Click bounce */
+  @keyframes share-bounce {
+    0%   { transform: scale(1) rotate(0deg); }
+    15%  { transform: scale(1.25) rotate(-12deg); }
+    30%  { transform: scale(0.9) rotate(8deg); }
+    45%  { transform: scale(1.1) rotate(-4deg); }
+    60%  { transform: scale(0.98) rotate(2deg); }
+    75%  { transform: scale(1.03) rotate(-1deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+  .share-btn.bouncing .share-icon {
+    animation: share-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .share-popup {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: #111113;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 14px;
+    min-width: 280px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(96, 165, 250, 0.1);
+    opacity: 0;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 10;
+  }
+  .share-popup.open {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .share-popup[hidden] {
+    display: none;
+  }
+
+  .share-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--fg-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .share-close {
+    background: transparent;
+    border: none;
+    color: var(--fg-muted);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: color 0.15s, background 0.15s;
+  }
+  .share-close:hover {
+    color: var(--fg);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .share-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .share-platform, .share-copy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    border-radius: 8px;
+    background: var(--p-bg, #1a1a1a);
+    color: var(--p-color, #fafafa);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.12s ease, border-color 0.12s ease;
+  }
+  .share-platform:hover, .share-copy:hover {
+    transform: translateY(-1px);
+    border-color: var(--border-light);
+  }
+  .share-copy {
+    --p-bg: #18181b;
+    --p-color: #34d399;
+    border: none;
+    width: 100%;
+  }
+  .share-copy.copied {
+    --p-color: #34d399;
+    background: rgba(52, 211, 153, 0.1);
+  }
+
+  @media (max-width: 480px) {
+    .share-btn {
+      padding: 8px 14px;
+    }
+    .share-icon {
+      width: 28px;
+      height: 28px;
+    }
+    .share-popup {
+      min-width: 240px;
+    }
+    .share-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
+
+<script>
+  const roots = document.querySelectorAll('[data-share-root]');
+  roots.forEach((root) => {
+    const btn = root.querySelector('[data-share-btn]');
+    const popup = root.querySelector('[data-share-popup]');
+    const close = root.querySelector('[data-share-close]');
+    const copy = root.querySelector('[data-share-copy]');
+
+    if (!btn || !popup) return;
+
+    const toggle = (open: boolean) => {
+      popup.hidden = !open;
+      requestAnimationFrame(() => popup.classList.toggle('open', open));
+      btn.setAttribute('aria-expanded', String(open));
+    };
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const willOpen = popup.hidden || !popup.classList.contains('open');
+      if (willOpen) {
+        btn.classList.remove('bouncing');
+        void btn.offsetWidth;
+        btn.classList.add('bouncing');
+        setTimeout(() => btn.classList.remove('bouncing'), 700);
+      }
+      toggle(willOpen);
+    });
+
+    close?.addEventListener('click', () => toggle(false));
+
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target as Node)) toggle(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') toggle(false);
+    });
+
+    copy?.addEventListener('click', async () => {
+      const url = copy.getAttribute('data-copy-url') || '';
+      const label = copy.querySelector('.share-copy-label');
+      try {
+        await navigator.clipboard.writeText(url);
+        if (label) {
+          const original = label.textContent;
+          label.textContent = 'Copied!';
+          copy.classList.add('copied');
+          setTimeout(() => {
+            label.textContent = original;
+            copy.classList.remove('copied');
+          }, 1500);
+        }
+      } catch {
+        if (label) label.textContent = 'Press Ctrl+C';
+      }
+    });
+  });
+</script>

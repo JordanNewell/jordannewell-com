@@ -11,6 +11,19 @@ const statusColors: Record<string, string> = {
   exploratory: "#A1A1AA",
   "venture-track": "#FBBF24",
 };
+
+const pkgLabel = (url: string): string => {
+  try {
+    const host = new URL(url).hostname;
+    if (host.includes("npmjs")) return "npm";
+    if (host.includes("pypi.org")) return "pypi";
+    if (host.includes("obsidian.md")) return "obsidian";
+    if (host.includes("crates.io")) return "crates";
+    return "pkg";
+  } catch {
+    return "pkg";
+  }
+};
 ---
 
 <BaseLayout title="Projects" description="What I've built, in public.">
@@ -42,6 +55,9 @@ const statusColors: Record<string, string> = {
           ) : (
             <span class="text-xs font-mono px-2 py-0.5 rounded border border-border text-fg-muted opacity-40 cursor-default">src</span>
           )}
+          {p.data.pkg ? (
+            <a href={p.data.pkg} target="_blank" rel="noopener" class="text-xs font-mono px-2 py-0.5 rounded border border-border text-cyan hover:border-cyan transition-colors">{pkgLabel(p.data.pkg)} ↗</a>
+          ) : null}
           {p.data.liveUrl ? (
             <a href={p.data.liveUrl} target="_blank" rel="noopener" class="text-xs font-mono px-2 py-0.5 rounded border border-border text-green hover:border-green transition-colors">live ↗</a>
           ) : (

@@ -6,6 +6,7 @@ tags: ["projects", "tools", "oss"]
 startDate: 2026-07-18
 shipDate: 2026-07-19
 repo: "https://github.com/JordanNewell/harbormasterd"
+pkg: "https://pypi.org/project/harbormasterd/"
 order: 5
 facts:
   - k: "shipped"

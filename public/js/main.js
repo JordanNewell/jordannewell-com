@@ -1,5 +1,5 @@
 // Copyright (c) 2026 Jordan Newell. Licensed under MIT.
-// Source: https://github.com/jordannewell/jordannewell-blog
+// Source: https://github.com/JordanNewell/jordannewell-com
 //
 // Site-wide JS — relative time formatting + status badge fetch.
 // Extracted to external file so CSP (which blocks inline scripts) allows it to run.

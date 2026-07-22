@@ -1,5 +1,5 @@
 {
-  "name": "jordannewell-blog",
+  "name": "jordannewell-com",
   "type": "module",
   "version": "0.0.1",
   "description": "Source for https://jordannewell.com — Astro SSG, deployed via tar-over-ssh to a Hetzner host behind Cloudflare.",

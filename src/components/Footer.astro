@@ -21,9 +21,9 @@ const year = new Date().getFullYear();
     </p>
     <p class="mb-3">© {year} {SITE.author.name} <span aria-hidden="true">❤️</span> <a href="/license" class="hover:text-green">license</a></p>
     <p class="mb-3">
-      <a href="https://status.jordannewell.com" class="status-badge inline-flex items-center gap-1.5 hover:text-green is-paused" target="_blank" rel="noopener" aria-label="System status">
-        <span class="inline-block w-1.5 h-1.5 rounded-full" style="background: #7d8590; box-shadow: 0 0 8px rgba(125,133,144,0.4);"></span>
-        <span style="color: #7d8590;">monitoring offline</span>
+      <a href="https://status.jordannewell.com" class="status-badge inline-flex items-center gap-1.5 hover:text-green is-down" target="_blank" rel="noopener" aria-label="System status">
+        <span class="inline-block w-1.5 h-1.5 rounded-full" style="background: #FBBF24; box-shadow: 0 0 8px rgba(251,191,36,0.4);"></span>
+        <span style="color: #FBBF24;">1 of 5 services degraded</span>
       </a>
     </p>
     <p class="flex items-center justify-center gap-4">
@@ -44,4 +44,4 @@ const year = new Date().getFullYear();
   </div>
 </footer>
 
-<!-- Status badge static — Kuma monitoring offline (homeserver outage, July 2026). Re-enable JS fetch when Kuma is restored. -->
+<!-- Status badge static — Kuma back online 2026-07-22, 1 of 5 services still investigating. Re-enable JS fetch for live updates. -->

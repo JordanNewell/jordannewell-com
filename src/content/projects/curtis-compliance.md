@@ -5,6 +5,7 @@ status: "shipped"
 tags: ["projects", "oss", "fintech"]
 shipDate: 2026-07-20
 repo: "https://github.com/JordanNewell/curtis-compliance"
+pkg: "https://www.npmjs.com/package/@jordannewell/curtis-compliance"
 order: 7
 facts:
   - k: "shipped"

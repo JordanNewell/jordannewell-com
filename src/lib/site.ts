@@ -30,4 +30,8 @@ export const TAG_COLORS: Record<string, string> = {
   ventures: "#FBBF24",      // amber
   projects: "#A78BFA",      // violet
   contributions: "#22D3EE", // cyan
+  ai: "#F472B6",            // pink
+  tooling: "#FB923C",       // orange
+  security: "#F87171",      // red
+  oss: "#A3E635",           // lime
 };

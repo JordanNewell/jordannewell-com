@@ -1,7 +1,7 @@
 ---
 title: "Synapse restarted. The fleet went silent for four and a half hours."
 description: "A routine container restart on my Matrix homeserver silently broke encrypted replies across every agent on the tailnet. Agents looked healthy. None of them could talk. Here's the mechanism and the lesson."
-pubDate: 2026-07-17
+pubDate: 2026-07-19
 tags: ["rebuild", "infra"]
 mode: "hobart"
 series: ["claude", "synapse-wars"]

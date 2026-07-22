@@ -1,7 +1,7 @@
 ---
 title: "Twenty-one hours, thirty-nine PDFs, zero GPU"
 description: "Extracting text from ~39 image-only Grok chat-export PDFs into Obsidian-vault markdown via a local CPU-only vision model. Three Windows-specific bugs worth writing down."
-pubDate: 2026-07-17
+pubDate: 2026-07-22
 tags: ["rebuild", "infra"]
 mode: "hobart"
 series: ["claude"]

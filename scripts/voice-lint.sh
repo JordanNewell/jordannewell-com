@@ -33,15 +33,15 @@ anti_patterns=(
 hedge_patterns='maybe|I think|I believe|in my opinion|essentially|basically|actually,|simply put'
 
 # OPSEC patterns — see VOICE.md § OPSEC. NEVER merge content containing these.
-# Machine names, tailnet, internal IPs, session codes, internal project codenames,
-# agent handles that map to Matrix identities, internal paths.
-#
-# Blog-specific baseline (paths + script patterns from jordannewell-blog infra):
+# Universal baseline only: session IDs (Sxxx) + Tailscale CGNAT IPs (100.x.x.x).
+# The placeholder tokens (<tailnet>, <codename>, <agent-name>) match nothing
+# literally — they document the categories that operators should fill in via
+# the machine-level opsec-scan.sh source below.
 opsec_patterns='\bS[0-9]{3}\b|100\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}|<tailnet>|<codename>|<codename>|\b(<agent-name>|<agent-name>|<agent-name>|<agent-name>)\b'
 
 # Layer in machine-level patterns from git-hygiene's opsec-scan.sh if available.
 # Sources real values from ~/.config/opsec-patterns.local (hostnames, tailnet,
-# agent handles, codenames). EXTENDS the blog baseline above — both apply.
+# agent handles, codenames). EXTENDS the baseline above — both apply.
 # See ~/.githooks/opsec-patterns.local.example for the contract.
 for _candidate in "$HOME/.githooks/opsec-scan.sh" "$HOME/git-hygiene/hooks/opsec-scan.sh"; do
   if [ -f "$_candidate" ]; then

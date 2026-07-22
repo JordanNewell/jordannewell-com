@@ -47,9 +47,9 @@ echo "==> [3/3] Placeholder scan (operational files)"
 #
 # RESOLVED 2026-07-20: voice-lint.sh now sources real patterns from gitignored
 # `scripts/opsec-patterns.local` at runtime (opsec-patterns.local.example is the
-# tracked contract). CI runs without the local file — catches hardcoded patterns
-# (session IDs, Tailscale CGNAT IPs) only. Local runs catch
-# everything: hardcoded + real hostnames, tailnet, agent handles, codenames.
+# tracked contract). CI runs without the local file — catches hardcoded baseline
+# (session IDs, Tailscale CGNAT IPs) only. Local runs catch everything:
+# hardcoded + real hostnames, tailnet, agent handles, codenames.
 # voice-lint.sh is still exempt from this placeholder scan because its own
 # opsec_patterns string contains literal `<tailnet>`/`<codename>`/`<agent-name>`
 # tokens (the scrubbed baseline patterns).

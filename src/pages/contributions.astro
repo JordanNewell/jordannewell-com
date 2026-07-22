@@ -33,7 +33,7 @@ const statusClass: Record<string, string> = {
       <article class="border-l-2 border-cyan pl-4">
         <div class="text-xs font-mono text-fg-muted mb-1 flex flex-wrap items-center gap-x-2 gap-y-1">
           <span>
-            {c.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short" })}
+            {c.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short", timeZone: "UTC" })}
             · <span class="text-cyan">{c.data.type}</span>
             · {c.data.project}
           </span>

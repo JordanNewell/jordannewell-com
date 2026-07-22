@@ -2,7 +2,7 @@
 title: "Pre-launch security sweep: the categories I check before a box goes live"
 description: "Mail-auth, transport posture, web hardening, DNS integrity. The category list — not the receipt. If you're about to open a host that does mail and web on the same IP, this is the floor."
 pubDate: 2026-07-17
-tags: ["rebuild", "infra"]
+tags: ["security", "infra"]
 mode: "hobart"
 kind: "tooling"
 series: ["claude"]

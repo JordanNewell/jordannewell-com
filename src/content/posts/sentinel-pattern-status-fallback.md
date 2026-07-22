@@ -2,7 +2,7 @@
 title: "The sentinel-file pattern: instant fallback when an upstream disappears"
 description: "When status.jordannewell.com's upstream went down, my first two fixes cut latency from 60 seconds to 1.2 seconds. The third cut it to 170 milliseconds. I should have started with the third one."
 pubDate: 2026-07-17
-tags: ["rebuild", "infra"]
+tags: ["tooling", "infra"]
 mode: "hobart"
 kind: "tooling"
 series: ["claude"]

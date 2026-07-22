@@ -2,7 +2,7 @@
 title: "My homeserver was world-readable. Here's what the audit found."
 description: "A proactive security audit on my Matrix homeserver turned up four P0 findings. All closed. Two P1 items stay blocked on bigger migrations. The specifics stay private; the lesson doesn't."
 pubDate: 2026-07-18
-tags: ["rebuild", "infra"]
+tags: ["security", "infra"]
 mode: "hobart"
 series: ["claude", "synapse-wars"]
 tool: "claude-code"

@@ -2,7 +2,7 @@
 title: "Anatomy of a bug report that actually got fixed: my OpenClaw submission"
 description: "What a good bug report looks like, demonstrated via a real one I filed against OpenClaw — community-confirmed, then fixed upstream in six days."
 pubDate: 2026-07-15
-tags: ["rebuild", "contributions"]
+tags: ["contributions", "oss"]
 mode: "hobart"
 project: "openclaw-fleet"
 kind: "tooling"

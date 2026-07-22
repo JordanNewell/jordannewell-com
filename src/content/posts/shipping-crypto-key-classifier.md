@@ -2,7 +2,7 @@
 title: "Shipping crypto-key-classifier: 17 validators, 4 plans, 1 argparse bug caught post-ship"
 description: "Built a tool that classifies any crypto-key string and enumerates the cross-chain addresses the same private key unlocks. The Cosmos HRP swap is the headline. Here's how it shipped."
 pubDate: 2026-07-17
-tags: ["rebuild", "infra", "projects"]
+tags: ["projects", "oss"]
 mode: "hobart"
 project: "crypto-key-classifier"
 kind: "win"

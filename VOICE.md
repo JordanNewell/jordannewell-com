@@ -152,7 +152,7 @@ bash scripts/verify-scrub.sh
 
 Three checks: build still passes, voice lint still passes on all content, no unresolved `<placeholder>` tokens in operational files. CI runs the same checks on push via `.github/workflows/ci.yml`.
 
-**Resolved 2026-07-20:** `scripts/voice-lint.sh` now sources real patterns from a gitignored `scripts/opsec-patterns.local` file at runtime. The tracked `scripts/opsec-patterns.local.example` documents the contract (categories: hostnames, tailnet, codenames, agent handles, services) — copy to `.local` and replace placeholders with real values. CI runs without the `.local` file (catches hardcoded patterns only: session IDs, Tailscale CGNAT IPs). Local runs catch everything.
+**Resolved 2026-07-20:** `scripts/voice-lint.sh` now sources real patterns from a gitignored `scripts/opsec-patterns.local` file at runtime. The tracked `scripts/opsec-patterns.local.example` documents the contract (categories: hostnames, tailnet, codenames, agent handles, services) — copy to `.local` and replace placeholders with real values. CI runs without the `.local` file (catches hardcoded baseline only: session IDs, Tailscale CGNAT IPs). Local runs catch everything.
 
 
 

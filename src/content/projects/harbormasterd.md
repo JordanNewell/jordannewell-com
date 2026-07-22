@@ -11,6 +11,8 @@ order: 5
 facts:
   - k: "shipped"
     v: "2026-07-19"
+  - k: "version"
+    v: "v1.1.0"
   - k: "language"
     v: "Python 3.9+"
   - k: "license"

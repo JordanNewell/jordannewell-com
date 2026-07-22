@@ -11,7 +11,7 @@ facts:
   - k: "shipped"
     v: "2026-07-20"
   - k: "version"
-    v: "v1.1.0"
+    v: "v1.1.2"
   - k: "license"
     v: "MIT"
   - k: "frameworks"
@@ -37,7 +37,7 @@ Compliance checks that actually understand fintech code. Catches the patterns au
 ## Install
 
 ```bash
-npm install -D curtis-compliance
+npm install -D @jordannewell/curtis-compliance
 ```
 
 Pre-commit hook for local checks, GitHub Action for PR review. Hash-chained log for audit defense.

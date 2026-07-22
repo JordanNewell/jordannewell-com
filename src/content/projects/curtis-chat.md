@@ -10,6 +10,8 @@ order: 19
 facts:
   - k: "shipped"
     v: "2026-07-21"
+  - k: "version"
+    v: "v3.0.1"
   - k: "providers"
     v: "30+"
   - k: "form"

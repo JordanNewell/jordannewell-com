@@ -158,8 +158,8 @@ The local `.git/hooks/pre-commit` exists in this checkout — the config just te
 
 - **Voice rules** → `docs/IDENTITY.md`
 - **License** (MIT code + CC BY-NC content + ARR brand) → `LICENSE` file + `/license` page
-- **Original design spec** → `<local-vault>/docs/superpowers/specs/2026-07-15-jordannewell-blog-design.md`
-- **Implementation plan** → `<local-vault>/docs/superpowers/plans/2026-07-15-jordannewell-blog.md`
+- **Original design spec** → `<local-vault>/docs/superpowers/specs/2026-07-15-jordannewell-com-design.md`
+- **Implementation plan** → `<local-vault>/docs/superpowers/plans/2026-07-15-jordannewell-com.md`
 
 ## License
 

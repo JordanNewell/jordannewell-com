@@ -40,7 +40,7 @@ const posts = allPosts
           <article class="border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors">
             <div class="flex items-center gap-3 text-xs font-mono text-fg-muted mb-2">
               <time datetime={p.data.pubDate.toISOString()}>
-                {p.data.pubDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                {p.data.pubDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })}
               </time>
               {p.data.kind && <span class="uppercase tracking-wider">{p.data.kind}</span>}
             </div>

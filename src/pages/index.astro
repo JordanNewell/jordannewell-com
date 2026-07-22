@@ -104,7 +104,7 @@ const buildTime = new Date();
     {posts.map((post) => (
       <a href={`/posts/${post.id}/`} class="post-item">
         <div class="post-date">
-          {post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+          {post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" })}
         </div>
         <div class="post-title">{post.data.title}</div>
         <div class="post-desc">{post.data.description}</div>

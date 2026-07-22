@@ -1,0 +1,139 @@
+---
+// Split-hero CTA shown above the footer on every page.
+// Two big cards: Buy me a coffee (left) + Sponsor on GitHub (right).
+---
+
+<section class="support-cta max-w-prose mx-auto px-5 mb-16 mt-16">
+  <div class="support-eyebrow font-mono">// support my work</div>
+  <div class="support-grid">
+    <a
+      href="https://buymeacoffee.com/jordannewell"
+      target="_blank"
+      rel="noopener"
+      class="support-card support-bmc"
+      aria-label="Buy me a coffee (one-time support via Buy Me a Coffee)"
+    >
+      <span class="support-emoji" aria-hidden="true">☕</span>
+      <span class="support-body">
+        <span class="support-title">Buy me a coffee</span>
+        <span class="support-sub">One-time support for the work.</span>
+      </span>
+      <span class="support-arrow" aria-hidden="true">→</span>
+    </a>
+    <a
+      href="https://github.com/sponsors/JordanNewell"
+      target="_blank"
+      rel="noopener"
+      class="support-card support-gh"
+      aria-label="Sponsor on GitHub (recurring monthly support)"
+    >
+      <span class="support-emoji" aria-hidden="true">❤️</span>
+      <span class="support-body">
+        <span class="support-title">Sponsor on GitHub</span>
+        <span class="support-sub">Recurring. Cancel anytime.</span>
+      </span>
+      <span class="support-arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .support-cta {
+    position: relative;
+    z-index: 1;
+  }
+  .support-eyebrow {
+    font-size: 0.7rem;
+    color: var(--color-fg-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .support-eyebrow::before {
+    content: '';
+    width: 12px;
+    height: 1px;
+    background: var(--color-fg-muted);
+  }
+  .support-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .support-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 22px;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    text-decoration: none;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .support-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    transition: width 0.15s ease;
+  }
+  .support-bmc::before { background: #FFDD00; }
+  .support-gh::before  { background: #EC4899; }
+  .support-card:hover {
+    border-color: var(--color-border-light);
+    background: var(--color-bg-card-hover);
+    transform: translateY(-1px);
+  }
+  .support-card:hover::before { width: 5px; }
+
+  .support-emoji {
+    font-size: 40px;
+    line-height: 1;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 12px currentColor);
+  }
+  .support-bmc .support-emoji { color: #FFDD00; }
+  .support-gh .support-emoji  { color: #EC4899; }
+
+  .support-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+  .support-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-fg);
+    letter-spacing: -0.01em;
+  }
+  .support-sub {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-fg-muted);
+    letter-spacing: 0.02em;
+  }
+  .support-arrow {
+    font-family: var(--font-mono);
+    color: var(--color-fg-muted);
+    font-size: 1rem;
+    transition: transform 0.15s ease, color 0.15s ease;
+  }
+  .support-card:hover .support-arrow {
+    color: var(--color-fg);
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 540px) {
+    .support-grid { grid-template-columns: 1fr; }
+    .support-emoji { font-size: 32px; }
+    .support-card { padding: 18px; }
+  }
+</style>

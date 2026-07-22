@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (c) 2026 Jordan Newell. Licensed under MIT.
-# Source: https://github.com/jordannewell/jordannewell-blog
+# Source: https://github.com/JordanNewell/jordannewell-com
 #
 # Copies source markdown for each post to dist/posts/<slug>.md so LLMs can fetch clean source.
 # Run after `astro build` and before deploy.

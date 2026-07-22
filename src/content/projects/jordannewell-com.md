@@ -4,7 +4,7 @@ description: "This site. Astro SSG, Swiss Minimal dark theme, LLM-discoverable. 
 status: "active"
 tags: ["projects", "web", "oss"]
 startDate: 2026-07-15
-repo: "https://github.com/JordanNewell/jordannewell"
+repo: "https://github.com/JordanNewell/jordannewell-com"
 liveUrl: "https://jordannewell.com"
 order: 3
 facts:

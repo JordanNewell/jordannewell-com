@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (c) 2026 Jordan Newell. Licensed under MIT.
-# Source: https://github.com/JordanNewell/jordannewell
+# Source: https://github.com/JordanNewell/jordannewell-com
 #
 # Snapshots the current jordannewell.com site before a deploy clobbers it.
 # Idempotent: timestamped directories, never overwrites.

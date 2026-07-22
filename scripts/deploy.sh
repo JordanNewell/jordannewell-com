@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (c) 2026 Jordan Newell. Licensed under MIT.
-# Source: https://github.com/JordanNewell/jordannewell
+# Source: https://github.com/JordanNewell/jordannewell-com
 #
 # Builds the Astro site, generates .md mirrors, backs up the current production site,
 # and ships the new build via tar-over-ssh (no rsync dependency).

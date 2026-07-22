@@ -1,23 +1,41 @@
 ---
 title: "Temporal Git"
-description: "Git blame on steroids. Travel through time to find when bugs were introduced."
-status: "exploratory"
+description: "Automated git bisect — find which commit introduced a bug with one command. Point it at a failing test or symptom script and let it drive the bisect."
+status: "shipped"
 tags: ["projects", "tools", "oss"]
+shipDate: 2026-07-21
 repo: "https://github.com/JordanNewell/temporal-git"
+pkg: "https://www.npmjs.com/package/temporal-git"
 order: 21
 facts:
-  - k: "status"
-    v: "exploratory"
+  - k: "shipped"
+    v: "2026-07-21"
+  - k: "version"
+    v: "v2.1.4"
   - k: "form"
-    v: "CLI + VS Code"
+    v: "CLI"
+  - k: "downloads"
+    v: "600+"
+  - k: "license"
+    v: "MIT"
 highlights:
-  - title: "Timeline visualization"
-    body: "Code history rendered as a navigable timeline. Click any point, see what changed."
+  - title: "One-command bisect"
+    body: "Point it at a failing test or a symptom script. Temporal Git drives the bisect — checkout, test, mark good/bad — until it isolates the introducing commit."
   - title: "Bug-introduction tracing"
-    body: "Pick a line, walk backwards to the commit that introduced the pattern. Automated bisect adjacent."
+    body: "Pick a line, walk backwards to the commit that introduced the pattern. Pairs naturally with the automated bisect."
 stack:
   - "TypeScript"
-  - "VS Code Extension API"
+  - "Node.js"
 ---
 
-VS Code extension that visualizes code history as a timeline. Go back to any point, see what changed, trace when a bug was introduced. Exploratory — concept validated, extension prototype built.
+Automated git bisect. Tell it how to detect the bug — a failing test, a symptom script, a manual prompt — and Temporal Git runs the checkout-test-mark loop until it isolates the introducing commit. One command instead of fifteen.
+
+Shipped to npm 2026-07-21. Five patch versions landed same day as the rough edges got sanded down. 600+ downloads in the first 24 hours — more traction than anything else I've shipped this quarter.
+
+Install:
+
+```bash
+npm install -g temporal-git
+```
+
+GitHub releases coming once the surface stabilizes — for now, npm is the canonical artifact.

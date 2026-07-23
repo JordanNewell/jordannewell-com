@@ -2,7 +2,7 @@
 title: "Tools don't get co-author credit: the DeWalt rule for git commits"
 description: "Every AI coding tool wants to add 'Co-Authored-By: Claude' to your commits. Most builders let it happen. Here's why you shouldn't — and a git hook that strips the trailer before it lands."
 pubDate: 2026-07-18
-tags: ["tooling", "git-hygiene"]
+tags: ["tooling"]
 mode: "hobart"
 kind: "tooling"
 series: ["claude"]

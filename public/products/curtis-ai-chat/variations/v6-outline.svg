@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none" role="img" aria-label="Outline">
+  <defs>
+    <linearGradient id="v6c" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+    <linearGradient id="v6b" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="v6s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path d="M 60 14 A 30 30 0 1 0 60 66" stroke="url(#v6c)" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M 56 22 A 22 22 0 1 0 56 58" stroke="url(#v6c)" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <g transform="translate(42 40)">
+    <path d="M -9 -9 H 7 Q 11 -9 11 -5 V 3 Q 11 7 7 7 H -1 L -9 13 L -7 7 H -9 Q -13 7 -13 3 V -5 Q -13 -9 -9 -9 Z" fill="url(#v6b)"/>
+    <path d="M -9 -9 H 7 Q 11 -9 11 -5 V 3 Q 11 7 7 7 H -1 L -9 13 L -7 7 H -9 Q -13 7 -13 3 V -5 Q -13 -9 -9 -9 Z" fill="url(#v6s)"/>
+    <circle cx="-3" cy="-1" r="1.5" fill="#09090B" opacity="0.85"/>
+    <circle cx="1"  cy="-1" r="1.5" fill="#09090B" opacity="0.85"/>
+    <circle cx="5"  cy="-1" r="1.5" fill="#09090B" opacity="0.85"/>
+  </g>
+</svg>

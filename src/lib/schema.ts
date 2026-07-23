@@ -93,6 +93,50 @@ export function creativeWorkSchema(opts: {
   };
 }
 
+export function softwareApplicationSchema(opts: {
+  name: string;
+  description: string;
+  slug: string;
+  repo?: string;
+  homepage?: string;
+  license?: string;
+  shipDate?: Date;
+  pricing?: string;
+  faq?: Array<{ q: string; a: string }>;
+}) {
+  const pageUrl = `${SITE.url}/products/${opts.slug}`;
+  return {
+    "@type": "SoftwareApplication",
+    "@id": `${pageUrl}#app`,
+    name: opts.name,
+    description: opts.description,
+    url: pageUrl,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Cross-platform",
+    author: { "@id": `${SITE.url}/#person` },
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    ...(opts.repo && { codeRepository: opts.repo }),
+    ...(opts.homepage && { isBasedOn: opts.homepage }),
+    ...(opts.license && {
+      license: opts.license === "MIT"
+        ? "https://opensource.org/licenses/MIT"
+        : opts.license,
+    }),
+    ...(opts.shipDate && { datePublished: opts.shipDate.toISOString() }),
+    ...(opts.faq && opts.faq.length > 0 && {
+      mainEntity: opts.faq.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    }),
+  };
+}
+
 export function graphSchema(...types: object[]) {
   return {
     "@context": "https://schema.org",

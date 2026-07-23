@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none" role="img" aria-label="Serif">
+  <defs>
+    <linearGradient id="v3b" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="v3s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <text x="40" y="68" font-family="Georgia, 'Times New Roman', serif" font-size="86" font-weight="700" fill="#7C3AED" text-anchor="middle">C</text>
+  <g transform="translate(44 42)">
+    <path d="M -8 -8 H 6 Q 10 -8 10 -4 V 2 Q 10 6 6 6 H -2 L -8 12 L -6 6 H -8 Q -12 6 -12 2 V -4 Q -12 -8 -8 -8 Z" fill="url(#v3b)"/>
+    <path d="M -8 -8 H 6 Q 10 -8 10 -4 V 2 Q 10 6 6 6 H -2 L -8 12 L -6 6 H -8 Q -12 6 -12 2 V -4 Q -12 -8 -8 -8 Z" fill="url(#v3s)"/>
+    <circle cx="-3" cy="-1" r="1.4" fill="#09090B" opacity="0.85"/>
+    <circle cx="1"  cy="-1" r="1.4" fill="#09090B" opacity="0.85"/>
+    <circle cx="5"  cy="-1" r="1.4" fill="#09090B" opacity="0.85"/>
+  </g>
+</svg>

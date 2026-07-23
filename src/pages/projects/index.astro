@@ -2,14 +2,24 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
-const projects = (await getCollection("projects"))
-  .sort((a, b) => a.data.order - b.data.order);
+const allProjects = await getCollection("projects");
+const projects = [...allProjects].sort((a, b) => a.data.order - b.data.order);
+
+const countBy = (status: string) => allProjects.filter((p) => p.data.status === status).length;
+const counts = {
+  total: allProjects.length,
+  shipped: countBy("shipped"),
+  active: countBy("active"),
+  exploratory: countBy("exploratory"),
+  deprecated: countBy("deprecated"),
+};
 
 const statusColors: Record<string, string> = {
   active: "#34D399",
   shipped: "#60A5FA",
   exploratory: "#A1A1AA",
   "venture-track": "#FBBF24",
+  deprecated: "#71717A",
 };
 
 const pkgLabel = (url: string): string => {
@@ -26,12 +36,123 @@ const pkgLabel = (url: string): string => {
 };
 ---
 
+<style>
+  /* HERO */
+  .projects-hero {
+    position: relative;
+    padding: 2.5rem 2rem;
+    margin-bottom: 2.5rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+  .projects-hero-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 60% at 100% 0%, color-mix(in srgb, var(--color-blue) 22%, transparent), transparent 60%),
+      radial-gradient(ellipse 60% 70% at 0% 100%, color-mix(in srgb, var(--color-green) 12%, transparent), transparent 55%);
+  }
+  .projects-hero-content {
+    position: relative;
+    z-index: 1;
+  }
+  .projects-hero-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-green);
+    margin-bottom: 0.75rem;
+  }
+  .projects-hero-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-fg);
+    margin-bottom: 0.75rem;
+  }
+  .projects-hero-tagline {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    color: var(--color-blue);
+    line-height: 1.3;
+    margin-bottom: 0.625rem;
+    max-width: 60ch;
+  }
+  .projects-hero-desc {
+    font-size: 1rem;
+    color: var(--color-fg-secondary);
+    line-height: 1.65;
+    max-width: 65ch;
+    margin-bottom: 1.5rem;
+  }
+  .hero-link {
+    color: var(--color-green);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .hero-link:hover {
+    color: color-mix(in srgb, var(--color-green) 80%, transparent);
+  }
+  .projects-hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+  .stat-pill {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    background: color-mix(in srgb, var(--color-bg) 50%, transparent);
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--color-fg);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+</style>
+
 <BaseLayout title="Projects" description="What I've built, in public.">
-  <header class="mb-10">
-    <h1 class="font-display font-bold text-4xl mb-3">/projects</h1>
-    <p class="text-fg-secondary">
-      Real software and systems I've shipped or am actively building.
-    </p>
+  <header class="projects-hero">
+    <div class="projects-hero-glow"></div>
+    <div class="projects-hero-content">
+      <span class="projects-hero-eyebrow">// building in public</span>
+      <h1 class="projects-hero-title">/projects</h1>
+      <p class="projects-hero-tagline">
+        Built in public. Shipped work, in-flight experiments, and the occasional detour.
+      </p>
+      <p class="projects-hero-desc">
+        The raw output of an operator who ships as they learn. Polished work lives at <a href="/products" class="hero-link">/products</a> — this is the wider bench: tools in daily use, repos under active maintenance, and explorations that may or may not become something.
+      </p>
+      <div class="projects-hero-stats">
+        <span class="stat-pill"><span class="stat-num">{counts.total}</span> total</span>
+        <span class="stat-pill"><span class="stat-num">{counts.shipped}</span> shipped</span>
+        <span class="stat-pill"><span class="stat-num">{counts.active}</span> active</span>
+        <span class="stat-pill"><span class="stat-num">{counts.exploratory}</span> exploratory</span>
+        {counts.deprecated > 0 && (
+          <span class="stat-pill"><span class="stat-num">{counts.deprecated}</span> deprecated</span>
+        )}
+      </div>
+    </div>
   </header>
 
   <div class="space-y-4">

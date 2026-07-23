@@ -21,6 +21,7 @@ const statusColors: Record<string, string> = {
   shipped: "text-blue",
   exploratory: "text-amber",
   "venture-track": "text-violet",
+  deprecated: "text-fg-muted",
 };
 
 const schema = [
@@ -37,27 +38,23 @@ const schema = [
 
 <BaseLayout title={title} description={description} schema={schema}>
   <article class="prose">
-    <header class="mb-10">
-      <div class="flex items-center gap-3 text-sm font-mono mb-3">
-        <span class:list={["px-2 py-0.5 rounded", statusColors[status]]}>
-          {status}
-        </span>
-        {tags.map((tag) => <TagPill tag={tag} />)}
-      </div>
-      <h1 class="font-display font-bold text-4xl md:text-5xl leading-tight mb-3">{title}</h1>
-      <p class="text-xl text-fg-secondary">{description}</p>
-      {(repo || liveUrl) && (
-        <div class="flex gap-4 mt-4 text-sm font-mono">
-          {repo && <a href={repo} class="text-green hover:underline">source ↗</a>}
-          {liveUrl && <a href={liveUrl} class="text-green hover:underline">live ↗</a>}
+    <header class="project-hero">
+      <div class="project-hero-glow"></div>
+      <div class="project-hero-content">
+        <div class="project-hero-badges">
+          <span class={`status-pill ${statusColors[status]}`}>{status}</span>
+          {tags.map((tag) => <TagPill tag={tag} />)}
         </div>
-      )}
+        <h1 class="project-hero-title">{title}</h1>
+        <p class="project-hero-desc">{description}</p>
+        {(repo || liveUrl) && (
+          <div class="project-hero-links">
+            {repo && <a href={repo} class="project-link" target="_blank" rel="noopener">source ↗</a>}
+            {liveUrl && <a href={liveUrl} class="project-link" target="_blank" rel="noopener">live ↗</a>}
+          </div>
+        )}
+      </div>
     </header>
-    <div
-      class="h-px mb-8"
-      style="background: linear-gradient(90deg, color-mix(in srgb, var(--color-green) 60%, transparent), color-mix(in srgb, var(--color-green) 20%, transparent) 30%, transparent 70%);"
-    >
-    </div>
     {project.data.facts && project.data.facts.length > 0 && (
       <section class="mb-8">
         <h2 class="font-mono text-xs uppercase tracking-widest text-fg-muted mb-3">At a glance</h2>
@@ -120,3 +117,75 @@ const schema = [
     <PostShare url={shareUrl} title={title} />
   </article>
 </BaseLayout>
+
+<style>
+  .project-hero {
+    position: relative;
+    padding: 2rem 1.75rem;
+    margin-bottom: 2.5rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+  .project-hero-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 60% at 100% 0%, color-mix(in srgb, var(--color-blue) 22%, transparent), transparent 60%),
+      radial-gradient(ellipse 60% 70% at 0% 100%, color-mix(in srgb, var(--color-green) 12%, transparent), transparent 55%);
+  }
+  .project-hero-content {
+    position: relative;
+    z-index: 1;
+  }
+  .project-hero-badges {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+  .project-hero-badges :global(.status-pill),
+  .project-hero-badges .status-pill {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.25rem;
+    background: color-mix(in srgb, var(--color-bg) 50%, transparent);
+    border: 1px solid var(--color-border);
+  }
+  .project-hero-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--color-fg);
+    margin-bottom: 0.625rem;
+  }
+  .project-hero-desc {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: var(--color-fg-secondary);
+    line-height: 1.5;
+    max-width: 65ch;
+    margin-bottom: 1rem;
+  }
+  .project-hero-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+  .project-link {
+    color: var(--color-green);
+    text-decoration: none;
+  }
+  .project-link:hover { text-decoration: underline; text-underline-offset: 2px; }
+</style>

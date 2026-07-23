@@ -13,32 +13,130 @@ const schema = [dwTrim];
 ---
 
 <BaseLayout title="Ventures" description="Operating roles with real stake — not advisory, not passive." schema={schema}>
-  <main class="max-w-prose mx-auto px-5 py-12">
-    <header class="mb-12">
-      <p class="text-sm font-mono text-fg-muted mb-2">operating</p>
-      <h1 class="font-display font-bold text-4xl mb-3">Ventures</h1>
-      <p class="text-fg-secondary">Business affiliations with real stake. Not advisory, not passive.</p>
-    </header>
-
-    <article class="border border-border rounded-lg p-5 mb-4">
-      <div class="flex items-baseline justify-between mb-2 gap-4">
-        <h2 class="font-display font-bold text-lg">
-          <a href="https://dwtrimco.com" target="_blank" rel="noopener" class="hover:text-green transition-colors">DW Trim</a>
-        </h2>
-        <span class="text-xs font-mono text-fg-muted whitespace-nowrap">Managing Partner</span>
+  <header class="ventures-hero">
+    <div class="ventures-hero-glow"></div>
+    <div class="ventures-hero-content">
+      <span class="ventures-hero-eyebrow">// operating</span>
+      <h1 class="ventures-hero-title">/ventures</h1>
+      <p class="ventures-hero-tagline">
+        Real operating stake. Not advisory, not passive.
+      </p>
+      <p class="ventures-hero-desc">
+        Business affiliations with real equity, P&amp;L ownership, and operating responsibility. Distinct from consulting gigs and passive investments — multi-year commitments to build something specific alongside a trusted partner.
+      </p>
+      <div class="ventures-hero-stats">
+        <span class="stat-pill"><span class="stat-num">1</span> active</span>
+        <span class="stat-pill"><span class="stat-num">0</span> advisory</span>
+        <span class="stat-pill"><span class="stat-num">0</span> passive</span>
+        <span class="stat-pill"><span class="stat-num">Tampa Bay</span> FL</span>
       </div>
-      <p class="text-fg-secondary text-sm mb-3">
-        Carpentry company operating in the greater Tampa Bay area. Dante Woodson owns the trade and serves as principal craftsman; I'm joining as Managing Partner to own the backend — operations, tech stack, the scaling playbook.
-      </p>
-      <p class="text-fg-secondary text-sm mb-3">
-        We're explicit about who's the senior in the craft and who's the senior in growth. Dante trains and oversees; I build the systems that let the craft scale.
-      </p>
-      <p class="text-fg-secondary text-sm mb-3">
-        Prior: NewellsWork — B2B turnkey contractor services, project management, estimation and bidding. Half-dead now, but the playbook (and the scars) carried forward.
-      </p>
-      <p class="text-fg-secondary text-sm">
-        Strategic bet: prove the scaling playbook on DW Trim's proven craft business with existing customer base, then springboard follow-on ventures.
-      </p>
-    </article>
-  </main>
+    </div>
+  </header>
+
+  <article class="border border-border rounded-lg p-5 mb-4">
+    <div class="flex items-baseline justify-between mb-2 gap-4">
+      <h2 class="font-display font-bold text-lg">
+        <a href="https://dwtrimco.com" target="_blank" rel="noopener" class="hover:text-green transition-colors">DW Trim</a>
+      </h2>
+      <span class="text-xs font-mono text-fg-muted whitespace-nowrap">Managing Partner</span>
+    </div>
+    <p class="text-fg-secondary text-sm mb-3">
+      Carpentry company operating in the greater Tampa Bay area. Dante Woodson owns the trade and serves as principal craftsman; I joined as Managing Partner to own the backend — operations, tech stack, the scaling playbook.
+    </p>
+    <p class="text-fg-secondary text-sm mb-3">
+      We are explicit about who is the senior in the craft and who is the senior in growth. Dante trains and oversees; I build the systems that let the craft scale.
+    </p>
+    <p class="text-fg-secondary text-sm mb-3">
+      Prior: NewellsWork — B2B turnkey contractor services, project management, estimation and bidding. Half-dead now, but the playbook (and the scars) carried forward.
+    </p>
+    <p class="text-fg-secondary text-sm">
+      Strategic bet: prove the scaling playbook on DW Trim's proven craft business with existing customer base, then springboard follow-on ventures.
+    </p>
+  </article>
+
+  <style>
+    .ventures-hero {
+      position: relative;
+      padding: 2.5rem 2rem;
+      margin-bottom: 2.5rem;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+    .ventures-hero-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 60% at 100% 0%, color-mix(in srgb, var(--color-amber) 22%, transparent), transparent 60%),
+        radial-gradient(ellipse 60% 70% at 0% 100%, color-mix(in srgb, var(--color-green) 12%, transparent), transparent 55%);
+    }
+    .ventures-hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .ventures-hero-eyebrow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-green);
+      margin-bottom: 0.75rem;
+    }
+    .ventures-hero-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.25rem, 5vw, 3.25rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--color-fg);
+      margin-bottom: 0.75rem;
+    }
+    .ventures-hero-tagline {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      color: var(--color-amber);
+      line-height: 1.3;
+      margin-bottom: 0.625rem;
+      max-width: 60ch;
+    }
+    .ventures-hero-desc {
+      font-size: 1rem;
+      color: var(--color-fg-secondary);
+      line-height: 1.65;
+      max-width: 65ch;
+      margin-bottom: 1.5rem;
+    }
+    .ventures-hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.625rem;
+    }
+    .stat-pill {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.375rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-fg-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.375rem 0.75rem;
+      border: 1px solid var(--color-border);
+      border-radius: 0.25rem;
+      background: color-mix(in srgb, var(--color-bg) 50%, transparent);
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--color-fg);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+  </style>
 </BaseLayout>

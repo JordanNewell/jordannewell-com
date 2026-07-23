@@ -1,0 +1,181 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const variations = [
+  { id: "v1-block",    name: "Block",    desc: "Bold rounded C + bubble with tail and dots. Current default." },
+  { id: "v2-orbit",    name: "Orbit",    desc: "Thin elegant C, large round bubble, no tail. Minimal." },
+  { id: "v3-serif",    name: "Serif",    desc: "Georgia-serif C + modern bubble. Literary, sophisticated." },
+  { id: "v4-heavy",    name: "Heavy",    desc: "Super-bold slab C with square caps + small bubble. Brutalist." },
+  { id: "v5-mono",     name: "Mono",     desc: "JetBrains Mono C + modern bubble. Technical, terminal-feel." },
+  { id: "v6-outline",  name: "Outline",  desc: "Double-stroke outline C + slightly larger bubble. Inverted weight." },
+  { id: "v7-double",   name: "Double",   desc: "Two stacked bubbles in C cavity — multi-model motif." },
+  { id: "v8-whisper",  name: "Whisper",  desc: "Very thin C + tiny circle. Ultra-minimal." },
+];
+---
+
+<BaseLayout title="Logo Variations" description="Curtis AI Chat logo explorations — pick one.">
+  <header class="mb-10">
+    <h1 class="font-display font-bold text-4xl mb-3">/logo-variations</h1>
+    <p class="text-fg-secondary">
+      Eight directions. Same brand colors (violet C + green bubble).
+      Tell me which one (or which combination) and we promote it to <code class="text-green">logo.svg</code>.
+    </p>
+  </header>
+
+  <div class="grid">
+    {variations.map((v) => (
+      <article class="card">
+        <header class="card-head">
+          <h2 class="card-name">{v.name}</h2>
+          <code class="card-id">{v.id}</code>
+        </header>
+        <p class="card-desc">{v.desc}</p>
+
+        <div class="sizes">
+          <div class="size size-lg">
+            <img src={`/products/curtis-ai-chat/variations/${v.id}.svg?v=1`} width="120" height="120" alt={`${v.name} large`} />
+            <span class="size-label">120px</span>
+          </div>
+          <div class="size size-md">
+            <img src={`/products/curtis-ai-chat/variations/${v.id}.svg?v=1`} width="56" height="56" alt={`${v.name} medium`} />
+            <span class="size-label">56px</span>
+          </div>
+          <div class="size size-sm">
+            <img src={`/products/curtis-ai-chat/variations/${v.id}.svg?v=1`} width="24" height="24" alt={`${v.name} small`} />
+            <span class="size-label">24px</span>
+          </div>
+        </div>
+
+        <a class="card-link" href={`/products/curtis-ai-chat/variations/${v.id}.svg?v=1`} target="_blank" rel="noopener">view raw svg ↗</a>
+      </article>
+    ))}
+  </div>
+
+  <section class="callout">
+    <h2 class="callout-h">How to pick</h2>
+    <p class="callout-p">
+      Eyeball them at all three sizes — a logo that sings at 120px can fall apart at 24px (the favicon range). Block, Heavy, Outline, and Double hold up best small. Whisper and Orbit go minimal but lose the "chat" read at favicon size.
+    </p>
+    <p class="callout-p">
+      When you've picked: tell me which one (e.g. "v3 but with the heavy C"). I'll promote it to <code class="text-green">logo.svg</code> and delete this preview page.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .card {
+    padding: 1.25rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+  .card:hover {
+    border-color: var(--color-border-light);
+  }
+  .card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-fg);
+  }
+  .card-id {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .card-desc {
+    font-size: 0.875rem;
+    color: var(--color-fg-secondary);
+    line-height: 1.55;
+    min-height: 2.6em;
+  }
+  .sizes {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .size {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  .size img {
+    display: block;
+  }
+  .size-lg img {
+    width: 120px;
+    height: 120px;
+  }
+  .size-md img {
+    width: 56px;
+    height: 56px;
+  }
+  .size-sm img {
+    width: 24px;
+    height: 24px;
+  }
+  .size-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .card-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-green);
+    text-decoration: none;
+    align-self: flex-start;
+  }
+  .card-link:hover {
+    text-decoration: underline;
+  }
+  .callout {
+    padding: 1.25rem 1.5rem;
+    background: var(--color-bg-card);
+    border-left: 2px solid var(--color-green);
+    border-radius: 0.25rem;
+  }
+  .callout-h {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .callout-p {
+    font-size: 0.9375rem;
+    color: var(--color-fg-secondary);
+    line-height: 1.65;
+    margin-bottom: 0.5rem;
+  }
+  .callout-p:last-child {
+    margin-bottom: 0;
+  }
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--color-green);
+  }
+</style>

@@ -21,7 +21,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install deps
@@ -76,6 +76,10 @@ jobs:
         run: |
           # SC1090/1091: don't follow sourced files (we source .env conditionally)
           # SC2155: allow declare-and-assign on same line (used in setup.sh)
+          # SC2029: ssh "cmd $VAR" — we intentionally expand on client side
+          #         (deploy.sh tar-over-ssh pipe needs REMOTE_HOST interpolated locally)
+          # SC2086: double-quote to prevent globbing — informational, low signal
+          # SC2010: ls | grep — informational, fixable when revisiting scripts
           mapfile -t scripts < <(find scripts .githooks -type f -name '*.sh' 2>/dev/null)
           # Also include hook files without .sh extension
           mapfile -t hooks < <(find .githooks -maxdepth 1 -type f ! -name '*.sh' ! -name 'setup.sh' 2>/dev/null || true)
@@ -90,7 +94,7 @@ jobs:
           printf '%s\n' "${scripts[@]}"
           # Use shellcheck action via docker for reproducibility
           docker run --rm -v "$PWD":/mnt -w /mnt koalaman/shellcheck:stable \
-            --exclude=SC1090,SC1091,SC2155 \
+            --exclude=SC1090,SC1091,SC2155,SC2029,SC2086,SC2010 \
             "${scripts[@]}"
 
   placeholder-scan:

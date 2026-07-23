@@ -145,4 +145,4 @@ The DeWalt rule. Tools get paid. Humans get credit.
 
 ---
 
-*The hooks are at [github.com/JordanNewell/git-hygiene](https://github.com/JordanNewell/git-hygiene). The signature pattern these repos follow is documented at [/signature](/signature). Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra).*
+*The hooks are at [github.com/JordanNewell/git-hygiene](https://github.com/JordanNewell/git-hygiene). The signature pattern these repos follow is documented at [/signature](/signature). Filed under [/tooling](/tags/tooling).*

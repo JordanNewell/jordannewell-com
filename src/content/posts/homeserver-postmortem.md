@@ -95,3 +95,5 @@ Three things:
 The dead host's disks stay mounted read-only on a recovery host until I commit to hardware. Services stay down until then. It's not the cleanest place to be, but it's where the rebuild actually is.
 
 Server's down. Next post is whatever ships next.
+
+If you made it this far, I appreciate it. — JN

@@ -74,6 +74,9 @@ If you're staring at a string you don't recognize: `pip install -e .` and start 
 
 If you find a chain the tool doesn't recognize, drop a validator in `src/ckc/validators/` — they auto-discover. If you find a bug, file it. I read issues.
 
+
+If you made it this far, I appreciate it. — JN
+
 ---
 
 *Filed under [/rebuild](/tags/rebuild) and [/projects](/projects). Project page: [crypto-key-classifier](/projects/crypto-key-classifier). Source: [github.com/JordanNewell/crypto-key-classifier](https://github.com/JordanNewell/crypto-key-classifier).*

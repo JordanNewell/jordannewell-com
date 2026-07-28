@@ -88,3 +88,5 @@ The corpus is now shaped to support Phase 2 (upload to a knowledge base for RAG)
 ## The lesson
 
 Hardware constraints are planning inputs, not footnotes. I built a 15-minute estimate around a GPU that didn't exist and shipped a 21-hour job instead. The local-first property was worth the runtime cost — my own conversations stay on my own disk — but the cost was 30x what I'd planned for, and the planning error was entirely avoidable. Verify the hardware before you estimate the runtime.
+
+If you made it this far, I appreciate it. — JN

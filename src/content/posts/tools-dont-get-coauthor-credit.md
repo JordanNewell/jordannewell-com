@@ -143,6 +143,9 @@ If you hold it in one place, you'll eventually drift. If you hold it in all thre
 
 The DeWalt rule. Tools get paid. Humans get credit.
 
+
+If you made it this far, I appreciate it. — JN
+
 ---
 
 *The hooks are at [github.com/JordanNewell/git-hygiene](https://github.com/JordanNewell/git-hygiene). The signature pattern these repos follow is documented at [/signature](/signature). Filed under [/tooling](/tags/tooling).*

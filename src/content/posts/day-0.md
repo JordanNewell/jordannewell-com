@@ -54,3 +54,6 @@ If you're new, the short tour is:
 Subscribe via [RSS](/rss.xml) or [JSON feed](/feed.json). Newsletter coming soon.
 
 Server's still down. Next post is the post-mortem.
+
+
+If you made it this far, I appreciate it. — JN

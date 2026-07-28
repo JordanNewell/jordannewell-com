@@ -60,6 +60,9 @@ If you've never done this and you're running your own box:
 
 That's the floor. Above this floor is hardening. Below it is exposure.
 
+
+If you made it this far, I appreciate it. — JN
+
 ---
 
 *Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra). The specific configs, the audit receipt, and the gap analysis stay private — this is the category list.*

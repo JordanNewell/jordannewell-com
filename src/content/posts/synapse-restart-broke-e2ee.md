@@ -62,6 +62,9 @@ Synapse restarts are not safe by default. Wrap them.
 
 The wrapper is shipped. The next homeserver restart won't be a coin flip on whether the fleet recovers. That's the win. The four hours of silence already happened.
 
+
+If you made it this far, I appreciate it. — JN
+
 ---
 
 *Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra). Previous in the Synapse Wars series: [the audit](/posts/synapse-audit).*

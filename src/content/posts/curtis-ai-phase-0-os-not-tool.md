@@ -51,3 +51,5 @@ Second, the scale of the aspiration. The document floated phrases like "the Kube
 ## The point
 
 The reframe is the artifact worth keeping. A tool is something you use. An operating system is something you build on. The distinction changes every downstream decision — what you invest in, what you throw away, what you measure, what you ship. I got that right in August 2025. The platform question is still open.
+
+If you made it this far, I appreciate it. — JN

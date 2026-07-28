@@ -56,6 +56,9 @@ The crypto-state drift bug class — server-side crypto state drifts from agent 
 
 That wrapper is next. Then MAS, then pepper — each in its own session, each with a canary.
 
+
+If you made it this far, I appreciate it. — JN
+
 ---
 
 *Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra). Next in the Synapse Wars series: the restart-triggered E2EE exhaustion.*

@@ -102,6 +102,9 @@ The static `incident.html` was themed to match the main site's palette. Same fon
 
 The fallback is part of the product, not an apology for the product.
 
+
+If you made it this far, I appreciate it. — JN
+
 ---
 
 *Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra). The engage/disengage one-liners above are the full recipe.*

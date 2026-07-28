@@ -62,6 +62,9 @@ The only defense is monitoring on the primitives. Peer count, resolver health, e
 
 Pipeline's back. Library's clean. Next post is whatever breaks next.
 
+
+If you made it this far, I appreciate it. — JN
+
 ---
 
 *Filed under [/rebuild](/tags/rebuild) and [/infra](/tags/infra).*

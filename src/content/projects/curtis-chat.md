@@ -1,6 +1,6 @@
 ---
 title: "Curtis Chat"
-description: "The earlier name for what's now Curtis AI Chat. Started as ObsidiBuddi, became Curtis Chat at v3, evolved into Curtis AI Chat at v4. This page is the evolution story."
+description: "The earlier name for what's now Curtis AI Chat. Started as ObsidiBuddi, became Curtis Chat at v3, evolved into Curtis AI Chat at v1 (new plugin ID, fresh major version). This page is the evolution story."
 status: "deprecated"
 successor: "curtis-ai-chat"
 deprecatedDate: 2026-07-22
@@ -13,7 +13,7 @@ facts:
   - k: "status"
     v: "Deprecated"
   - k: "successor"
-    v: "Curtis AI Chat v4"
+    v: "Curtis AI Chat v1"
   - k: "final version"
     v: "v3.0.1"
   - k: "deprecated"
@@ -22,7 +22,7 @@ facts:
     v: "MIT"
 ---
 
-> **This project has a new name and a new home.** Continue to [**Curtis AI Chat**](/products/curtis-ai-chat/) — the v4 successor with agent tools, multi-model arena, voice I/O, and 30+ providers.
+> **This project has a new name and a new home.** Continue to [**Curtis AI Chat**](/products/curtis-ai-chat/) — the v1 successor with agent tools, multi-model arena, voice I/O, and 30+ providers.
 
 ## The short version
 
@@ -46,12 +46,12 @@ The plugin outgrew the "buddy" framing. By v3 it supported 30+ providers, had va
 
 v3.0.0 shipped 2026-07-20. v3.0.1 followed the next day with housekeeping from Obsidian's community plugin review feedback. Listed at `community.obsidian.md/plugins/curtis` — directory entry still works, points at v3.0.1.
 
-## Phase 3 — Curtis AI Chat (v4.0.0, 2026-07-22)
+## Phase 3 — Curtis AI Chat (v1.0.0, 2026-07-22)
 
 Two days after v3, the scope jumped again. Eight flagship features landed in a single release:
 
 - Curtis Agent — AI calls tools to read/create/edit vault notes
-- Multi-model arena — stream one prompt to 2–5 models side-by-side
+- Multi-model arena — stream one prompt to 2 models side-by-side
 - Inline diff rewrite — Cursor-style rewrite with Accept/Reject diff modal
 - @-mention vault notes
 - Voice I/O (Whisper STT + browser TTS)
@@ -63,14 +63,14 @@ Plus a full type-safety pass — every external JSON response shape strictly typ
 
 **The rename:** Curtis Chat → **Curtis AI Chat**. Two reasons:
 
-1. The plugin ID changed from `curtis` to `curtis-ai-chat` (the v4 release is breaking — install state can't auto-carry across ID changes, so a clean break made more sense than a migration shim).
+1. The plugin ID changed from `curtis` to `curtis-ai-chat` (the v1 release is breaking — new plugin ID, fresh major version. Install state can't auto-carry across ID changes, so a clean break made more sense than a migration shim).
 2. "Curtis Chat" was hard to find in the Obsidian directory for users searching "chat". Adding "AI" puts the search-discoverable keyword in the name.
 
 ## Why break the install ID
 
-Every previous rename was just a display-name change — the underlying plugin ID stayed `curtis`, so existing installs auto-upgraded. v4 doesn't have that luxury. The decision matrix:
+Every previous rename was just a display-name change — the underlying plugin ID stayed `curtis`, so existing installs auto-upgraded. v1 doesn't have that luxury. The decision matrix:
 
-- **Keep ID `curtis`, bump major** — users get auto-upgraded but the v4 type-safety work and declarative-settings modernization want a clean foundation. Carrying v1→v2→v3 migration shims indefinitely is technical debt.
+- **Keep ID `curtis`, bump major** — users get auto-upgraded but the type-safety work and declarative-settings modernization want a clean foundation. Carrying v1→v2→v3 migration shims indefinitely is technical debt.
 - **Change ID to `curtis-ai-chat`** — clean break, fresh directory entry, no legacy state to honor. Existing v3 installs reinstall fresh. Honest about the breaking change.
 
 I took the second path. v3 installs need to reinstall; conversation history keyed under the old ID doesn't carry over. API keys live in the OS keychain per-plugin, so they need re-entering once under the new plugin's settings.
@@ -79,9 +79,9 @@ I took the second path. v3 installs need to reinstall; conversation history keye
 
 | What | Where |
 |---|---|
-| **Current release (v4.0.0+)** | [/products/curtis-ai-chat/](/products/curtis-ai-chat/) |
+| **Current release (v1.0.0+)** | [/products/curtis-ai-chat/](/products/curtis-ai-chat/) |
 | Source | [github.com/JordanNewell/curtis-ai-chat](https://github.com/JordanNewell/curtis-ai-chat) |
-| Old `curtis` directory entry | [community.obsidian.md/plugins/curtis](https://community.obsidian.md/plugins/curtis) — still lists v3.0.1, will be marked superseded once the v4 directory review clears |
+| Old `curtis` directory entry | [community.obsidian.md/plugins/curtis](https://community.obsidian.md/plugins/curtis) — still lists v3.0.1, will be marked superseded once the v1 directory review clears |
 | Old GitHub repo | [github.com/JordanNewell/curtis-chat](https://github.com/JordanNewell/curtis-chat) — redirects to the new repo automatically |
 
 ## Lessons from three renames

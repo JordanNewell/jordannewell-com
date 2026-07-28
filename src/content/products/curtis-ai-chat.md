@@ -43,7 +43,7 @@ features:
     docUrl: "https://github.com/JordanNewell/curtis-ai-chat/blob/master/docs/AGENT.md"
   - icon: "⚔️"
     title: "Multi-model arena"
-    body: "Pick 2–5 models, send one prompt, watch responses stream side-by-side. Click Promote to chat on any column to continue with that model. Compare quality, latency, and cost live."
+    body: "Pick 2 models, send one prompt, watch responses stream side-by-side. Click Promote to chat on any column to continue with that model. Compare quality, latency, and cost live."
     docUrl: "https://github.com/JordanNewell/curtis-ai-chat/blob/master/docs/ARENA.md"
   - icon: "🎨"
     title: "Inline diff rewrite"
@@ -93,7 +93,7 @@ comparison:
 privacy: "All vault access is user-initiated — agent tools when you invoke them, image picker when you click the paperclip, folder picker when you configure auto-save or wallpaper, @-mention when you type @. No file contents are sent to AI providers except message text, attached images, attached note contents, and tool-call results. API keys are stored in your OS keychain (Windows Credential Manager, macOS Keychain, Linux Secret Service), never in the vault. No telemetry, no tracking, no phone-home."
 faq:
   - q: "On v3 (Curtis). Do I need to do anything?"
-    a: "Yes — v4.0.0 changes the plugin ID from curtis to curtis-ai-chat. Existing v3 installs need to reinstall; the ID change is not auto-migratable. Conversation history keyed under the old ID won't carry over. Disable the old plugin, install the new one, re-enter API keys (they live in the OS keychain per-plugin, not per-provider, so they need re-entering once)."
+    a: "Yes — v1.0.0 changes the plugin ID from curtis to curtis-ai-chat. Existing v3 installs need to reinstall; the ID change is not auto-migratable. Conversation history keyed under the old ID won't carry over. Disable the old plugin, install the new one, re-enter API keys (they live in the OS keychain per-plugin, not per-provider, so they need re-entering once)."
   - q: "Does it work fully offline?"
     a: "Yes. Install Ollama (ollama.com), run ollama pull qwen2.5:7b-instruct or whatever model you prefer, then enable Ollama (Local) in provider settings. No API key. Nothing leaves your machine. The agent tools, memory, image attachments — every feature works the same way."
   - q: "Does it work on mobile?"
@@ -114,7 +114,7 @@ Every existing Obsidian AI plugin on the market nailed one workflow — chat, RA
 
 Local-first via Ollama when you don't want anything to leave your machine. Cloud providers when you want frontier models. Same plugin, same vault, same conversation history. Your data stays yours.
 
-## What shipped in v4.0.0
+## What shipped in v1.0.0
 
 Eight flagship features, a full type-safety pass (no `any` at any provider boundary — every external JSON response shape is strictly typed with narrowing at the boundary), and Sigstore build-provenance attestations on every release asset.
 

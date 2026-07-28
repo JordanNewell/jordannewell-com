@@ -93,19 +93,21 @@ const platforms = [
   .share-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     background: transparent;
     border: 1px solid var(--border);
     color: var(--fg-secondary);
-    padding: 8px 16px;
+    padding: 12px 24px;
     border-radius: 999px;
     cursor: pointer;
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     letter-spacing: 0.04em;
     transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
   .share-btn:hover {
     border-color: var(--border-light);
@@ -113,28 +115,28 @@ const platforms = [
     background: var(--bg-card);
   }
   .share-btn:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid var(--color-green);
     outline-offset: 2px;
   }
   .share-btn.liked {
-    border-color: rgba(96, 165, 250, 0.5);
-    background: rgba(96, 165, 250, 0.08);
+    border-color: rgba(52, 211, 153, 0.5);
+    background: rgba(52, 211, 153, 0.08);
     color: var(--fg);
   }
 
   .share-emoji {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     line-height: 1;
     display: inline-block;
     transform-origin: 50% 70%;
     transition: transform 0.15s ease;
-    /* Tint the emoji solid blue (preserves shape, strips original color) */
+    /* Tint the emoji solid green (preserves shape, strips original color) */
     filter:
       brightness(0)
       saturate(100%)
-      invert(25%) sepia(95%) saturate(2200%) hue-rotate(199deg)
-      brightness(97%) contrast(101%)
-      drop-shadow(0 0 6px rgba(96, 165, 250, 0.5));
+      invert(64%) sepia(87%) saturate(410%) hue-rotate(108deg)
+      brightness(96%) contrast(92%)
+      drop-shadow(0 0 6px rgba(52, 211, 153, 0.5));
   }
   .share-btn:not(.liked) .share-emoji {
     opacity: 0.85;
@@ -151,7 +153,7 @@ const platforms = [
     text-align: right;
   }
   .share-btn.liked .share-count {
-    color: var(--color-blue);
+    color: var(--color-green);
   }
   .share-count.bumped {
     animation: count-bump 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -196,7 +198,7 @@ const platforms = [
     border-radius: 14px;
     padding: 14px;
     min-width: 280px;
-    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(96, 165, 250, 0.08);
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(52, 211, 153, 0.08);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.18s ease, transform 0.18s ease;
@@ -263,7 +265,7 @@ const platforms = [
     align-items: center;
     justify-content: center;
     gap: 4px;
-    padding: 12px 6px;
+    padding: 14px 8px;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.02);
     color: var(--fg-secondary);
@@ -274,6 +276,8 @@ const platforms = [
     text-transform: uppercase;
     border: 1px solid transparent;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
     transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
   }
   .share-platform:hover {
@@ -300,117 +304,29 @@ const platforms = [
       padding: 8px 16px;
     }
     .share-emoji {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
     }
+  }
+
+  /* Mobile: popup becomes centered overlay (no clipping by containers) */
+  @media (max-width: 640px) {
     .share-popup {
-      min-width: 260px;
+      position: fixed;
+      bottom: auto;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      min-width: 0;
+      width: calc(100vw - 2rem);
+      max-width: 340px;
+    }
+    .share-popup.open {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .share-popup-arrow {
+      display: none;
     }
   }
 </style>
 
-<script>
-  document.querySelectorAll('[data-share-root]').forEach((root) => {
-    const btn = root.querySelector('[data-share-btn]');
-    const popup = root.querySelector('[data-share-popup]');
-    const closeBtn = root.querySelector('[data-share-close]');
-    const copyBtn = root.querySelector('[data-share-copy]');
-    const emailLink = root.querySelector('[data-platform="email"]');
-    const countEl = root.querySelector('[data-share-count]');
-
-    if (!btn || !popup) return;
-
-    // ---- Like state (localStorage per post URL; backend deferred) ----
-    const shareUrl = root.getAttribute('data-share-url') || window.location.pathname;
-    const likeKey = `jn:like:${shareUrl}`;
-    const readLike = () => {
-      try {
-        const stored = JSON.parse(localStorage.getItem(likeKey) || 'null');
-        if (stored && typeof stored.count === 'number') return stored;
-      } catch {}
-      return { count: 0, liked: false };
-    };
-    const writeLike = (state) => {
-      try { localStorage.setItem(likeKey, JSON.stringify(state)); } catch {}
-    };
-    const renderLike = () => {
-      const state = readLike();
-      if (countEl) countEl.textContent = String(state.count);
-      btn.classList.toggle('liked', state.liked);
-    };
-    const bumpCount = () => {
-      if (!countEl) return;
-      countEl.classList.remove('bumped');
-      void countEl.offsetWidth;
-      countEl.classList.add('bumped');
-    };
-    const registerLike = () => {
-      const state = readLike();
-      if (state.liked) return;
-      state.count += 1;
-      state.liked = true;
-      writeLike(state);
-      if (countEl) countEl.textContent = String(state.count);
-      bumpCount();
-      btn.classList.add('liked');
-    };
-    renderLike();
-
-    // ---- Popup open/close ----
-    const toggle = (open) => {
-      popup.hidden = !open;
-      requestAnimationFrame(() => popup.classList.toggle('open', open));
-      btn.setAttribute('aria-expanded', String(open));
-    };
-
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const willOpen = popup.hidden || !popup.classList.contains('open');
-      if (willOpen) {
-        btn.classList.remove('bouncing');
-        void btn.offsetWidth;
-        btn.classList.add('bouncing');
-        setTimeout(() => btn.classList.remove('bouncing'), 700);
-        registerLike();
-      }
-      toggle(willOpen);
-    });
-
-    closeBtn?.addEventListener('click', () => toggle(false));
-
-    document.addEventListener('click', (e) => {
-      if (!root.contains(e.target)) toggle(false);
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') toggle(false);
-    });
-
-    // ---- Email: build mailto at click time (dodge CF email obfuscation) ----
-    emailLink?.addEventListener('click', (e) => {
-      e.preventDefault();
-      const subject = encodeURIComponent(root.getAttribute('data-email-subject') || '');
-      const body = encodeURIComponent(root.getAttribute('data-email-body') || '');
-      window.location.href = `mailto:?subject=${subject}&body=${body}`;
-    });
-
-    // ---- Copy URL ----
-    copyBtn?.addEventListener('click', async () => {
-      const url = copyBtn.getAttribute('data-copy-url') || '';
-      const label = copyBtn.querySelector('[data-copy-label]');
-      try {
-        await navigator.clipboard.writeText(url);
-        if (label) {
-          const original = label.textContent;
-          label.textContent = 'Copied';
-          copyBtn.classList.add('copied');
-          setTimeout(() => {
-            label.textContent = original;
-            copyBtn.classList.remove('copied');
-          }, 1500);
-        }
-      } catch {
-        if (label) label.textContent = 'Press ⌘C';
-      }
-    });
-  });
-</script>
+<script is:inline src="/js/post-share.js" defer></script>

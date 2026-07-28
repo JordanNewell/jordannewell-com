@@ -1,24 +1,95 @@
 ---
-import { NAV_LINKS, SITE } from "../lib/site";
 const { path } = Astro.props;
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
 ---
 
-<header class="border-b border-border bg-bg/80 backdrop-blur-sm sticky top-0 z-10">
-  <div class="max-w-2xl mx-auto px-5 py-4 flex items-center justify-between gap-6">
-    <a href="/" class="font-display font-bold text-fg hover:text-green transition-colors whitespace-nowrap">
-      {SITE.title}
+<header class="sticky top-0 z-10 site-header">
+  <div class="max-w-2xl mx-auto px-3 sm:px-5 pt-3 pb-1 sm:pt-4 sm:pb-2 flex items-center justify-between gap-3 sm:gap-6">
+    <div class="brand-cluster">
+      <a href="/" class="brand-mark" aria-label="Jordan Newell — home">
+        <img
+          src="/images/coming-soon/newell-wordmark.png"
+          alt="Newell"
+          width="839"
+          height="153"
+          decoding="async"
+        />
+      </a>
+    </div>
+    {/* Curtis absolutely positioned — overflows the menu bar without
+        affecting its height. Header stays wordmark-sized. */}
+    <a
+      href="https://community.obsidian.md/plugins/curtis-ai-chat"
+      target="_blank"
+      rel="noopener"
+      class="nav-curtis-link"
+      aria-label="Curtis AI"
+      title="Curtis AI"
+    >
+      <img
+        src="/images/curtis-ai-corner.png?v=4"
+        alt="Curtis AI"
+        width="66"
+        height="44"
+        loading="async"
+        decoding="async"
+        class="nav-curtis"
+      />
     </a>
-    <nav class="flex items-center gap-5 text-sm">
-      {NAV_LINKS.map((link) => (
-        <a
-          href={link.href}
-          class={`font-mono transition-colors whitespace-nowrap ${
-            path === link.href ? "text-green" : "text-fg-secondary hover:text-fg"
-          }`}
-        >
-          {link.label}
-        </a>
-      ))}
-    </nav>
   </div>
 </header>
+
+<style>
+  /* Header inner div is the positioning context for the absolute Curtis link. */
+  .site-header > div {
+    position: relative;
+  }
+  .brand-cluster {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    line-height: 0;
+  }
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+    text-decoration: none;
+  }
+  .brand-mark img {
+    display: block;
+    height: 28px;
+    width: auto;
+    transition: filter 0.18s ease;
+  }
+  .brand-mark:hover img {
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-green) 60%, transparent));
+  }
+  @media (min-width: 640px) {
+    .brand-mark img { height: 34px; }
+  }
+  /* Curtis absolutely positioned — overflows the menu bar without affecting
+     layout height. Header stays wordmark-sized; Curtis can grow freely. */
+  .nav-curtis-link {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translate(0, -50%) translateY(15px);
+    line-height: 0;
+    text-decoration: none;
+    z-index: 5;
+  }
+  .nav-curtis {
+    display: block;
+    height: 96px;
+    width: auto;
+    transition: filter 0.18s ease;
+  }
+  @media (min-width: 640px) {
+    .nav-curtis { height: 108px; }
+  }
+  .nav-curtis-link:hover .nav-curtis {
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-green) 60%, transparent));
+  }
+</style>

@@ -27,3 +27,9 @@ scripts/opsec-patterns.local
 
 # Brainstorming visual companion
 .superpowers/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example

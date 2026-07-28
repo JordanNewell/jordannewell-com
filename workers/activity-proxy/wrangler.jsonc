@@ -1,0 +1,8 @@
+{
+  "name": "jordannewell-activity",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-01",
+  "routes": [
+    { "pattern": "jordannewell.com/api/activity*", "custom_domain": false }
+  ]
+}

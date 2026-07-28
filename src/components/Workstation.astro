@@ -1,0 +1,368 @@
+---
+import StatusTerminal from "./StatusTerminal.astro";
+import KeyboardBase from "./KeyboardBase.astro";
+
+// Single status LED on the chassis bezel — replaces the redundant
+// "Shipping" pill + "live" pulse pair. One signal, one place.
+---
+
+<section class="ws" aria-label="Jordan Newell — workstation">
+  <div class="ws-inner">
+  {/* Top bezel with status LED + brand mark */}
+  <header class="ws-bezel">
+    <div class="ws-led" aria-label="Status: shipping" title="Shipping">
+      <span class="ws-led-dot"></span>
+      <span class="ws-led-label">shipping</span>
+    </div>
+    <div class="ws-brand" aria-hidden="true">jn-1000</div>
+    <div class="ws-vents" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </header>
+
+  {/* CRT screen housing the live activity terminal */}
+  <div class="ws-screen">
+    <div class="ws-screen-frame">
+      <div class="ws-screen-glass">
+        <StatusTerminal embedded={true} />
+      </div>
+    </div>
+  </div>
+
+  {/* Deck: keyboard on the left, trackball + brand plate on the right.
+      Same horizontal plane — trackball lives NEXT TO the keyboard, not below. */}
+  <div class="ws-deck">
+    <div class="ws-keyboard-bay">
+      <KeyboardBase />
+    </div>
+    <div class="ws-side-panel">
+      <div class="ws-trackball" aria-hidden="true" title="Trackball">
+        <div class="ws-trackball-ring"></div>
+        <div class="ws-trackball-dome"></div>
+        <div class="ws-trackball-hilight"></div>
+      </div>
+      <div class="ws-brand-plate" aria-hidden="true">
+        <span class="ws-brand-plate-label">NEWELL</span>
+        <span class="ws-brand-plate-sub">jn-1000</span>
+      </div>
+      <div class="ws-indicator-row">
+        <span class="ws-indicator ws-indicator-green" title="Power"></span>
+        <span class="ws-indicator ws-indicator-amber" title="Activity"></span>
+      </div>
+    </div>
+  </div>
+
+  {/* Chassis base / ground shadow */}
+  <div class="ws-base" aria-hidden="true"></div>
+  </div>
+</section>
+
+<style>
+  /* Wrap in 3D perspective so the whole chassis tilts as one object */
+  .ws {
+    width: 100%;
+    max-width: 720px;
+    margin: 24px auto 0;
+    position: relative;
+    perspective: 1600px;
+    perspective-origin: 50% 30%;
+  }
+  .ws-inner {
+    transform: rotateX(18deg);
+    transform-origin: center 70%;
+    transition: transform 0.4s ease;
+    background:
+      /* top bevel highlight */
+      linear-gradient(180deg,
+        rgba(63, 255, 70, 0.10) 0%,
+        transparent 4px,
+        transparent 100%),
+      /* side shading for faux-3D edges */
+      linear-gradient(90deg,
+        rgba(0, 0, 0, 0.6) 0%,
+        transparent 8px,
+        transparent calc(100% - 8px),
+        rgba(0, 0, 0, 0.6) 100%),
+      /* vertical body gradient */
+      linear-gradient(180deg,
+        #14141a 0%,
+        #08080b 35%,
+        #050507 65%,
+        #101015 100%);
+    border: 1.5px solid #3FFF46;
+    border-radius: 16px 16px 22px 22px;
+    padding: 0 0 6px;
+    box-shadow:
+      0 0 0 1px rgba(63, 255, 70, 0.12),
+      inset 0 2px 0 rgba(255, 255, 255, 0.06),
+      inset 0 -6px 12px rgba(0, 0, 0, 0.85),
+      inset 6px 0 14px -6px rgba(0, 0, 0, 0.7),
+      inset -6px 0 14px -6px rgba(0, 0, 0, 0.7),
+      0 40px 70px rgba(0, 0, 0, 0.9),
+      0 22px 36px rgba(0, 0, 0, 0.7),
+      0 0 80px rgba(63, 255, 70, 0.10);
+    overflow: hidden;
+    position: relative;
+  }
+  /* Visible chassis thickness — a darker rim that sits below the front face
+     and gives the unit actual 3D depth when tilted. */
+  .ws-base {
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    bottom: -10px;
+    height: 16px;
+    background: linear-gradient(180deg,
+      #050507 0%,
+      #000 60%,
+      transparent 100%);
+    border-radius: 0 0 18px 18px;
+    box-shadow:
+      0 12px 24px rgba(0, 0, 0, 0.9),
+      0 0 0 1px rgba(63, 255, 70, 0.08);
+    z-index: -1;
+  }
+
+  /* Top bezel */
+  .ws-bezel {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 16px;
+    background: linear-gradient(180deg,
+      rgba(63, 255, 70, 0.06) 0%,
+      transparent 100%);
+    border-bottom: 1px solid rgba(63, 255, 70, 0.18);
+  }
+  .ws-led {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #3FFF46;
+  }
+  .ws-led-dot {
+    width: 7px;
+    height: 7px;
+    background: #3FFF46;
+    border-radius: 50%;
+    box-shadow:
+      0 0 8px #3FFF46,
+      0 0 2px #3FFF46,
+      inset 0 0 2px rgba(255, 255, 255, 0.5);
+    animation: ws-blink 2.4s ease-in-out infinite;
+  }
+  @keyframes ws-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  .ws-brand {
+    flex: 1;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: rgba(63, 255, 70, 0.45);
+    text-transform: uppercase;
+  }
+  .ws-vents {
+    display: inline-flex;
+    gap: 3px;
+  }
+  .ws-vents span {
+    width: 3px;
+    height: 10px;
+    background: rgba(63, 255, 70, 0.18);
+    border-radius: 1px;
+  }
+
+  /* CRT screen housing */
+  .ws-screen {
+    padding: 18px 22px 22px;
+    background: #000;
+    position: relative;
+  }
+  .ws-screen-frame {
+    background: #0a0a0a;
+    border: 1px solid rgba(63, 255, 70, 0.25);
+    border-radius: 6px;
+    padding: 4px;
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.8),
+      inset 0 0 24px rgba(63, 255, 70, 0.08);
+  }
+  .ws-screen-glass {
+    background: #000;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    /* CRT scanlines */
+    background-image:
+      linear-gradient(0deg,
+        transparent 0%,
+        rgba(63, 255, 70, 0.025) 50%,
+        transparent 100%);
+    background-size: 100% 3px;
+    box-shadow:
+      inset 0 0 30px rgba(63, 255, 70, 0.06),
+      inset 0 0 60px rgba(0, 0, 0, 0.8);
+  }
+  /* Subtle vignette on the CRT glass */
+  .ws-screen-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 50%,
+      rgba(0, 0, 0, 0.4) 100%);
+  }
+
+  /* Deck: keyboard left, side panel (trackball + plate + LEDs) right.
+     Both sit on the same plane — trackball is BESIDE the keyboard. */
+  .ws-deck {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    padding: 14px 18px 16px;
+  }
+  .ws-keyboard-bay {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ws-keyboard-bay :global(.kb) {
+    transform: rotateX(14deg);
+    transform-origin: center 75%;
+    transition: transform 0.35s ease;
+  }
+  /* Vertical separator between keyboard bay and side panel */
+  .ws-side-panel {
+    flex: 0 0 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0 8px 14px;
+    border-left: 1px solid rgba(63, 255, 70, 0.15);
+    box-shadow: inset 4px 0 8px -4px rgba(0, 0, 0, 0.6);
+  }
+  .ws-indicator-row {
+    display: inline-flex;
+    gap: 6px;
+  }
+  .ws-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 6px currentColor, inset 0 0 1px rgba(255, 255, 255, 0.4);
+  }
+  .ws-indicator-green { background: #3FFF46; color: #3FFF46; }
+  .ws-indicator-amber { background: #FBBF24; color: #FBBF24; }
+
+  /* Brand plate — stamped metal look */
+  .ws-brand-plate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    padding: 4px 10px;
+    border: 1px solid rgba(63, 255, 70, 0.18);
+    border-radius: 3px;
+    background:
+      linear-gradient(180deg,
+        rgba(63, 255, 70, 0.04) 0%,
+        rgba(0, 0, 0, 0.4) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  }
+  .ws-brand-plate-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.32em;
+    color: rgba(63, 255, 70, 0.7);
+  }
+  .ws-brand-plate-sub {
+    font-family: var(--font-mono);
+    font-size: 0.45rem;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.25);
+    text-transform: uppercase;
+  }
+
+  /* Trackball — bigger dome with stronger 3D, sits beside keyboard */
+  .ws-trackball {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+  }
+  .ws-trackball-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 40%,
+      #030303 0%,
+      #0a0a0a 55%,
+      #18181d 100%);
+    box-shadow:
+      inset 0 3px 6px rgba(0, 0, 0, 0.95),
+      inset 0 -2px 3px rgba(63, 255, 70, 0.18),
+      0 0 0 1px rgba(63, 255, 70, 0.3),
+      0 4px 12px rgba(0, 0, 0, 0.8),
+      0 0 18px rgba(63, 255, 70, 0.18);
+  }
+  .ws-trackball-dome {
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 32% 28%,
+        #4a4a52 0%,
+        #2a2a30 20%,
+        #16161a 50%,
+        #050505 85%,
+        #000 100%);
+    box-shadow:
+      inset 0 -5px 10px rgba(0, 0, 0, 0.9),
+      inset 0 4px 6px rgba(255, 255, 255, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+  .ws-trackball-hilight {
+    position: absolute;
+    top: 9px;
+    left: 14px;
+    width: 18px;
+    height: 11px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.05) 60%,
+      transparent 80%);
+    filter: blur(1.5px);
+    transform: rotate(-15deg);
+  }
+
+  @media (max-width: 768px) {
+    .ws {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .ws-screen {
+      padding: 12px;
+    }
+    .ws-keyboard-deck {
+      overflow-x: auto;
+      padding: 12px 8px 6px;
+    }
+  }
+</style>

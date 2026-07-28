@@ -11,8 +11,8 @@ POSTS_SRC="src/content/posts"
 DIST_POSTS="dist/posts"
 
 if [ ! -d "$DIST_POSTS" ]; then
-  echo "dist/posts not found — run npm run build first"
-  exit 1
+  echo "dist/posts not found — skipping .md mirror generation (site is locked / no posts in this build)"
+  exit 0
 fi
 
 echo "Generating .md mirrors in $DIST_POSTS/ ..."

@@ -1,0 +1,717 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostShare from "../components/PostShare.astro";
+import { SITE } from "../lib/site";
+
+const shareUrl = `${SITE.url}/today/`;
+const shareTitle = "Jordan Newell — Today";
+
+const pkgs = [
+  {
+    name: "curtis-compliance",
+    icon: "🛡",
+    accent: "green",
+    version: "v1.2.0",
+    updated: "2 days ago",
+    desc: "Automated compliance checks for fintech code. Pre-commit gate, PR review, and audit logging.",
+    tags: ["HIPAA", "SOC 2", "PCI-DSS"],
+    install: "npm i @jordannewell/curtis-compliance",
+    href: "https://www.npmjs.com/package/@jordannewell/curtis-compliance",
+    stats: "474 downloads · MIT",
+  },
+  {
+    name: "temporal-git",
+    icon: "⎇",
+    accent: "violet",
+    version: "v2.1.4",
+    updated: "3 days ago",
+    desc: "Find which commit introduced a bug with one command. Git bisect, but actually usable.",
+    tags: [],
+    install: "npm i temporal-git",
+    href: "https://www.npmjs.com/package/temporal-git",
+    stats: "654 downloads · MIT",
+  },
+  {
+    name: "harbormasterd",
+    icon: "⚓",
+    accent: "cyan",
+    version: "v1.1.0",
+    updated: "3 days ago",
+    desc: "Zero-conf port management with automatic HTTPS + DNS for local development.",
+    tags: [],
+    install: "pip install harbormasterd",
+    href: "https://pypi.org/project/harbormasterd/",
+    stats: "new · MIT",
+  },
+  {
+    name: "crypto-key-classifier",
+    icon: "🔑",
+    accent: "amber",
+    version: "v0.6.1",
+    updated: "3 days ago",
+    desc: "Identify crypto keys across BTC, ETH, SOL + more with aggressive recovery.",
+    tags: [],
+    install: "pip install crypto-key-classifier",
+    href: "https://pypi.org/project/crypto-key-classifier/",
+    stats: "new · MIT",
+  },
+];
+
+const accentColor = (a: string) =>
+  ({ green: "var(--color-green)", violet: "var(--color-violet)", cyan: "var(--color-cyan)", amber: "var(--color-amber)" }[a] ?? "var(--color-green)");
+---
+
+<BaseLayout
+  title="Today — Building in public"
+  description="Open source developer tools that solve annoying, real-world problems. All open source. All shipped."
+  ogImage="/today-og.png"
+>
+  <div class="today">
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-eyebrow">
+            <span>TOOLS</span><span>STATUS</span><span class="hero-eyebrow-active">SHIPPING</span>
+          </div>
+          <h1 class="hero-headline">
+            BUILDING IN PUBLIC.<br>
+            <span class="hero-headline-accent">SHIPPING TOOLS</span><br>
+            DEVELOPERS ACTUALLY USE.
+          </h1>
+          <p class="hero-sub">
+            Open source developer tools that solve annoying, real-world problems. All open source. All shipped.
+          </p>
+          <div class="hero-installs">
+            <div class="install-row"><span class="prompt">&gt;</span> <code>npm i @jordannewell/curtis-compliance</code> <span class="ok">installed</span></div>
+            <div class="install-row"><span class="prompt">&gt;</span> <code>npm i temporal-git</code> <span class="ok">installed</span></div>
+            <div class="install-row"><span class="prompt">&gt;</span> <code>pip install harbormasterd</code> <span class="ok">running</span></div>
+            <div class="install-row"><span class="prompt">&gt;</span> <code>pip install crypto-key-classifier</code> <span class="ok">solving problems</span></div>
+          </div>
+        </div>
+
+        <aside class="hero-right">
+          <div class="avatar" role="img" aria-label="Jordan Newell"></div>
+          <h2 class="profile-name">Jordan Newell</h2>
+          <p class="profile-roles">Builder • Developer • Problem Solver</p>
+          <div class="profile-shipping">
+            <div class="profile-shipping-h">// currently shipping</div>
+            <div class="profile-shipping-list">
+              <div class="profile-shipping-item"><span class="ps-name">curtis-ai-chat</span><span class="ps-v">v1.0.2</span></div>
+              <div class="profile-shipping-item"><span class="ps-name">curtis-compliance</span><span class="ps-v">v1.2.0</span></div>
+              <div class="profile-shipping-item"><span class="ps-name">temporal-git</span><span class="ps-v">v2.1.4</span></div>
+              <div class="profile-shipping-item"><span class="ps-name">harbormasterd</span><span class="ps-v">v1.1.0</span></div>
+              <div class="profile-shipping-item"><span class="ps-name">crypto-key-classifier</span><span class="ps-v">v0.6.1</span></div>
+            </div>
+          </div>
+          <PostShare url={shareUrl} title={shareTitle} />
+        </aside>
+      </div>
+    </header>
+
+    <!-- FEATURED TOOL -->
+    <section class="featured">
+      <div class="featured-eyebrow">★ FEATURED</div>
+      <div class="featured-card">
+        <div class="featured-main">
+          <div class="featured-icon">💬</div>
+          <div class="featured-content">
+            <div class="featured-name">Curtis AI Chat</div>
+            <div class="featured-type">OBSIDIAN COMMUNITY PLUGIN</div>
+            <p class="featured-desc">
+              Polyglot AI chat with 30+ providers (Anthropic, OpenAI, Gemini, Ollama, OpenRouter, Groq, and more), image attachments, long-term memory, slash commands, and inline actions — all inside Obsidian.
+            </p>
+            <div class="featured-cta">
+              <a href="https://community.obsidian.md/plugins/curtis-ai-chat" target="_blank" rel="noopener" class="featured-button">
+                <span>◈</span> Add to Obsidian
+              </a>
+              <span class="featured-stat">5+ downloads</span>
+            </div>
+          </div>
+        </div>
+        <div class="featured-panel">
+          <div class="panel-tag">OFFICIAL Obsidian Community Plugin</div>
+          <div class="panel-row">
+            <div class="panel-label">Anthropic Claude</div>
+            <div class="panel-controls">
+              <span class="panel-enabled">Enable</span>
+              <span class="panel-toggle is-on"></span>
+              <code>API Key</code>
+              <span class="panel-key">sk-ant-…</span>
+            </div>
+          </div>
+          <div class="panel-row">
+            <div class="panel-label">OpenAI</div>
+            <div class="panel-controls">
+              <span class="panel-enabled">Enable</span>
+              <span class="panel-toggle is-on"></span>
+              <code>API Key</code>
+              <span class="panel-key">sk-…</span>
+            </div>
+          </div>
+          <div class="panel-row">
+            <div class="panel-label">Google Gemini</div>
+            <div class="panel-controls">
+              <span class="panel-enabled">Enable</span>
+              <span class="panel-toggle is-on"></span>
+              <code>API Key</code>
+              <span class="panel-key">sk-…</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEVELOPER TOOLS GRID -->
+    <section class="tools">
+      <h2 class="tools-h">&lt;/&gt; DEVELOPER TOOLS</h2>
+      <div class="tools-grid">
+        {pkgs.map((p) => (
+          <a href={p.href} target="_blank" rel="noopener" class="tool-card" style={`--tool-accent: ${accentColor(p.accent)};`}>
+            <div class="tool-head">
+              <span class="tool-icon">{p.icon}</span>
+              <div>
+                <div class="tool-name">{p.name}</div>
+                <div class="tool-version">{p.version} • {p.updated}</div>
+              </div>
+            </div>
+            <p class="tool-desc">{p.desc}</p>
+            {p.tags.length > 0 && (
+              <div class="tool-tags">
+                {p.tags.map((t) => <span class="tool-tag">{t}</span>)}
+              </div>
+            )}
+            <div class="tool-install"><code>{p.install}</code></div>
+            <div class="tool-stats">{p.stats}</div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- FOOTER CTA -->
+    <footer class="cta">
+      <div class="cta-rocket">🚀</div>
+      <h2 class="cta-h">THIS IS JUST THE BEGINNING.</h2>
+      <p class="cta-sub">More ideas. More tools. More solving.</p>
+      <a href="/posts" class="cta-button">FOLLOW THE JOURNEY →</a>
+      <div class="cta-support">
+        <span class="cta-support-label">or support the work</span>
+        <a href="https://buymeacoffee.com/jordannewell" target="_blank" rel="noopener" class="cta-support-link">
+          <span aria-hidden="true">☕</span> Buy a coffee
+        </a>
+        <a href="https://github.com/sponsors/JordanNewell" target="_blank" rel="noopener" class="cta-support-link">
+          <span aria-hidden="true">🤍</span> Sponsor on GitHub
+        </a>
+      </div>
+    </footer>
+  </div>
+</BaseLayout>
+
+<style>
+  .today {
+    max-width: 70rem;
+    margin-inline: auto;
+    padding-block: 1rem 4rem;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 1.75rem 1.75rem;
+    margin-bottom: 2.5rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 50% at 100% 0%, color-mix(in srgb, var(--color-green) 25%, transparent), transparent 60%),
+      radial-gradient(ellipse 50% 60% at 0% 100%, color-mix(in srgb, var(--color-violet) 15%, transparent), transparent 55%);
+  }
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 1.75rem;
+    align-items: stretch;
+  }
+  @media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr; }
+  }
+  .hero-eyebrow {
+    display: flex;
+    gap: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-fg-muted);
+    margin-bottom: 1rem;
+  }
+  .hero-eyebrow-active { color: var(--color-green); }
+  .hero-headline {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--color-fg);
+    margin-bottom: 0.875rem;
+  }
+  .hero-headline-accent { color: var(--color-green); }
+  .hero-sub {
+    font-size: 0.9375rem;
+    color: var(--color-fg-secondary);
+    line-height: 1.5;
+    margin-bottom: 1.125rem;
+    max-width: 50ch;
+  }
+  .hero-installs {
+    background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    margin-bottom: 0.875rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+  .install-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.125rem 0;
+  }
+  .install-row .prompt { color: var(--color-green); }
+  .install-row code { color: var(--color-fg); flex: 1; }
+  .install-row .ok {
+    color: var(--color-green);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .hero-checks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-green);
+  }
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.125rem 1rem;
+    background: color-mix(in srgb, var(--color-bg) 60%, transparent);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+  }
+  .avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-image: url('/pfp.png');
+    background-size: 180%;
+    background-position: center 18%;
+    margin-bottom: 0.625rem;
+    filter: drop-shadow(0 0 12px color-mix(in srgb, var(--color-green) 40%, transparent));
+  }
+  .profile-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    color: var(--color-fg);
+    margin-bottom: 0.125rem;
+  }
+  .profile-roles {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-green);
+    margin-bottom: 0.75rem;
+  }
+  .profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+  .profile-link {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-fg-secondary);
+    text-decoration: none;
+    padding: 0.2rem 0.4rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+  }
+  .profile-link:hover { border-color: var(--color-fg); color: var(--color-fg); }
+  .profile-link-violet { color: var(--color-violet); }
+  .profile-link-green { color: var(--color-green); }
+  .profile-shipping {
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.5rem;
+    width: 100%;
+    margin-top: 0.375rem;
+  }
+  .profile-shipping-h {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.375rem;
+  }
+  .profile-shipping-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-fg-secondary);
+    text-align: left;
+  }
+  .profile-shipping-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .profile-shipping-item .ps-name { color: var(--color-fg); }
+  .profile-shipping-item .ps-v { color: var(--color-green); }
+
+  /* FEATURED */
+  .featured {
+    margin-bottom: 2.5rem;
+  }
+  .featured-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-violet);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+  }
+  .featured-card {
+    background: var(--color-bg-card);
+    border: 1px solid color-mix(in srgb, var(--color-violet) 40%, var(--color-border));
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+  .featured-main {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--color-violet) 8%, transparent), transparent);
+  }
+  @media (max-width: 600px) {
+    .featured-main { grid-template-columns: 1fr; }
+  }
+  .featured-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, #FBBF24, var(--color-violet));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+  }
+  .featured-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--color-fg);
+  }
+  .featured-type {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-violet);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-block: 0.25rem 0.5rem;
+  }
+  .featured-desc {
+    font-size: 0.9375rem;
+    color: var(--color-fg-secondary);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .featured-cta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .featured-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--color-violet);
+    color: var(--color-fg);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+  }
+  .featured-button:hover { background: color-mix(in srgb, var(--color-violet) 85%, white); }
+  .featured-stat {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-violet);
+  }
+  .featured-panel {
+    background: color-mix(in srgb, var(--color-bg) 50%, transparent);
+    border-top: 1px solid var(--color-border);
+    padding: 1rem 1.5rem;
+  }
+  .panel-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    text-align: right;
+  }
+  .panel-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .panel-row:last-child { border-bottom: 0; }
+  .panel-label {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-fg);
+  }
+  .panel-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+  .panel-enabled {
+    color: var(--color-green);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.65rem;
+  }
+  .panel-toggle {
+    width: 28px;
+    height: 16px;
+    border-radius: 999px;
+    background: var(--color-border);
+    position: relative;
+  }
+  .panel-toggle.is-on {
+    background: var(--color-green);
+  }
+  .panel-toggle.is-on::after {
+    content: '';
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-bg);
+  }
+  .panel-controls code {
+    color: var(--color-fg-secondary);
+    font-size: 0.7rem;
+  }
+  .panel-key {
+    color: var(--color-fg-muted);
+    font-size: 0.7rem;
+  }
+
+  /* TOOLS GRID */
+  .tools { margin-bottom: 2.5rem; }
+  .tools-h {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-green);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding: 1.25rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .tool-card:hover {
+    border-color: var(--tool-accent);
+    transform: translateY(-2px);
+  }
+  .tool-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .tool-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 0.375rem;
+    background: color-mix(in srgb, var(--tool-accent) 15%, transparent);
+    border: 1px solid color-mix(in srgb, var(--tool-accent) 40%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    color: var(--tool-accent);
+  }
+  .tool-name {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--color-fg);
+  }
+  .tool-version {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--tool-accent);
+  }
+  .tool-desc {
+    font-size: 0.875rem;
+    color: var(--color-fg-secondary);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .tool-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+  .tool-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--tool-accent);
+    border: 1px solid color-mix(in srgb, var(--tool-accent) 30%, transparent);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .tool-install {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-green);
+    background: color-mix(in srgb, var(--color-bg) 50%, transparent);
+    padding: 0.375rem 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--color-border);
+  }
+  .tool-stats {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-fg-muted);
+  }
+
+  /* CTA */
+  .cta {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background:
+      radial-gradient(ellipse at top, color-mix(in srgb, var(--color-green) 12%, transparent), transparent 70%),
+      var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+  }
+  .cta-rocket { font-size: 2rem; margin-bottom: 0.75rem; }
+  .cta-h {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--color-fg);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .cta-sub {
+    color: var(--color-fg-secondary);
+    margin-bottom: 1.5rem;
+  }
+  .cta-button {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-green);
+    border: 1px solid var(--color-green);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .cta-button:hover {
+    background: var(--color-green);
+    color: var(--color-bg);
+  }
+  .cta-support {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-fg-muted);
+  }
+  .cta-support-label {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.65rem;
+  }
+  .cta-support-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--color-fg-secondary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .cta-support-link:hover { color: var(--color-green); }
+  .cta-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+  .cta-links a {
+    color: var(--color-fg-secondary);
+    text-decoration: none;
+  }
+  .cta-links a:hover { color: var(--color-green); }
+</style>

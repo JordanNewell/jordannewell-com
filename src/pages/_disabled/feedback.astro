@@ -1,0 +1,317 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const featuredChannels = [
+  {
+    icon: "🐛",
+    title: "Found a bug?",
+    desc: "File an issue with a repro. Triaged fast.",
+    cta: "File a bug report",
+    href: "https://github.com/JordanNewell/curtis-ai-chat/issues/new?labels=bug",
+    accent: "#F87171",
+  },
+  {
+    icon: "💡",
+    title: "Have an idea?",
+    desc: "Feature requests with upvotes. No idea too small.",
+    cta: "Share an idea",
+    href: "https://github.com/JordanNewell/curtis-ai-chat/discussions/new?category=ideas",
+    accent: "#FBBF24",
+  },
+  {
+    icon: "💬",
+    title: "Love it?",
+    desc: "Share what you built, how you use it, or just say thanks.",
+    cta: "Post a review",
+    href: "https://github.com/JordanNewell/curtis-ai-chat/discussions/new?category=show-and-tell",
+    accent: "#34D399",
+  },
+  {
+    icon: "❓",
+    title: "Stuck?",
+    desc: "Setup, provider config, agent mode — ask the community.",
+    cta: "Ask a question",
+    href: "https://github.com/JordanNewell/curtis-ai-chat/discussions/new?category=q-a",
+    accent: "#22D3EE",
+  },
+];
+
+const packages = [
+  {
+    name: "curtis-compliance",
+    install: "npm i @jordannewell/curtis-compliance",
+    desc: "Compliance checks for fintech code",
+    href: "https://github.com/JordanNewell/curtis-compliance/issues",
+    repo: "https://github.com/JordanNewell/curtis-compliance",
+  },
+  {
+    name: "temporal-git",
+    install: "npm i temporal-git",
+    desc: "Find which commit introduced a bug",
+    href: "https://github.com/JordanNewell/temporal-git/issues",
+    repo: "https://github.com/JordanNewell/temporal-git",
+  },
+  {
+    name: "harbormasterd",
+    install: "pip install harbormasterd",
+    desc: "Zero-conf port management for local dev",
+    href: "https://github.com/JordanNewell/harbormasterd/issues",
+    repo: "https://github.com/JordanNewell/harbormasterd",
+  },
+  {
+    name: "crypto-key-classifier",
+    install: "pip install crypto-key-classifier",
+    desc: "Identify crypto keys across chains",
+    href: "https://github.com/JordanNewell/crypto-key-classifier/issues",
+    repo: "https://github.com/JordanNewell/crypto-key-classifier",
+  },
+];
+---
+
+<BaseLayout title="Feedback" description="Bug reports, feature ideas, reviews, questions — for all Jordan Newell's open source tools.">
+  <header class="feedback-hero">
+    <div class="feedback-hero-glow"></div>
+    <div class="feedback-hero-content">
+      <span class="feedback-hero-eyebrow">// feedback loop</span>
+      <h1 class="feedback-hero-title">/feedback</h1>
+      <p class="feedback-hero-tagline">
+        Bug reports, feature ideas, reviews, questions.
+      </p>
+      <p class="feedback-hero-desc">
+        All feedback is public and lives on GitHub — searchable, linked to source, and open to the community. No black-box support tickets. Say it in the open.
+      </p>
+    </div>
+  </header>
+
+  <!-- FEATURED: Curtis AI Chat (has full Discussions setup) -->
+  <section class="featured-section">
+    <div class="featured-label">⚔️ Curtis AI Chat — full feedback channels</div>
+    <div class="channels">
+      {featuredChannels.map((c) => (
+        <a href={c.href} target="_blank" rel="noopener" class="channel-card" style={`--channel-accent: ${c.accent};`}>
+          <div class="channel-icon">{c.icon}</div>
+          <div class="channel-body">
+            <h2 class="channel-title">{c.title}</h2>
+            <p class="channel-desc">{c.desc}</p>
+            <span class="channel-cta" style={`color: ${c.accent};`}>{c.cta} →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- OTHER PACKAGES: bug reports via Issues -->
+  <section class="packages-section">
+    <div class="packages-label">📦 Other packages — file issues</div>
+    <div class="packages-grid">
+      {packages.map((p) => (
+        <a href={p.href} target="_blank" rel="noopener" class="package-card">
+          <div class="package-head">
+            <span class="package-name">{p.name}</span>
+            <code class="package-install">{p.install}</code>
+          </div>
+          <p class="package-desc">{p.desc}</p>
+          <span class="package-cta">File an issue →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- EMAIL FALLBACK -->
+  <section class="email-fallback">
+    <p>
+      No GitHub account? Email <a href="mailto:hello@jordannewell.com" class="email-link">hello@jordannewell.com</a> and the feedback gets posted publicly for you.
+    </p>
+  </section>
+
+  <style>
+    .feedback-hero {
+      position: relative;
+      padding: 2.5rem 2rem;
+      margin-bottom: 2.5rem;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+    .feedback-hero-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 60% at 100% 0%, color-mix(in srgb, var(--color-green) 22%, transparent), transparent 60%),
+        radial-gradient(ellipse 60% 70% at 0% 100%, color-mix(in srgb, var(--color-violet) 12%, transparent), transparent 55%);
+    }
+    .feedback-hero-content { position: relative; z-index: 1; }
+    .feedback-hero-eyebrow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-green);
+      margin-bottom: 0.75rem;
+    }
+    .feedback-hero-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.25rem, 5vw, 3.25rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--color-fg);
+      margin-bottom: 0.75rem;
+    }
+    .feedback-hero-tagline {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      color: var(--color-green);
+      line-height: 1.3;
+      margin-bottom: 0.625rem;
+    }
+    .feedback-hero-desc {
+      font-size: 1rem;
+      color: var(--color-fg-secondary);
+      line-height: 1.65;
+      max-width: 65ch;
+    }
+
+    .featured-section { margin-bottom: 2.5rem; }
+    .featured-label {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--color-violet);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .channels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .channel-card {
+      display: flex;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 0.5rem;
+      text-decoration: none;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .channel-card:hover {
+      border-color: var(--channel-accent);
+      transform: translateY(-2px);
+    }
+    .channel-icon {
+      font-size: 1.75rem;
+      line-height: 1;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 0.5rem;
+      background: color-mix(in srgb, var(--channel-accent) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--channel-accent) 30%, transparent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .channel-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--color-fg);
+      margin-bottom: 0.25rem;
+    }
+    .channel-desc {
+      font-size: 0.875rem;
+      color: var(--color-fg-secondary);
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+    .channel-cta {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      font-weight: 600;
+    }
+
+    .packages-section { margin-bottom: 2.5rem; }
+    .packages-label {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--color-green);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.75rem;
+    }
+    .package-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1.125rem;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 0.5rem;
+      text-decoration: none;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      transition: border-color 0.15s ease;
+    }
+    .package-card:hover {
+      border-color: var(--color-green);
+    }
+    .package-head {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .package-name {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.9375rem;
+      color: var(--color-fg);
+    }
+    .package-install {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--color-green);
+    }
+    .package-desc {
+      font-size: 0.8125rem;
+      color: var(--color-fg-secondary);
+      flex: 1;
+    }
+    .package-cta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-green);
+      font-weight: 600;
+    }
+
+    .email-fallback {
+      padding: 1rem 1.5rem;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 0.5rem;
+      text-align: center;
+      font-size: 0.9375rem;
+      color: var(--color-fg-secondary);
+    }
+    .email-link {
+      color: var(--color-green);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  </style>
+</BaseLayout>

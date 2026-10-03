@@ -59,8 +59,9 @@ const resolvedFavicon = favicon.startsWith("http") ? favicon : `${SITE.url}${fav
     <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" />
     <meta name="copyright" content="© 2026 Jordan Newell. CC BY-NC 4.0." />
     <SchemaOrg schema={schema} />
-    <!-- Cloudflare Web Analytics -->
-    <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "012b8a7bc7594c91aff6f05cab5951fd"}'></script>
+    <!-- Cloudflare Web Analytics token (public, ships in page HTML) -->
+    <meta name="cf-beacon" content='{"token": "012b8a7bc7594c91aff6f05cab5951fd"}' />
+    <script src="/js/cf-beacon.js" defer></script>
   </head>
   <body>
     <div class="dot-grid"></div>

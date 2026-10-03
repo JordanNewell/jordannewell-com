@@ -8,8 +8,11 @@
 
 set -euo pipefail
 
-# Load .env if present (gitignored — see .env.example for required vars)
-[ -f .env ] && set -a && . .env && set +a
+# Load env file if present (gitignored — see .env.example for required vars).
+# Override to deploy a second target, e.g. the dev site:
+#   ENV_FILE=.env.dev bash scripts/deploy.sh
+ENV_FILE="${ENV_FILE:-.env}"
+[ -f "$ENV_FILE" ] && set -a && . "$ENV_FILE" && set +a
 
 # Required env vars — fail loud if missing. See .env.example.
 : "${REMOTE_HOST:?REMOTE_HOST required — copy .env.example to .env and fill in real values}"

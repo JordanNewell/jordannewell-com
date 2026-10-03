@@ -5,7 +5,8 @@
 (function () {
   const USER = "JordanNewell";
   // Production: same-origin Worker proxy at /api/activity.json (avoids CSP + rate limit).
-  // Dev fallback: hit GitHub directly so the terminal works on localhost.
+  // Dev fallback: hit GitHub directly so the terminal works on localhost — and
+  // on any host where the proxy route isn't deployed (see proxyDead below).
   const PROD_URL = "/api/activity.json";
   const DEV_URL = `https://api.github.com/users/${USER}/events/public`;
   const EVENTS_URL = location.hostname === "localhost" || location.hostname === "127.0.0.1"
@@ -25,33 +26,54 @@
 
   let firstRender = true;
 
+  // Set when the same-origin /api/activity proxy is missing (404/5xx — e.g.
+  // the Cloudflare Worker route isn't live on this host). Once set, all
+  // refreshes go straight to api.github.com, which is CORS-open (*).
+  let proxyDead = false;
+
   async function fetchEvents() {
-    const isProxy = EVENTS_URL.startsWith("/") || EVENTS_URL.includes("/api/activity");
-    // 5-minute-bucket cache-bust: URL stays stable within a 5-min window so
-    // the edge cache actually hits. New bucket every 5 min forces a fresh
-    // Worker call (and fresh GitHub fetch). Aligned with the Worker's 300s TTL.
-    const url = isProxy
-      ? `${EVENTS_URL}?t=${Math.floor(Date.now() / 300_000)}`
-      : EVENTS_URL;
-    const res = await fetch(url, isProxy ? {} : {
+    const isProxy = !proxyDead && (EVENTS_URL.startsWith("/") || EVENTS_URL.includes("/api/activity"));
+    if (isProxy) {
+      // 5-minute-bucket cache-bust: URL stays stable within a 5-min window so
+      // the edge cache actually hits. New bucket every 5 min forces a fresh
+      // Worker call (and fresh GitHub fetch). Aligned with the Worker's 300s TTL.
+      const url = `${EVENTS_URL}?t=${Math.floor(Date.now() / 300_000)}`;
+      try {
+        const res = await fetch(url);
+        if (res.status === 403 || res.status === 429) throw new Error("rate-limited");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.error) throw new Error(data.error);
+          // Worker proxy returns { commits, releases } directly.
+          return {
+            parsed: true,
+            commits: (data.commits || []).map((c) => ({ ...c, time: new Date(c.time) })),
+            releases: (data.releases || []).map((r) => ({ ...r, time: new Date(r.time) })),
+          };
+        }
+        if (res.status === 404 || res.status === 405 || res.status >= 500) {
+          // Proxy endpoint absent/broken on this host — fall back to direct
+          // GitHub instead of showing an error terminal.
+          proxyDead = true;
+        } else {
+          throw new Error(`upstream ${res.status}`);
+        }
+      } catch (err) {
+        if (err && (err.message === "rate-limited" || String(err.message).startsWith("upstream"))) throw err;
+        // Network-level failure reaching the proxy — also fall back.
+        proxyDead = true;
+      }
+    }
+    // Direct GitHub (localhost dev path, or proxy-degraded fallback).
+    // Dev direct-GitHub returns an array of event objects that need parsing.
+    const res = await fetch(DEV_URL, {
       headers: { Accept: "application/vnd.github+json" },
     });
     if (res.status === 403 || res.status === 429) {
       throw new Error("rate-limited");
     }
     if (!res.ok) throw new Error(`upstream ${res.status}`);
-    const data = await res.json();
-    // Worker proxy returns { commits, releases } directly. Dev direct-GitHub
-    // returns an array of event objects that need parsing.
-    if (isProxy) {
-      if (data.error) throw new Error(data.error);
-      return {
-        parsed: true,
-        commits: (data.commits || []).map((c) => ({ ...c, time: new Date(c.time) })),
-        releases: (data.releases || []).map((r) => ({ ...r, time: new Date(r.time) })),
-      };
-    }
-    return { parsed: false, raw: data };
+    return { parsed: false, raw: await res.json() };
   }
 
   function parseEvents(events) {

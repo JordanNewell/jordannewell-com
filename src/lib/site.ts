@@ -24,9 +24,9 @@ export const NAV_LINKS = [
   { href: "/now", label: "Now" },
 ] as const;
 
-export const FOOTER_LINKS = [
-  { href: "/contributions", label: "Contributions", emoji: "🔍" },
-] as const;
+// Empty while /contributions is retired (see src/pages/_disabled/).
+// Re-add entries here when those pages return.
+export const FOOTER_LINKS: { href: string; label: string; emoji: string }[] = [];
 
 export const TAG_COLORS: Record<string, string> = {
   rebuild: "#34D399",       // emerald

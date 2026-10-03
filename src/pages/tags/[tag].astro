@@ -5,28 +5,55 @@ import PostCard from "../../components/PostCard.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
-  const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
-  return tags.map((tag) => ({
+  const projects = await getCollection("projects");
+
+  // Tag pages must exist for every tag linked anywhere on the site:
+  // posts and projects both carry tags, and TagPill links to /tags/<tag>.
+  const tagMap = new Map<string, { posts: typeof posts; projects: typeof projects }>();
+  const ensure = (tag: string) => {
+    if (!tagMap.has(tag)) tagMap.set(tag, { posts: [], projects: [] });
+    return tagMap.get(tag)!;
+  };
+  for (const post of posts) {
+    for (const tag of post.data.tags) ensure(tag).posts.push(post);
+  }
+  for (const project of projects) {
+    for (const tag of project.data.tags) ensure(tag).projects.push(project);
+  }
+
+  return [...tagMap.entries()].map(([tag, { posts: taggedPosts, projects: taggedProjects }]) => ({
     params: { tag },
     props: {
       tag,
-      posts: posts
-        .filter((p) => p.data.tags.includes(tag))
-        .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+      posts: taggedPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+      projects: taggedProjects.sort((a, b) => a.data.order - b.data.order),
     },
   }));
 }
 
-const { tag, posts } = Astro.props;
+const { tag, posts, projects } = Astro.props;
 ---
 
-<BaseLayout title={`/${tag}`} description={`Posts tagged ${tag}`}>
+<BaseLayout title={`/${tag}`} description={`Work tagged ${tag}`}>
   <header class="mb-10">
     <p class="text-sm font-mono text-fg-muted mb-2">tagged</p>
     <h1 class="font-display font-bold text-4xl">/{tag}</h1>
-    <p class="text-fg-secondary mt-2">{posts.length} post{posts.length !== 1 ? "s" : ""}</p>
+    <p class="text-fg-secondary mt-2">
+      {posts.length} post{posts.length !== 1 ? "s" : ""}{projects.length > 0 ? ` · ${projects.length} project${projects.length !== 1 ? "s" : ""}` : ""}
+    </p>
   </header>
   <div class="space-y-4">
     {posts.map((post) => <PostCard post={post} />)}
+    {projects.map((project) => (
+      <article class="border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors">
+        <div class="flex items-baseline justify-between mb-1 gap-4">
+          <h3 class="font-display font-bold text-lg">
+            <a href={`/projects/${project.id}/`} class="hover:text-green transition-colors">{project.data.title}</a>
+          </h3>
+          <span class="text-xs font-mono text-fg-muted whitespace-nowrap">{project.data.status}</span>
+        </div>
+        <p class="text-fg-secondary text-sm">{project.data.description}</p>
+      </article>
+    ))}
   </div>
 </BaseLayout>

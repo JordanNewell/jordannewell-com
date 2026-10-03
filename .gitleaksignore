@@ -1,0 +1,6 @@
+# Cloudflare Web Analytics beacon token - public by design: it ships in the
+# HTML head of every served page and only identifies the analytics property
+# (no write access). Read at runtime by public/js/cf-beacon.js. Verified false
+# positive for generic-api-key. NOTE: fingerprint is line-pinned - update it
+# if the meta tag moves in src/layouts/BaseLayout.astro.
+src/layouts/BaseLayout.astro:generic-api-key:63

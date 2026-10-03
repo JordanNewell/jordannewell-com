@@ -39,7 +39,7 @@ Two layers, one day, July 27.
 
 The first is [pat-scanner](https://github.com/JordanNewell/pat-scanner), a Claude Code plugin. One hook, thirteen credential classes: GitHub classic and fine-grained, Anthropic, OpenAI, Stripe, Slack, AWS, Figma, PyPI, Linear, plus vendor-specific ones I caused personally. Your prompt gets scanned before it reaches the model. A match means the prompt is blocked, the class is named, and the hit lands in an audit log. MIT, public, two commands.
 
-The second is a scanner core underneath it, built for the class pattern matching can't see: the escape hatch above, and the quiet variants — env vars whose values ride into command lines, subprocess environments, log output. It probes for the shape of the leak, not the string.
+The second is a [scanner core](https://github.com/JordanNewell/token-hunt) underneath it, built for the class pattern matching can't see: the escape hatch above, and the quiet variants — env vars whose values ride into command lines, subprocess environments, log output. It probes for the shape of the leak, not the string.
 
 Ship-day friction, for the record:
 

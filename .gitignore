@@ -10,6 +10,7 @@ npm-debug.log*
 # environment variables
 .env
 .env.production
+.env.dev
 
 # OPSEC patterns — real machine names, tailnet, agent handles
 # See scripts/opsec-patterns.local.example for the contract
@@ -33,3 +34,4 @@ scripts/opsec-patterns.local
 .dev.vars*
 !.dev.vars.example
 !.env.example
+!.env.dev.example

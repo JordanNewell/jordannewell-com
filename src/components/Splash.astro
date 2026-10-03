@@ -1,6 +1,7 @@
 ---
 import StatusTerminal from "./StatusTerminal.astro";
 import KeyboardBase from "./KeyboardBase.astro";
+import EmojiDock from "./EmojiDock.astro";
 
 const now = new Date();
 const stamp = now.toLocaleDateString("en-US", {
@@ -71,16 +72,10 @@ const LETTERS = [...LEFT, ...RIGHT];
     </div>
   </div>
 
-  {/* Desktop-only typelink under the keyboard. Mobile gets its own copy
-      inside .cs-key-strip below the letters. */}
-  <a class="cs-typelink cs-typelink-desktop" href={FONT_URL} target="_blank" rel="noopener" title="Newell font">
-    Newell font <span aria-hidden="true">→</span>
-  </a>
-
   {/* Pinned portrait bottom-right — tall card, subtle, hoverable.
       Stays visible across all viewports. */}
   <a href="/" class="cs-pfp" aria-label="Jordan Newell">
-    <img src="/images/jordan-portrait.png?v=2" alt="Jordan Newell" width="120" height="180" loading="lazy" decoding="async" />
+    <img src="/images/jordan-portrait.png?v=3" alt="Jordan Newell" width="120" height="180" loading="lazy" decoding="async" />
   </a>
 
   {/* Curtis AI badge bottom-left — mirrors the PFP. Same hover treatment
@@ -129,11 +124,14 @@ const LETTERS = [...LEFT, ...RIGHT];
         </a>
       ))}
     </div>
-    {/* Mobile-only typelink, sits under the letters */}
-    <a class="cs-typelink" href={FONT_URL} target="_blank" rel="noopener" title="Newell font">
-      Newell font <span aria-hidden="true">→</span>
-    </a>
   </div>
+
+  {/* "Newell font →" — single link, positioned under the name letters. */}
+  <a class="cs-typelink cs-typelink-desktop" href={FONT_URL} target="_blank" rel="noopener" title="Newell font">
+    Newell font <span aria-hidden="true">→</span>
+  </a>
+
+  <EmojiDock />
 </section>
 <script src="/js/status-hero.js?v=5" defer></script>
 
@@ -150,11 +148,9 @@ const LETTERS = [...LEFT, ...RIGHT];
 <style is:global>
   body { background-color: #000; }
   .dot-grid { display: none; }
-  main { padding-top: 16px !important; padding-bottom: 12px !important; max-width: none !important; }
-  /* Lock desktop to viewport — no page scroll. Mobile still scrolls for key strip. */
-  @media (min-width: 769px) {
-    html, body { height: 100%; overflow: hidden; }
-  }
+  main { padding-top: 10px !important; padding-bottom: 0 !important; max-width: none !important; }
+  /* Lock ALL viewports — no page scroll anywhere. */
+  html, body { height: 100%; overflow: hidden; }
 </style>
 
 <style>
@@ -164,18 +160,18 @@ const LETTERS = [...LEFT, ...RIGHT];
     align-items: center;
     text-align: center;
     gap: 10px;
-    padding: 0 0 16px;
+    padding: 0 0 0;
     /* Fit fully inside viewport on desktop. Header (~60px) + main padding (~28px)
        leave ~calc(100vh - 90px) for splash content. Body overflow:hidden backs this up. */
     min-height: calc(100vh - 90px);
   }
   .cs :global([data-terminal]) {
-    margin-top: 8px;
+    margin-top: 0;
   }
   .cs-keyboard-stage {
     width: 100%;
     max-width: 720px; /* match terminal width so the two read as proportional siblings */
-    margin-top: 36px; /* explicit breathing room between terminal and keyboard */
+    margin-top: 0;
     position: relative;
     perspective: 1500px;
     perspective-origin: 50% 20%;
@@ -235,9 +231,9 @@ const LETTERS = [...LEFT, ...RIGHT];
      Just the figure on the page. Subtle ground shadow only. */
   .cs-pfp {
     position: fixed;
-    right: 28px;
-    bottom: 0;
-    width: 140px;
+    left: -30px;
+    bottom: -30px;
+    width: 200px;
     height: auto;
     text-decoration: none;
     transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
@@ -257,7 +253,7 @@ const LETTERS = [...LEFT, ...RIGHT];
             drop-shadow(0 0 18px rgba(63, 255, 70, 0.25));
   }
   @media (max-width: 768px) {
-    .cs-pfp { width: 100px; right: 12px; bottom: 0; }
+    .cs-pfp { width: 160px; left: -20px; bottom: -20px; }
   }
   /* Curtis AI badge — visual sibling of the PFP, anchored bottom-left. */
   .cs-curtis {
@@ -498,7 +494,21 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-decoration: none;
     border-radius: 5px;
     background: #0a0a0a;
-    transition: transform 0.12s ease;
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.18s ease;
+  }
+  .cs-strip-key:hover,
+  .cs-strip-key:active {
+    transform: scale(1.18);
+    z-index: 2;
+  }
+  .cs-strip-key.cs-key-green:hover,
+  .cs-strip-key.cs-key-green:active {
+    box-shadow: 0 0 0 1.2px #3FFF46, 0 1px 2px rgba(0,0,0,0.5), 0 0 14px rgba(63,255,70,0.4);
+  }
+  .cs-strip-key.cs-key-white:hover,
+  .cs-strip-key.cs-key-white:active {
+    box-shadow: 0 0 0 1.2px #fafafa, 0 1px 2px rgba(0,0,0,0.5), 0 0 14px rgba(255,255,255,0.25);
   }
   .cs-strip-cap {
     display: inline-flex;
@@ -521,14 +531,12 @@ const LETTERS = [...LEFT, ...RIGHT];
     box-shadow: 0 0 0 1.2px #fafafa, 0 1px 2px rgba(0,0,0,0.5);
   }
   .cs-strip-key.cs-key-white .cs-strip-cap { color: #3FFF46; }
-  .cs-strip-key:active {
-    transform: scale(0.92);
-  }
+  /* :active subsumed by the :hover/:active block above — both enlarge now. */
   @media (max-width: 768px) {
     .cs-key-strip {
       display: flex;
       width: 100%;
-      margin-top: 28px;
+      margin-top: 10px;
     }
   }
 
@@ -547,11 +555,8 @@ const LETTERS = [...LEFT, ...RIGHT];
     padding-bottom: 1px;
   }
   .cs-typelink-desktop {
-    display: none; /* hidden on mobile, strip's typelink takes over */
-    margin-top: 18px;
-  }
-  @media (min-width: 769px) {
-    .cs-typelink-desktop { display: inline-flex; }
+    display: inline-flex;
+    margin-top: 10px;
   }
   .cs-typelink:hover {
     color: #3FFF46;

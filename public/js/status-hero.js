@@ -1,5 +1,5 @@
 // status-hero.js — live GitHub activity feed for the coming-soon terminal.
-// Polls api.github.com/users/JordanNewell/events/public every 60s.
+// Polls api.github.com/users/JordanNewell/events/public every 5min.
 // CSP-safe: external script, no inline code.
 
 (function () {
@@ -11,7 +11,9 @@
   const EVENTS_URL = location.hostname === "localhost" || location.hostname === "127.0.0.1"
     ? DEV_URL
     : PROD_URL;
-  const POLL_MS = 60_000;
+  // 5min poll keeps per-visitor burn ≤12/hr — well under GitHub's 60/hr
+  // unauthenticated core limit. Tab must stay open 5+ hours to hit the wall.
+  const POLL_MS = 300_000;
   const MAX_COMMITS = 10;
   const MAX_RELEASES = 2;
 

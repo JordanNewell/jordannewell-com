@@ -10,8 +10,8 @@ set -euo pipefail
 
 # Load env file if present (gitignored — see .env.example for required vars).
 # Override to deploy a second target, e.g. the dev site:
-#   ENV_FILE=.env.dev bash scripts/deploy.sh
-ENV_FILE="${ENV_FILE:-.env}"
+#   ENV_FILE=./.env.dev bash scripts/deploy.sh
+ENV_FILE="${ENV_FILE:-./.env}"
 [ -f "$ENV_FILE" ] && set -a && . "$ENV_FILE" && set +a
 
 # Required env vars — fail loud if missing. See .env.example.

@@ -83,9 +83,11 @@
     const seenRelease = new Set();
 
     for (const ev of events) {
-      if (ev.type === "PushEvent" && commits.length < MAX_COMMITS) {
-        const repo = ev.repo?.name?.replace(/^JordanNewell\//, "") ?? "?";
-        for (const c of ev.payload?.commits || []) {
+    if (ev.type === "PushEvent" && commits.length < MAX_COMMITS) {
+      const repo = ev.repo?.name?.replace(/^JordanNewell\//, "") || "?";
+      const listed = ev.payload?.commits || [];
+      if (listed.length) {
+        for (const c of listed) {
           if (commits.length >= MAX_COMMITS) break;
           const key = `${repo}:${c.sha}`;
           if (seenCommit.has(key)) continue;
@@ -98,7 +100,24 @@
             time: new Date(ev.created_at),
           });
         }
-      } else if (ev.type === "ReleaseEvent" && releases.length < MAX_RELEASES) {
+      } else {
+        // GitHub's public events endpoint strips payload.commits — fall back
+        // to the push head SHA + branch ref, same as the Worker proxy does.
+        const head = ev.payload?.head;
+        if (!head) continue;
+        const key = `${repo}:${head}`;
+        if (seenCommit.has(key)) continue;
+        seenCommit.add(key);
+        const ref = String(ev.payload?.ref || "").replace(/^refs\/(heads|tags)\//, "");
+        commits.push({
+          sha: head.slice(0, 7),
+          repo,
+          message: ref ? `→ ${ref}` : "",
+          url: `https://github.com/JordanNewell/${repo}/commit/${head}`,
+          time: new Date(ev.created_at),
+        });
+      }
+    } else if (ev.type === "ReleaseEvent" && releases.length < MAX_RELEASES) {
         const repo = ev.repo?.name?.replace(/^JordanNewell\//, "") ?? "?";
         const key = `${repo}:${ev.payload?.release?.tag_name}`;
         if (key && !seenRelease.has(key)) {

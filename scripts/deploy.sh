@@ -52,9 +52,9 @@ set +e
 tar -C dist -czf - . | ssh "${REMOTE_HOST}" "
   set -e
   if [ -w '${REMOTE_PATH}' ]; then
-    cd '${REMOTE_PATH}' && rm -rf ./* && tar -xzf -
+    cd '${REMOTE_PATH}' && rm -rf ./* && tar -xzf - && chmod -R a+rX .
   else
-    sudo bash -c \"cd '${REMOTE_PATH}' && rm -rf ./* && tar -xzf - && chown -R newell:newell .\"
+    sudo bash -c \"cd '${REMOTE_PATH}' && rm -rf ./* && tar -xzf - && chown -R newell:newell . && chmod -R a+rX .\"
   fi
 "
 PIPE_STATUS=("${PIPESTATUS[@]}")

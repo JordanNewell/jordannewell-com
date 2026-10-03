@@ -154,3 +154,19 @@
 .murphy-mode .post-content {
   color: var(--color-fg);
 }
+
+/* Live status badge (footer) — state classes set by public/js/main.js */
+.status-badge .status-dot {
+  background: #FBBF24;
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
+}
+.status-badge .status-text {
+  color: #FBBF24;
+}
+.status-badge.is-up .status-dot {
+  background: var(--color-green);
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+}
+.status-badge.is-up .status-text {
+  color: var(--color-green);
+}

@@ -1,0 +1,209 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../lib/site";
+
+const FPR = "67567DC5E7C5353F85F2AF0DAC05D3F3E0EFA32A";
+const KEYID = "AC05D3F3E0EFA32A";
+---
+
+<BaseLayout
+  title="Code signature"
+  description="Three layers: style tells, an __signature__ constant, and PGP-signed commits + tags. Anyone reading the code can recognize the pattern; anyone verifying releases can confirm attribution cryptographically."
+>
+  <article class="prose">
+    <h1>/signature</h1>
+    <p class="text-fg-secondary text-sm mb-8">
+      Three signals on every line of code I publish. The first is structural —
+      you recognize it by reading. The second is declarative — a single string
+      in every package's <code>__init__.py</code>. The third is cryptographic —
+      PGP signatures on every commit and tag. Pick the layer you need.
+    </p>
+
+    <blockquote>
+      <p>
+        Every line of code I publish carries three signals. The first is
+        structural — you recognize it by reading. The second is declarative — a
+        single string in every package's <code>__init__.py</code>. The third is
+        cryptographic — PGP signatures on every commit and tag. Pick the layer
+        you need.
+      </p>
+    </blockquote>
+
+    <h2>Layer 1 — Style tells</h2>
+
+    <p>
+      Structural patterns that survive most refactors and LLM rewrites. Present
+      in every repo.
+    </p>
+
+    <h3>Headline-first docstring</h3>
+
+    <p>
+      Module docstrings open with a single imperative line stating what the
+      module does in 10 words or less. No "This module provides..." preamble.
+    </p>
+
+    <pre><code>"""Classify any plausible crypto-key string with aggressive recovery."""</code></pre>
+
+    <p>Not:</p>
+
+    <pre><code>"""This module provides functionality for classifying various crypto key formats..."""</code></pre>
+
+    <h3>Why-only comments</h3>
+
+    <p>
+      Comments explain <em>why</em>, never <em>what</em>. The code already says
+      what.
+    </p>
+
+    <pre><code># Mask private keys by default — terminal scrollback is a real exfil vector.</code></pre>
+
+    <p>Not:</p>
+
+    <pre><code># Set mask to True
+mask = True</code></pre>
+
+    <h3>Causality test naming</h3>
+
+    <p>
+      Test files: <code>test_&lt;unit&gt;.py</code>. Test functions:
+      <code>test_&lt;scenario&gt;_&lt;expected_outcome&gt;()</code>. The name
+      encodes the assertion.
+    </p>
+
+    <pre><code>def test_argparse_help_no_bare_percent():
+    ...</code></pre>
+
+    <p>Not:</p>
+
+    <pre><code>def test_help():
+    ...</code></pre>
+
+    <h3>Headline function first</h3>
+
+    <p>
+      In any file, the headline public function appears first. Helpers below.
+      Inverted from the "helpers-first, main-last" convention. Anyone reading
+      top-down hits the file's purpose on line 1.
+    </p>
+
+    <h2>Layer 2 — The <code>__signature__</code> constant</h2>
+
+    <p>
+      Every Python package I publish exports a <code>__signature__</code>
+      string from its main <code>__init__.py</code>:
+    </p>
+
+    <pre><code>__signature__ = "jn/&lt;repo-slug&gt;@&lt;version&gt;"</code></pre>
+
+    <p>Example from <code>crypto-key-classifier</code>:</p>
+
+    <pre><code>&gt;&gt;&gt; import ckc
+&gt;&gt;&gt; ckc.__signature__
+'jn/crypto-key-classifier@0.5.0'</code></pre>
+
+    <p>
+      The format is consistent across the portfolio. If you see a package whose
+      <code>__signature__</code> starts with <code>jn/</code>, it's mine. The
+      string is structural — it survives most rewrites because it's part of how
+      the package identifies itself, not a comment that can be stripped.
+    </p>
+
+    <p>
+      A <code>SIGNATURE.md</code> file at the repo root lists the current
+      <code>__signature__</code> value and the verification recipe.
+    </p>
+
+    <h2>Layer 3 — PGP-signed commits and tags</h2>
+
+    <p>Every commit and tag is GPG-signed with my signing key.</p>
+
+    <p>
+      <strong>Fingerprint:</strong> <code>{FPR}</code><br />
+      <strong>Key ID:</strong> <code>{KEYID}</code><br />
+      <strong>Type:</strong> Ed25519, 2-year expiry
+    </p>
+
+    <p>Retrieval options:</p>
+
+    <pre><code># Web Key Directory (preferred — works after this page is live)
+gpg --auto-key-locate clear,dkd,nodefault --locate-key jordan@jordannewell.com
+
+# Keyservers
+gpg --keyserver hkps://keys.openpgp.org      --recv-keys {KEYID}
+gpg --keyserver hkps://keyserver.ubuntu.com  --recv-keys {KEYID}</code></pre>
+
+    <p>Verify a commit:</p>
+
+    <pre><code>git clone https://github.com/JordanNewell/&lt;repo&gt;.git
+cd &lt;repo&gt;
+git verify-commit HEAD</code></pre>
+
+    <p>Verify a tag:</p>
+
+    <pre><code>git verify-tag v&lt;X.Y.Z&gt;</code></pre>
+
+    <p>
+      Verification fails loudly if the commit was rewritten, rebased onto an
+      unsigned ancestor, or signed by a different key.
+    </p>
+
+    <h2>Why three layers</h2>
+
+    <table>
+      <thead>
+        <tr><th>Threat</th><th>Which layer catches it</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Reader wants to know whose code this is at a glance</td>
+          <td>Layer 1 + Layer 2</td>
+        </tr>
+        <tr>
+          <td>Fork or copy of the code, stripped of comments and README</td>
+          <td>Layer 1 (style tells in the structure) + Layer 2 (<code>__signature__</code> field)</td>
+        </tr>
+        <tr>
+          <td>Release tarball repackaged by a third party</td>
+          <td>Layer 3 (tag signature won't verify)</td>
+        </tr>
+        <tr>
+          <td>LLM-rewritten version that "improves" the code</td>
+          <td>Layer 1 (structural tells are hard to fully strip), Layer 2 (if <code>__signature__</code> is preserved as standard Python)</td>
+        </tr>
+        <tr>
+          <td>Supply-chain attack republishing under a similar name</td>
+          <td>Layer 3 (signature won't verify against my published key)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      None of the three layers is sufficient alone. All three together form a
+      recognizable, verifiable pattern.
+    </p>
+
+    <h2>What this is not</h2>
+
+    <p>
+      Not a watermark. Not steganography. Not security through obscurity. The
+      pattern is publicly documented, the signature is verifiable, the key is
+      published. The point is recognition — for humans reading the code, for
+      tooling auditing a dependency tree, for myself when I revisit a project
+      five years from now and want to know it's mine.
+    </p>
+
+    <hr />
+
+    <p>
+      <em>
+        See the <a
+          href="https://github.com/JordanNewell/crypto-key-classifier/blob/main/SIGNATURE.md"
+          >SIGNATURE.md</a
+        >
+        at any of my repos for the per-repo verification recipe. PGP key
+        fingerprint and verification walkthrough are there.
+      </em>
+    </p>
+  </article>
+</BaseLayout>

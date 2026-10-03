@@ -11,8 +11,6 @@ interface Props {
   schema?: object[];
   path?: string;
   ogImage?: string;
-  favicon?: string;
-  bare?: boolean;
 }
 
 const {
@@ -21,15 +19,12 @@ const {
   schema = [],
   path = Astro.url.pathname,
   ogImage,
-  favicon = "/favicon.svg",
-  bare = false,
 } = Astro.props;
 
 const ogTitle = title === SITE.title ? title : `${title} — ${SITE.title}`;
 const resolvedOgImage = ogImage
   ? (ogImage.startsWith("http") ? ogImage : `${SITE.url}${ogImage}`)
   : `${SITE.url}/og-card.png`;
-const resolvedFavicon = favicon.startsWith("http") ? favicon : `${SITE.url}${favicon}`;
 ---
 
 <!doctype html>
@@ -39,9 +34,7 @@ const resolvedFavicon = favicon.startsWith("http") ? favicon : `${SITE.url}${fav
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{ogTitle}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/coming-soon/favicon-32.png?v=6" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/images/coming-soon/favicon-512.png?v=6" />
-    <link rel="apple-touch-icon" href="/images/coming-soon/favicon-512.png?v=6" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -62,11 +55,11 @@ const resolvedFavicon = favicon.startsWith("http") ? favicon : `${SITE.url}${fav
   <body>
     <div class="dot-grid"></div>
     <div class="relative z-1">
-      {!bare && <Header path={path} />}
+      <Header path={path} />
       <main class="max-w-prose mx-auto px-5 py-12">
         <slot />
       </main>
-      {!bare && <Footer />}
+      <Footer />
     </div>
     <script src="/js/main.js" defer></script>
   </body>

@@ -17,15 +17,12 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { href: "/posts", label: "Posts" },
-  { href: "/projects", label: "Projects" },
-  { href: "/products", label: "Products" },
-  { href: "/ventures", label: "Ventures" },
   { href: "/about", label: "About" },
   { href: "/now", label: "Now" },
-] as const;
-
-export const FOOTER_LINKS = [
-  { href: "/contributions", label: "Contributions", emoji: "🔍" },
+  { href: "/ventures", label: "Ventures" },
+  { href: "/products", label: "Products" },
+  { href: "/projects", label: "Projects" },
+  { href: "/contributions", label: "Contributions" },
 ] as const;
 
 export const TAG_COLORS: Record<string, string> = {

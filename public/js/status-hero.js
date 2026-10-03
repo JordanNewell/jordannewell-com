@@ -269,7 +269,7 @@
         render(parsed);
       }
       const total = parsed.commits.length + parsed.releases.length;
-      setStatus(`ok · ${total} items · next refresh in 60s`);
+      setStatus(`ok · ${total} items · next refresh in ${POLL_MS / 60_000}m`);
     } catch (err) {
       setStatus(`error: ${err.message}`);
     } finally {

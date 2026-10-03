@@ -2,8 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
-const allProjects = (await getCollection("projects"))
-  .filter((p) => p.data.status !== "deprecated");
+const allProjects = await getCollection("projects");
 const projects = [...allProjects].sort((a, b) => a.data.order - b.data.order);
 
 const countBy = (status: string) => allProjects.filter((p) => p.data.status === status).length;

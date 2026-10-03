@@ -1,0 +1,50 @@
+import { SITE } from "../lib/site";
+
+export function GET() {
+  const lines = [
+    `User-agent: *`,
+    `Allow: /`,
+    `Disallow: /assets/`,
+    ``,
+    `# Explicit AI crawler allowlist`,
+    `User-agent: GPTBot`,
+    `Allow: /`,
+    ``,
+    `User-agent: OAI-SearchBot`,
+    `Allow: /`,
+    ``,
+    `User-agent: ChatGPT-User`,
+    `Allow: /`,
+    ``,
+    `User-agent: ClaudeBot`,
+    `Allow: /`,
+    ``,
+    `User-agent: Claude-Web`,
+    `Allow: /`,
+    ``,
+    `User-agent: PerplexityBot`,
+    `Allow: /`,
+    ``,
+    `User-agent: Googlebot`,
+    `Allow: /`,
+    ``,
+    `User-agent: Applebot`,
+    `Allow: /`,
+    ``,
+    `User-agent: CCBot`,
+    `Allow: /`,
+    ``,
+    `User-agent: Bytespider`,
+    `Allow: /`,
+    ``,
+    `User-agent: Meta-ExternalAgent`,
+    `Allow: /`,
+    ``,
+    `Sitemap: ${SITE.url}/sitemap-index.xml`,
+    ``,
+  ];
+
+  return new Response(lines.join("\n"), {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
+}

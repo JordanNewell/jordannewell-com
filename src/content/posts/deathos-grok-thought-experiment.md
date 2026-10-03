@@ -58,6 +58,8 @@ Three places Grok's analysis felt sanded-down or overstated.
 
 The market Grok surfaced is the part worth keeping. The product it sketched is the part worth throwing away. The space between those two is where an actual business would have to live.
 
+If you made it this far, I appreciate it. — JN
+
 ---
 
 *Filed under [/ventures](/tags/ventures). First in the [Grok series](/series/grok) — conversations where the model did the work and I did the judgment.*

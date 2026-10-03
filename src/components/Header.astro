@@ -4,8 +4,8 @@ const isActive = (href: string) =>
   href === "/" ? path === "/" : path.startsWith(href);
 ---
 
-<header class="sticky top-0 z-10 site-header">
-  <div class="max-w-[720px] mx-auto px-3 sm:px-0 pt-3 pb-1 sm:pt-4 sm:pb-2 flex items-center justify-between gap-3 sm:gap-6">
+<header class="site-header">
+  <div class="max-w-[720px] mx-auto px-3 sm:px-0 pt-3 pb-1 sm:pt-4 sm:pb-2 flex items-center justify-center gap-3 sm:gap-6">
     <div class="brand-cluster">
       <a href="/" class="brand-mark" aria-label="Jordan Newell — home">
         <img
@@ -17,34 +17,10 @@ const isActive = (href: string) =>
         />
       </a>
     </div>
-    {/* Curtis absolutely positioned — overflows the menu bar without
-        affecting its height. Header stays wordmark-sized. */}
-    <a
-      href="https://community.obsidian.md/plugins/curtis-ai-chat"
-      target="_blank"
-      rel="noopener"
-      class="nav-curtis-link"
-      aria-label="Curtis AI"
-      title="Curtis AI"
-    >
-      <img
-        src="/images/curtis-ai-corner.png?v=6"
-        alt="Curtis AI"
-        width="72"
-        height="56"
-        loading="async"
-        decoding="async"
-        class="nav-curtis"
-      />
-    </a>
   </div>
 </header>
 
 <style>
-  /* Header inner div is the positioning context for the absolute Curtis link. */
-  .site-header > div {
-    position: relative;
-  }
   .brand-cluster {
     display: inline-flex;
     align-items: center;
@@ -68,28 +44,5 @@ const isActive = (href: string) =>
   }
   @media (min-width: 640px) {
     .brand-mark img { height: 34px; }
-  }
-  /* Curtis absolutely positioned — overflows the menu bar without affecting
-     layout height. Header stays wordmark-sized; Curtis can grow freely. */
-  .nav-curtis-link {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translate(0, -50%) translateY(7px);
-    line-height: 0;
-    text-decoration: none;
-    z-index: 5;
-  }
-  .nav-curtis {
-    display: block;
-    height: 48px;
-    width: auto;
-    transition: filter 0.18s ease;
-  }
-  @media (min-width: 640px) {
-    .nav-curtis { height: 56px; }
-  }
-  .nav-curtis-link:hover .nav-curtis {
-    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-green) 60%, transparent));
   }
 </style>

@@ -13,6 +13,7 @@ interface Props {
   ogImage?: string;
   favicon?: string;
   bare?: boolean;
+  footer?: boolean;
 }
 
 const {
@@ -23,7 +24,11 @@ const {
   ogImage,
   favicon = "/favicon.svg",
   bare = false,
+  footer,
 } = Astro.props;
+
+const showHeader = !bare;
+const showFooter = typeof footer === "boolean" ? footer : !bare;
 
 const ogTitle = title === SITE.title ? title : `${title} — ${SITE.title}`;
 const resolvedOgImage = ogImage
@@ -62,11 +67,11 @@ const resolvedFavicon = favicon.startsWith("http") ? favicon : `${SITE.url}${fav
   <body>
     <div class="dot-grid"></div>
     <div class="relative z-1">
-      {!bare && <Header path={path} />}
+      {showHeader && <Header path={path} />}
       <main class="max-w-prose mx-auto px-5 py-12">
         <slot />
       </main>
-      {!bare && <Footer />}
+      {showFooter && <Footer />}
     </div>
     <script src="/js/main.js" defer></script>
   </body>

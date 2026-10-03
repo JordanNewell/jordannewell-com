@@ -28,6 +28,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   path="/legal"
   ogImage="/images/coming-soon/og-card.png"
   bare={true}
+  footer={true}
 >
   {/* Floating scattered keycaps — same set as splash. */}
   {keys.map((k, i) => (
@@ -52,32 +53,25 @@ const LETTERS = [...LEFT, ...RIGHT];
   <main class="license-main">
     <section class="license-terminal" aria-label="License">
       <header class="license-bar">
-        <a class="license-home" href="/" aria-label="Home" title="Home">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M8 1L1 7v8h4v-5h6v5h4V7L8 1z" />
-          </svg>
-        </a>
-        <div class="license-emojis">
-          <a href="https://buymeacoffee.com/jordannewell" target="_blank" rel="noopener" class="license-emoji-link" aria-label="Buy me a coffee" title="Buy me a coffee">
-            <span aria-hidden="true" class="emoji-coffee">☕</span>
-          </a>
-          <a href="https://github.com/sponsors/JordanNewell" target="_blank" rel="noopener" class="license-emoji-link" aria-label="Sponsor on GitHub" title="Sponsor on GitHub">
-            <span aria-hidden="true">🤍</span>
-          </a>
-          <a href="mailto:hello@jordannewell.com" class="license-emoji-link" aria-label="Say hello" title="Say hello">
-            <span aria-hidden="true">👋</span>
-          </a>
-        </div>
-        <div class="license-pulse" aria-hidden="true">
-          <span class="license-pulse-dot"></span>
-          <span class="license-pulse-text">legal</span>
-        </div>
         <div class="license-socials">
           <a href="https://github.com/jordannewell" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
             <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
               <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0016 8c0-4.42-3.58-8-8-8z" />
             </svg>
           </a>
+        </div>
+        <div class="license-center">
+          <a class="license-home" href="/" aria-label="Home" title="Home">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M8 1L1 7v8h4v-5h6v5h4V7L8 1z" />
+            </svg>
+          </a>
+          <div class="license-pulse" aria-hidden="true">
+            <span class="license-pulse-dot"></span>
+            <span class="license-pulse-text">legal</span>
+          </div>
+        </div>
+        <div class="license-x">
           <a href="https://x.com/newellops" target="_blank" rel="noopener" aria-label="X (@newellops)" title="X (@newellops)">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
               <path d="M12.6.75H15.3L9.54 7.34 16 16h-5.36l-4.27-5.59L4.16 16H1.5l6.16-7.04L0 .75h5.5l3.86 5.11L12.6.75Zm-.94 13.71h1.49L4.26 2.23H2.65l9.01 12.23Z"/>
@@ -247,7 +241,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   /* Override BaseLayout's <main class="max-w-prose ..."> — license page fills viewport. */
   main {
     max-width: none !important;
-    padding: 24px 16px !important;
+    padding: 24px 16px 0 !important;
     margin: 0 !important;
     height: calc(100vh - 48px);
     display: flex;
@@ -331,9 +325,9 @@ const LETTERS = [...LEFT, ...RIGHT];
   /* — PFP bottom-right (mirrors Splash.astro) — */
   .cs-pfp {
     position: fixed;
-    right: 28px;
-    bottom: 0;
-    width: 140px;
+    right: -30px;
+    bottom: -30px;
+    width: 200px;
     height: auto;
     text-decoration: none;
     transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
@@ -353,7 +347,7 @@ const LETTERS = [...LEFT, ...RIGHT];
             drop-shadow(0 0 18px rgba(63, 255, 70, 0.25));
   }
   @media (max-width: 768px) {
-    .cs-pfp { width: 100px; right: 12px; bottom: 0; }
+    .cs-pfp { width: 160px; right: -20px; bottom: -20px; }
   }
 
   /* — License page layout — */
@@ -396,7 +390,38 @@ const LETTERS = [...LEFT, ...RIGHT];
     position: relative;
     z-index: 1;
   }
-  /* Home icon — far left, links back to splash. */
+  /* GH far left, X far right — both flanks flex:1 so the center cluster
+     (Home + legal pulse) stays perfectly centered. */
+  .license-socials,
+  .license-x {
+    display: inline-flex;
+    align-items: center;
+    flex: 1;
+    color: var(--color-fg);
+  }
+  .license-socials { justify-content: flex-start; }
+  .license-x { justify-content: flex-end; }
+  .license-socials a,
+  .license-x a {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease, filter 0.15s ease;
+  }
+  .license-socials a:hover,
+  .license-x a:hover {
+    color: var(--color-green);
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-green) 50%, transparent));
+  }
+  /* Center cluster — Home icon + legal pulse, natural width. */
+  .license-center {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 0 auto;
+  }
   .license-home {
     display: inline-flex;
     align-items: center;
@@ -410,68 +435,13 @@ const LETTERS = [...LEFT, ...RIGHT];
     color: var(--color-green);
     filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-green) 50%, transparent));
   }
-  /* 3-section layout mirroring splash terminal-bar:
-     [emojis left, grow] [pulse center, auto] [socials right, grow] */
-  .license-emojis {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-    justify-content: flex-start;
-  }
-  .license-emoji-link {
-    text-decoration: none;
-    font-size: 17px;
-    line-height: 1;
-    opacity: 0.85;
-    transition: opacity 0.15s, transform 0.15s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 32px;
-    min-height: 32px;
-    padding: 4px;
-    cursor: pointer;
-  }
-  .license-emoji-link:hover {
-    opacity: 1;
-    transform: translateY(-1px);
-  }
   .license-pulse {
     flex: 0 0 auto;
   }
-  .license-socials {
-    display: inline-flex;
-    align-items: center;
-    gap: 16px;
-    flex: 1;
-    justify-content: flex-end;
-    color: var(--color-fg);
-  }
-  .license-socials a {
-    display: inline-flex;
-    align-items: center;
-    line-height: 0;
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.15s ease, filter 0.15s ease;
-  }
-  .license-socials a:hover {
-    color: var(--color-green);
-    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-green) 50%, transparent));
-  }
-  /* Mobile: tighten emojis, give GH↔X breathing room (same as splash terminal). */
+  /* Mobile: tighten the bar — GH + center cluster + X layout. */
   @media (max-width: 600px) {
-    .license-emojis { gap: 8px; }
-    .license-socials { gap: 18px; }
-    .license-pulse-text { display: none; }
-    .license-emoji-link { min-width: 26px; min-height: 26px; padding: 3px; font-size: 15px; }
     .license-bar { gap: 8px; padding: 8px 10px; }
-  }
-  /* Keep emojis + socials flex:1 so they pin to opposite edges on mobile too. */
-  .license-emojis,
-  .license-socials {
-    flex: 1;
+    .license-center { gap: 6px; }
   }
   .license-pulse {
     display: inline-flex;
@@ -521,8 +491,9 @@ const LETTERS = [...LEFT, ...RIGHT];
     color: var(--color-fg-secondary);
     position: relative;
     z-index: 1;
-    /* Internal scroll — body scrolls inside the terminal, page doesn't. */
-    max-height: calc(100vh - 180px);
+    /* Internal scroll — body scrolls inside the terminal, page doesn't.
+       Bumped from 180px to 220px to leave room for SocialEmojis below. */
+    max-height: calc(100vh - 220px);
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(63, 255, 70, 0.4) transparent;

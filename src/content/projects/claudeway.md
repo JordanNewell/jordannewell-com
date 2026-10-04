@@ -9,7 +9,7 @@ liveUrl: "https://jordannewell.github.io/claudeway/"
 order: 11
 facts:
   - k: "shipped"
-    v: "v0.1 2026-07-26"
+    v: "v0.3.2 2026-07-26"
   - k: "form"
     v: "Python library + MCP server"
   - k: "transport"
@@ -36,7 +36,7 @@ stack:
 
 Multi-agent consensus for Claude with cryptographic provenance. Every agent message is a signed, verifiable Nostr event — who said what, when, with what key. The coordination layer that CrewAI / LangGraph / etc. punted on.
 
-v0.1 shipped 2026-07-26. Includes a Python library + MCP server so any MCP-aware agent (Claude Code, Cursor) can use it without framework lock-in.
+First public release, v0.3.2, shipped 2026-07-26. Includes a Python library + MCP server so any MCP-aware agent (Claude Code, Cursor) can use it without framework lock-in.
 
 ## Why Nostr
 

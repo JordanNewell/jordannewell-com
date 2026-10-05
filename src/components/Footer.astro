@@ -20,15 +20,12 @@ const year = new Date().getFullYear();
       <a href="https://github.com/JordanNewell/jordannewell-com" target="_blank" rel="noopener" class="hover:text-green">source</a>
     </p>
     <p class="mb-3">© {year} {SITE.author.name} <span aria-hidden="true">❤️</span> <a href="/license" class="hover:text-green">license</a></p>
-    <p class="mb-3">
-      <a href="https://status.jordannewell.com" data-status-badge class="status-badge inline-flex items-center gap-1.5 hover:text-green is-down" target="_blank" rel="noopener" aria-label="System status">
-        <span data-status-dot class="status-dot inline-block w-1.5 h-1.5 rounded-full"></span>
-        <span data-status-text class="status-text">All systems operational</span>
-      </a>
-    </p>
     <p class="flex items-center justify-center gap-4 text-xl">
       <a href="https://buymeacoffee.com/jordannewell" target="_blank" rel="noopener" class="inline-flex items-center hover:opacity-70 transition-opacity" aria-label="Buy me a coffee" title="Buy me a coffee">
         <span aria-hidden="true">☕</span>
+      </a>
+      <a href="https://dev.jordannewell.com" target="_blank" rel="noopener" class="inline-flex items-center hover:opacity-70 transition-opacity" aria-label="Dev mirror (dev.jordannewell.com)" title="dev.jordannewell.com — staging mirror">
+        <img src="/images/dev-character.png" alt="" width="20" height="20" aria-hidden="true" class="footer-avatar" />
       </a>
       <a href="https://github.com/sponsors/JordanNewell" target="_blank" rel="noopener" class="inline-flex items-center hover:opacity-70 transition-opacity" aria-label="Sponsor on GitHub" title="Sponsor on GitHub">
         <span aria-hidden="true">❤️</span>
@@ -36,7 +33,3 @@ const year = new Date().getFullYear();
     </p>
   </div>
 </footer>
-
-<!-- Status badge live — main.js fetches status.jordannewell.com/api/status-page/heartbeat/public
-     (CORS allowlisted for this origin) and toggles is-up/is-down. Markup above is the
-     pre-JS fallback state and should mirror the last known status when editing. -->

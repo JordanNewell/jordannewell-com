@@ -170,3 +170,6 @@
 .status-badge.is-up .status-text {
   color: var(--color-green);
 }
+
+/* Dev mirror avatar (footer emoji row) — links to dev.jordannewell.com */
+.footer-avatar { display: block; border-radius: 50%; }

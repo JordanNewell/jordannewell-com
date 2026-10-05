@@ -6,6 +6,10 @@ const products = (await getCollection("products")).sort(
   (a, b) => a.data.order - b.data.order,
 );
 
+const shippedCount = products.filter(
+  (p) => p.data.status === "released",
+).length;
+
 const statusColors: Record<string, string> = {
   released: "#34D399",
   beta: "#FBBF24",
@@ -39,7 +43,7 @@ const platformLabel = (url: string): string => {
         The polished subset of <a href="/projects" class="hero-link">/projects</a>. Each product ships with documentation, long-term support, and a name attached — distinct from the wider bench of work in flight.
       </p>
       <div class="products-hero-stats">
-        <span class="stat-pill"><span class="stat-num">1</span> shipped</span>
+        <span class="stat-pill"><span class="stat-num">{shippedCount}</span> shipped</span>
         <span class="stat-pill"><span class="stat-num">MIT</span> licensed</span>
         <span class="stat-pill"><span class="stat-num">0</span> telemetry</span>
         <span class="stat-pill"><span class="stat-num">2026</span> →</span>
@@ -53,7 +57,7 @@ const platformLabel = (url: string): string => {
         href={`/products/${p.id}/`}
         class="product-card block border border-border rounded-lg p-6 hover:border-border-light hover:bg-bg-card-hover transition-colors"
       >
-        <div class="product-card-grid">
+        <div class:list={["product-card-grid", { "product-card-grid--no-logo": !p.data.logo }]}>
           {p.data.logo && (
             <div class="product-card-logo">
               <img src={`${p.data.logo}?v=4`} alt={`${p.data.title} logo`} width="56" height="56" loading="lazy" />
@@ -193,6 +197,9 @@ const platformLabel = (url: string): string => {
     grid-template-columns: 56px 1fr;
     gap: 1.25rem;
     align-items: start;
+  }
+  .product-card-grid--no-logo {
+    grid-template-columns: 1fr;
   }
   @media (max-width: 480px) {
     .product-card-grid {

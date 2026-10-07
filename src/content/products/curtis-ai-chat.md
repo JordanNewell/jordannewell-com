@@ -5,8 +5,8 @@ description: "Obsidian plugin that ships 30+ AI providers (Anthropic, OpenAI, Ge
 status: "released"
 shipDate: 2026-07-22
 repo: "https://github.com/JordanNewell/curtis-ai-chat"
-homepage: "https://github.com/JordanNewell/curtis-ai-chat"
-logo: "/products/curtis-ai-chat/logo.svg"
+homepage: "https://jordannewell.github.io/curtis-ai-chat/"
+logo: "/products/curtis-ai-chat/logo.png"
 platform:
   name: "Obsidian"
   url: "https://obsidian.md"

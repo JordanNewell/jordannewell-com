@@ -22,6 +22,7 @@ export async function GET() {
     `## Optional`,
     `- [About](${SITE.url}/about)`,
     `- [Now](${SITE.url}/now)`,
+    `- [Curtis — the AI venture](${SITE.url}/curtis)`,
     `- [Contributions](${SITE.url}/contributions)`,
     `- [RSS](${SITE.url}/rss.xml)`,
     `- [AI Feed](${SITE.url}/ai-feed.json)`,

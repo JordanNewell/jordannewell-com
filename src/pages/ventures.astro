@@ -9,13 +9,22 @@ const dwTrim = organizationSchema({
   employeeRole: "Managing Partner",
 });
 
-const schema = [dwTrim];
+const curtisAi = organizationSchema({
+  name: "Curtis AI",
+  url: "https://curtisai.tech",
+  description:
+    "Local-first AI line: Curtis AI 2.0.0 for Obsidian, Curtis Porter, curtis-compliance, and the .curt portable history format. MIT, no telemetry.",
+  employeeRole: "Founder",
+  pageUrl: "https://jordannewell.com/curtis/",
+});
+
+const schema = [dwTrim, curtisAi];
 ---
 
-<BaseLayout title="Ventures" description="Operating roles with real stake — not advisory, not passive." schema={schema}>
+<BaseLayout title="Ventures" description="Operating roles and founder stakes — not advisory, not passive." schema={schema}>
   <h1 class="sr-only">Ventures</h1>
   <p class="ph-stats">
-    <span class="stat-n">1</span> active · <span class="stat-n">0</span> advisory · <span class="stat-n">0</span> passive · Tampa Bay FL
+    <span class="stat-n">2</span> active · <span class="stat-n">0</span> advisory · <span class="stat-n">0</span> passive
   </p>
 
   <div class="ledger">
@@ -32,6 +41,17 @@ const schema = [dwTrim];
         <p class="note">We are explicit about who is the senior in the craft and who is the senior in growth. Dante trains and oversees; I build the systems that let the craft scale.</p>
         <p class="note">Prior: NewellsWork — B2B turnkey contractor services, project management, estimation and bidding. Half-dead now, but the playbook (and the scars) carried forward.</p>
         <p class="note">Strategic bet: prove the scaling playbook on DW Trim's proven craft business with existing customer base, then springboard follow-on ventures.</p>
+      </span>
+    </div>
+    <div class="ledger-row">
+      <span class="lg-name">
+        <a href="/curtis" class="lg-link">Curtis AI</a>
+      </span>
+      <span class="lg-role">Founder</span>
+      <span class="lg-notes">
+        <p class="note">The AI venture — local-first agents, portable history, files you own. The suite: Curtis AI 2.0.0 in the Obsidian community directory (agents, swarm mode, a terminal pane, an MCP server, 53 providers), Curtis Porter moving conversations in and out, curtis-compliance on npm, and .curt, the format that binds it.</p>
+        <p class="note">Everything MIT, no telemetry. The line converged at <a href="https://curtisai.tech" target="_blank" rel="noopener">curtisai.tech</a> on 2026-10-11.</p>
+        <p class="note">The ledger and the receipts: <a href="/curtis">/curtis</a>.</p>
       </span>
     </div>
   </div>

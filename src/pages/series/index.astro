@@ -20,21 +20,21 @@ const visibleSeries = series
 <BaseLayout title="Series — Jordan Newell" description="Recurring content series: Off-Model (LLM sessions), Heritage (pre-fleet origin).">
   <main class="max-w-prose mx-auto px-5 py-12">
     <header class="mb-12">
-      <p class="text-sm font-mono text-fg-muted mb-2">recurring</p>
-      <h1 class="font-display font-bold text-4xl mb-3">Series</h1>
+      <p class="text-[0.65rem] font-mono uppercase tracking-[0.18em] text-fg-muted mb-2">recurring</p>
+      <h1 class="font-display font-semibold text-[1.7rem] tracking-tight border-b border-rule-strong pb-2 mb-3">Series</h1>
       <p class="text-fg-secondary">Thematic collections across the blog. Tool-themed, era-themed, or cross-cutting.</p>
     </header>
     {visibleSeries.length === 0 ? (
       <p class="text-fg-muted text-sm border border-dashed border-border rounded-lg p-5">
         No series active yet. Posts will populate series pages as they ship —
-        see <a href="/posts/" class="text-green hover:underline">/posts</a> for current writing.
+        see <a href="/posts/" class="text-accent hover:underline">/posts</a> for current writing.
       </p>
     ) : (
       <div class="space-y-4">
         {visibleSeries.map((s) => (
-          <a href={`/series/${s.slug}/`} class="block border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors">
+          <a href={`/series/${s.slug}/`} class="block border-b border-border py-4 group">
             <div class="flex items-baseline justify-between mb-1">
-              <h2 class="font-display font-bold text-lg">{s.name}</h2>
+              <h2 class="font-display font-semibold text-[0.95rem] tracking-tight group-hover:text-accent group-hover:underline group-hover:underline-offset-4 transition-colors">{s.name}</h2>
               <span class="text-xs font-mono text-fg-muted">{postCountBySeries.get(s.slug)} posts</span>
             </div>
             <p class="text-fg-secondary text-sm">{s.description}</p>

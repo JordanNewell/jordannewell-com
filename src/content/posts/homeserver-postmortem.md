@@ -1,6 +1,6 @@
 ---
 title: "Server down. Cause found. Here's the call I'm making."
-description: "Two days off Tailscale. Cause: dead PSU in a small-form-factor host with a proprietary power supply. Disks recovered clean. Now I decide what to build next."
+description: "Three days off Tailscale. Cause: dead PSU in a small-form-factor host with a proprietary power supply. Disks recovered clean. Now I decide what to build next."
 pubDate: 2026-07-17
 tags: ["rebuild", "infra"]
 mode: "hobart"

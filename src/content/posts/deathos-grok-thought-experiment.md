@@ -62,4 +62,4 @@ If you made it this far, I appreciate it. — JN
 
 ---
 
-*Filed under [/ventures](/tags/ventures). First in the [Grok series](/series/grok) — conversations where the model did the work and I did the judgment.*
+*Filed under [/ventures](/tags/ventures). Part of the [Grok series](/series/grok) — conversations where the model did the work and I did the judgment.*

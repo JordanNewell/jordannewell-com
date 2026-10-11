@@ -4,25 +4,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout title="Now" description="What I'm focused on right now.">
   <article class="prose">
-    <h1>/now</h1>
-    <p class="text-fg-muted text-sm font-mono">
-      Updated 2026-10-09. Pattern from <a href="https://nownownow.com">nownownow.com</a>.
-    </p>
+    <p class="text-fg-muted text-sm font-mono">Updated 2026-10-11.</p>
 
     <h2>Current focus</h2>
     <ul>
-      <li><strong>The Curtis line.</strong> v1.0.0 shipped 2026-07-23; twelve releases since. 2.0.0 is staged — chat history as portable <code>.curt</code> files you own. Curtis Porter shipped this week (v0.2.0, both directions: ChatGPT, Claude, Grok, Gemini, DeepSeek exports in; continuation packs out). curtis-acp puts the arena in the editor; curtis-compliance has been on npm since July. <a href="/products/curtis-ai-chat">Product page</a>.</li>
-      <li><strong>The blog.</strong> Day 0 was 2026-07-14; twenty-eight posts since — postmortems, ship notes, and the September bill itemized. The spine the archive keeps earning: trust is a check that runs outside the thing being trusted. Day-90 scorecard lands 2026-10-12, numbers already written.</li>
-      <li><strong>DW Trim.</strong> Live — dwtrimco.com launched 2026-08-24. Managing Partner, owning the backend: ops, tech stack, the scaling playbook. First commercial trim bids are going out on the client's own lines. Gail, the head-of-construction agent, is down on purpose until his death class is fixed — the bid he died mid-way through shipped by hand. See <a href="/ventures">/ventures</a>.</li>
-      <li><strong>Agent fleet.</strong> 30 agents, up from 19 when the last /now went up. September ran the unattended experiment and the fleet billed me three times in one week — OOM loop, heartbeat storm, suspended mail host. Defaults flipped since: heartbeats off fleet-wide, heap caps explicit, invoice reminders in the alert channel. The fleet keeps a witness now.</li>
-      <li><strong>Infra.</strong> The single-box era ended with July's PSU failure — Matrix came back rebuilt, mail lives on the Hetzner origin, and a pong is no longer proof of service. Backups get restore drills; the first mailcow drill pulled its archive in 7.8 seconds and stamped RTO at 45–60 minutes.</li>
-    </ul>
-
-    <h2>This week</h2>
-    <ul>
-      <li>Ship curtis 2.0.0.</li>
-      <li>Publish the day-90 scorecard (2026-10-12, ninety days from Day 0).</li>
-      <li>Start the weekly ledger — shipped, broke or fixed, cost, fleet, next week. Every entry carries a commit, a timestamp, or a date.</li>
+      <li><strong>The Curtis line.</strong> 2.0.0 shipped 2026-10-10 — the agent release: named agents and swarm mode, a terminal pane, scheduled runs, an MCP server and client, a public plugin API, chat import with portable <code>.curt</code> files, and 53 providers with subscription sign-in. Curtis Porter (v0.2.0) moves chats both directions. curtis-acp puts the arena in the editor; curtis-compliance has been on npm since July. <a href="/products/curtis-ai-chat">Product page</a>.</li>
+      <li><strong>DW Trim.</strong> Eyes on Q1 '27. Just locked in a restaurant site for a popular bar/chain — hoping it carries the other five builds, with more work in bidding beyond that. Staying agile, helping hands-on. <a href="/ventures">/ventures</a>.</li>
+      <li><strong>Agent fleet.</strong> 30 agents, up from 19 when the last /now went up. September ran the unattended experiment and the fleet billed me three times in one week — OOM loop, heartbeat storm, suspended mail host. Defaults flipped since: heartbeats off fleet-wide, heap caps explicit, invoice reminders in the alert channel. The fleet keeps a witness now; continuing to close the loop efficiently.</li>
     </ul>
   </article>
 </BaseLayout>

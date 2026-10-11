@@ -10,7 +10,7 @@ import { SITE } from "../lib/site";
 import type { CollectionEntry } from "astro:content";
 
 const { post } = Astro.props as { post: CollectionEntry<"posts"> };
-const { title, description, pubDate, updatedDate, tags, mode, series, era, kind } = post.data;
+const { title, description, pubDate, updatedDate, tags, mode, series, era, kind, ogImage } = post.data;
 
 const shareUrl = `${SITE.url}/posts/${post.id}/`;
 
@@ -32,7 +32,7 @@ const schema = [articleSchema({
 })];
 ---
 
-<BaseLayout title={title} description={description} schema={schema}>
+<BaseLayout title={title} description={description} schema={schema} ogImage={ogImage}>
   <article class:list={["prose", isMurphy && "murphy-mode"]}>
     <header class="mb-10">
       <div class="flex items-center gap-3 text-sm font-mono text-fg-muted mb-3 flex-wrap">
@@ -40,7 +40,7 @@ const schema = [articleSchema({
         {tags.map((tag) => <TagPill tag={tag} />)}
         {kind && <KindBadge kind={kind} />}
       </div>
-      <h1 class="font-display font-bold text-4xl md:text-5xl leading-tight mb-3">{title}</h1>
+      <h1 class="font-display font-semibold text-2xl md:text-[1.9rem] tracking-tight leading-snug border-b border-rule-strong pb-2 mb-4">{title}</h1>
       <p class="text-xl text-fg-secondary mb-3">{description}</p>
       {era && <div class="mb-3"><EraBadge era={era} /></div>}
       {series.length > 0 && (

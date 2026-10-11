@@ -18,6 +18,7 @@ const posts = defineCollection({
     era: z.enum(["2025-curtis", "2026-fleet"]).optional(),
     session: z.string().optional(),
     kind: z.enum(["postmortem", "win", "decision", "debug-story", "tooling", "conversation"]).optional(),
+    ogImage: z.string().optional(),
   }),
 });
 

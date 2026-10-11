@@ -1,19 +1,25 @@
 ---
-import { NAV_LINKS, SITE } from "../lib/site";
+import { NAV_LINKS } from "../lib/site";
 const { path } = Astro.props;
 ---
 
+<style>
+  .header-logo { display: block; height: 32px; width: auto; }
+</style>
+
 <header class="border-b border-border bg-bg/80 backdrop-blur-sm sticky top-0 z-10">
-  <div class="max-w-2xl mx-auto px-5 py-4 flex items-center justify-between gap-6">
-    <a href="/" class="font-display font-bold text-fg hover:text-green transition-colors whitespace-nowrap">
-      {SITE.title}
-    </a>
-    <nav class="flex items-center gap-5 text-sm">
+  <div class="max-w-prose mx-auto px-5 py-3.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+    <div class="flex items-center gap-2.5">
+      <a href="/" class="hover:opacity-80 transition-opacity whitespace-nowrap" aria-label="Jordan Newell — home">
+        <img src="/images/newell-logo.svg" alt="Jordan Newell" width="224" height="32" class="header-logo">
+      </a>
+    </div>
+    <nav class="flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-[0.72rem]">
       {NAV_LINKS.map((link) => (
         <a
           href={link.href}
           class={`font-mono transition-colors whitespace-nowrap ${
-            path === link.href ? "text-green" : "text-fg-secondary hover:text-fg"
+            path === link.href ? "text-accent" : "text-fg-muted hover:text-fg"
           }`}
         >
           {link.label}

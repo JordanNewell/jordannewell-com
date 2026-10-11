@@ -1,6 +1,6 @@
 ---
 title: "Building in public. Shipping tools developers actually use."
-description: "The era of the vibe coder is here. I've been one since MySpace — 30 years of building on and off. Only a couple public-facing projects in this era. The play from here: ship and prove."
+description: "The era of the vibe coder is here. I've been one since MySpace — two decades of building on and off. Only a couple public-facing projects in this era. The play from here: ship and prove."
 pubDate: 2026-07-24
 tags: ["ai", "oss"]
 mode: "hobart"
@@ -10,15 +10,9 @@ draft: false
 
 ## Project status: shipping
 
-Building in public. Shipping tools developers actually use.
+Open source developer tools that solve annoying, real-world problems. All open source. All shipped. Nothing on this page is a roadmap.
 
-Open source developer tools that solve annoying, real-world problems. All open source. All shipped.
-
-The checkmarks:
-
-- ✓ build useful tools
-- ✓ ship early, ship often
-- ✓ solving problems developers hate
+The standard is three things: build tools worth using, ship early and often, aim them at problems developers hate. Proof is below.
 
 ## The era of the vibe coder
 
@@ -46,7 +40,7 @@ Five packages and plugins shipped, all MIT, all open source:
 - **harbormasterd** — `pip install harbormasterd`. Zero-conf port management with automatic HTTPS + DNS for local development.
 - **crypto-key-classifier** — `pip install crypto-key-classifier`. Identify crypto keys across BTC, ETH, SOL, and more with aggressive recovery.
 
-Five packages and plugins shipped. 100% open source MIT licensed. Weekly active releases and improvements.
+Releases and improvements land weekly. The install commands are how you check.
 
 ## Honest gap
 
@@ -56,21 +50,21 @@ The in-between years went into private work, into ventures that didn't get a lau
 
 ## The play
 
-You use it. break it, make it better.
+You use it, you break it, you make it better.
 
 No phase. No pad. No "coming soon" posts about what's going to be built. Just artifacts, source, receipts.
 
-1. **Ship in public.** Every release, every commit, every post. Public by default.
-2. **Write as I work.** Field notes, not launch announcements.
-3. **Build the catalog.** The list gets longer. The portfolio gets real.
+1. Ship in public. Every release, every commit, every post. Public by default.
+2. Write as I work. Field notes, not launch announcements.
+3. Build the catalog. The portfolio is the list of things that shipped, and it gets longer one at a time.
 
-## Just getting started
+## The bet
 
-The era is the vibe coder's. The opportunity is for the people who've been doing it long enough to know the difference between shipping and talking. That's the bet.
+The advantage goes to the people who've been doing it long enough to know the difference between shipping and talking. That's the bet.
 
-This is just the beginning. More ideas. More tools. More solving.
+There's no statement of what's next. What's next shows up in the commit history first, same as everything on the bench did.
 
-Building in public. Follow the journey.
+**The artifact is the announcement.** Ship, prove, repeat.
 
 ![Building in public. Shipping tools developers actually use.](/posts/vibe-coder-since-myspace/hero.png)
 

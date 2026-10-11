@@ -16,23 +16,21 @@ export const SITE = {
 } as const;
 
 export const NAV_LINKS = [
-  { href: "/posts", label: "Posts" },
-  { href: "/about", label: "About" },
   { href: "/now", label: "Now" },
-  { href: "/ventures", label: "Ventures" },
+  { href: "/about", label: "About" },
+  { href: "/posts", label: "Posts" },
   { href: "/products", label: "Products" },
-  { href: "/projects", label: "Projects" },
-  { href: "/contributions", label: "Contributions" },
 ] as const;
 
+// Categorical inks — ledger-safe ink hues, one per tag family
 export const TAG_COLORS: Record<string, string> = {
-  rebuild: "#34D399",       // emerald
-  infra: "#60A5FA",         // blue
-  ventures: "#FBBF24",      // amber
-  projects: "#A78BFA",      // violet
-  contributions: "#22D3EE", // cyan
-  ai: "#F472B6",            // pink
-  tooling: "#FB923C",       // orange
-  security: "#F87171",      // red
-  oss: "#A3E635",           // lime
+  rebuild: "#0E8A4A",       // green pen
+  infra: "#1F4FD8",         // blue pen
+  ventures: "#A16207",      // amber ink
+  projects: "#6D28D9",      // violet ink
+  contributions: "#0E7490", // teal ink
+  ai: "#BE185D",            // pink ink
+  tooling: "#C2410C",       // orange ink
+  security: "#DC2626",      // red ink
+  oss: "#4D7C0F",           // olive ink
 };

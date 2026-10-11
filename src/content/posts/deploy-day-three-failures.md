@@ -63,7 +63,7 @@ The message points at the obvious suspect: a missing or half-filled config. The 
 
 **Symptom:** gitleaks' `generic-api-key` rule fired on the Cloudflare Web Analytics token in `src/layouts/BaseLayout.astro`.
 
-**The wrong response was the reflexive one:** rotate the token, treat it like the eighth credential on the rotation list. The token has been in the tree since 2026-07-15 (`28c3b00`) and ships in the HTML head of every served page — public by design, identifies the analytics property, carries no write access. Rotation here would have been downtime for a design decision.
+**The wrong response was the reflexive one:** rotate the token, treat it like the next credential on the rotation list. The token has been in the tree since 2026-07-15 (`28c3b00`) and ships in the HTML head of every served page — public by design, identifies the analytics property, carries no write access. Rotation here would have been downtime for a design decision.
 
 **Fix, two halves in `6dc2b62` at 12:38:42.** First, a `.gitleaksignore` entry pinned to the exact line:
 

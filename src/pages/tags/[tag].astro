@@ -36,19 +36,19 @@ const { tag, posts, projects } = Astro.props;
 
 <BaseLayout title={`/${tag}`} description={`Work tagged ${tag}`}>
   <header class="mb-10">
-    <p class="text-sm font-mono text-fg-muted mb-2">tagged</p>
-    <h1 class="font-display font-bold text-4xl">/{tag}</h1>
+    <p class="text-[0.65rem] font-mono uppercase tracking-[0.18em] text-fg-muted mb-2">tagged</p>
+    <h1 class="font-display font-semibold text-[1.7rem] tracking-tight border-b border-rule-strong pb-2">/{tag}</h1>
     <p class="text-fg-secondary mt-2">
       {posts.length} post{posts.length !== 1 ? "s" : ""}{projects.length > 0 ? ` · ${projects.length} project${projects.length !== 1 ? "s" : ""}` : ""}
     </p>
   </header>
-  <div class="space-y-4">
+  <div>
     {posts.map((post) => <PostCard post={post} />)}
     {projects.map((project) => (
-      <article class="border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors">
+      <article class="border-b border-border py-4">
         <div class="flex items-baseline justify-between mb-1 gap-4">
-          <h3 class="font-display font-bold text-lg">
-            <a href={`/projects/${project.id}/`} class="hover:text-green transition-colors">{project.data.title}</a>
+          <h3 class="font-display font-semibold text-[0.95rem] tracking-tight">
+            <a href={`/projects/${project.id}/`} class="hover:text-accent hover:underline underline-offset-4 transition-colors">{project.data.title}</a>
           </h3>
           <span class="text-xs font-mono text-fg-muted whitespace-nowrap">{project.data.status}</span>
         </div>

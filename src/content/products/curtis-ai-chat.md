@@ -5,7 +5,7 @@ description: "Obsidian plugin: 53 AI providers including subscription sign-in (C
 status: "released"
 shipDate: 2026-07-22
 repo: "https://github.com/JordanNewell/curtis-ai-chat"
-homepage: "https://jordannewell.github.io/curtis-ai-chat/"
+homepage: "https://curtisai.tech"
 logo: "/products/curtis-ai-chat/logo.png"
 platform:
   name: "Obsidian"

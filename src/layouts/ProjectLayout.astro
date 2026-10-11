@@ -1,15 +1,11 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import TagPill from "../components/TagPill.astro";
-import PostShare from "../components/PostShare.astro";
 import { creativeWorkSchema } from "../lib/schema";
-import { SITE } from "../lib/site";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 const { project } = Astro.props as { project: CollectionEntry<"projects"> };
 const { title, description, status, repo, liveUrl, tags } = project.data;
-
-const shareUrl = `${SITE.url}/projects/${project.id}/`;
 
 const allPosts = await getCollection("posts");
 const relatedPosts = allPosts
@@ -104,7 +100,6 @@ const schema = [
         </div>
       </section>
     )}
-    <PostShare url={shareUrl} title={title} />
   </article>
 </BaseLayout>
 

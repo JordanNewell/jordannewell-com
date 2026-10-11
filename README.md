@@ -170,10 +170,10 @@ The local `.git/hooks/pre-commit` exists in this checkout — the config just te
 ## Documentation pointers
 
 - **Voice rules** → `docs/IDENTITY.md`
-- **License** (MIT code + CC BY-NC content + ARR brand) → `LICENSE` file + `/license` page
+- **License** (MIT code + CC BY-NC content + ARR brand) → `LICENSE.md` file + `/license` page
 - **Original design spec** → `<local-vault>/docs/superpowers/specs/2026-07-15-jordannewell-com-design.md`
 - **Implementation plan** → `<local-vault>/docs/superpowers/plans/2026-07-15-jordannewell-com.md`
 
 ## License
 
-© 2026 Jordan Newell. Source code under MIT, content under CC BY-NC 4.0, brand elements All Rights Reserved. Full breakdown in `LICENSE` and at `/license`.
+© 2026 Jordan Newell. Source code under MIT, content under CC BY-NC 4.0, brand elements All Rights Reserved. Full breakdown in `LICENSE.md` and at `/license`.

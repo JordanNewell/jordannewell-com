@@ -80,5 +80,3 @@ The six-line file states why it's a verified false positive and carries a mainte
 Three failures, three systems that were each correct in isolation. Bash's dot command and the `test` builtin disagreed about what a bare filename means. A hardened shell and a containerized worker disagreed about who counts as a user. A scanner's pattern match and a CSP's design disagreed about what a secret is. Every failure lived at a joint between two systems I had no reason to distrust — because the deploy script is the only place where all of them touch at once.
 
 The scoreboard from the log: 82 minutes, three failures, three fixes that fit in a slash, a `chmod`, and an ignore pin. The next deploy's failure gets to be new.
-
-If you made it this far, I appreciate it. — JN

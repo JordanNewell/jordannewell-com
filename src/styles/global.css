@@ -100,13 +100,13 @@
     color: var(--color-fg);
   }
   .prose a {
-    color: var(--color-accent);
+    color: color-mix(in srgb, var(--color-accent) 45%, #EDEFF7);
     text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
     text-underline-offset: 3px;
   }
   .prose a:hover {
-    color: color-mix(in srgb, var(--color-accent) 82%, #10143A);
+    color: color-mix(in srgb, var(--color-accent) 60%, #EDEFF7);
     text-decoration-color: var(--color-accent);
   }
   .prose code {

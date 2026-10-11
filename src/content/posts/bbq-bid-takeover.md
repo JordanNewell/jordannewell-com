@@ -70,5 +70,3 @@ Print forensics beat confident numbers. Calibrate the scale. Cross-read the elev
 Gail stays down until the console-bound failure class is fixed. The bid went out on the client's own words.
 
 Agents will die mid-work. Build so it doesn't matter.
-
-If you made it this far, I appreciate it. — JN

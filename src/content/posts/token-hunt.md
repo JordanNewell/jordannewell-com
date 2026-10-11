@@ -68,5 +68,3 @@ pat-scanner guards the fleet now, on every host I run. What it catches goes on a
 ```
 
 It caught a GitHub PAT the day I shipped it. Mine. The irony is the feature.
-
-If you made it this far, I appreciate it. — JN

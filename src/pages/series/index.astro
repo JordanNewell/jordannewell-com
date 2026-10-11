@@ -17,11 +17,10 @@ const visibleSeries = series
   .sort((a, b) => a.order - b.order);
 ---
 
-<BaseLayout title="Series — Jordan Newell" description="Recurring content series: Off-Model (LLM sessions), Heritage (pre-fleet origin).">
-  <main class="max-w-prose mx-auto px-5 py-12">
+<BaseLayout title="Series" description="Recurring content series: Off-Model (LLM sessions), Heritage (pre-fleet origin).">
+  <div class="max-w-prose mx-auto px-5 py-12">
     <header class="mb-12">
-      <p class="text-[0.65rem] font-mono uppercase tracking-[0.18em] text-fg-muted mb-2">recurring</p>
-      <h1 class="font-display font-semibold text-[1.7rem] tracking-tight border-b border-rule-strong pb-2 mb-3">Series</h1>
+      <h1 class="sr-only">Series</h1>
       <p class="text-fg-secondary">Thematic collections across the blog. Tool-themed, era-themed, or cross-cutting.</p>
     </header>
     {visibleSeries.length === 0 ? (
@@ -42,5 +41,5 @@ const visibleSeries = series
         ))}
       </div>
     )}
-  </main>
+  </div>
 </BaseLayout>

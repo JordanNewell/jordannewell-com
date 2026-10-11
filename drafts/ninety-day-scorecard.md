@@ -58,8 +58,6 @@ The discipline that survives this quarter: targets go up in public, get dated, a
 
 The next scorecard lands 2027-01-10. Targets set in public are graded by the archive, not by the author. That is the rule, and this post is its first enforcement.
 
-If you made it this far, I appreciate it. — JN
-
 <!--
 VERIFICATION LOG — every fact checked against the repo on 2026-10-04.
 

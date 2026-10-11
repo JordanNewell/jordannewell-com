@@ -59,5 +59,3 @@ When the record is wrong, the ordering is fixed. [A README that promised a Pro t
 The obligations this manifesto creates: every service gets a check that runs from outside it, asking a client's question. Backups get restore drills — a backup that has never been restored is a hope with a schedule attached, and the first mailcow drill pulled the archive in 7.8 seconds and found three gaps a runbook review never would have. Agent work lands in files by default, memory as cache at most. Anything that decides gets signed when it's made, not when it's asked about. And the fleet keeps a witness, because the defaults haven't changed their assumptions. I just stopped meeting them.
 
 The server answered pings the whole time it was down. Everything in this archive follows from taking that sentence seriously.
-
-If you made it this far, I appreciate it. — JN

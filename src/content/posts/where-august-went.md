@@ -69,5 +69,3 @@ On 2026-10-03, commit 33dbc24 restored the blog-era tree — the pre-splash snap
 The revamp the splash was scaffolding for lives on the site-v2 branch, bound for dev.jordannewell.com — commit 711ee05 is the emoji dock and social-emoji work. The deploy script grew an ENV_FILE override for a second target (0ebac44) with a `.env.dev.example` scaffold: same box, different web root, one command. Production carries the blog; the dev mirror carries the experiment. Two deploy targets, on purpose — the next loud redesign doesn't get to take the main site down with it.
 
 Silent month, itemized: the site moved, the work moved to where the stake was, and both came back on 2026-10-03.
-
-If you made it this far, I appreciate it. — JN

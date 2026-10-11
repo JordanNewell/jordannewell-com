@@ -60,5 +60,3 @@ It earned its keep twice over. Two gaps surfaced that a runbook review would nev
 ## What happens next
 
 The server answered pings the entire time it was down. That's the sentence I keep coming back to. Monitoring that agrees with a suspended VM will agree with any failure that leaves the kernel running. The checks now ask what a client asks. The backups carry a measured RTO. The invoice thread gets read.
-
-If you made it this far, I appreciate it. — JN

@@ -71,5 +71,3 @@ The durability argument from the v1 launch applies to chats the same as notes: f
 There will be more. Still true.
 
 [![Curtis Porter routing table — every export in, .curt and markdown back, ports out to continuation packs, JSON, JSONL](/posts/curtis-porter-curt-format/hero.png)](https://github.com/JordanNewell/curtis-ai-chat-porter)
-
-If you made it this far, I appreciate it. — JN

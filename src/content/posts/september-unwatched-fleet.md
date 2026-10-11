@@ -19,7 +19,7 @@ Each of those posts dug out its own incident. This one is about what they share.
 
 ## The gap
 
-The repo holds the receipts for the setup. The last human commit before the storm: 2026-08-10. Between that date and 2026-10-03, every change merged to this repository came from dependabot — a batch of dependency bumps on 2026-09-19 and nothing else. The site had sat on a splash page since 2026-07-28 while I was heads-down on other work; [that reshuffle gets its own post](/posts/where-august-went). What matters here is what kept running through the gap: the entire fleet — 17 gateways when the gap opened, 30 agents now — on its defaults, with nobody reading the output.
+The repo holds the receipts for the setup. The last human commit before the storm: 2026-08-10. Between that date and 2026-10-03, every change merged to this repository came from dependabot — a batch of dependency bumps on 2026-09-19 and nothing else. The site had sat on a splash page since 2026-07-28 while I was heads-down on other work; [that reshuffle gets its own post](/posts/where-august-went). What matters here is what kept running through the gap: the entire fleet — 17 gateways when the gap opened (eighteen by the time the heartbeat storm landed), 30 agents now — on its defaults, with nobody reading the output.
 
 ## Nothing errored
 

@@ -41,6 +41,14 @@ export const series: SeriesMeta[] = [
     order: 40,
   },
   {
+    slug: "synapse-wars",
+    name: "Synapse Wars",
+    description:
+      "Hardening and operating the Synapse homeserver that carries encrypted chat for the tailnet. Placeholder secrets, silent E2EE failures, and the operations that aren't safe by default until you wrap them.",
+    tool: "claude-code",
+    order: 45,
+  },
+  {
     slug: "heritage",
     name: "Heritage",
     description:

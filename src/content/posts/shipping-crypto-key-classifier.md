@@ -20,12 +20,12 @@ The same Ed25519 private key underlies every Cosmos SDK chain. Decode the bech32
 
 ```
 $ classify-key cosmos1... --json | jq '.[0].cross_chain_alternates | length'
-20
+19
 ```
 
-Twenty chains, one key. ATOM, OSMO, JUNO, AKT, INJ, EVMOS, STRD, REGEN, XPRT, SCRT, KAVA, CRO, LUNA, BAND, UMEE, STARS, DVPN, LIKE, AXL, CRE. If you've ever recovered an ATOM wallet and wondered whether you also own the OSMO at the matching address — yes. You do. This tool enumerates them.
+Nineteen alternates — the address's own chain makes twenty. One key. ATOM, OSMO, JUNO, AKT, INJ, EVMOS, STRD, REGEN, XPRT, SCRT, KAVA, CRO, LUNA, BAND, UMEE, STARS, DVPN, LIKE, AXL, CRE. If you've ever recovered an ATOM wallet and wondered whether you also own the OSMO at the matching address — yes. You do. This tool enumerates them.
 
-The same pattern applies to EVM (11 L2s from one address) and the BTC forks (LTC and DOGE from one WIF). That cross-chain re-encoding is the entire reason the tool exists. Everything else is supporting infrastructure.
+The same pattern applies to EVM (10 L2s from one address — 11 EVM chains counting ETH) and the BTC forks (LTC and DOGE from one WIF). That cross-chain re-encoding is the entire reason the tool exists. Everything else is supporting infrastructure.
 
 ## Coverage
 

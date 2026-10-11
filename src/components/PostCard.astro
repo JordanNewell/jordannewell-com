@@ -12,15 +12,70 @@ const dateStr = pubDate.toLocaleDateString("en-US", {
 });
 ---
 
-<article class="border border-border rounded-lg p-5 hover:border-border-light hover:bg-bg-card-hover transition-colors">
-  <div class="flex items-center gap-3 text-xs font-mono text-fg-muted mb-2">
-    <time datetime={pubDate.toISOString()}>{dateStr}</time>
-    {tags.slice(0, 2).map((tag) => <TagPill tag={tag} />)}
+<article class="post-entry">
+  <div class="post-entry-grid">
+    <time datetime={pubDate.toISOString()} class="pe-date">{dateStr}</time>
+    <div>
+      <h3 class="pe-title">
+        <a href={`/posts/${post.id}`} class="pe-link">{title}</a>
+      </h3>
+      <p class="pe-desc">{description}</p>
+      <div class="pe-tags">
+        {tags.slice(0, 2).map((tag) => <TagPill tag={tag} />)}
+      </div>
+    </div>
   </div>
-  <h3 class="font-display font-bold text-lg mb-1">
-    <a href={`/posts/${post.id}`} class="hover:text-green transition-colors">
-      {title}
-    </a>
-  </h3>
-  <p class="text-fg-secondary text-sm">{description}</p>
 </article>
+
+<style>
+  /* Ledger row: date column + entry */
+  .post-entry {
+    padding-block: 1.05rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .post-entry-grid {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 0 18px;
+  }
+  .pe-date {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-fg-muted);
+    letter-spacing: 0.03em;
+    padding-top: 0.3rem;
+  }
+  .pe-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.3rem;
+  }
+  .pe-link {
+    color: var(--color-fg);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .pe-link:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .pe-desc {
+    font-size: 0.95rem;
+    color: var(--color-fg-secondary);
+    line-height: 1.55;
+    max-width: 62ch;
+    margin-bottom: 0.45rem;
+  }
+  .pe-tags {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 560px) {
+    .post-entry-grid { grid-template-columns: 1fr; }
+    .pe-date { padding-top: 0; margin-bottom: 0.35rem; }
+  }
+</style>

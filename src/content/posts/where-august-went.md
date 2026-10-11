@@ -2,6 +2,7 @@
 title: "Zero posts in August: jordannewell.com moved, it didn't die"
 description: "August 2026 produced zero posts on jordannewell.com because the site was reshuffled behind a splash and the operator went heads-down at DW Trim. The receipts: six commits (three mine, three robots'), a fleet that ran unwatched, and a full restore on 2026-10-03."
 pubDate: 2026-08-31
+updatedDate: 2026-10-03
 tags: ["ventures", "rebuild", "construction"]
 mode: "hobart"
 kind: "decision"

@@ -11,7 +11,7 @@ project: "curtis-chat"
 draft: false
 ---
 
-The [v1 launch post](/posts/curtis-ai-chat-v1-launch/) ended with a promise: *"Curtis AI Chat is one small piece of that. There will be more."* Eleven weeks later, the more has a shape. This is the state of the Curtis line — what exists, what's staged, and why 2.0.0 is the release built to carry the plugin into 2027.
+v1.0.0 shipped 2026-07-23 with a promise attached: *"Curtis AI Chat is one small piece of that. There will be more."* Eleven weeks later, the more has a shape. This is the state of the Curtis line — what exists, what's staged, and why 2.0.0 is the release built to carry the plugin into 2027.
 
 ## The line, as it stands
 

@@ -53,7 +53,6 @@ const resolvedOgImage = ogImage
     <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "012b8a7bc7594c91aff6f05cab5951fd"}'></script>
   </head>
   <body>
-    <div class="dot-grid"></div>
     <div class="relative z-1">
       <Header path={path} />
       <main class="max-w-prose mx-auto px-5 py-12">
@@ -61,6 +60,26 @@ const resolvedOgImage = ogImage
       </main>
       <Footer />
     </div>
+    <a href="/" class="corner-badge" aria-label="Jordan Newell — home">
+      <img src="/images/newell-mark.png" alt="" width="56" height="56" />
+    </a>
+    <style>
+      .corner-badge {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 50;
+        line-height: 0;
+        opacity: 0.9;
+        transition: opacity 0.15s, transform 0.15s;
+      }
+      .corner-badge img { width: 56px; height: 56px; border-radius: 10px; }
+      .corner-badge:hover { opacity: 1; transform: translateY(-2px); }
+      @media (max-width: 560px) {
+        .corner-badge { right: 12px; bottom: 12px; }
+        .corner-badge img { width: 44px; height: 44px; }
+      }
+    </style>
     <script src="/js/main.js" defer></script>
   </body>
 </html>

@@ -17,11 +17,11 @@ const relatedPosts = allPosts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const statusColors: Record<string, string> = {
-  active: "text-green",
-  shipped: "text-blue",
-  exploratory: "text-amber",
-  "venture-track": "text-violet",
-  deprecated: "text-fg-muted",
+  active: "#0E8A4A",
+  shipped: "#1F4FD8",
+  exploratory: "#B45309",
+  "venture-track": "#6D28D9",
+  deprecated: "#7A7683",
 };
 
 const schema = [
@@ -38,80 +38,70 @@ const schema = [
 
 <BaseLayout title={title} description={description} schema={schema}>
   <article class="prose">
-    <header class="project-hero">
-      <div class="project-hero-glow"></div>
-      <div class="project-hero-content">
-        <div class="project-hero-badges">
-          <span class={`status-pill ${statusColors[status]}`}>{status}</span>
-          {tags.map((tag) => <TagPill tag={tag} />)}
-        </div>
-        <h1 class="project-hero-title">{title}</h1>
-        <p class="project-hero-desc">{description}</p>
-        {(repo || liveUrl) && (
-          <div class="project-hero-links">
-            {repo && <a href={repo} class="project-link" target="_blank" rel="noopener">source ↗</a>}
-            {liveUrl && <a href={liveUrl} class="project-link" target="_blank" rel="noopener">live ↗</a>}
-          </div>
-        )}
+    <header class="page-head">
+      <div class="ph-titlerow">
+        <h1 class="ph-title">{title}</h1>
+        <p class="ph-stats">
+          <span class="stat-n" style={`color: ${statusColors[status] ?? "#7A7683"}`}>{status}</span>
+          {repo && <> · <a href={repo} target="_blank" rel="noopener" class="ph-stat-link">source ↗</a></>}
+          {liveUrl && <> · <a href={liveUrl} target="_blank" rel="noopener" class="ph-stat-link">live ↗</a></>}
+        </p>
       </div>
+      <p class="ph-tag">{description}</p>
+      {tags.length > 0 && (
+        <p class="ph-tags">
+          {tags.map((tag) => <TagPill tag={tag} />)}
+        </p>
+      )}
     </header>
+
     {project.data.facts && project.data.facts.length > 0 && (
-      <section class="mb-8">
-        <h2 class="font-mono text-xs uppercase tracking-widest text-fg-muted mb-3">At a glance</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <section class="ledger-section">
+        <h2 class="section-h">At a glance</h2>
+        <div class="facts-row">
           {project.data.facts.map((fact) => (
-            <div class="border border-border rounded-md px-3 py-2 hover:border-border-light transition-colors">
-              <div class="font-mono text-xs uppercase tracking-wider text-fg-muted">{fact.k}</div>
-              <div class="font-display font-semibold text-sm">{fact.v}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-    )}
-    {project.data.highlights && project.data.highlights.length > 0 && (
-      <section class="mb-8">
-        <h2 class="font-mono text-xs uppercase tracking-widest text-fg-muted mb-3">Highlights</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {project.data.highlights.map((h) => (
-            <div class="border border-border rounded-md px-4 py-3 hover:border-border-light hover:bg-bg-card-hover transition-colors">
-              <div class="font-display font-semibold text-base mb-1">{h.title}</div>
-              <div class="text-sm text-fg-secondary leading-relaxed">{h.body}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-    )}
-    {project.data.stack && project.data.stack.length > 0 && (
-      <section class="mb-8">
-        <h2 class="font-mono text-xs uppercase tracking-widest text-fg-muted mb-3">Stack</h2>
-        <div class="flex flex-wrap gap-1.5">
-          {project.data.stack.map((s) => (
-            <span class="font-mono text-xs px-2.5 py-0.5 rounded-full border border-border-light text-fg-secondary">
-              {s}
+            <span class="fact-pair">
+              <span class="stat-n">{fact.v}</span> {fact.k}
             </span>
           ))}
         </div>
       </section>
     )}
-    <slot />
-    {relatedPosts.length > 0 && (
-      <section class="mt-12">
-        <h2 class="font-mono text-xs uppercase tracking-widest text-fg-muted mb-3">Related</h2>
-        <ul class="divide-y divide-border">
-          {relatedPosts.map((p) => (
-            <li>
-              <a
-                href={`/posts/${p.id}/`}
-                class="flex items-baseline justify-between gap-4 py-2 hover:text-green transition-colors"
-              >
-                <span class="text-sm">{p.data.title}</span>
-                <span class="font-mono text-xs text-fg-muted whitespace-nowrap">
-                  {p.data.pubDate.toISOString().slice(0, 10)}
-                </span>
-              </a>
-            </li>
+
+    {project.data.highlights && project.data.highlights.length > 0 && (
+      <section class="ledger-section">
+        <h2 class="section-h">Highlights</h2>
+        <div>
+          {project.data.highlights.map((h) => (
+            <div class="ledger-row">
+              <span class="lg-name-sm">{h.title}</span>
+              <span class="lg-desc-sm">{h.body}</span>
+            </div>
           ))}
-        </ul>
+        </div>
+      </section>
+    )}
+
+    {project.data.stack && project.data.stack.length > 0 && (
+      <section class="ledger-section">
+        <h2 class="section-h">Stack</h2>
+        <p class="stack-line">{project.data.stack.join(" · ")}</p>
+      </section>
+    )}
+
+    <slot />
+
+    {relatedPosts.length > 0 && (
+      <section class="ledger-section">
+        <h2 class="section-h">Related</h2>
+        <div>
+          {relatedPosts.map((p) => (
+            <a href={`/posts/${p.id}/`} class="ledger-row rel-row">
+              <span class="lg-name-sm">{p.data.title}</span>
+              <span class="lg-date-sm">{p.data.pubDate.toISOString().slice(0, 10)}</span>
+            </a>
+          ))}
+        </div>
       </section>
     )}
     <PostShare url={shareUrl} title={title} />
@@ -119,73 +109,116 @@ const schema = [
 </BaseLayout>
 
 <style>
-  .project-hero {
-    position: relative;
-    padding: 2rem 1.75rem;
-    margin-bottom: 2.5rem;
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: 0.75rem;
-    overflow: hidden;
-  }
-  .project-hero-glow {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(ellipse 70% 60% at 100% 0%, color-mix(in srgb, var(--color-blue) 22%, transparent), transparent 60%),
-      radial-gradient(ellipse 60% 70% at 0% 100%, color-mix(in srgb, var(--color-green) 12%, transparent), transparent 55%);
-  }
-  .project-hero-content {
-    position: relative;
-    z-index: 1;
-  }
-  .project-hero-badges {
+  .page-head { margin-bottom: 2rem; }
+  .ph-titlerow {
     display: flex;
-    align-items: center;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
     flex-wrap: wrap;
-    gap: 0.625rem;
-    margin-bottom: 1rem;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
+    border-bottom: 1px solid var(--color-rule-strong);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
   }
-  .project-hero-badges :global(.status-pill),
-  .project-hero-badges .status-pill {
+  .ph-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.7rem;
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+  }
+  .ph-stats {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .stat-n { color: var(--color-fg); font-weight: 600; }
+  .ph-stat-link { color: var(--color-fg-muted); }
+  .ph-stat-link:hover { color: var(--color-accent); }
+  .ph-tag {
+    font-family: var(--font-sans);
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--color-fg-secondary);
+    margin-bottom: 0.5rem;
+    max-width: 62ch;
+  }
+  .ph-tags {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .ledger-section { margin-bottom: 2.25rem; }
+  .section-h {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-fg-muted);
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-rule-strong);
+  }
+  .facts-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.5rem;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-fg-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 0.25rem 0.625rem;
-    border-radius: 0.25rem;
-    background: color-mix(in srgb, var(--color-bg) 50%, transparent);
-    border: 1px solid var(--color-border);
   }
-  .project-hero-title {
+  .ledger-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0 18px;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--color-border);
+    align-items: baseline;
+  }
+  .lg-name-sm {
     font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    line-height: 1.1;
-    letter-spacing: -0.025em;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: -0.01em;
     color: var(--color-fg);
-    margin-bottom: 0.625rem;
   }
-  .project-hero-desc {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 1.125rem;
+  .lg-desc-sm {
+    font-size: 0.9rem;
     color: var(--color-fg-secondary);
-    line-height: 1.5;
-    max-width: 65ch;
-    margin-bottom: 1rem;
+    line-height: 1.55;
   }
-  .project-hero-links {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+  .lg-date-sm {
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: 0.7rem;
+    color: var(--color-fg-muted);
+    text-align: right;
   }
-  .project-link {
-    color: var(--color-green);
-    text-decoration: none;
+  .rel-row { text-decoration: none; }
+  .rel-row:hover .lg-name-sm {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
-  .project-link:hover { text-decoration: underline; text-underline-offset: 2px; }
+  .stack-line {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-fg-secondary);
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 640px) {
+    .ledger-row { grid-template-columns: 1fr; row-gap: 0.25rem; }
+    .lg-date-sm { text-align: left; }
+  }
 </style>

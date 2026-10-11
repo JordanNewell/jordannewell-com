@@ -4,23 +4,25 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="border-t border-border mt-24">
-  <div class="max-w-prose mx-auto px-5 py-8 text-center text-sm text-fg-muted font-mono">
-    <p class="mb-2">
-      <a href="https://github.com/jordannewell" target="_blank" rel="noopener" class="hover:text-green">github</a>
-      <span class="mx-2 text-green" aria-hidden="true">·</span>
-      <a href="mailto:hello@jordannewell.com" class="hover:text-green">hello</a>
+  <div class="max-w-prose mx-auto px-5 py-12 text-center text-sm text-fg-muted font-mono">
+    <p class="mb-4">
+      <a href="/ventures" class="hover:text-accent">ventures</a>
+      <span class="mx-3 text-accent" aria-hidden="true">·</span>
+      <a href="/projects" class="hover:text-accent">projects</a>
+      <span class="mx-3 text-accent" aria-hidden="true">·</span>
+      <a href="/contributions" class="hover:text-accent">contributions</a>
     </p>
-    <p class="mb-2">
-      <a href="/rss.xml" class="hover:text-green">rss</a>
-      <span class="mx-2 text-green" aria-hidden="true">·</span>
-      <a href="/feed.json" class="hover:text-green">json</a>
-      <span class="mx-2 text-green" aria-hidden="true">·</span>
-      <a href="/llms.txt" class="hover:text-green">llms.txt</a>
-      <span class="mx-2 text-green" aria-hidden="true">·</span>
-      <a href="https://github.com/JordanNewell/jordannewell-com" target="_blank" rel="noopener" class="hover:text-green">source</a>
+    <p class="mb-4">
+      <a href="/rss.xml" class="hover:text-accent">rss</a>
+      <span class="mx-3 text-accent" aria-hidden="true">·</span>
+      <a href="/feed.json" class="hover:text-accent">json</a>
+      <span class="mx-3 text-accent" aria-hidden="true">·</span>
+      <a href="/llms.txt" class="hover:text-accent">llms.txt</a>
+      <span class="mx-3 text-accent" aria-hidden="true">·</span>
+      <a href="https://github.com/JordanNewell/jordannewell-com" target="_blank" rel="noopener" class="hover:text-accent">source</a>
     </p>
-    <p class="mb-3">© {year} {SITE.author.name} <span class="text-green" aria-hidden="true">·</span> <a href="/license" class="hover:text-green">license</a></p>
-    <p class="flex items-center justify-center gap-4 text-xl">
+    <p class="mb-6">© {year} {SITE.author.name} <span class="text-accent" aria-hidden="true">·</span> <a href="/license" class="hover:text-accent">license</a></p>
+    <p class="flex items-center justify-center gap-6 text-xl">
       <a href="https://buymeacoffee.com/jordannewell" target="_blank" rel="noopener" class="inline-flex items-center hover:opacity-70 transition-opacity" aria-label="Buy me a coffee" title="Buy me a coffee">
         <span aria-hidden="true">☕</span>
       </a>
@@ -29,6 +31,12 @@ const year = new Date().getFullYear();
       </a>
       <a href="https://github.com/sponsors/JordanNewell" target="_blank" rel="noopener" class="inline-flex items-center hover:opacity-70 transition-opacity" aria-label="Sponsor on GitHub" title="Sponsor on GitHub">
         <span aria-hidden="true">❤️</span>
+      </a>
+      <a href="mailto:hello@jordannewell.com" class="inline-flex items-center hover:opacity-70 transition-opacity text-accent" aria-label="Email me" title="hello@jordannewell.com">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
       </a>
     </p>
   </div>

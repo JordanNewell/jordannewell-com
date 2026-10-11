@@ -13,26 +13,26 @@ facts:
   - k: "styling"
     v: "Tailwind 4"
   - k: "hosting"
-    v: "Hetzner + CF"
+    v: "Cloudflare Pages"
   - k: "deploy"
-    v: "tar-over-ssh"
+    v: "push to main → Actions"
 highlights:
   - title: "Astro 7 + Tailwind 4"
     body: "Static site generation. Zero client JS except where strictly necessary. Inter Tight display, JetBrains Mono metadata."
-  - title: "Tar-over-ssh deploy"
-    body: "Build locally, push a tarball over ssh, expand on the host. No CI middleman, no Docker layer cache."
-  - title: "Cloudflare in front of Hetzner"
-    body: "Origin hidden behind CF. MTA-STS + TLS-RPT + CAA + CSP layered hardening as of 2026-07-16."
+  - title: "Deploy from the repo"
+    body: "Push to main: GitHub Actions builds and wrangler-deploys to Cloudflare Pages. The edge cache purges with the deploy — no staleness window, no laptop in the path."
+  - title: "Headers as code"
+    body: "CSP and security headers ship from the repo as public/_headers. The /api/activity Worker route rides the same zone."
 stack:
   - "Astro 7"
   - "Tailwind 4"
   - "TypeScript"
-  - "Cloudflare"
-  - "Hetzner"
+  - "Cloudflare Pages"
+  - "GitHub Actions"
 ---
 
-The blog itself as a project. Astro 7 + Tailwind 4 static site, deployed via tar-over-ssh to a Hetzner host behind Cloudflare. Zero-JS by default, Fontsource fonts, Shiki code highlighting, schema.org JSON-LD, llms.txt, AI crawler allowlist, voice lint pre-commit hook, OPSEC-aware content pipeline.
+The blog itself as a project. Astro 7 + Tailwind 4 static site, served from Cloudflare Pages — every push to main deploys through GitHub Actions, headers and all from the repo. Zero-JS by default, Fontsource fonts, Shiki code highlighting, schema.org JSON-LD, llms.txt, AI crawler allowlist, voice lint pre-commit hook, OPSEC-aware content pipeline.
 
-Built from scratch in two days. Ships posts, projects, ventures, contributions. Series taxonomy (Off-Model for AI-tool sessions, Heritage for origin-story). Publishing pipeline: voice lint → build → deploy → verify, one command.
+Built from scratch in two days. Ships posts, projects, ventures, contributions. Series taxonomy (Off-Model for AI-tool sessions, Heritage for origin-story). Publishing pipeline: voice lint → build → push; the repo does the rest.
 
 MIT code, CC BY-NC content, All Rights Reserved brand.

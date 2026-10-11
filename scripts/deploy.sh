@@ -2,8 +2,10 @@
 # Copyright (c) 2026 Jordan Newell. Licensed under MIT.
 # Source: https://github.com/JordanNewell/jordannewell-com
 #
-# Builds the Astro site, generates .md mirrors, backs up the current production site,
-# and ships the new build via tar-over-ssh (no rsync dependency).
+# Deploys a build via tar-over-ssh (no rsync dependency) — used for the dev
+# mirror at dev.jordannewell.com (ENV_FILE=./.env.dev, from the site-v2 branch).
+# Production is NOT deployed from here anymore: push to main and GitHub Actions
+# ships it to Cloudflare Pages (.github/workflows/deploy.yml).
 # Equivalent to rsync --delete: clears target, then extracts fresh.
 
 set -euo pipefail
@@ -18,6 +20,9 @@ ENV_FILE="${ENV_FILE:-./.env}"
 : "${REMOTE_HOST:?REMOTE_HOST required — copy .env.example to .env and fill in real values}"
 : "${REMOTE_PATH:?REMOTE_PATH required — copy .env.example to .env and fill in real values}"
 : "${BACKUP_DIR:?BACKUP_DIR required — copy .env.example to .env and fill in real values}"
+
+# Public URL of the target — used for the verify hints at the end.
+SITE_URL="${SITE_URL:-https://dev.jordannewell.com}"
 
 # Preflight: SSH connectivity check. Fails fast and loud before any destructive step.
 echo "==> Preflight: verifying SSH connectivity to ${REMOTE_HOST}"
@@ -41,7 +46,7 @@ npm run build
 echo "==> Generating .md mirrors for LLM citations"
 bash scripts/generate-md-mirrors.sh
 
-echo "==> Backing up current production site"
+echo "==> Backing up current site"
 bash scripts/backup-existing-site.sh
 
 echo "==> Deploying new build via tar-over-ssh"
@@ -79,6 +84,6 @@ if [ "$TAR_EXIT" != "0" ] || [ "$SSH_EXIT" != "0" ]; then
 fi
 
 echo "==> Deploy complete"
-echo "Visit: https://jordannewell.com"
-echo "Verify: curl -sI https://jordannewell.com | head -3"
-echo "LLM check: curl -s https://jordannewell.com/llms.txt | head"
+echo "Visit: ${SITE_URL}"
+echo "Verify: curl -sI ${SITE_URL} | head -3"
+echo "LLM check: curl -s ${SITE_URL}/llms.txt | head"

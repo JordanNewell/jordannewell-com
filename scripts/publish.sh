@@ -2,8 +2,10 @@
 # Copyright (c) 2026 Jordan Newell. Licensed under MIT.
 # Source: https://github.com/JordanNewell/jordannewell-com
 #
-# One-command publish: voice lint -> build -> deploy.
-# Fails closed on any check failure.
+# One-command pre-flight: voice lint -> build.
+# Deployment happens on push to main: GitHub Actions builds and deploys to
+# Cloudflare Pages (.github/workflows/deploy.yml). Fails closed on lint/build
+# failure so a broken post never reaches the commit.
 
 set -euo pipefail
 
@@ -27,16 +29,9 @@ bash scripts/voice-lint.sh "$post_path"
 echo "==> Building site"
 npm run build
 
-echo "==> Deploying via tar-over-ssh"
-bash scripts/deploy.sh
-
-echo "==> Verifying live"
-sleep 3
-status=$(curl -sI "https://jordannewell.com/posts/${slug}/" | head -1)
-echo "$status"
-
-if echo "$status" | grep -q "200"; then
-  echo "OK: live at https://jordannewell.com/posts/${slug}/"
-else
-  echo "WARN: status not 200 - check manually"
-fi
+echo "==> Lint + build passed. Ship it:"
+echo "  git add src/content/posts/${slug}.md public/posts/${slug}/"
+echo "  git commit -m \"post: ${slug}\""
+echo "  git push"
+echo "Then watch: https://github.com/JordanNewell/jordannewell-com/actions/workflows/deploy.yml"
+echo "Live check: curl -sI https://jordannewell.com/posts/${slug}/ | head -1"

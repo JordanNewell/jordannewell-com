@@ -1,6 +1,6 @@
 # jordannewell.com
 
-Source for [jordannewell.com](https://jordannewell.com) — shipping-in-public field notes on AI agents, self-hosted infra, crypto tooling, and venture research. Astro SSG, deployed via `tar-over-ssh` to a Hetzner host behind Cloudflare.
+Source for [jordannewell.com](https://jordannewell.com) — shipping-in-public field notes on AI agents, self-hosted infra, crypto tooling, and venture research. Astro SSG, served from Cloudflare Pages; every push to `main` deploys via GitHub Actions.
 
 ## Quick start
 
@@ -13,29 +13,46 @@ Source for [jordannewell.com](https://jordannewell.com) — shipping-in-public f
 
 ## Deploy
 
-    cp .env.example .env
-    # edit .env to fill in real values for REMOTE_HOST, REMOTE_PATH, BACKUP_DIR
-    bash scripts/deploy.sh
+**Production** — push to `main`. GitHub Actions builds and ships to Cloudflare
+Pages ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)):
 
-Deploy scripts read env vars from `.env` (gitignored — see `.env.example` for the contract). Required: `REMOTE_HOST`, `REMOTE_PATH`, `BACKUP_DIR`. Scripts fail loud with a pointer to `.env.example` if any are missing.
+1. `npm ci` → `npm run build` → `scripts/generate-md-mirrors.sh` (markdown mirrors for LLM citations)
+2. `wrangler pages deploy dist --project-name=jordannewell-com --branch=main`
+3. Smoke-checks `/`, `/posts/`, `/llms.txt`, `/rss.xml`, `/robots.txt` on the deployment
 
-To override per-invocation without editing `.env`:
+The edge cache purges with the deploy — no staleness window, no purge dance.
+Security headers (CSP et al.) ship from the repo as [`public/_headers`](public/_headers).
+
+Rollback: Pages keeps every deployment — Workers & Pages → `jordannewell-com` →
+Deployments → rollback, one click. The previous Hetzner web root stays in place
+untouched as a DNS-level fallback.
+
+**Dev mirror** (dev.jordannewell.com, built from the `site-v2` branch) — still tar-over-ssh:
+
+    cp .env.dev.example .env.dev
+    # edit .env.dev to fill in real values for REMOTE_HOST, REMOTE_PATH, BACKUP_DIR
+    ENV_FILE=./.env.dev bash scripts/deploy.sh
+
+The script reads env vars from the env file (gitignored — see `.env.dev.example`
+for the contract). Required: `REMOTE_HOST`, `REMOTE_PATH`, `BACKUP_DIR`. It fails
+loud with a pointer to the example file if any are missing. Per-invocation
+override without editing the file:
 
     REMOTE_HOST=user@other-host REMOTE_PATH=/custom/path bash scripts/deploy.sh
 
 ### What deploy.sh does (in order)
 
-1. **Load env** — sources `.env` if present, then asserts `REMOTE_HOST`, `REMOTE_PATH`, `BACKUP_DIR` are set
+1. **Load env** — sources the env file if present, then asserts `REMOTE_HOST`, `REMOTE_PATH`, `BACKUP_DIR` are set
 2. **Preflight** — `ssh -o ConnectTimeout=5 "$REMOTE_HOST" true`. Fails fast and loud if SSH is broken (alias wrong, host down, Tailscale offline). Exits *before* any destructive step.
 3. **Build** — `npm run build` (Astro, ~2-3s)
-4. **MD mirrors** — `scripts/generate-md-mirrors.sh` copies `src/content/posts/*.md` to `dist/posts/<slug>.md` so LLMs can fetch clean markdown source at `jordannewell.com/posts/<slug>.md`
-5. **Backup** — `scripts/backup-existing-site.sh` snapshots current production to `${BACKUP_DIR}/<UTC-timestamp>/`
+4. **MD mirrors** — `scripts/generate-md-mirrors.sh` copies `src/content/posts/*.md` to `dist/posts/<slug>.md` so LLMs can fetch clean markdown source at `<site>/posts/<slug>.md`
+5. **Backup** — `scripts/backup-existing-site.sh` snapshots the current site to `${BACKUP_DIR}/<UTC-timestamp>/`
 6. **Ship** — tar-over-ssh pipe: `tar -C dist -czf - . | ssh "$REMOTE_HOST" 'cd "$REMOTE_PATH" && rm -rf ./* && tar -xzf -'`. Uses `sudo` + `chown` if target dir isn't writable by the SSH user.
-7. **Verify** — prints curl commands for spot-checking the live site
+7. **Verify** — prints curl commands for spot-checking `SITE_URL` (defaults to the dev mirror)
 
-### Deploy failure recovery
+### Deploy failure recovery (dev mirror)
 
-The script captures `PIPESTATUS` and exits non-zero if either `tar` or `ssh` fails. Production may be in a partially-deployed state. Two recovery paths:
+The script captures `PIPESTATUS` and exits non-zero if either `tar` or `ssh` fails. The target may be in a partially-deployed state. Two recovery paths:
 
 **Roll back to latest backup:**
 
@@ -47,18 +64,13 @@ The script captures `PIPESTATUS` and exits non-zero if either `tar` or `ssh` fai
 
     ssh "$REMOTE_HOST" 'ls -la "$REMOTE_PATH"/'
     # Inspect what's there, fix the underlying issue, then:
-    bash scripts/deploy.sh
+    ENV_FILE=./.env.dev bash scripts/deploy.sh
 
-### After deploying
+### After deploying the dev mirror
 
-CF edge cache may serve stale content for ~4 hours (default `Cache-Control: max-age=14400` on static assets). To force-refresh immediately:
-
-    bash scripts/purge-cf-cache.sh    # if you have it
-    # or via API:
-    curl -X POST "https://api.cloudflare.com/client/v4/zones/7b3c18289044e7e9610d55c1b7d1f8a6/purge_cache" \
-      -H "Authorization: Bearer $CF_TOKEN" \
-      -H "Content-Type: application/json" \
-      --data '{"purge_everything":true}'
+The dev mirror sits behind the Cloudflare proxy, which may cache origin
+responses for ~4 hours. To force-refresh immediately, purge the zone cache from
+the Cloudflare dashboard (Caching → Purge Everything).
 
 ## Project structure
 
@@ -103,10 +115,11 @@ CF edge cache may serve stale content for ~4 hours (default `Cache-Control: max-
         └── global.css       # Tailwind v4 @theme tokens + base styles + .prose
 
     scripts/
-    ├── deploy.sh                # build + mirror + backup + ship (see above)
-    ├── backup-existing-site.sh  # snapshots current production to timestamped dir
+    ├── deploy.sh                # dev-mirror deploy: build + mirror + backup + ship (see above)
+    ├── publish.sh               # post pre-flight: voice lint + build; push to main ships it
+    ├── backup-existing-site.sh  # snapshots current target to timestamped dir
     ├── generate-md-mirrors.sh   # copies src/content/posts/*.md → dist/posts/*.md
-    └── check-llm-crawlers.sh    # weekly grep of nginx access logs for AI user-agents
+    └── check-llm-crawlers.sh    # grep of nginx access logs (Hetzner) for AI user-agents
 
     public/
     ├── favicon.svg              # "JN" monogram (285 bytes, hand-crafted)

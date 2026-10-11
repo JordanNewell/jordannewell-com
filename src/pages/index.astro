@@ -64,7 +64,6 @@ const buildTime = new Date();
   </section>
 
   <section class="section">
-    <div class="section-label">Recent posts</div>
     <div>
       {posts.map((post, i) => {
         const hero = i === 0 ? heroFor(post.id) : null;
@@ -93,11 +92,11 @@ const buildTime = new Date();
                 </div>
               </div>
             )}
+            <div class="read-this">read this post →</div>
           </a>
         );
       })}
     </div>
-    <a href="/posts/" class="view-all">view all posts →</a>
   </section>
 </BaseLayout>
 
@@ -221,13 +220,14 @@ const buildTime = new Date();
     font-size: 0.92rem; color: var(--color-fg-secondary);
     line-height: 1.5;
   }
-  .view-all {
-    display: inline-block; margin-top: 20px;
+  .read-this {
+    margin-top: 0.9rem; text-align: center;
     font-family: var(--font-mono);
-    font-size: 0.7rem; color: var(--color-fg-muted); text-decoration: none;
-    letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s;
+    font-size: 0.7rem; color: var(--color-fg-muted); 
+    letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.15s;
   }
-  .view-all:hover { color: var(--color-accent); }
+  .post-item:hover .read-this { color: var(--color-accent); }
 
   @media (max-width: 560px) {
     .live-row, .post-grid { grid-template-columns: 1fr; }

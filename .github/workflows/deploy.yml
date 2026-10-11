@@ -1,0 +1,70 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time; a newer push supersedes the in-flight deploy.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build + deploy (Cloudflare Pages)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Mapped through env: secrets can't be tested directly in step if-conditions.
+    env:
+      HAS_CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        # Homepage bakes the pushed commit SHA at build time (git rev-parse
+        # in index.astro) — checkout's default HEAD is exactly that commit.
+
+      - name: Generate .md mirrors for LLM citations
+        run: bash scripts/generate-md-mirrors.sh
+
+      - name: Ensure Pages project exists
+        if: env.HAS_CF_TOKEN == 'true'
+        run: |
+          npx wrangler pages project list | grep -q "jordannewell-com" \
+            || npx wrangler pages project create jordannewell-com --production-branch=main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 554619f8c7d3a4010cb161df3037269d
+
+      - name: Deploy to Cloudflare Pages
+        if: env.HAS_CF_TOKEN == 'true'
+        run: npx wrangler pages deploy dist --project-name=jordannewell-com --branch=main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 554619f8c7d3a4010cb161df3037269d
+
+      - name: Smoke-check the deployment
+        if: env.HAS_CF_TOKEN == 'true'
+        run: |
+          sleep 20
+          base="https://jordannewell-com.pages.dev"
+          for path in / /posts/ /llms.txt /rss.xml /robots.txt; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "${base}${path}")
+            echo "${path} -> ${code}"
+            [ "$code" = "200" ] || { echo "FAIL: ${path} not 200"; exit 1; }
+          done
+
+      - name: No token yet — skip deploy
+        if: env.HAS_CF_TOKEN != 'true'
+        run: |
+          echo "::warning::CLOUDFLARE_API_TOKEN secret is not set — build verified, deploy skipped. Add the secret (Cloudflare token with Pages: Edit) and re-run this workflow."

@@ -62,5 +62,3 @@ GitHub's public API omits the exact field this feed displays. Not a bug in my co
 **A fallback proves itself by rendering the same data as the primary, not by returning HTTP 200.** Verify the degraded path against the real payload — every field you display, one bug deeper than the status code.
 
 Terminal's live on every origin now: SHA, repo, `→ branch`, 5 minutes to the next refresh, and it says so.
-
-If you made it this far, I appreciate it. — JN

@@ -57,5 +57,3 @@ The regime the three posts shipped, in one list:
 ## The other bookend
 
 The repo holds the end of the story too. On 2026-10-03, eighteen commits in seven hours: the blog-era tree restored from before the splash, the apex moved to the Hetzner origin, the live status badge back in the footer. The operator returned. The fleet has a witness again, and the defaults decide nothing alone.
-
-If you made it this far, I appreciate it. — JN

@@ -67,5 +67,3 @@ There's no statement of what's next. What's next shows up in the commit history 
 **The artifact is the announcement.** Ship, prove, repeat.
 
 ![Building in public. Shipping tools developers actually use.](/posts/vibe-coder-since-myspace/hero.png)
-
-If you made it this far, I appreciate it. — JN

@@ -78,5 +78,3 @@ If you run Node in containers, the runtime reads your limits and makes sizing de
 Set `--max-old-space-size` explicitly. Derive it from the workload, keep it about a gig below MemoryHigh, quote your multi-flag `Environment=` lines, prefix override drop-ins `zz-`, and set `MemorySwapMax=0` so failure means a fast restart. Then verify via `/proc/PID/environ`, because a drop-in that lost the sort-order coin flip will not tell you.
 
 Fleet's been clean since the flag landed. Zero heap-kills where there were 7 in a twelve-hour window. The cap does its job. The heap does mine.
-
-If you made it this far, I appreciate it. — JN

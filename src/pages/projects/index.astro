@@ -37,6 +37,7 @@ const pkgLabel = (url: string): string => {
 ---
 
 <BaseLayout title="Projects" description="What I've built, in public.">
+  <h1 class="sr-only">Projects</h1>
   <p class="ph-stats">
     <span class="stat-n">{counts.total}</span> total · <span class="stat-n">{counts.shipped}</span> shipped · <span class="stat-n">{counts.active}</span> active · <span class="stat-n">{counts.exploratory}</span> exploratory{counts.deprecated > 0 && (<> · <span class="stat-n">{counts.deprecated}</span> deprecated</>)}
   </p>

@@ -11,6 +11,7 @@ interface Props {
   schema?: object[];
   path?: string;
   ogImage?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -19,9 +20,21 @@ const {
   schema = [],
   path = Astro.url.pathname,
   ogImage,
+  noindex = false,
 } = Astro.props;
 
-const ogTitle = title === SITE.title ? title : `${title} — ${SITE.title}`;
+const canonical = Astro.url.href;
+// Brand the title only while the whole thing fits a SERP line (~60 chars);
+// long post titles stand alone rather than truncating mid-sentence.
+const brandSuffix = ` — ${SITE.title}`;
+const ogTitle =
+  title === SITE.title || title.length + brandSuffix.length > 60
+    ? title
+    : `${title}${brandSuffix}`;
+// Meta descriptions clip past ~160 chars in search results anyway; the full
+// text still ships in the page body and JSON-LD.
+const metaDescription =
+  description.length > 160 ? `${description.slice(0, 157).trimEnd()}…` : description;
 const resolvedOgImage = ogImage
   ? (ogImage.startsWith("http") ? ogImage : `${SITE.url}${ogImage}`)
   : `${SITE.url}/og-card.png`;
@@ -33,12 +46,14 @@ const resolvedOgImage = ogImage
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{ogTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:title" content={ogTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={resolvedOgImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -55,29 +70,27 @@ const resolvedOgImage = ogImage
   <body>
     <div class="relative z-1">
       <Header path={path} />
+      <a href="/" class="under-header-character max-w-prose mx-auto px-5" aria-label="Jordan Newell — home">
+        <img src="/images/newell-character.png" alt="" width="320" height="320" />
+      </a>
       <main class="max-w-prose mx-auto px-5 py-12">
         <slot />
       </main>
       <Footer />
     </div>
-    <a href="/" class="corner-badge" aria-label="Jordan Newell — home">
-      <img src="/images/newell-mark.png" alt="" width="56" height="56" />
-    </a>
     <style>
-      .corner-badge {
-        position: fixed;
-        right: 20px;
-        bottom: 20px;
-        z-index: 50;
+      .under-header-character {
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 14px;
         line-height: 0;
         opacity: 0.9;
         transition: opacity 0.15s, transform 0.15s;
       }
-      .corner-badge img { width: 56px; height: 56px; border-radius: 10px; }
-      .corner-badge:hover { opacity: 1; transform: translateY(-2px); }
+      .under-header-character img { width: 88px; height: 88px; }
+      .under-header-character:hover { opacity: 1; transform: translateY(-2px); }
       @media (max-width: 560px) {
-        .corner-badge { right: 12px; bottom: 12px; }
-        .corner-badge img { width: 44px; height: 44px; }
+        .under-header-character img { width: 64px; height: 64px; }
       }
     </style>
     <script src="/js/main.js" defer></script>

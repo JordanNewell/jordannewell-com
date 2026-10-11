@@ -36,10 +36,9 @@ const { tag, posts, projects } = Astro.props;
 
 <BaseLayout title={`/${tag}`} description={`Work tagged ${tag}`}>
   <header class="mb-10">
-    <p class="text-[0.65rem] font-mono uppercase tracking-[0.18em] text-fg-muted mb-2">tagged</p>
-    <h1 class="font-display font-semibold text-[1.7rem] tracking-tight border-b border-rule-strong pb-2">/{tag}</h1>
-    <p class="text-fg-secondary mt-2">
-      {posts.length} post{posts.length !== 1 ? "s" : ""}{projects.length > 0 ? ` · ${projects.length} project${projects.length !== 1 ? "s" : ""}` : ""}
+    <h1 class="sr-only">/{tag}</h1>
+    <p class="text-[0.68rem] font-mono text-fg-muted">
+      {posts.length} post{posts.length !== 1 ? "s" : ""}{projects.length > 0 ? ` · ${projects.length} project${projects.length !== 1 ? "s" : ""}` : ""} · tagged {tag}
     </p>
   </header>
   <div>

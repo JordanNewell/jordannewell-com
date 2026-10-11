@@ -61,5 +61,3 @@ That last reframe is the portable one. The longest-running item on your list is 
 Pro still ships. Hosted app, audit rollup, the whole tier — on its own schedule, not the README's. The day it lands, the claim comes back one line long and true.
 
 The divergence took thirty minutes to fix. The product takes as long as it takes. In that order, every time.
-
-If you made it this far, I appreciate it. — JN

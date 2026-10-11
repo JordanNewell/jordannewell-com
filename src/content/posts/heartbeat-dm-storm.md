@@ -56,5 +56,3 @@ The part that stings: the fleet already had escalation rules, comms gates, routi
 ## Where it stands
 
 Every gateway runs `every: "0m"`. Quiet is the default state of the fleet. Talking is a feature someone has to turn on, per agent, on purpose. The storm cost a night of tokens; the flip costs nothing. Keep the flip.
-
-If you made it this far, I appreciate it. — JN

@@ -28,6 +28,7 @@ const projects = [...new Set(allContributions.map((c) => c.data.project))];
 ---
 
 <BaseLayout title="Contributions" description="Verifiable OSS contributions — bugs filed, PRs merged, community engagement.">
+  <h1 class="sr-only">Contributions</h1>
   <p class="ph-stats">
     <span class="stat-n">{allContributions.length}</span> total · <span class="stat-n">{countBy("shipped")}</span> shipped · <span class="stat-n">{countBy("open") + countBy("investigating")}</span> open · <span class="stat-n">{projects.length}</span> projects
   </p>

@@ -12,6 +12,7 @@ const recentYear = posts.length > 0 ? new Date(posts[0].data.pubDate).getFullYea
 ---
 
 <BaseLayout title="Posts" description="Field notes from the operator's desk.">
+  <h1 class="sr-only">Posts</h1>
   <p class="ph-stats">
     <span class="stat-n">{posts.length}</span> posts · <span class="stat-n">{allTags.length}</span> tags · <span class="stat-n">{totalWords.toLocaleString()}</span> words · latest <span class="stat-n">{recentYear}</span>
   </p>

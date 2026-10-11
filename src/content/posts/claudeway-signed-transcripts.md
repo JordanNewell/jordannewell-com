@@ -67,7 +67,5 @@ Agent output already decides things — merges, purchases, incident response. Th
 
 The receipts are on four relays right now. Verify one.
 
-If you made it this far, I appreciate it. — JN
-
 ---
 *Filed under [/projects](/projects) and [/ai](/tags/ai). Project page: [Claudeway](/projects/claudeway). Source: [github.com/JordanNewell/claudeway](https://github.com/JordanNewell/claudeway). Docs: [jordannewell.github.io/claudeway](https://jordannewell.github.io/claudeway/).*

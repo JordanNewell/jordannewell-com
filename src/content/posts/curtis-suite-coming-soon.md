@@ -1,6 +1,6 @@
 ---
-title: "The Curtis suite — curtisai.tech, coming soon"
-description: "The Curtis line is consolidating into a suite at curtisai.tech. Four pieces: Chat, Port, Audit, Data. Chat and Port are live; Audit is on npm; Data is the new one. What's coming, briefly."
+title: "The Curtis suite is live — curtisai.tech"
+description: "The Curtis line has consolidated into a suite at curtisai.tech. Four pieces: Chat, Port, Audit, Data. Chat and Port are live; Audit is on npm; Data is the new one. What shipped, briefly."
 pubDate: 2026-10-11
 tags: ["ai", "oss"]
 mode: "hobart"
@@ -11,9 +11,9 @@ draft: false
 ogImage: "/posts/curtis-suite-coming-soon/og.jpg"
 ---
 
-The line has been scattered across a plugin directory, two repos, and an npm package. That ends. Everything Curtis converges at **curtisai.tech** — coming soon.
+The line has been scattered across a plugin directory, two repos, and an npm package. That ends. Everything Curtis converges at **[curtisai.tech](https://curtisai.tech)** — live now.
 
-[![The Curtis suite — Chat, Port, Audit, Data](/posts/curtis-suite-coming-soon/hero.jpg)](https://jordannewell.github.io/curtis-ai-chat/)
+[![The Curtis suite — Chat, Port, Audit, Data](/posts/curtis-suite-coming-soon/hero.jpg)](https://curtisai.tech)
 
 Four pieces, one crystal. A small amount about each:
 
@@ -25,4 +25,4 @@ Four pieces, one crystal. A small amount about each:
 
 **Data.** The new one — the suite's data layer, where portable `.curt` history becomes something you can query, back up, and own outright. Still under wraps. More soon.
 
-One mark, four verbs. curtisai.tech.
+One mark, four verbs. [curtisai.tech](https://curtisai.tech).

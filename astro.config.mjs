@@ -20,5 +20,11 @@ export default defineConfig({
     },
   },
 
-  integrations: [sitemap()]
+  integrations: [
+    sitemap({
+      // Internal/utility pages carry noindex — keep them out of the sitemap
+      // so we're not telling crawlers "index this" and "don't index this".
+      filter: (page) => !page.includes('/logo-variations/'),
+    }),
+  ],
 });

@@ -1,8 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-import PostShare from "../components/PostShare.astro";
 import { softwareApplicationSchema } from "../lib/schema";
-import { SITE } from "../lib/site";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 const { product } = Astro.props as { product: CollectionEntry<"products"> };
@@ -27,7 +25,6 @@ const {
   ogImage,
 } = product.data;
 
-const shareUrl = `${SITE.url}/products/${product.id}/`;
 const canonicalOg = ogImage ?? `/og-curtis-ai-chat.png`;
 
 const statusColors: Record<string, string> = {
@@ -180,7 +177,6 @@ const schema = [
         <a href="https://github.com/sponsors/JordanNewell" target="_blank" rel="noopener">sponsor on GitHub ↗</a>
       </p>
     </footer>
-    <PostShare url={shareUrl} title={title} />
   </article>
 </BaseLayout>
 

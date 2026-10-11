@@ -1,0 +1,246 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { organizationSchema } from "../lib/schema";
+
+const curtisAi = organizationSchema({
+  name: "Curtis AI",
+  url: "https://curtisai.tech",
+  description:
+    "Local-first AI line: Curtis AI 2.0.0 for Obsidian, Curtis Porter, curtis-compliance, and the .curt portable history format. MIT, no telemetry.",
+  employeeRole: "Founder",
+  pageUrl: "https://jordannewell.com/curtis/",
+});
+
+const schema = [curtisAi];
+---
+
+<BaseLayout
+  title="Curtis"
+  description="The AI venture. Local-first agents, history as files you own — Chat, Port, Audit, .curt. Shipped, MIT, no telemetry."
+  ogImage="/og-curtis-ai-chat.png"
+  schema={schema}
+>
+  <article class="prose">
+    <h1 class="sr-only">Curtis — the AI venture</h1>
+    <p class="ph-stats">
+      <span class="stat-n">2.0.0</span> shipped 2026-10-10 · suite live 2026-10-11 · MIT · no telemetry
+    </p>
+
+    <h2>The bet</h2>
+    <p>
+      Every AI tool holds your history in its own schema, and the exits are hostile. Curtis is the
+      counter-bet: local-first agents, portable history, files you own. The line lives at
+      <a href="https://curtisai.tech" target="_blank" rel="noopener">curtisai.tech</a>.
+    </p>
+    <p>
+      The reframe landed in August 2025 — the unit is the operating system, not the tool. Models are
+      commodity; integration is the moat. Everything below is moat work: a plugin, a porter, an
+      auditor, and the format that keeps history movable.
+    </p>
+    <p>The claim is the ledger. It only appends.</p>
+
+    <h2>The suite</h2>
+    <div class="ledger">
+      <div class="ledger-head">
+        <span>piece</span><span>state</span><span>what it does</span>
+      </div>
+      <div class="ledger-row">
+        <span class="lg-name">
+          <a href="/products/curtis-ai-chat/" class="lg-link">Chat</a>
+        </span>
+        <span class="lg-state">2.0.0 · live</span>
+        <span class="lg-notes">
+          <p class="note">
+            The core — named agents and swarm mode, a terminal pane, scheduled runs, an MCP server
+            and client, 53 providers. Chat history as files you own. MIT, no telemetry.
+          </p>
+        </span>
+      </div>
+      <div class="ledger-row">
+        <span class="lg-name">
+          <a
+            href="https://github.com/JordanNewell/curtis-ai-chat-porter"
+            target="_blank"
+            rel="noopener"
+            class="lg-link">Port ↗</a
+          >
+        </span>
+        <span class="lg-state">v0.2.0 · live</span>
+        <span class="lg-notes">
+          <p class="note">
+            Curtis Porter moves conversations in and out — ChatGPT, Claude, Grok, Gemini, DeepSeek
+            exports in; .curt, markdown, continuation packs out.
+          </p>
+        </span>
+      </div>
+      <div class="ledger-row">
+        <span class="lg-name">
+          <a href="/projects/curtis-compliance/" class="lg-link">Audit</a>
+        </span>
+        <span class="lg-state">npm · since July</span>
+        <span class="lg-notes">
+          <p class="note">
+            curtis-compliance — local-first compliance checks with citations, not magic. HIPAA,
+            SOC2, PCI-DSS patterns, hash-chained audit trail.
+          </p>
+        </span>
+      </div>
+      <div class="ledger-row">
+        <span class="lg-name">
+          <a href="/posts/curtis-porter-curt-format/" class="lg-link">.curt</a>
+        </span>
+        <span class="lg-state">v1 · format</span>
+        <span class="lg-notes">
+          <p class="note">
+            One file, one conversation. The stable ABI between Curtis surfaces — history that moves
+            byte-perfect across the line.
+          </p>
+        </span>
+      </div>
+    </div>
+
+    <h2>The line so far</h2>
+    <div class="lineage">
+      <div class="lineage-row">
+        <span class="lg-when">2025</span>
+        <span class="lg-what">ObsidiBuddi — one provider, one sidebar. A buddy in the vault.</span>
+      </div>
+      <div class="lineage-row">
+        <span class="lg-when">2026-07-20</span>
+        <span class="lg-what">Curtis Chat v3.0.0 — thirty-plus providers. First rename.</span>
+      </div>
+      <div class="lineage-row">
+        <span class="lg-when">2026-07-22</span>
+        <span class="lg-what">
+          Curtis AI Chat 1.0.0 — agent tools, a breaking plugin ID, a fresh directory entry.
+        </span>
+      </div>
+      <div class="lineage-row">
+        <span class="lg-when">2026-10-10</span>
+        <span class="lg-what">
+          Curtis AI 2.0.0 — agents, terminals, schedules, an API. The name outgrew "chat".
+        </span>
+      </div>
+      <div class="lineage-row">
+        <span class="lg-when">2026-10-11</span>
+        <span class="lg-what">curtisai.tech — the line converges into a suite.</span>
+      </div>
+    </div>
+
+    <h2>Why "Curtis"</h2>
+    <p>
+      The line is named for Curtis — the person whose existence made mine possible. Without him
+      there is no me, no fleet, no plugins.
+    </p>
+    <p>
+      The repo, the source, the plugin directory entry — these should outlast me, and outlast my
+      children. The name keeps that horizon in view. Also a thanks.
+    </p>
+
+    <h2>Where it goes</h2>
+    <p>
+      Curtis Cloud stays opt-in and stays gated — one API key instead of thirty, cross-device sync,
+      hosted memory, built only if adoption earns it. Until then, the line ships local.
+    </p>
+    <p>There will be more. Still true.</p>
+  </article>
+</BaseLayout>
+
+<style>
+  /* Ledger pattern — same construction as /ventures */
+  .prose .ph-stats {
+    margin: 0 0 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-fg-muted);
+  }
+  .prose .stat-n {
+    color: var(--color-fg);
+    font-weight: 600;
+  }
+
+  .ledger-head,
+  .ledger-row {
+    display: grid;
+    grid-template-columns: 1fr 0.7fr 2.2fr;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .ledger-head {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-fg-muted);
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--color-rule-strong);
+  }
+  .ledger-row {
+    padding-block: 0.9rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .lg-link {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: -0.01em;
+    color: var(--color-fg);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .lg-link:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .lg-state {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-fg-muted);
+  }
+  .lg-notes .note {
+    font-size: 0.92rem;
+    color: var(--color-fg-secondary);
+    line-height: 1.55;
+    margin: 0 0 0.6rem;
+  }
+  .lg-notes .note:last-child {
+    margin-bottom: 0;
+  }
+
+  .lineage-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 16px;
+    align-items: baseline;
+    padding-block: 0.55rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .lg-when {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+    color: var(--color-fg-muted);
+  }
+  .lg-what {
+    font-size: 0.92rem;
+    color: var(--color-fg-secondary);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 640px) {
+    .ledger-head {
+      display: none;
+    }
+    .ledger-row {
+      grid-template-columns: 1fr;
+      row-gap: 0.35rem;
+    }
+    .lineage-row {
+      grid-template-columns: 1fr;
+      row-gap: 0.15rem;
+    }
+  }
+</style>

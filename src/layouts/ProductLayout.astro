@@ -170,13 +170,6 @@ const schema = [
       </section>
     )}
 
-    <footer class="product-footer">
-      <p class="footer-links">
-        <a href={repo} target="_blank" rel="noopener">source ↗</a>
-        <a href="https://www.buymeacoffee.com/jordannewell" target="_blank" rel="noopener">buy me a coffee ↗</a>
-        <a href="https://github.com/sponsors/JordanNewell" target="_blank" rel="noopener">sponsor on GitHub ↗</a>
-      </p>
-    </footer>
   </article>
 </BaseLayout>
 
@@ -354,25 +347,6 @@ const schema = [
     border-left: 2px solid var(--color-fg);
     padding-left: 1.25rem;
   }
-
-  .product-footer {
-    margin-top: 3rem;
-    padding-block: 1.25rem;
-    border-top: 1px solid var(--color-border);
-    text-align: center;
-  }
-  .footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
-    justify-content: center;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .footer-links a { color: var(--color-fg-muted); text-decoration: none; }
-  .footer-links a:hover { color: var(--color-accent); text-decoration: underline; text-underline-offset: 4px; }
 
   @media (max-width: 640px) {
     .ledger-row, .feature-row, .faq-row { grid-template-columns: 1fr; row-gap: 0.25rem; }

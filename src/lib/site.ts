@@ -17,9 +17,13 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { href: "/now", label: "Now" },
-  { href: "/about", label: "About" },
-  { href: "/posts", label: "Posts" },
   { href: "/products", label: "Products" },
+] as const;
+
+// Pages demoted from the header live here — the footer is the full index.
+export const FOOTER_PAGE_LINKS = [
+  { href: "/about", label: "about" },
+  { href: "/posts", label: "posts" },
 ] as const;
 
 // Categorical inks — ledger-safe ink hues, one per tag family

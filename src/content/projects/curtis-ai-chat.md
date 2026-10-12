@@ -1,49 +1,50 @@
 ---
-title: "Curtis AI Chat"
-description: "Polyglot AI chat for Obsidian. 30+ providers, agent mode with vault tools, multi-model arena, voice I/O, inline diff rewrite. The v1 successor to Curtis Chat."
+title: "Curtis.ai"
+description: "The agent for Obsidian. 53 providers, 12 vault tools, named agents and swarm mode, skills, an MCP server and client, scheduled runs, the multi-model arena — history as .curt files you own. Also runs in Zed via curtis-acp."
 status: "shipped"
-tags: ["projects", "ai", "oss", "obsidian"]
-shipDate: 2026-07-22
-repo: "https://github.com/JordanNewell/curtis-ai-chat"
+tags: ["projects", "ai", "obsidian"]
+shipDate: 2026-10-12
+repo: "https://github.com/JordanNewell/curtis"
 liveUrl: "https://jordannewell.com/products/curtis-ai-chat/"
 order: 2
 facts:
-  - k: "shipped"
-    v: "2026-07-22"
+  - k: "relaunched"
+    v: "2026-10-12"
   - k: "version"
-    v: "v1.x"
+    v: "1.0.0"
   - k: "providers"
-    v: "30+"
+    v: "53"
   - k: "form"
-    v: "Obsidian plugin"
+    v: "Obsidian plugin + ACP agent"
   - k: "license"
-    v: "MIT"
+    v: "BUSL-1.1 (free to use)"
 highlights:
   - title: "Curtis Agent"
-    body: "AI calls tools to read, create, and edit vault notes. Vault-aware — knows your tags, links, and structure."
+    body: "12 tools to read, create, and edit vault notes — plus shells (opt-in, confirmed), MCP servers, and skills in the open Agent Skills standard."
   - title: "Multi-model arena"
-    body: "Stream one prompt to two models side-by-side. Compare answers in real time, pick the winner."
-  - title: "Inline diff rewrite"
-    body: "Cursor-style rewrite with Accept/Reject diff modal. Review every change before it lands."
-  - title: "Voice I/O"
-    body: "Whisper STT in, browser TTS out. Talk to your vault."
+    body: "Stream one prompt to 2–4 models side-by-side — in Obsidian and inside Zed's agent panel. Promote the winner."
+  - title: "Named agents & swarm"
+    body: "Persona + model routing + tool ceilings per agent; a leader spawns followers that take subtasks and report back."
+  - title: "Memory with provenance"
+    body: "Facts ask before saving and record which conversation they came from. Conversations live as markdown you own."
 stack:
   - "TypeScript"
   - "Obsidian Plugin API"
-  - "OpenAI / Anthropic / Google / 30+ providers"
+  - "ACP (Zed + any client)"
+  - "OpenAI / Anthropic / Google / Ollama / 53 providers"
 ---
 
-The polyglot AI chat for Obsidian. Curtis Chat v3 rebranded and rebuilt with a breaking v1 release on 2026-07-22 — eight flagship features landed in one ship:
+The agent for Obsidian. Formerly Curtis AI Chat — the name caught up to the product at the 1.0.0 relaunch on 2026-10-12: repo and plugin id are now `curtis`, positioning is agent-first, and the license moved to BUSL-1.1 (source-available — free to use, modify, and redistribute; only offering Curtis itself as a competing service needs a commercial license; each version converts to Apache-2.0 after four years).
 
-- **Curtis Agent** — AI calls tools to read/create/edit vault notes
-- **Multi-model arena** — stream one prompt to 2 models side-by-side
-- **Inline diff rewrite** — Cursor-style rewrite with Accept/Reject diff modal
-- **@-mention vault notes** in chat
-- **Voice I/O** (Whisper STT + browser TTS)
-- **Cross-conversation search**
-- **Markdown export**
-- **Memory editing UI**
+What shipped in the relaunch line:
 
-Plus a full type-safety pass — every external JSON response shape strictly typed, narrowing at the boundary, zero `any` in the provider code.
+- **Curtis Agent** — 12 vault tools, auditable in the transcript
+- **Named agents & swarm mode** — leader spawns followers on subtasks
+- **Skills** — open Agent Skills standard, portable to/from Claude Code, Cursor, Copilot
+- **MCP both directions** — client, plus serving the vault to external AI apps
+- **Multi-model arena** — 2–4 models, in Obsidian and Zed (curtis-acp)
+- **Scheduled runs** — headless prompts on a cadence, filed as notes
+- **Memory with provenance** + conversations as plain markdown in your vault
+- **Import** — ChatGPT/Claude exports, portable `.curt` files
 
-Full feature list and install instructions on the [product page](/products/curtis-ai-chat/). For the rename history (ObsidiBuddi → Curtis Chat → Curtis AI Chat), see [Curtis Chat](/projects/curtis-chat/).
+Full feature list, comparison table, and install instructions on the [product page](/products/curtis-ai-chat/). For the rename history (ObsidiBuddi → Curtis Chat → Curtis AI Chat → Curtis), see [Curtis Chat](/projects/curtis-chat/).

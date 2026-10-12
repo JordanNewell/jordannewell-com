@@ -3,10 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { organizationSchema } from "../lib/schema";
 
 const curtisAi = organizationSchema({
-  name: "Curtis AI",
+  name: "Curtis.ai",
   url: "https://curtisai.tech",
   description:
-    "Local-first AI line: Curtis AI 2.0.0 for Obsidian, Curtis Porter, curtis-compliance, and the .curt portable history format. MIT, no telemetry.",
+    "The AI line: Curtis — the agent for Obsidian and ACP clients (53 providers, 12 vault tools, skills, the multi-model arena) — plus Curtis Porter, curtis-compliance, and the .curt portable history format. Source-available BUSL-1.1, free to use, no telemetry.",
   employeeRole: "Founder",
   pageUrl: "https://jordannewell.com/curtis/",
 });
@@ -16,14 +16,14 @@ const schema = [curtisAi];
 
 <BaseLayout
   title="Curtis"
-  description="The AI venture. Local-first agents, history as files you own — Chat, Port, Audit, .curt. Shipped, MIT, no telemetry."
+  description="The AI venture. Local-first agents, history as files you own — the Curtis agent, Porter, Audit, .curt. Source-available BUSL-1.1, no telemetry."
   ogImage="/og-curtis-ai-chat.png"
   schema={schema}
 >
   <article class="prose">
     <h1 class="sr-only">Curtis — the AI venture</h1>
     <p class="ph-stats">
-      <span class="stat-n">2.0.0</span> shipped 2026-10-10 · suite live 2026-10-11 · MIT · no telemetry
+      <span class="stat-n">1.0.0</span> relaunched 2026-10-12 · suite live 2026-10-11 · BUSL-1.1 · no telemetry
     </p>
 
     <h2>The bet</h2>
@@ -46,13 +46,14 @@ const schema = [curtisAi];
       </div>
       <div class="ledger-row">
         <span class="lg-name">
-          <a href="/products/curtis-ai-chat/" class="lg-link">Chat</a>
+          <a href="/products/curtis-ai-chat/" class="lg-link">Curtis.ai</a>
         </span>
-        <span class="lg-state">2.0.0 · live</span>
+        <span class="lg-state">1.0.0 · live</span>
         <span class="lg-notes">
           <p class="note">
-            The core — named agents and swarm mode, a terminal pane, scheduled runs, an MCP server
-            and client, 53 providers. Chat history as files you own. MIT, no telemetry.
+            The core — the agent: 12 vault tools, named agents and swarm mode, skills, a terminal
+            pane, scheduled runs, an MCP server and client, 53 providers, the multi-model arena.
+            History as files you own. Source-available BUSL-1.1, free to use, no telemetry.
           </p>
         </span>
       </div>
@@ -124,6 +125,12 @@ const schema = [curtisAi];
       <div class="lineage-row">
         <span class="lg-when">2026-10-11</span>
         <span class="lg-what">curtisai.tech — the line converges into a suite.</span>
+      </div>
+      <div class="lineage-row">
+        <span class="lg-when">2026-10-12</span>
+        <span class="lg-what">
+          Curtis 1.0.0 relaunch — the name catches up: curtis on GitHub, agent-first, BUSL-1.1.
+        </span>
       </div>
     </div>
 

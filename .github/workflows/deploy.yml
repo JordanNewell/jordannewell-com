@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [main, dev]
+    branches: ["**"]
   workflow_dispatch:
 
 # One deploy at a time per branch; a newer push supersedes the in-flight deploy.

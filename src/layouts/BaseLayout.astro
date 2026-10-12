@@ -70,29 +70,11 @@ const resolvedOgImage = ogImage
   <body>
     <div class="relative z-1">
       <Header path={path} />
-      <a href="/" class="under-header-character max-w-prose mx-auto px-5" aria-label="Jordan Newell — home">
-        <img src="/images/newell-character.png" alt="" width="320" height="320" />
-      </a>
       <main class="max-w-prose mx-auto px-5 py-12">
         <slot />
       </main>
       <Footer />
     </div>
-    <style>
-      .under-header-character {
-        display: flex;
-        justify-content: flex-end;
-        padding-top: 14px;
-        line-height: 0;
-        opacity: 0.9;
-        transition: opacity 0.15s, transform 0.15s;
-      }
-      .under-header-character img { width: 88px; height: 88px; }
-      .under-header-character:hover { opacity: 1; }
-      @media (max-width: 560px) {
-        .under-header-character img { width: 64px; height: 64px; }
-      }
-    </style>
     <script src="/js/main.js" defer></script>
   </body>
 </html>

@@ -33,26 +33,6 @@ const buildTime = new Date();
   <h1 class="sr-only">I build and operate the systems behind ambitious ventures.</h1>
 
   <section class="section">
-    <div class="live-rows">
-      {lastCommitSha && lastCommitDate && (
-        <div class="live-row">
-          <div class="live-label">Last commit</div>
-          <div class="live-value">
-            <span class="mono-sha">{lastCommitSha}</span>
-            <span class="live-relative" data-timestamp={lastCommitDate.toISOString()}>…</span>
-          </div>
-        </div>
-      )}
-      <div class="live-row">
-        <div class="live-label">Built</div>
-        <div class="live-value">
-          <span class="live-relative" data-timestamp={buildTime.toISOString()}>…</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
     <div>
       {posts.map((post, i) => {
         const hero = i === 0 ? heroFor(post.id) : null;
@@ -87,6 +67,26 @@ const buildTime = new Date();
       })}
     </div>
   </section>
+
+  <section class="section build-meta">
+    <div class="live-rows">
+      {lastCommitSha && lastCommitDate && (
+        <div class="live-row">
+          <div class="live-label">Last commit</div>
+          <div class="live-value">
+            <span class="mono-sha">{lastCommitSha}</span>
+            <span class="live-relative" data-timestamp={lastCommitDate.toISOString()}>…</span>
+          </div>
+        </div>
+      )}
+      <div class="live-row">
+        <div class="live-label">Built</div>
+        <div class="live-value">
+          <span class="live-relative" data-timestamp={buildTime.toISOString()}>…</span>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -103,10 +103,9 @@ const buildTime = new Date();
   .live-rows { display: flex; flex-direction: column; }
   .live-row {
     display: grid; grid-template-columns: 110px 1fr; gap: 0 18px;
-    padding-block: 12px;
-    border-bottom: 1px solid var(--color-border);
+    padding-block: 6px;
   }
-  .live-row:last-child { border-bottom: none; }
+  .build-meta { margin-top: 32px; }
   .live-label {
     font-family: var(--font-mono);
     font-size: 0.65rem; color: var(--color-fg-muted);
@@ -130,6 +129,7 @@ const buildTime = new Date();
     padding-block: 1.35rem;
     border-bottom: 1px solid var(--color-border);
   }
+  .post-item.post-featured { border-bottom: none; padding-bottom: 0; }
   .featured-head {
     text-align: center;
     margin-bottom: 0.9rem;

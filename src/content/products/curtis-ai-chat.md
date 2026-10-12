@@ -1,5 +1,5 @@
 ---
-title: "Curtis.ai"
+title: "Curtis AI"
 tagline: "The agent for Obsidian. Every provider, one sidebar — your notes are the workspace."
 description: "Obsidian agent: 53 AI providers (API keys, local Ollama, or your ChatGPT/Kimi/Alibaba plans), 12 vault tools, named agents and swarm mode, skills, an MCP server and client, scheduled runs, a multi-model arena, and history kept as portable .curt files you own. Also runs in Zed and any ACP client. Source-available (BUSL-1.1), free to use, no telemetry, local-first."
 status: "released"
@@ -84,7 +84,7 @@ features:
 comparison:
   title: "How it compares"
   columns:
-    - "Curtis.ai"
+    - "Curtis AI"
     - "Smart Connections"
     - "Text Generator"
     - "Copilot for Obsidian"

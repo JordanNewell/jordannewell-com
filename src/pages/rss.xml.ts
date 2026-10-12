@@ -6,6 +6,7 @@ export async function GET(context: { site: URL }) {
   const posts = (await getCollection("posts", ({ data }) => !data.draft))
     .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
+  const year = new Date().getFullYear();
   return rss({
     title: SITE.title,
     description: SITE.description,
@@ -17,6 +18,8 @@ export async function GET(context: { site: URL }) {
       link: `/posts/${post.id}/`,
       categories: post.data.tags,
     })),
-    customData: `<language>en-us</language><copyright>© 2026 Jordan Newell. Content licensed CC BY-NC 4.0. Code licensed MIT.</copyright>`,
+    customData: `<language>en-us</language><lastBuildDate>${
+      posts[0]?.data.pubDate.toUTCString() ?? new Date().toUTCString()
+    }</lastBuildDate><copyright>© ${year} Jordan Newell. Content licensed CC BY-NC 4.0. Code licensed MIT.</copyright>`,
   });
 }

@@ -8,12 +8,12 @@ era: "2026-fleet"
 kind: "decision"
 project: "curtis-chat"
 draft: false
-ogImage: "/posts/curtis-suite-coming-soon/og.jpg"
+ogImage: "/posts/curtis-suite-coming-soon/og.png"
 ---
 
 The line has been scattered across a plugin directory, two repos, and an npm package. That ends. Everything Curtis converges at **[curtisai.tech](https://curtisai.tech)** — live now.
 
-[![The Curtis suite — Chat, Port, Audit, Data](/posts/curtis-suite-coming-soon/hero.jpg)](https://curtisai.tech)
+[![The Curtis suite — Chat, Port, Audit, Data](/posts/curtis-suite-coming-soon/hero.png)](https://curtisai.tech)
 
 Four pieces, one crystal. A small amount about each:
 

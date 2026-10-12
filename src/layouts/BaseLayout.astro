@@ -80,9 +80,6 @@ const resolvedOgImage = ogImage
     </div>
     <style>
       .under-header-character {
-        position: sticky;
-        top: 12px;
-        z-index: 10;
         display: flex;
         justify-content: flex-end;
         padding-top: 14px;
@@ -91,7 +88,7 @@ const resolvedOgImage = ogImage
         transition: opacity 0.15s, transform 0.15s;
       }
       .under-header-character img { width: 88px; height: 88px; }
-      .under-header-character:hover { opacity: 1; transform: translateY(-2px); }
+      .under-header-character:hover { opacity: 1; }
       @media (max-width: 560px) {
         .under-header-character img { width: 64px; height: 64px; }
       }

@@ -5,58 +5,11 @@ import PostCard from "../../components/PostCard.astro";
 
 const posts = (await getCollection("posts", ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
-
-const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
-const totalWords = posts.reduce((sum, p) => sum + (p.body?.split(/\s+/).length ?? 0), 0);
-const recentYear = posts.length > 0 ? new Date(posts[0].data.pubDate).getFullYear() : "—";
 ---
 
 <BaseLayout title="Posts" description="Field notes from the operator's desk.">
   <h1 class="sr-only">Posts</h1>
-  <p class="ph-stats">
-    <span class="stat-n">{posts.length}</span> posts · <span class="stat-n">{allTags.length}</span> tags · <span class="stat-n">{totalWords.toLocaleString()}</span> words · latest <span class="stat-n">{recentYear}</span>
-  </p>
-
   <div>
     {posts.map((post) => <PostCard post={post} />)}
   </div>
-
-  <nav class="ph-tags">
-    <a href="/" class="tag-link">all</a>
-    {allTags.map((tag) => (
-      <a href={`/tags/${tag}`} class="tag-link">/{tag}</a>
-    ))}
-  </nav>
-
-  <p class="mt-10 text-xs font-mono text-fg-muted">
-    <a href="/rss.xml" class="hover:text-accent">rss</a>
-    · <a href="/feed.json" class="hover:text-accent">json</a>
-    · <a href="/ai-feed.json" class="hover:text-accent">ai-feed</a>
-  </p>
 </BaseLayout>
-
-<style>
-  .ph-stats {
-    margin-bottom: 1.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--color-fg-muted);
-  }
-  .stat-n { color: var(--color-fg); font-weight: 600; }
-  .ph-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem 0.8rem;
-    margin-top: 1.5rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--color-border);
-  }
-  .tag-link {
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    color: var(--color-fg-muted);
-    text-decoration: none;
-    transition: color 0.15s ease;
-  }
-  .tag-link:hover { color: var(--color-accent); }
-</style>

@@ -1,6 +1,6 @@
 ---
 title: "Curtis Chat"
-description: "The earlier name for what's now Curtis (Curtis.ai). Started as ObsidiBuddi, became Curtis Chat at v3, evolved into Curtis AI Chat at v1, then Curtis at the 1.0.0 relaunch. This page is the evolution story."
+description: "The earlier name for what's now Curtis (Curtis AI). Started as ObsidiBuddi, became Curtis Chat at v3, evolved into Curtis AI Chat at v1, then Curtis at the 1.0.0 relaunch. This page is the evolution story."
 status: "deprecated"
 successor: "curtis-ai-chat"
 deprecatedDate: 2026-07-22

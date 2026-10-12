@@ -1,5 +1,5 @@
 ---
-title: "Curtis.ai"
+title: "Curtis AI"
 description: "The agent for Obsidian. 53 providers, 12 vault tools, named agents and swarm mode, skills, an MCP server and client, scheduled runs, the multi-model arena — history as .curt files you own. Also runs in Zed via curtis-acp."
 status: "shipped"
 tags: ["projects", "ai", "obsidian"]

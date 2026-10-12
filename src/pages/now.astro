@@ -5,13 +5,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout title="Now" description="What I'm focused on right now.">
   <article class="prose">
     <h1 class="sr-only">Now — what I'm focused on</h1>
-    <p class="text-fg-muted text-sm font-mono">Updated 2026-10-11.</p>
+    <p class="text-fg-muted text-sm font-mono">Updated 2026-10-12.</p>
 
     <h2>Current focus</h2>
+    <p>Two things get the attention. Everything else runs quiet.</p>
     <ul>
-      <li><strong>The Curtis line.</strong> 2.0.0 shipped 2026-10-10 — the agent release: named agents and swarm mode, a terminal pane, scheduled runs, an MCP server and client, a public plugin API, chat import with portable <code>.curt</code> files, and 53 providers with subscription sign-in. Curtis Porter (v0.2.0) moves chats both directions. curtis-acp puts the arena in the editor; curtis-compliance has been on npm since July. <a href="/products/curtis-ai-chat">Product page</a> · <a href="/curtis">Venture page</a>.</li>
-      <li><strong>DW Trim.</strong> Just locked the anchor job — a bar-and-restaurant buildout for a popular chain. One site signed, five more builds behind it; run this one well and it carries the rest, with more bids out beyond all six. Staying agile, hands-on where it counts. Eyes on Q1 '27. <a href="/ventures">/ventures</a>.</li>
-      <li><strong>Agent fleet.</strong> 30 agents, up from 19 when the last /now went up. September ran the unattended experiment and the fleet billed me three times in one week — OOM loop, heartbeat storm, suspended mail host. Defaults flipped since: heartbeats off fleet-wide, heap caps explicit, invoice reminders in the alert channel. The fleet keeps a witness now; continuing to close the loop efficiently.</li>
+      <li>
+        <strong>Curtis.</strong> 2.0.0 shipped 2026-10-10 — the agent release: named agents and swarm mode, a terminal pane, scheduled runs, an MCP server and client, a public plugin API, portable <code>.curt</code> chat import, 53 providers with subscription sign-in. Curtis Porter moves chats both directions; curtis-acp puts the arena in the editor. <a href="https://curtisai.tech">curtisai.tech</a>.
+      </li>
+      <li>
+        <strong>DW Trim.</strong> Locked the anchor job — a bar-and-restaurant buildout for a popular chain. One site signed, five more builds behind it; run this one well and it carries the rest, with more bids out beyond all six. Hands-on where it counts. Eyes on Q1 '27. <a href="/ventures">/ventures</a>.
+      </li>
     </ul>
   </article>
 </BaseLayout>
+
+<style>
+  .prose ul li { margin-block: 1.1rem; line-height: 1.75; }
+</style>

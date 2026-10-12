@@ -1,5 +1,4 @@
 ---
-import { execSync } from "child_process";
 import { existsSync } from "node:fs";
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -14,19 +13,6 @@ const heroFor = (id: string): string | null => {
   }
   return null;
 };
-
-let lastCommitSha: string | null = null;
-let lastCommitDate: Date | null = null;
-try {
-  lastCommitSha = execSync("git rev-parse --short HEAD").toString().trim();
-  const ts = execSync("git log -1 --format=%cI").toString().trim();
-  lastCommitDate = new Date(ts);
-} catch {
-  lastCommitSha = null;
-  lastCommitDate = null;
-}
-
-const buildTime = new Date();
 ---
 
 <BaseLayout title="Jordan Newell" description="I build and operate the systems behind ambitious ventures." path="/">
@@ -67,26 +53,6 @@ const buildTime = new Date();
       })}
     </div>
   </section>
-
-  <section class="section build-meta">
-    <div class="live-rows">
-      {lastCommitSha && lastCommitDate && (
-        <div class="live-row">
-          <div class="live-label">Last commit</div>
-          <div class="live-value">
-            <span class="mono-sha">{lastCommitSha}</span>
-            <span class="live-relative" data-timestamp={lastCommitDate.toISOString()}>…</span>
-          </div>
-        </div>
-      )}
-      <div class="live-row">
-        <div class="live-label">Built</div>
-        <div class="live-value">
-          <span class="live-relative" data-timestamp={buildTime.toISOString()}>…</span>
-        </div>
-      </div>
-    </div>
-  </section>
 </BaseLayout>
 
 <style>
@@ -99,30 +65,6 @@ const buildTime = new Date();
     margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
     padding-bottom: 6px;
   }
-
-  .live-rows { display: flex; flex-direction: column; }
-  .live-row {
-    display: grid; grid-template-columns: 110px 1fr; gap: 0 18px;
-    padding-block: 6px;
-  }
-  .build-meta { margin-top: 32px; }
-  .live-label {
-    font-family: var(--font-mono);
-    font-size: 0.65rem; color: var(--color-fg-muted);
-    letter-spacing: 0.08em; text-transform: uppercase; padding-top: 3px;
-  }
-  .live-value {
-    font-family: var(--font-mono);
-    font-size: 0.82rem; color: var(--color-fg);
-    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-  }
-  .mono-sha { color: var(--color-green); }
-  .live-relative {
-    font-size: 0.7rem; color: var(--color-fg-muted);
-  }
-
-  /* Status heartbeat monitor lives in the pinned bottom bar (BaseLayout) —
-     state classes driven by public/js/main.js via data-status-badge. */
 
   .post-item {
     display: block; text-decoration: none;
@@ -182,7 +124,7 @@ const buildTime = new Date();
   .post-item:hover .read-this { color: var(--color-accent); }
 
   @media (max-width: 560px) {
-    .live-row, .post-grid { grid-template-columns: 1fr; }
-    .live-label, .post-date { margin-bottom: 0.3rem; }
+    .post-grid { grid-template-columns: 1fr; }
+    .post-date { margin-bottom: 0.3rem; }
   }
 </style>

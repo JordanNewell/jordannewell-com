@@ -100,15 +100,14 @@ const resolvedOgImage = ogImage
         background-color: var(--color-bg);
       }
       .status-bar .status-badge {
-        max-width: var(--container-prose);
-        margin-inline: auto;
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 10px;
         padding: 6px 1.25rem;
         text-decoration: none;
       }
-      .ekg { flex: 1 1 auto; min-width: 64px; max-width: 340px; height: 16px; }
+      .ekg { flex: 0 1 340px; min-width: 64px; max-width: 340px; height: 16px; }
       .ekg-trace, .ekg-flat { fill: none; stroke-width: 1.5; }
       .ekg-trace { display: none; stroke: var(--color-green); }
       .ekg-flat { stroke: var(--color-amber); }

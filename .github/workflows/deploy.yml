@@ -2,12 +2,13 @@ name: Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   workflow_dispatch:
 
-# One deploy at a time; a newer push supersedes the in-flight deploy.
+# One deploy at a time per branch; a newer push supersedes the in-flight deploy.
+# main -> jordannewell-com.pages.dev (production); dev -> dev.jordannewell-com.pages.dev (design playground).
 concurrency:
-  group: deploy-production
+  group: deploy-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
@@ -48,16 +49,21 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         if: env.HAS_CF_TOKEN == 'true'
-        run: npx wrangler pages deploy dist --project-name=jordannewell-com --branch=main
+        run: npx wrangler pages deploy dist --project-name=jordannewell-com --branch="${{ github.ref_name }}"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: 554619f8c7d3a4010cb161df3037269d
 
       - name: Smoke-check the deployment
         if: env.HAS_CF_TOKEN == 'true'
+        # main serves the production alias; any other branch gets <branch>.<project>.pages.dev.
         run: |
           sleep 20
-          base="https://jordannewell-com.pages.dev"
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            base="https://jordannewell-com.pages.dev"
+          else
+            base="https://${{ github.ref_name }}.jordannewell-com.pages.dev"
+          fi
           for path in / /posts/ /llms.txt /rss.xml /robots.txt; do
             code=$(curl -s -o /dev/null -w '%{http_code}' "${base}${path}")
             echo "${path} -> ${code}"

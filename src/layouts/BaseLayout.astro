@@ -78,7 +78,29 @@ const resolvedOgImage = ogImage
       </main>
       <Footer />
     </div>
+    <div class="status-line" role="contentinfo">
+      <p>less is more</p>
+    </div>
     <style>
+      body { padding-bottom: 2.75rem; }
+      .status-line {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        border-top: 1px solid var(--color-border);
+        background-color: var(--color-bg);
+      }
+      .status-line p {
+        max-width: var(--container-prose);
+        margin-inline: auto;
+        padding: 8px 1.25rem;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        color: var(--color-fg-muted);
+      }
       .under-header-character {
         display: flex;
         justify-content: flex-end;

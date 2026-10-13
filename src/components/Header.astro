@@ -4,7 +4,10 @@ const { path } = Astro.props;
 ---
 
 <header class="border-b border-border">
-  <div class="header-inner max-w-prose mx-auto px-5 py-3.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+  <div class="header-inner max-w-prose mx-auto px-5 py-3.5 flex flex-wrap items-center gap-x-4 gap-y-2">
+    <a href="/" class="hdr-n" aria-label="Jordan Newell — home">
+      <img src="/images/newell-icon.png" alt="" width="1024" height="1024" loading="eager" />
+    </a>
     <nav class="flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-[0.72rem]">
       {NAV_LINKS.map((link) => (
         <a
@@ -17,9 +20,6 @@ const { path } = Astro.props;
         </a>
       ))}
     </nav>
-    <a href="/" class="hdr-n" aria-label="Jordan Newell — home">
-      <img src="/images/newell-icon.png" alt="" width="1024" height="1024" loading="eager" />
-    </a>
   </div>
 </header>
 
@@ -28,6 +28,7 @@ const { path } = Astro.props;
     display: flex;
     align-items: center;
     /* sized to the menu, not the other way around */
+    margin-right: 4px;
     line-height: 0;
     opacity: 0.95;
     transition: opacity 0.15s;

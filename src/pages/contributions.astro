@@ -56,31 +56,14 @@ const projects = [...new Set(allContributions.map((c) => c.data.project))];
 </BaseLayout>
 
 <style>
-  .ph-stats {
-    margin-bottom: 1.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--color-fg-muted);
-  }
-  .stat-n { color: var(--color-fg); font-weight: 600; }
-
+  /* Grid + spacing are contributions-specific; base ledger styles live in global.css */
   .ledger-head, .ledger-row {
     display: grid;
     grid-template-columns: 110px 1fr;
     gap: 0 18px;
   }
-  .ledger-head {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--color-fg-muted);
-    padding-bottom: 0.55rem;
-    border-bottom: 1px solid var(--color-rule-strong);
-  }
   .ledger-row {
     padding-block: 0.9rem;
-    border-bottom: 1px solid var(--color-border);
   }
   .lg-date {
     font-family: var(--font-mono);
@@ -102,24 +85,7 @@ const projects = [...new Set(allContributions.map((c) => c.data.project))];
   .lg-type { color: var(--color-cyan); }
   .lg-project { white-space: nowrap; }
   .lg-logo { display: inline-block; vertical-align: -2px; margin-right: 5px; border-radius: 3px; }
-  .lg-link {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.92rem;
-    letter-spacing: -0.01em;
-    color: var(--color-fg);
-    text-decoration: none;
-    transition: color 0.15s ease;
-  }
-  .lg-link:hover {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
   .lg-desc {
-    font-size: 0.92rem;
-    color: var(--color-fg-secondary);
-    line-height: 1.5;
     max-width: 62ch;
   }
   .lg-outcome {

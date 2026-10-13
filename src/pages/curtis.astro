@@ -154,16 +154,9 @@ const schema = [curtisAi];
 </BaseLayout>
 
 <style>
-  /* Ledger pattern — same construction as /ventures */
+  /* Ledger pattern — same construction as /ventures; base styles in global.css */
   .prose .ph-stats {
     margin: 0 0 1.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--color-fg-muted);
-  }
-  .prose .stat-n {
-    color: var(--color-fg);
-    font-weight: 600;
   }
 
   .ledger-head,
@@ -173,48 +166,8 @@ const schema = [curtisAi];
     gap: 16px;
     align-items: baseline;
   }
-  .ledger-head {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--color-fg-muted);
-    padding-bottom: 0.55rem;
-    border-bottom: 1px solid var(--color-rule-strong);
-  }
   .ledger-row {
     padding-block: 0.9rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .lg-link {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.92rem;
-    letter-spacing: -0.01em;
-    color: var(--color-fg);
-    text-decoration: none;
-    transition: color 0.15s ease;
-  }
-  .lg-link:hover {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-  .lg-state {
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-fg-muted);
-  }
-  .lg-notes .note {
-    font-size: 0.92rem;
-    color: var(--color-fg-secondary);
-    line-height: 1.55;
-    margin: 0 0 0.6rem;
-  }
-  .lg-notes .note:last-child {
-    margin-bottom: 0;
   }
 
   .lineage-row {

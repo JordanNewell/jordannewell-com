@@ -158,6 +158,120 @@
   }
 }
 
+/* Ledger (shared) — ventures/products/projects/contributions index pages +
+   project/product layouts. Unlayered on purpose: these must win over the
+   layered `.prose *` rules exactly as the old per-page scoped styles did.
+   Grid columns, gaps and per-page tweaks stay in each page's scoped styles
+   (Astro scoped styles are unlayered and keep their current precedence). */
+.ledger-head {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-fg-muted);
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--color-rule-strong);
+}
+.ledger-row {
+  border-bottom: 1px solid var(--color-border);
+}
+.ph-stats {
+  margin-bottom: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--color-fg-muted);
+}
+.stat-n { color: var(--color-fg); font-weight: 600; }
+.lg-link {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: -0.01em;
+  color: var(--color-fg);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.lg-link:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.lg-role, .lg-state {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-fg-muted);
+}
+.lg-st {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.lg-desc {
+  font-size: 0.92rem;
+  color: var(--color-fg-secondary);
+  line-height: 1.5;
+}
+.lg-muted { color: var(--color-fg-muted); }
+.lg-notes .note {
+  font-size: 0.92rem;
+  color: var(--color-fg-secondary);
+  line-height: 1.55;
+  margin: 0 0 0.6rem;
+}
+.lg-notes .note:last-child { margin-bottom: 0; }
+
+/* Project/Product layout shared header + section chrome */
+.ph-titlerow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--color-rule-strong);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+.ph-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+}
+.ph-stat-link { color: var(--color-fg-muted); }
+.ph-stat-link:hover { color: var(--color-accent); }
+.ph-tag {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-size: 1.08rem;
+  color: var(--color-fg-secondary);
+}
+.section-h {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-fg-muted);
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-rule-strong);
+}
+.lg-name-sm {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: -0.01em;
+  color: var(--color-fg);
+}
+.lg-desc-sm {
+  font-size: 0.9rem;
+  color: var(--color-fg-secondary);
+  line-height: 1.55;
+}
+
 /* Murphy-mode variant — manifesto posts get the red marker */
 .murphy-mode h1 {
   text-decoration: underline;

@@ -17,10 +17,24 @@ const { path } = Astro.props;
         </a>
       ))}
     </nav>
+    <a href="/" class="hdr-n" aria-label="Jordan Newell — home">
+      <img src="/images/newell-icon.png" alt="" width="1024" height="1024" loading="eager" />
+    </a>
   </div>
 </header>
 
 <style>
+  .hdr-n {
+    display: flex;
+    align-items: center;
+    /* sized to the menu, not the other way around */
+    line-height: 0;
+    opacity: 0.95;
+    transition: opacity 0.15s;
+  }
+  .hdr-n img { width: 28px; height: auto; }
+  .hdr-n:hover { opacity: 1; }
+
   /* Mobile: raise tap targets to the 40px comfort floor and legible font size.
      Desktop (>640px) is untouched. */
   @media (max-width: 640px) {

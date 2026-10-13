@@ -3,6 +3,7 @@ title: "I leaked 8 credentials in 9 days. Built a scanner. Number nine got throu
 description: "Eight paste-error leaks into AI chat in nine days, zero exploits. pat-scanner is the OSS guard I shipped; a Windows blind spot still let leak number nine through. It guards the fleet now."
 pubDate: 2026-07-27
 tags: ["security", "oss"]
+project: "pat-scanner"
 mode: "hobart"
 tool: "claude-code"
 kind: "win"

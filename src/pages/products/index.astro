@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import { PRODUCT_STATUS_COLORS } from "../../lib/site";
 
 const products = (await getCollection("products")).sort(
   (a, b) => a.data.order - b.data.order,
@@ -10,11 +11,7 @@ const shippedCount = products.filter(
   (p) => p.data.status === "released",
 ).length;
 
-const statusColors: Record<string, string> = {
-  released: "#0E8A4A",
-  beta: "#B45309",
-  preview: "#7A7683",
-};
+const statusColors = PRODUCT_STATUS_COLORS;
 
 const platformLabel = (url: string): string => {
   try {
@@ -63,32 +60,15 @@ const platformLabel = (url: string): string => {
 </BaseLayout>
 
 <style>
-  .ph-stats {
-    margin-bottom: 1.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--color-fg-muted);
-  }
-  .stat-n { color: var(--color-fg); font-weight: 600; }
-
+  /* Grid + spacing are products-specific; base ledger styles live in global.css */
   .ledger-head, .ledger-row {
     display: grid;
     grid-template-columns: 26px minmax(0, 1.1fr) auto minmax(0, 0.45fr) minmax(0, 1.7fr);
     gap: 14px;
     align-items: baseline;
   }
-  .ledger-head {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--color-fg-muted);
-    padding-bottom: 0.55rem;
-    border-bottom: 1px solid var(--color-rule-strong);
-  }
   .ledger-row {
     padding-block: 0.85rem;
-    border-bottom: 1px solid var(--color-border);
     text-decoration: none;
   }
   .lg-logo-cell {
@@ -115,10 +95,6 @@ const platformLabel = (url: string): string => {
     text-underline-offset: 4px;
   }
   .lg-st {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
     white-space: nowrap;
   }
   .lg-pkg {
@@ -126,11 +102,6 @@ const platformLabel = (url: string): string => {
     font-size: 0.68rem;
     color: var(--color-fg-muted);
     white-space: nowrap;
-  }
-  .lg-desc {
-    font-size: 0.92rem;
-    color: var(--color-fg-secondary);
-    line-height: 1.5;
   }
   @media (max-width: 900px) {
     .ledger-head span:nth-child(3) { display: none; }

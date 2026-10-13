@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import { softwareApplicationSchema } from "../lib/schema";
+import { PRODUCT_STATUS_COLORS } from "../lib/site";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 const { product } = Astro.props as { product: CollectionEntry<"products"> };
@@ -27,11 +28,7 @@ const {
 
 const canonicalOg = ogImage ?? `/og-curtis-ai-chat.png`;
 
-const statusColors: Record<string, string> = {
-  released: "#0E8A4A",
-  beta: "#B45309",
-  preview: "#7A7683",
-};
+const statusColors = PRODUCT_STATUS_COLORS;
 
 const schema = [
   softwareApplicationSchema({
@@ -174,6 +171,7 @@ const schema = [
 </BaseLayout>
 
 <style>
+  /* Shared header/section chrome lives in global.css; layout-specific bits below */
   .product {
     max-width: 60rem;
     margin-inline: auto;
@@ -181,14 +179,18 @@ const schema = [
 
   .page-head { margin-bottom: 2.25rem; }
   .ph-titlerow {
-    display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-    border-bottom: 1px solid var(--color-rule-strong);
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.8rem;
+  }
+  /* Counter the shared .ph-stats margin — product pages never had it */
+  .page-head .ph-stats {
+    margin: 0;
+  }
+  .ph-stats {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
   .ph-titlegroup {
     display: flex;
@@ -200,27 +202,7 @@ const schema = [
     height: 40px;
     flex-shrink: 0;
   }
-  .ph-title {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.7rem;
-    letter-spacing: -0.02em;
-    color: var(--color-fg);
-  }
-  .ph-stats {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--color-fg-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .stat-n { color: var(--color-fg); font-weight: 600; }
-  .ph-stat-link { color: var(--color-fg-muted); }
   .ph-tag {
-    font-family: var(--font-sans);
-    font-style: italic;
-    font-size: 1.08rem;
-    color: var(--color-fg-secondary);
     margin-bottom: 0.4rem;
   }
   .ph-desc {
@@ -260,31 +242,12 @@ const schema = [
   .product-body { margin-bottom: 3rem; }
 
   .ledger-section { margin-bottom: 3rem; }
-  .section-h {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-fg-muted);
-    margin-bottom: 0.25rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--color-rule-strong);
-  }
   .ledger-row {
     display: grid;
     grid-template-columns: 200px 1fr;
     gap: 0 18px;
     padding-block: 0.8rem;
-    border-bottom: 1px solid var(--color-border);
     align-items: baseline;
-  }
-  .lg-name-sm {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: -0.01em;
-    color: var(--color-fg);
   }
   .lg-link-sm {
     font-family: var(--font-mono);
@@ -294,12 +257,6 @@ const schema = [
     word-break: break-all;
   }
   .lg-link-sm:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .lg-muted { color: var(--color-fg-muted); }
-  .lg-desc-sm {
-    font-size: 0.9rem;
-    color: var(--color-fg-secondary);
-    line-height: 1.55;
-  }
   .doc-link {
     display: inline-block;
     margin-left: 0.5rem;

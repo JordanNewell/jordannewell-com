@@ -14,6 +14,8 @@ const counts = {
   deprecated: countBy("deprecated"),
 };
 
+// NOTE: intentionally different from ProjectLayout's statusColors — this index
+// uses quieter inks for exploratory/venture-track/deprecated. Do not merge.
 const statusColors: Record<string, string> = {
   active: "#0E8A4A",
   shipped: "#1F4FD8",
@@ -70,52 +72,15 @@ const pkgLabel = (url: string): string => {
 </BaseLayout>
 
 <style>
-  .ph-stats {
-    margin-bottom: 1.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--color-fg-muted);
-  }
-  .stat-n { color: var(--color-fg); font-weight: 600; }
-
+  /* Grid + spacing are projects-specific; base ledger styles live in global.css */
   .ledger-head, .ledger-row {
     display: grid;
     grid-template-columns: 1.1fr 0.65fr 0.75fr 1.7fr;
     gap: 14px;
     align-items: baseline;
   }
-  .ledger-head {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--color-fg-muted);
-    padding-bottom: 0.55rem;
-    border-bottom: 1px solid var(--color-rule-strong);
-  }
   .ledger-row {
     padding-block: 0.85rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .lg-link {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.92rem;
-    letter-spacing: -0.01em;
-    color: var(--color-fg);
-    text-decoration: none;
-    transition: color 0.15s ease;
-  }
-  .lg-link:hover {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-  .lg-st {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
   }
   .lg-links {
     display: flex;
@@ -128,12 +93,6 @@ const pkgLabel = (url: string): string => {
   .lk-green { color: var(--color-green); }
   .lk-cyan { color: var(--color-cyan); }
   .lk:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .lg-muted { color: var(--color-fg-muted); }
-  .lg-desc {
-    font-size: 0.92rem;
-    color: var(--color-fg-secondary);
-    line-height: 1.5;
-  }
   @media (max-width: 640px) {
     .ledger-head { display: none; }
     .ledger-row {

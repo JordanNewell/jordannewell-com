@@ -18,6 +18,8 @@ const relatedPosts = allPosts
   .filter((p) => p.data.project === project.id)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
+// NOTE: intentionally different from /projects index statusColors — this detail
+// view uses louder inks for exploratory/venture-track/deprecated. Do not merge.
 const statusColors: Record<string, string> = {
   active: "#0E8A4A",
   shipped: "#1F4FD8",
@@ -110,23 +112,10 @@ const schema = [
 </BaseLayout>
 
 <style>
+  /* Shared header/section chrome lives in global.css; layout-specific bits below */
   .page-head { margin-bottom: 2rem; }
   .ph-titlerow {
-    display: flex;
     align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-    border-bottom: 1px solid var(--color-rule-strong);
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.8rem;
-  }
-  .ph-title {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.7rem;
-    letter-spacing: -0.02em;
-    color: var(--color-fg);
   }
   .ph-stats {
     font-family: var(--font-mono);
@@ -135,14 +124,7 @@ const schema = [
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
-  .stat-n { color: var(--color-fg); font-weight: 600; }
-  .ph-stat-link { color: var(--color-fg-muted); }
-  .ph-stat-link:hover { color: var(--color-accent); }
   .ph-tag {
-    font-family: var(--font-sans);
-    font-style: italic;
-    font-size: 1.08rem;
-    color: var(--color-fg-secondary);
     margin-bottom: 0.5rem;
     max-width: 62ch;
   }
@@ -155,17 +137,6 @@ const schema = [
   }
 
   .ledger-section { margin-bottom: 2.25rem; }
-  .section-h {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-fg-muted);
-    margin-bottom: 0.25rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--color-rule-strong);
-  }
   .facts-row {
     display: flex;
     flex-wrap: wrap;
@@ -183,20 +154,7 @@ const schema = [
     grid-template-columns: 220px 1fr;
     gap: 0 18px;
     padding-block: 0.8rem;
-    border-bottom: 1px solid var(--color-border);
     align-items: baseline;
-  }
-  .lg-name-sm {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: -0.01em;
-    color: var(--color-fg);
-  }
-  .lg-desc-sm {
-    font-size: 0.9rem;
-    color: var(--color-fg-secondary);
-    line-height: 1.55;
   }
   .lg-date-sm {
     font-family: var(--font-mono);

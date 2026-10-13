@@ -37,3 +37,11 @@ export const TAG_COLORS: Record<string, string> = {
   security: "#DC2626",      // red ink
   oss: "#4D7C0F",           // olive ink
 };
+
+// Status ink for the product ledger — used by /products and ProductLayout.
+// (Project status inks differ between /projects and ProjectLayout — do not merge.)
+export const PRODUCT_STATUS_COLORS: Record<string, string> = {
+  released: "#0E8A4A",
+  beta: "#B45309",
+  preview: "#7A7683",
+};

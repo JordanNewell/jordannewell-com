@@ -38,3 +38,6 @@ scripts/opsec-patterns.local
 
 # ZCode session state
 .zcode/
+
+# local agent worktrees + scratch
+.claude/

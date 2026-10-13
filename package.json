@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Source for https://jordannewell.com — Astro SSG. Production deploys to Cloudflare Pages from GitHub Actions on push to main; the dev mirror ships via tar-over-ssh.",
   "author": "Jordan Newell <jordan@jordannewell.com> (https://jordannewell.com)",
-  "license": "MIT",
+  "license": "BUSL-1.1",
   "homepage": "https://jordannewell.com",
   "repository": {
     "type": "git",

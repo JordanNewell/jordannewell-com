@@ -75,13 +75,13 @@ Four options on the table:
 | **A.** Replace the PSU with another vendor-specific unit | ~$80 | 1 week (parts) | Recurring failure mode — this happens again |
 | **B.** PSU + UPS | ~$190 | 1 week | Same hardware, slightly more protected |
 | **C1.** Refurbished tower (standard ATX, replaceable parts) | ~$300 | 3-5 days | Standard parts, last-replacement-for-a-while |
-| **C3.** New Mini-ITX build (low-power, SSD-only) | ~$500+ | 1-2 weeks | Purpose-built, future-proofed |
+| **C2.** New Mini-ITX build (low-power, SSD-only) | ~$500+ | 1-2 weeks | Purpose-built, future-proofed |
 
 A and B are the cheap options. Same hardware. The PSU died at 18 months last time. It dies at 18 months again.
 
 C1 breaks the proprietary-PSU loop. Standard ATX means I can swap a dead PSU in 20 minutes for $40, not 7 days for $80.
 
-C3 is the over-engineered answer. Lower power draw, smaller footprint, harder to justify on a personal-fleet budget.
+C2 is the over-engineered answer. Lower power draw, smaller footprint, harder to justify on a personal-fleet budget.
 
 C1 is the right answer technically. Cash flow is the constraint. A refurb tower is ~$300 — not nothing on a personal-fleet budget, especially with the blog and the agent stack both pre-revenue. So I'm sitting with the options open. Buying A buys time. Buying C1 buys out of the loop. Either is honest; I just haven't picked yet.
 

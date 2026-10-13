@@ -52,7 +52,7 @@ Plus a bypass keyword — `BYPASS_SECRET_SCAN` — for legitimate test fixtures.
 
 ## Why
 
-Six PAT-in-chat leaks in eight days on this fleet before this shipped. The git-time hook catches them at commit, but the transcript is already polluted by then. PAT Scanner blocks at the source — the prompt never reaches Claude.
+Eight PAT-in-chat leaks in nine days on this fleet before this shipped. The git-time hook catches them at commit, but the transcript is already polluted by then. PAT Scanner blocks at the source — the prompt never reaches Claude.
 
 ## Roadmap
 

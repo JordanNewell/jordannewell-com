@@ -6,9 +6,15 @@ import EraBadge from "../components/EraBadge.astro";
 import KindBadge from "../components/KindBadge.astro";
 import { articleSchema } from "../lib/schema";
 import type { CollectionEntry } from "astro:content";
+import { existsSync } from "node:fs";
 
 const { post } = Astro.props as { post: CollectionEntry<"posts"> };
 const { title, description, pubDate, updatedDate, tags, mode, series, era, kind, ogImage } = post.data;
+
+// Fall back to the post's hero art as its share card; frontmatter ogImage wins.
+const heroOg = existsSync(`public/posts/${post.id}/hero.png`)
+  ? `/posts/${post.id}/hero.png`
+  : undefined;
 
 const dateStr = pubDate.toLocaleDateString("en-US", {
   year: "numeric",
@@ -28,7 +34,7 @@ const schema = [articleSchema({
 })];
 ---
 
-<BaseLayout title={title} description={description} schema={schema} ogImage={ogImage}>
+<BaseLayout title={title} description={description} schema={schema} ogImage={ogImage ?? heroOg}>
   <article class:list={["prose", isMurphy && "murphy-mode"]}>
     <header class="mb-10">
       <div class="flex items-center gap-3 text-sm font-mono text-fg-muted mb-3 flex-wrap">

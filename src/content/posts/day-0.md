@@ -6,6 +6,9 @@ tags: ["rebuild"]
 mode: "hobart"
 ---
 
+
+![Day 0 — why I'm starting this blog now.](/posts/day-0/hero.png)
+
 I'm starting this blog at a moment most people wouldn't.
 
 My main infrastructure host went down about a day ago. Tailscale shows it offline. SSH times out. Ping times out. Cause unknown. Concurrently: I haven't shipped a product. I haven't flipped a business. I have watchers but, as I put it to a friend recently, not yet "stakers, takers, or makers."

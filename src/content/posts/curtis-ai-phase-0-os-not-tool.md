@@ -10,6 +10,9 @@ kind: "decision"
 draft: false
 ---
 
+
+![OS, not Tool — the reframe that landed early.](/posts/curtis-ai-phase-0-os-not-tool/hero.png)
+
 > Originally logged August 2025 — pre-fleet, before "agent OS" was a category.
 
 ## Where the AI agent world was at this point

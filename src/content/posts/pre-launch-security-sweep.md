@@ -9,6 +9,9 @@ series: ["claude"]
 tool: "claude-code"
 ---
 
+
+![Pre-launch — the categories I check before a box goes live.](/posts/pre-launch-security-sweep/hero.png)
+
 > Before any box goes live, I run a sweep. Not the fun part. The part where you find out the defaults are wrong. Below is the category list. No specific configs, no architecture reveal, no gap enumeration. The receipt stays private; the floor is the shareable part.
 
 ## The posture

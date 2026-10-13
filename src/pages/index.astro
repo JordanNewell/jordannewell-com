@@ -7,6 +7,24 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 1);
 
+const products = (await getCollection("products")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const statusColors: Record<string, string> = {
+  released: "#0E8A4A",
+  beta: "#B45309",
+  preview: "#7A7683",
+  shipped: "#0E8A4A",
+  active: "#0E8A4A",
+  exploratory: "#7A7683",
+};
+
+const topProjects = (await getCollection("projects"))
+  .filter((p) => p.id !== "curtis-ai-chat" && p.id !== "jordannewell-com" && p.data.status !== "deprecated")
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+
 const heroFor = (id: string): string | null => {
   for (const ext of ["png", "jpg", "jpeg", "webp"]) {
     if (existsSync(`public/posts/${id}/hero.${ext}`)) return `/posts/${id}/hero.${ext}`;
@@ -16,9 +34,13 @@ const heroFor = (id: string): string | null => {
 ---
 
 <BaseLayout title="Jordan Newell" description="I build and operate the systems behind ambitious ventures." path="/">
-  <h1 class="sr-only">I build and operate the systems behind ambitious ventures.</h1>
+  <div class="home-top">
+    <img src="/images/newell-icon.png" alt="" width="1024" height="1024" class="home-n" loading="eager" />
+    <h1 class="home-intro">I build and operate the systems behind ambitious ventures.</h1>
+  </div>
 
   <section class="section">
+    <div class="section-label">featured</div>
     <div>
       {posts.map((post, i) => {
         const hero = i === 0 ? heroFor(post.id) : null;
@@ -53,9 +75,73 @@ const heroFor = (id: string): string | null => {
       })}
     </div>
   </section>
+
+  <section class="section">
+    <div class="section-label">shipping</div>
+    <div class="home-ledger">
+      {products.map((p) => (
+        <a href={`/products/${p.id}/`} class="home-row">
+          <span class="hr-name">{p.data.title}</span>
+          <span class="hr-st" style={`color: ${statusColors[p.data.status] ?? "#7A7683"}`}>{p.data.status}</span>
+          <span class="hr-desc">{p.data.description}</span>
+        </a>
+      ))}
+      {topProjects.map((p) => (
+        <a href={`/projects/${p.id}/`} class="home-row">
+          <span class="hr-name">{p.data.title}</span>
+          <span class="hr-st" style={`color: ${statusColors[p.data.status] ?? "#7A7683"}`}>{p.data.status}</span>
+          <span class="hr-desc">{p.data.description}</span>
+        </a>
+      ))}
+      <a href="/products/" class="home-row home-row-more">
+        <span class="hr-name hr-more">all products →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">ventures</div>
+    <div class="home-ledger">
+      <a href="https://dwtrimco.com" target="_blank" rel="noopener" class="home-row">
+        <span class="hr-name">DW Trim ↗</span>
+        <span class="hr-st">managing partner</span>
+        <span class="hr-desc">Carpentry company serving central and south Florida.</span>
+      </a>
+      <a href="/curtis/" class="home-row">
+        <span class="hr-name">Curtis AI</span>
+        <span class="hr-st">founder</span>
+        <span class="hr-desc">The agent line — ledger and receipts at /curtis.</span>
+      </a>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
+  .home-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .home-n {
+    width: 108px;
+    height: auto;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .home-intro {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--color-fg);
+    max-width: 22ch;
+    text-align: right;
+    margin-left: auto;
+  }
+
   .section { margin-bottom: 64px; }
   .section:last-of-type { margin-bottom: 0; }
   .section-label {
@@ -64,6 +150,59 @@ const heroFor = (id: string): string | null => {
     letter-spacing: 0.18em; text-transform: uppercase;
     margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
     padding-bottom: 6px;
+    border-bottom: 1px solid var(--color-rule-strong);
+  }
+
+  .home-ledger { display: block; }
+  .home-row {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.6fr);
+    gap: 0 18px;
+    align-items: baseline;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+  }
+  .hr-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: -0.01em;
+    color: var(--color-fg);
+    transition: color 0.15s;
+  }
+  .home-row:hover .hr-name {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .hr-st {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-fg-muted);
+    white-space: nowrap;
+  }
+  .hr-desc {
+    font-size: 0.88rem;
+    color: var(--color-fg-secondary);
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .home-row-more { border-bottom: none; padding-block: 0.6rem; }
+  .hr-more { font-family: var(--font-mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-fg-muted); }
+  .home-row-more:hover .hr-more { color: var(--color-accent); text-decoration: none; }
+
+  @media (max-width: 560px) {
+    .home-top { flex-direction: column-reverse; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+    .home-n { width: 84px; }
+    .home-intro { text-align: left; max-width: none; font-size: 1.3rem; margin-left: 0; }
+    .home-row { grid-template-columns: 1fr auto; row-gap: 0.2rem; }
+    .hr-desc { grid-column: 1 / -1; }
   }
 
   .post-item {

@@ -1,6 +1,6 @@
 ---
 title: "newell-typeface"
-description: "Original geometric display typeface built from three primitives — vertical rails, horizontal bars, 45° diagonals. Squared terminals, parametric generation, no curves. OFL-1.1."
+description: "Original geometric display typeface built from three primitives — rails, 45° diagonals, and squared junctions. Squared terminals, parametric generation, no curves. OFL-1.1."
 status: "shipped"
 tags: ["projects", "oss", "typeface"]
 shipDate: 2026-07-25
@@ -20,7 +20,7 @@ facts:
     v: "Regular"
 highlights:
   - title: "Three primitives, infinite combinations"
-    body: "Every glyph assembled from vertical rails, horizontal bars, and 45° diagonals. One visual grammar inherited across the whole alphabet."
+    body: "Every glyph assembled from rails, 45° diagonals, and the squared junctions where they meet. One visual grammar inherited across the whole alphabet."
   - title: "Parametric, not hand-drawn"
     body: "Glyphs generated from declarative rules. Tighten a rule and the entire typeface updates — no per-glyph pixel-pushing."
   - title: "Squared terminals, decisive geometry"
@@ -43,7 +43,7 @@ The vocabulary is three primitives: **rail**, **diagonal**, and **junction**. Th
 
 **v0.1.1-alpha** — uppercase A–Z, digits 0–9, basic punctuation, common symbols (⚡ · → ← — ★ ☆ ✗). 71 glyphs. Single Regular weight. Static build (variable axes planned for v0.2).
 
-Recommended for **display and headline use**, not long-form body text. The v0.1 DNA forbids curves, rounded terminals, and any angle other than 45° — several traditional letterforms are unrenderable as a result. S reads as Z; C/D/G/O are rectilinear approximations; check mark omitted entirely. v0.2 adds a third primitive type to fix these. Full trade-offs documented in the [README](https://github.com/JordanNewell/newell-typeface#known-v01-limitations).
+Recommended for **display and headline use**, not long-form body text. The v0.1 DNA forbids curves, rounded terminals, and any angle other than 45° — several traditional letterforms are unrenderable as a result. S reads as Z; C/D/G/O are rectilinear approximations; check mark omitted entirely. v0.2 adds a new primitive type to fix these. Full trade-offs documented in the [README](https://github.com/JordanNewell/newell-typeface#known-v01-limitations).
 
 ## Live sites
 

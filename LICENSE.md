@@ -2,28 +2,16 @@
 
 © 2026 Jordan Newell. All rights not expressly granted below are reserved.
 
-## Source code (MIT)
+## Source code (BUSL-1.1)
 
 All code in this repository — Astro components, TypeScript modules, shell scripts,
-build configuration, deploy tooling — is licensed under the **MIT License**.
+build configuration, deploy tooling — is licensed under the **Business Source License 1.1 (BUSL-1.1)** — source-available, with the Additional Use Grant below; it converts to the MIT License on the Change Date (2030-10-12). Full terms in [`LICENSE`](LICENSE).
 
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-> of this software and associated documentation files (the "Software"), to deal
-> in the Software without restriction, including without limitation the rights
-> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> copies of the Software, and to permit persons to whom the Software is
-> furnished to do so, subject to the following conditions:
+> **Licensor:** Jordan Newell · **Change Date:** 2030-10-12 · **Change License:** MIT
 >
-> The above copyright notice and this permission notice shall be included in all
-> copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-> SOFTWARE.
+> Personal and noncommercial use — including in production — is permitted. Commercial
+> use requires a separate, written license from the Licensor. See [`LICENSE`](LICENSE)
+> for the complete terms.
 
 If you study this codebase to learn how I deploy, structure, or operate the
 blog, that's the point. Fork it, learn from it, ship your own version with
@@ -70,4 +58,4 @@ This is the brand. It's not for cloning.
 
 ---
 
-*This license file is itself part of the source code under MIT.*
+*This license file is itself part of the source code under BUSL-1.1.*

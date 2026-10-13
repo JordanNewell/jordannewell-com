@@ -170,7 +170,7 @@ The local `.git/hooks/pre-commit` exists in this checkout — the config just te
 ## Documentation pointers
 
 - **Voice rules** → `docs/IDENTITY.md`
-- **License** (MIT code + CC BY-NC content + ARR brand) → `LICENSE.md` file + `/license` page
+- **License** (BUSL-1.1 code + CC BY-NC content + ARR brand) → `LICENSE.md` file + `/license` page
 - **Original design spec** → `<local-vault>/docs/superpowers/specs/2026-07-15-jordannewell-com-design.md`
 - **Implementation plan** → `<local-vault>/docs/superpowers/plans/2026-07-15-jordannewell-com.md`
 

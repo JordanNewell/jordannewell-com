@@ -16,8 +16,10 @@ const heroFor = (id: string): string | null => {
 ---
 
 <BaseLayout title="Jordan Newell" description="I build and operate the systems behind ambitious ventures." path="/" footerVentures={{ href: "/projects/", label: "projects" }}>
-  <div class="masthead">
+  <div class="mast-n-row">
     <img src="/images/newell-icon.png" alt="" width="1024" height="1024" class="mast-n" loading="eager" />
+  </div>
+  <div class="masthead">
     <h1 class="mast-intro">I build and operate the systems behind ambitious ventures.</h1>
   </div>
 
@@ -60,19 +62,25 @@ const heroFor = (id: string): string | null => {
 </BaseLayout>
 
 <style>
+  .mast-n-row {
+    display: flex;
+    justify-content: flex-end;
+    /* main is py-12; pull up so the N sits right under the header rule,
+       same slot the character occupies on other pages */
+    margin-top: -2.25rem;
+    margin-bottom: 24px;
+  }
+  .mast-n {
+    width: 132px;
+    height: auto;
+  }
   .masthead {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 20px;
-    /* main is py-12; pull the N up so it sits right under the header rule */
-    margin-top: -2.5rem;
     margin-bottom: 48px;
-  }
-  .mast-n {
-    width: 90px;
-    height: auto;
   }
   .mast-intro {
     font-family: var(--font-sans);
@@ -96,6 +104,7 @@ const heroFor = (id: string): string | null => {
   }
 
   @media (max-width: 480px) {
+    .mast-n { width: 96px; }
     .masthead { margin-bottom: 32px; }
     .mast-intro { font-size: 1.3rem; }
   }

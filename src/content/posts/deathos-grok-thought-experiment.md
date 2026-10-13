@@ -11,7 +11,7 @@ draft: false
 ---
 
 
-![DeathOS — the first product to win it won't be a chatbot.](/posts/deathos-grok-thought-experiment/hero.png)
+![DeathOS — the first product to win it won't be a chatbot.](/posts/deathos-grok-thought-experiment/hero.webp)
 
 > I asked Grok to model a venture called deathOS — an integrated platform for dying, death, and bereavement. The market it surfaced is real and underserved. The product it sketched to win that market is the same product every AI sketches when you ask it to design a platform.
 

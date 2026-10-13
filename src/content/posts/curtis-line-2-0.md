@@ -62,4 +62,4 @@ Nothing ships before its signal fires. Until then the work is the plugin, the fo
 
 There will be more. Still true.
 
-[![2.0.0 — the Curtis line is brewing.](/posts/curtis-line-2-0/hero.png)](/products/curtis-ai-chat/)
+[![2.0.0 — the Curtis line is brewing.](/posts/curtis-line-2-0/hero.webp)](/products/curtis-ai-chat/)

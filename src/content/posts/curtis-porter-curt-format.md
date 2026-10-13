@@ -70,4 +70,4 @@ The durability argument from the v1 launch applies to chats the same as notes: f
 
 There will be more. Still true.
 
-[![Porter — one file, one chat, no hostages.](/posts/curtis-porter-curt-format/hero.png)](https://github.com/JordanNewell/curtis-ai-chat-porter)
+[![Porter — one file, one chat, no hostages.](/posts/curtis-porter-curt-format/hero.webp)](https://github.com/JordanNewell/curtis-ai-chat-porter)

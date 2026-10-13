@@ -11,7 +11,7 @@ draft: false
 ---
 
 
-![Synapse — restart broke encrypted replies.](/posts/synapse-restart-broke-e2ee/hero.png)
+![Synapse — restart broke encrypted replies.](/posts/synapse-restart-broke-e2ee/hero.webp)
 
 > A routine homeserver restart. systemd showed every agent green. The fleet went silent on Matrix for four and a half hours. Discord kept working — different path. The agents could hear. They couldn't reply.
 

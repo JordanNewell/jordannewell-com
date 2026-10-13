@@ -10,7 +10,7 @@ tool: "claude-code"
 ---
 
 
-![DeWalt Rule — tools don't get co-author credit.](/posts/tools-dont-get-coauthor-credit/hero.png)
+![DeWalt Rule — tools don't get co-author credit.](/posts/tools-dont-get-coauthor-credit/hero.webp)
 
 Every AI coding tool wants its name on your work. Claude Code, GitHub Copilot, Cursor — they all default to adding a `Co-Authored-By:` trailer crediting the tool on your git commits. Most developers let it happen. Most developers are wrong to.
 

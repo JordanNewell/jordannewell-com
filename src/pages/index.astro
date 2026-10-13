@@ -8,7 +8,7 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
   .slice(0, 1);
 
 const heroFor = (id: string): string | null => {
-  for (const ext of ["png", "jpg", "jpeg", "webp"]) {
+  for (const ext of ["webp", "jpg", "jpeg", "png"]) {
     if (existsSync(`public/posts/${id}/hero.${ext}`)) return `/posts/${id}/hero.${ext}`;
   }
   return null;

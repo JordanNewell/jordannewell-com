@@ -75,15 +75,13 @@ const resolvedOgImage = ogImage
   <body>
     <div class="relative z-1">
       <Header path={path} />
-      {path !== "/" && (
-        <a href="/" class="under-header-character max-w-prose mx-auto px-5" aria-label="Jordan Newell — home">
-          <img src="/images/jordan-character.svg" alt="" width="380" height="435" />
-        </a>
-      )}
+      <a href="/" class="under-header-character max-w-prose mx-auto px-5" aria-label="Jordan Newell — home">
+        <img src="/images/jordan-character.svg" alt="" width="380" height="435" />
+      </a>
       <main class="max-w-prose mx-auto px-5 py-12">
         <slot />
       </main>
-      <Footer />
+      <Footer mt={path === "/" ? "mt-12" : "mt-24"} />
     </div>
     <style>
       .under-header-character {

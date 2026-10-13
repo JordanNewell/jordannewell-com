@@ -1,9 +1,13 @@
 ---
 import { SITE, FOOTER_PAGE_LINKS } from "../lib/site";
+
+// Tighter footer gap on the home page — READ → should sit symmetric
+// between the header and the footer rule.
+const { mt = "mt-24" } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-border mt-24">
+<footer class={`border-t border-border ${mt}`}>
   <div class="footer-inner max-w-prose mx-auto px-5 py-12 text-center text-sm text-fg-muted font-mono">
     <p class="mb-4">
       {FOOTER_PAGE_LINKS.map((link, i) => (

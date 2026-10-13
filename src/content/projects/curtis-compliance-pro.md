@@ -1,23 +1,23 @@
 ---
 title: "Curtis Compliance Pro"
-description: "Hosted pro tier for Curtis Compliance — GitHub App, multi-repo audit rollup, PDF export, custom frameworks. Source-available (BSL/FSL/SSPL — license class TBD)."
-status: "exploratory"
-tags: ["projects", "fintech", "compliance", "venture-track"]
+description: "Pro tier folded into the Curtis AI suite — multi-repo audit rollup and evidence export ride the Curtis cloud console; the standalone hosted GitHub App is retired."
+status: "deprecated"
+tags: ["projects", "fintech", "compliance"]
 shipDate: 2026-07-27
 repo: "https://github.com/JordanNewell/curtis-compliance-pro"
 liveUrl: "https://github.com/JordanNewell/curtis-compliance"
 order: 9
 facts:
   - k: "status"
-    v: "In development"
+    v: "Folded into Curtis suite"
   - k: "model"
-    v: "Source-available"
+    v: "Curtis Pro gate"
   - k: "license"
-    v: "BSL / FSL / SSPL (TBD)"
+    v: "BUSL-1.1 (fleet-wide)"
   - k: "tier"
-    v: "Hosted pro"
+    v: "Curtis suite feature"
   - k: "base"
-    v: "curtis-compliance (MIT)"
+    v: "curtis-compliance (BUSL-1.1)"
 highlights:
   - title: "Hosted GitHub App"
     body: "Drop-in for organizations that want PR review without running the action themselves. Multi-repo rollup out of the box."
@@ -33,14 +33,14 @@ stack:
   - "Same engine as curtis-compliance"
 ---
 
-Pro tier for [Curtis Compliance](/projects/curtis-compliance/). Hosted GitHub App for organizations that want multi-repo audit rollup, PDF export, and custom frameworks without running the action themselves.
+Pro tier for [Curtis Compliance](/projects/curtis-compliance/). The standalone plan — hosted GitHub App, multi-repo audit rollup, PDF export, custom frameworks — has been folded into the Curtis AI suite: the rollup and evidence export ship through the Curtis cloud console, and the license gate built here becomes the Curtis Pro gating primitive.
 
 ## Licensing model
 
-**Not closed-source.** Source-available following the Sentry / MongoDB / SSPL playbook — public repo, restrictive license, auditable source, commercial use restricted. The MIT-licensed OSS tier stays MIT; the pro tier adds the hosted surface and enterprise features on top.
+**Not closed-source.** Source-available under BUSL-1.1 fleet-wide — auditable source, commercial use restricted, converts to MIT in 2030. The free tier stays free for noncommercial use; Curtis Pro adds the hosted surface and enterprise features on top.
 
-License class (BSL vs FSL vs SSPL) is the open decision — landing before the package goes live. The stub repo at [github.com/JordanNewell/curtis-compliance-pro](https://github.com/JordanNewell/curtis-compliance-pro) already has 7 inbound links from the curtis-compliance README.
+The standalone repo at [github.com/JordanNewell/curtis-compliance-pro](https://github.com/JordanNewell/curtis-compliance-pro) is retired pending salvage of its license-gate code.
 
 ## Status
 
-Exploratory — the engine is proven (curtis-compliance has been shipping since 2026-07-20), the packaging is the work in progress.
+Retired as a standalone product 2026-10-13 — the engine is proven (curtis-compliance has been shipping since 2026-07-20); the packaging now lives in the Curtis suite roadmap.

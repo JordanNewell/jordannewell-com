@@ -1,8 +1,8 @@
 ---
 title: "curtis-compliance"
-description: "Open-source compliance checks for fintech code. Pre-commit hook, PR review, hash-chained audit trail. HIPAA / SOC2 / PCI-DSS citations — no telemetry, no SaaS."
+description: "Source-available compliance checks for fintech code (BUSL-1.1 — free for noncommercial use, converts to MIT in 2030). Pre-commit hook, PR review, hash-chained audit trail. HIPAA / SOC2 / PCI-DSS citations — no telemetry, no SaaS."
 status: "shipped"
-tags: ["projects", "oss", "fintech"]
+tags: ["projects", "source-available", "fintech"]
 shipDate: 2026-07-20
 repo: "https://github.com/JordanNewell/curtis-compliance"
 pkg: "https://www.npmjs.com/package/@jordannewell/curtis-compliance"
@@ -11,9 +11,9 @@ facts:
   - k: "shipped"
     v: "2026-07-20"
   - k: "version"
-    v: "v1.1.2"
+    v: "v1.3.2"
   - k: "license"
-    v: "MIT"
+    v: "BUSL-1.1 (MIT 2030)"
   - k: "frameworks"
     v: "HIPAA · SOC2 · PCI-DSS"
 highlights:
@@ -44,4 +44,4 @@ Pre-commit hook for local checks, GitHub Action for PR review. Hash-chained log 
 
 ## Why
 
-Most compliance tooling is enterprise SaaS that scans your repo and ships the findings to someone else's cloud. This is the opposite — local-first, open-source, no telemetry. Built so a small fintech can run the same checks a Big-Four auditor would, without the five-figure contract.
+Most compliance tooling is enterprise SaaS that scans your repo and ships the findings to someone else's cloud. This is the opposite — local-first, source-available (BUSL-1.1), no telemetry. Built so a small fintech can run the same checks a Big-Four auditor would, without the five-figure contract.

@@ -4,7 +4,7 @@ const { path } = Astro.props;
 ---
 
 <header class="border-b border-border">
-  <div class="max-w-prose mx-auto px-5 py-3.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+  <div class="header-inner max-w-prose mx-auto px-5 py-3.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
     <nav class="flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-[0.72rem]">
       {NAV_LINKS.map((link) => (
         <a
@@ -19,3 +19,21 @@ const { path } = Astro.props;
     </nav>
   </div>
 </header>
+
+<style>
+  /* Mobile: raise tap targets to the 40px comfort floor and legible font size.
+     Desktop (>640px) is untouched. */
+  @media (max-width: 640px) {
+    .header-inner {
+      padding-block: 0.125rem;
+    }
+    nav {
+      font-size: 0.8125rem;
+      gap: 0.25rem 0.5rem;
+    }
+    nav a {
+      display: inline-block;
+      padding-block: 0.75rem;
+    }
+  }
+</style>

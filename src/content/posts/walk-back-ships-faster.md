@@ -9,6 +9,8 @@ kind: "decision"
 draft: false
 ---
 
+![Walk-Back — ships faster than build-out.](/posts/walk-back-ships-faster/hero.png)
+
 For five days, the curtis-compliance README promised a product that didn't exist.
 
 curtis-compliance is an open-source compliance CLI. v1.3.0 shipped with open-core positioning: an MIT core, free, plus a paid Pro tier coming separately. The positioning was fine. The claims were not. The README told users to run `npm install @jordannewell/curtis-compliance-pro`. No such package existed. It linked to `curtiscompliance.com/pro` — a domain I don't own. The landing page carried a Pro call-to-action. The CLI's `license` subcommand printed install instructions for software that isn't on npm.

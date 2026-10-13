@@ -11,7 +11,7 @@ draft: false
 
 > August 2026 is the first silent month in this blog's history: zero posts. jordannewell.com wasn't deleted and I didn't quit. The tree moved behind a splash on 2026-07-28, the work moved to a carpentry company in Tampa Bay, and the blog-era tree came back on 2026-10-03 with the archive intact. This post is the receipt.
 
-![Zero posts in August — the site moved, it didn't die.](/posts/where-august-went/hero.png)
+![Zero Posts — it didn't die, it moved.](/posts/where-august-went/hero.png)
 
 ## The reshuffle, in commits
 

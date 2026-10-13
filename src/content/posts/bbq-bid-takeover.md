@@ -11,6 +11,8 @@ draft: false
 
 > Mid-bid yesterday, my construction agent went silent. Live commercial work on the other side of the silence, and the agent driving it was dead. I didn't restart it. I took the bid over myself and shipped it. The postmortem comes down to one question: when an agent dies mid-work, can you take over?
 
+![Mid-Bid — agent down, keep it dead.](/posts/bbq-bid-takeover/hero.png)
+
 ## What died
 
 Gail is my head-of-construction agent. Discord-connected, runs as a console-bound scheduled task. Console-bound instances have a known death mode in my fleet: the instance dies and doesn't come back clean. Known class, known behavior. It doesn't fix itself between restarts.

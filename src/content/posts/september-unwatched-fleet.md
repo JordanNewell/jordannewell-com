@@ -11,7 +11,7 @@ draft: false
 
 > Three incident posts landed here in four days — 2026-09-25, 2026-09-27, 2026-09-28. A fleet-wide OOM loop, a heartbeat burning model runs nobody asked for, a mail outage every liveness check missed. Different systems, different failure modes, one shared root cause: the fleet ran unattended, and September is when the bill arrived.
 
-![The unattended fleet — three incidents, one shared root cause.](/posts/september-unwatched-fleet/hero.png)
+![Unattended — three incidents, one root cause.](/posts/september-unwatched-fleet/hero.png)
 
 ## The invoices
 

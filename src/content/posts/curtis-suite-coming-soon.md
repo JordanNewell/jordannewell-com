@@ -14,7 +14,7 @@ ogImage: "/posts/curtis-suite-coming-soon/og.png"
 
 The line has been scattered across a plugin directory, two repos, and an npm package. That ends. Everything Curtis converges at **[curtisai.tech](https://curtisai.tech)** — live now. The ledger's own words: "AI chats, kept like records."
 
-[![The Curtis suite — Port, Chat, Audit, .curt](/posts/curtis-suite-coming-soon/hero.png)](https://curtisai.tech)
+[![Curtis — AI chats, kept like records.](/posts/curtis-suite-coming-soon/hero.png)](https://curtisai.tech)
 
 Four pieces, one line. A small amount about each, from the site's own copy:
 

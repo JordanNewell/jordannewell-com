@@ -12,6 +12,8 @@ draft: false
 
 > Thirty-nine image-only PDFs. ~21 hours of CPU time on a workstation with no GPU. Three Windows-specific bugs, each of which silently killed hours of progress before I caught them. Final result: ~313 KB of searchable text across ~638 conversation turns, all processed locally, none of it sent to a cloud API.
 
+![Thirty-Nine PDFs — twenty-one hours, zero GPU.](/posts/grok-pdf-extraction-marathon/hero.png)
+
 ## What I was trying to do
 
 I had ~39 Grok chat exports sitting in a downloads folder. Image-only PDFs — the kind Grok produces when you export a conversation. Dead data on disk: I couldn't search them, couldn't browse them, couldn't point future tooling at them.

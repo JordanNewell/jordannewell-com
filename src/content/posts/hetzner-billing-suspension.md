@@ -11,6 +11,8 @@ draft: false
 
 > The mail server went dark on September 28. Every liveness check said it was alive: pongs arrived over DERP relays, the VM was up, nothing had crashed. Alive the way a mannequin is alive. Hetzner had suspended the account over a billing issue and IP-blocked inbound traffic at the provider edge. One overdue invoice brought it back. The first-ever mailcow restore drill afterward was the part that mattered.
 
+![Mail Dead — every liveness check said alive.](/posts/hetzner-billing-suspension/hero.png)
+
 ## The symptom
 
 The first report was a question, not an alert: is something wrong with the mail server?

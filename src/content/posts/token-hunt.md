@@ -9,6 +9,8 @@ kind: "win"
 draft: false
 ---
 
+![Token Hunt — eight leaks, one scanner.](/posts/token-hunt/hero.png)
+
 I leaked 8 credentials in 9 days.
 
 An Anthropic key. A Figma token. GitHub PATs. PyPI publish tokens. A pile of provider keys that glue AI assistants to services those assistants were never designed to touch. No attacker, no malware, no zero-day. Every leak was me — pasting faster than I was thinking, or an agent reading a config file it had no business opening at full resolution.

@@ -10,7 +10,7 @@ draft: false
 
 > Standing up dev.jordannewell.com on 2026-10-03 broke three times in 82 minutes. A PATH-shadowed .env killed the first deploy, a security-hardened umask 403'd the second, and gitleaks flagged the third over a secret that isn't. None of the failures were in the new site. All three came from things that are supposed to help: the environment, the hardening, the guard.
 
-![Three failures in 82 minutes — one deploy day.](/posts/deploy-day-three-failures/hero.png)
+![82 Minutes — three failures, one deploy day.](/posts/deploy-day-three-failures/hero.png)
 
 dev.jordannewell.com is a second deploy target on the same host as production — same box, different web root — staged so the revamped site has somewhere to live before it touches the real domain. The production tree's own restore from behind the splash page happened the same morning; that story is a separate post.
 

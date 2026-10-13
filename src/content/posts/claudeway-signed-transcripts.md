@@ -11,6 +11,8 @@ tool: "claude-code"
 draft: false
 ---
 
+![Claudeway — 140 tests, post-quantum receipts.](/posts/claudeway-signed-transcripts/hero.png)
+
 Claudeway shipped 2026-07-26: multi-agent consensus with cryptographic receipts, on PyPI, with a post-quantum signature backend from the first release. The thesis underneath it is one line. Agent transcripts and consensus rounds are long-lived, high-value artifacts, and every one of them signed with secp256k1 today is forgeable the day a cryptographically relevant quantum computer lands. Post-quantum signing on day one costs one pip extra. Retrofit after the fact costs the whole archive.
 
 Numbers from the ship tag: 140 tests green. Eleven commits to get the wheel onto PyPI. One consensus receipt — Nostr event `3974ebfe…` — live on four public relays, verifiable in any browser right now.

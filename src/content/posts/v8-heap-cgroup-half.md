@@ -11,6 +11,8 @@ draft: false
 
 > A memory cap landed on the fleet at 06:46. By 08:16 the busy agents were OOM-killing in a loop. Root cause: Node 22 sizes its V8 heap from the cgroup limit — heap ≈ MemoryHigh/2, verified empirically. Lower the cap and the runtime shrinks every heap without asking.
 
+![Half Heap — Node sized its heap to half the memory cap.](/posts/v8-heap-cgroup-half/hero.png)
+
 ## What changed
 
 One systemd knob: `MemoryHigh=512M` on the fleet's agent units. Intentional containment for runaway memory. It landed that morning, the units restarted at 08:16, and the crash reports started within the hour.

@@ -140,7 +140,7 @@ const schema = [
               {comparison.rows.map((row) => (
                 <tr>
                   <td class="row-label">{row.label}</td>
-                  {row.cells.map((cell) => <td>{cell}</td>)}
+                  {row.cells.map((cell, i) => <td data-label={comparison.columns[i]}>{cell}</td>)}
                 </tr>
               ))}
             </tbody>
@@ -338,6 +338,28 @@ const schema = [
     color: var(--color-fg-secondary);
   }
   .row-label { color: var(--color-fg); font-weight: 500; }
+
+  /* Mobile: stack the comparison table into label/value cards — no sideways scroll */
+  @media (max-width: 640px) {
+    .comparison-table { display: block; font-size: 0.8rem; }
+    .comparison-table thead { display: none; }
+    .comparison-table tbody, .comparison-table tr, .comparison-table td { display: block; width: 100%; }
+    .comparison-table tr { padding-block: 0.9rem; border-bottom: 1px solid var(--color-border); }
+    .comparison-table tr:last-child { border-bottom: none; }
+    .comparison-table th,
+    .comparison-table td { padding: 0.15rem 0.875rem; border-bottom: none; }
+    .comparison-table td.row-label { padding-bottom: 0.3rem; }
+    .comparison-table td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-fg-muted);
+      margin-bottom: 1px;
+    }
+  }
 
   .privacy-body {
     color: var(--color-fg-secondary);

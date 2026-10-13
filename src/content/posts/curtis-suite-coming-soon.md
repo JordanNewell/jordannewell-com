@@ -24,6 +24,4 @@ Three pieces, one line. A small amount about each, from the site's own copy:
 
 **Audit.** [Curtis AI Audit](https://curtisai.tech/audit/) — receipts for agent activity. "Every AI inference that touches your vault gets an append-only record," sequenced per agent, kept as markdown files you own. Delete a receipt and the gap shows. "It is evidence by structure, not by promise." A hash-chained tier is planned, and not promised before it ships. And to keep two realms apart: curtis-compliance is a separate project. Audit here is receipts, not regulations.
 
-The line doesn't stop at three: curtis ai crm is built — contacts, deals, interactions as markdown, not yet in the directory — and curt files are live, one-file pages readable anywhere.
-
 One mark, three verbs. [curtisai.tech](https://curtisai.tech).

@@ -11,6 +11,8 @@ draft: false
 
 > Came back to forty DMs from my own agents. All night, one every half hour or so: nothing to report, everything nominal, still here. Cause was a housekeeping cron plus a default I didn't know I was riding. Fixed fleet-wide with one config line.
 
+![Forty DMs. One cron.](/posts/heartbeat-dm-storm/hero.png)
+
 ## The note that ran the fleet
 
 Every OpenClaw agent carries a small markdown file called HEARTBEAT.md. When that agent's heartbeat poll fires, the file is the instruction it reads. The fleet's copies all said the same thing in their own words: a heartbeat that finds nothing wrong says nothing. No status DMs. Silence is healthy.

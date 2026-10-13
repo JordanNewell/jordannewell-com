@@ -11,7 +11,7 @@ draft: false
 ---
 
 
-![Zero Peers — a pipeline rebuilt from scratch.](/posts/arr-pipeline-rebuild/hero.png)
+![Zero Peers — a pipeline rebuilt from scratch.](/posts/arr-pipeline-rebuild/hero.webp)
 
 > The download client showed 0 peers across every torrent. Every tracker returned "Host not found." The media pipeline had been silently dead for twelve hours. It took five hours to find the first root cause — and there were five more waiting under it.
 

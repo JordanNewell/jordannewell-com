@@ -66,4 +66,4 @@ There's no statement of what's next. What's next shows up in the commit history 
 
 **The artifact is the announcement.** Ship, prove, repeat.
 
-![Vibe Coder — building in public since MySpace.](/posts/vibe-coder-since-myspace/hero.png)
+![Vibe Coder — building in public since MySpace.](/posts/vibe-coder-since-myspace/hero.webp)

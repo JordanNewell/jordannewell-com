@@ -9,7 +9,7 @@ kind: "decision"
 draft: false
 ---
 
-![Walk-Back — ships faster than build-out.](/posts/walk-back-ships-faster/hero.png)
+![Walk-Back — ships faster than build-out.](/posts/walk-back-ships-faster/hero.webp)
 
 For five days, the curtis-compliance README promised a product that didn't exist.
 

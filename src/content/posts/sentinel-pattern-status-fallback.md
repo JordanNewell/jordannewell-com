@@ -10,7 +10,7 @@ tool: "claude-code"
 ---
 
 
-![Sentinel — instant fallback when an upstream disappears.](/posts/sentinel-pattern-status-fallback/hero.png)
+![Sentinel — instant fallback when an upstream disappears.](/posts/sentinel-pattern-status-fallback/hero.webp)
 
 > `status.jordannewell.com` is supposed to be the page that's up when everything else is down. Last week its upstream monitor went dark and the status page went dark with it. Three iterations of fix in a day. Each one faster. Only the last one right.
 

@@ -11,7 +11,7 @@ draft: false
 ---
 
 
-![Server Down — cause found. Here's the call.](/posts/homeserver-postmortem/hero.png)
+![Server Down — cause found. Here's the call.](/posts/homeserver-postmortem/hero.webp)
 
 > The host went dark July 14. Tailscale showed it offline. SSH timed out. Ping timed out. The box was dead — and it took a day to figure out why. Three days later: cause identified, disks safe, decision pending.
 

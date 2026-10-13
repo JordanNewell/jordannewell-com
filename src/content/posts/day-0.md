@@ -7,7 +7,7 @@ mode: "hobart"
 ---
 
 
-![Day 0 — why I'm starting this blog now.](/posts/day-0/hero.png)
+![Day 0 — why I'm starting this blog now.](/posts/day-0/hero.webp)
 
 I'm starting this blog at a moment most people wouldn't.
 

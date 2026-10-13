@@ -10,7 +10,7 @@ draft: false
 
 > The homepage terminal wasn't broken. GitHub's public API was telling less than it knows, and my stack believed it. Two failures stacked: a Worker route that 404s anywhere but production, and a feed that ships PushEvents with the commits field stripped out. Three fixes on 2026-10-03, 23 minutes apart. The right answer was already in the repo, dated 2026-07-28.
 
-![Feed Quiet — GitHub strips commits from public events.](/posts/github-events-strip-commits/hero.png)
+![Feed Quiet — GitHub strips commits from public events.](/posts/github-events-strip-commits/hero.webp)
 
 ## The shim that solved tomorrow's problem
 

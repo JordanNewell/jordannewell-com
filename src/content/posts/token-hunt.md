@@ -9,7 +9,7 @@ kind: "win"
 draft: false
 ---
 
-![Token Hunt — eight leaks, one scanner.](/posts/token-hunt/hero.png)
+![Token Hunt — eight leaks, one scanner.](/posts/token-hunt/hero.webp)
 
 I leaked 8 credentials in 9 days.
 

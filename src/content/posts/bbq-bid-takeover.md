@@ -11,7 +11,7 @@ draft: false
 
 > Mid-bid yesterday, my construction agent went silent. Live commercial work on the other side of the silence, and the agent driving it was dead. I didn't restart it. I took the bid over myself and shipped it. The postmortem comes down to one question: when an agent dies mid-work, can you take over?
 
-![Mid-Bid — agent down, keep it dead.](/posts/bbq-bid-takeover/hero.png)
+![Mid-Bid — agent down, keep it dead.](/posts/bbq-bid-takeover/hero.webp)
 
 ## What died
 

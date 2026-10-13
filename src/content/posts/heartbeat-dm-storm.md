@@ -11,7 +11,7 @@ draft: false
 
 > Came back to forty DMs from my own agents. All night, one every half hour or so: nothing to report, everything nominal, still here. Cause was a housekeeping cron plus a default I didn't know I was riding. Fixed fleet-wide with one config line.
 
-![Forty DMs — one cron, default flipped.](/posts/heartbeat-dm-storm/hero.png)
+![Forty DMs — one cron, default flipped.](/posts/heartbeat-dm-storm/hero.webp)
 
 ## The note that ran the fleet
 

@@ -11,7 +11,7 @@ draft: false
 ---
 
 
-![OS, not Tool — the reframe that landed early.](/posts/curtis-ai-phase-0-os-not-tool/hero.png)
+![OS, not Tool — the reframe that landed early.](/posts/curtis-ai-phase-0-os-not-tool/hero.webp)
 
 > Originally logged August 2025 — pre-fleet, before "agent OS" was a category.
 

@@ -1,7 +1,7 @@
 ---
 title: "Curtis AI"
 tagline: "The agent for Obsidian. Every provider, one sidebar — your notes are the workspace."
-description: "Obsidian AI agent — 53 providers (your keys, local Ollama, or existing ChatGPT/Kimi/Alibaba plans), 12 vault tools, named agents with swarm mode, skills, MCP server + client, scheduled runs, a multi-model arena. History stays as portable .curt files you own. Also runs in Zed and any ACP client. Source-available (BUSL-1.1), free to use, no telemetry, local-first."
+description: "Obsidian AI agent — 53 providers, your keys or local models, swarm mode, and history you own as portable .curt files. Source-available, free, no telemetry."
 status: "released"
 shipDate: 2026-10-12
 repo: "https://github.com/JordanNewell/curtis"

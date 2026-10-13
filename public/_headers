@@ -1,10 +1,9 @@
 # Cloudflare Pages headers — applied to every path.
 # CSP allows exactly what the site loads: the Cloudflare Web Analytics beacon
-# (static.cloudflareinsights.com script, cloudflareinsights.com RUM endpoint),
-# the status heartbeat poll (status.jordannewell.com), and Astro's inlined
-# small stylesheets. Everything else is same-origin.
+# (static.cloudflareinsights.com script, cloudflareinsights.com RUM endpoint)
+# and Astro's inlined small stylesheets. Everything else is same-origin.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://status.jordannewell.com https://cloudflareinsights.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()

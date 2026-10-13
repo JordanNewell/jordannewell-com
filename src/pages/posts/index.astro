@@ -7,7 +7,7 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 
-<BaseLayout title="Posts" description="Field notes from the operator's desk.">
+<BaseLayout title="Posts" description="Field notes from the operator's desk." ogImage="/og-posts.png">
   <h1 class="sr-only">Posts</h1>
   <div>
     {posts.map((post) => <PostCard post={post} />)}

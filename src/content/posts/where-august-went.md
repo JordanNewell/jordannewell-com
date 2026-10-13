@@ -11,6 +11,8 @@ draft: false
 
 > August 2026 is the first silent month in this blog's history: zero posts. jordannewell.com wasn't deleted and I didn't quit. The tree moved behind a splash on 2026-07-28, the work moved to a carpentry company in Tampa Bay, and the blog-era tree came back on 2026-10-03 with the archive intact. This post is the receipt.
 
+![Zero posts in August — the site moved, it didn't die.](/posts/where-august-went/hero.png)
+
 ## The reshuffle, in commits
 
 On 2026-07-28, commit 0e80cd5 did one thing: moved the blog routes, the portfolio pages, /now, and /ventures into `src/pages/_disabled/`. Nothing was deleted. The same day shipped the coming-soon splash (bc610b0) and the Astro Cloudflare adapter plus wrangler tooling (a08b3bf) — build plumbing for what the splash was scaffolding.

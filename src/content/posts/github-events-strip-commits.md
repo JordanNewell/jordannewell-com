@@ -10,6 +10,8 @@ draft: false
 
 > The homepage terminal wasn't broken. GitHub's public API was telling less than it knows, and my stack believed it. Two failures stacked: a Worker route that 404s anywhere but production, and a feed that ships PushEvents with the commits field stripped out. Three fixes on 2026-10-03, 23 minutes apart. The right answer was already in the repo, dated 2026-07-28.
 
+![Feed quiet — GitHub's public events feed stripped the commits.](/posts/github-events-strip-commits/hero.png)
+
 ## The shim that solved tomorrow's problem
 
 The jordannewell.com homepage runs a live activity terminal: a status-hero script that polls GitHub's public events feed and renders the latest commits and releases — 10 commits, 2 releases, refreshed every 5 minutes.

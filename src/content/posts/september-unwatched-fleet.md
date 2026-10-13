@@ -11,6 +11,8 @@ draft: false
 
 > Three incident posts landed here in four days — 2026-09-25, 2026-09-27, 2026-09-28. A fleet-wide OOM loop, a heartbeat burning model runs nobody asked for, a mail outage every liveness check missed. Different systems, different failure modes, one shared root cause: the fleet ran unattended, and September is when the bill arrived.
 
+![The unattended fleet — three incidents, one shared root cause.](/posts/september-unwatched-fleet/hero.png)
+
 ## The invoices
 
 The agent fleet billed me three times in one week. [On 2026-09-25, Node sized its heap to half a new memory cap](/posts/v8-heap-cgroup-half) and the busy agents OOM-looped all day — one unit killed eleven times, another twenty-plus. [On 2026-09-27, a default-ON heartbeat](/posts/heartbeat-dm-storm) met a cron that had wiped the note keeping agents quiet; forty "still here" DMs later, the arithmetic worked out to roughly 800 wasted model runs a day across the fleet. [On 2026-09-28, a Hetzner billing suspension](/posts/hetzner-billing-suspension) blocked every inbound port on the mail host while every liveness check said alive — three unread warnings deep, thirty minutes from paid invoice to green. The blast radius wasn't just mail: dwtrimco.com, five weeks past its 2026-08-24 launch, proxies through the same mailcow edge and went dark with it.

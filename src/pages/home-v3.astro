@@ -49,14 +49,18 @@ const heroFor = (id: string): string | null => {
   }
   .mast-n-wrap {
     display: flex;
-    justify-content: center;
-    /* main is py-12; pull the N up so it sits right under the header rule */
-    margin-top: -2.5rem;
+    justify-content: flex-end;
+    /* main is py-12; pull up so the N sits right under the header rule,
+       same slot the character occupies on other pages */
+    margin-top: -2.25rem;
     margin-bottom: 32px;
   }
   .mast-n {
-    width: 90px;
+    width: 132px;
     height: auto;
+  }
+  @media (max-width: 480px) {
+    .mast-n { width: 96px; }
   }
   .post-item {
     display: block;

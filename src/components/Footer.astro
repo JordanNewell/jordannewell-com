@@ -1,5 +1,12 @@
 ---
 import { SITE, FOOTER_PAGE_LINKS } from "../lib/site";
+
+interface Props {
+  // Last page link slot; home v2 swaps ventures → projects.
+  ventures?: { href: string; label: string };
+}
+
+const { ventures = { href: "/ventures", label: "ventures" } } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
@@ -13,7 +20,7 @@ const year = new Date().getFullYear();
         </>
       ))}
       <span class="mx-3 text-accent" aria-hidden="true">·</span>
-      <a href="/ventures" class="hover:text-accent">ventures</a>
+      <a href={ventures.href} class="hover:text-accent">{ventures.label}</a>
     </p>
     <p class="mb-4">
       <a href="/rss.xml" class="hover:text-accent">rss</a>

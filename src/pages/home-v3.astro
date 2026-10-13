@@ -17,6 +17,9 @@ const heroFor = (id: string): string | null => {
 
 <BaseLayout title="Jordan Newell" description="I build and operate the systems behind ambitious ventures." path="/">
   <div class="manifesto">
+    <div class="mast-n-wrap">
+      <img src="/images/newell-icon.png" alt="" width="1024" height="1024" class="mast-n" loading="eager" />
+    </div>
     {posts.map((post) => {
       const hero = heroFor(post.id);
       return (
@@ -43,6 +46,17 @@ const heroFor = (id: string): string | null => {
 <style>
   .manifesto {
     margin-block: 8px 72px;
+  }
+  .mast-n-wrap {
+    display: flex;
+    justify-content: center;
+    /* main is py-12; pull the N up so it sits right under the header rule */
+    margin-top: -2.5rem;
+    margin-bottom: 32px;
+  }
+  .mast-n {
+    width: 90px;
+    height: auto;
   }
   .post-item {
     display: block;

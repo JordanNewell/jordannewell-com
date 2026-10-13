@@ -8,6 +8,9 @@ project: "openclaw-fleet"
 kind: "tooling"
 ---
 
+
+![OpenClaw — a bug report that actually got fixed.](/posts/openclaw-bug-anatomy/hero.png)
+
 On 2026-05-12 I filed a bug against [OpenClaw](https://github.com/openclaw/openclaw). Other users had documented the same pattern in related issues. The maintainer shipped a fix and closed my issue on 2026-05-18 — six days from filed to fixed.
 
 That sequence is unremarkable on its own. Bugs get filed and fixed every day. What's worth writing about is *why this one moved* when most bug reports die in the queue. The answer is mostly craft, not luck.

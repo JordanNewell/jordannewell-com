@@ -10,6 +10,9 @@ kind: "win"
 draft: false
 ---
 
+
+![World-Readable — what the audit found.](/posts/synapse-audit/hero.png)
+
 > The Matrix homeserver that carries encrypted chat for my whole tailnet had four P0 security findings — placeholder credentials, permissive permissions, leftover public exposure, stale admin accounts. Two days of audit work later, all four are closed. Two items stay blocked on bigger migrations. The specifics stay private; the lesson doesn't.
 
 ## What I was auditing

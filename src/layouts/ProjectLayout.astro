@@ -3,9 +3,15 @@ import BaseLayout from "./BaseLayout.astro";
 import TagPill from "../components/TagPill.astro";
 import { creativeWorkSchema } from "../lib/schema";
 import { getCollection, type CollectionEntry } from "astro:content";
+import { existsSync } from "node:fs";
 
 const { project } = Astro.props as { project: CollectionEntry<"projects"> };
 const { title, description, status, repo, liveUrl, tags } = project.data;
+
+// Share card: public/projects/<id>/card.png when present.
+const cardOg = existsSync(`public/projects/${project.id}/card.png`)
+  ? `/projects/${project.id}/card.png`
+  : undefined;
 
 const allPosts = await getCollection("posts");
 const relatedPosts = allPosts
@@ -32,7 +38,7 @@ const schema = [
 ];
 ---
 
-<BaseLayout title={title} description={description} schema={schema}>
+<BaseLayout title={title} description={description} schema={schema} ogImage={cardOg}>
   <article class="prose">
     <header class="page-head">
       <div class="ph-titlerow">

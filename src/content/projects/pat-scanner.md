@@ -5,35 +5,35 @@ status: "shipped"
 tags: ["projects", "security", "oss", "claude-code"]
 shipDate: 2026-07-27
 repo: "https://github.com/JordanNewell/pat-scanner"
-liveUrl: "https://github.com/marketplace/pat-scanner"
+liveUrl: "https://github.com/JordanNewell/pat-scanner"
 order: 10
 facts:
   - k: "shipped"
     v: "2026-07-27"
   - k: "version"
-    v: "v0.1.1"
+    v: "v0.1.2"
   - k: "classes"
     v: "13 PAT types"
   - k: "form"
     v: "Claude Code plugin"
   - k: "license"
-    v: "MIT"
+    v: "BUSL-1.1"
 highlights:
   - title: "Catches leaks before they happen"
     body: "UserPromptSubmit hook runs before the prompt enters the transcript. If a PAT pattern matches, the prompt is blocked — not redacted after the fact."
   - title: "13 PAT classes"
-    body: "GitHub, Anthropic, OpenAI, PyPI, npm, Stripe, Slack, Discord, AWS, GCP, Linear, Figma, generic high-entropy secrets. Regex-tuned per provider."
+    body: "GitHub (classic + fine-grained), Anthropic, OpenAI (legacy + project), Stripe, Slack, PyPI, AWS, Figma, Z.ai/Zhipu, generic JWTs, and more. Regex-tuned per provider."
   - title: "Bypass keyword for false positives"
     body: "BYPASS_SECRET_SCAN in the prompt skips the check. Explicit, auditable, not silent."
   - title: "Companion to git-time scanning"
-    body: "Pairs with opsec-scan.sh pre-push hook — chat-time + commit-time coverage. Defense in depth against credential leaks."
+    body: "Pairs with git-hygiene's commit-time hooks (opsec-scan.sh) — chat-time + commit-time coverage. Defense in depth against credential leaks."
 stack:
   - "Bash"
   - "jq"
   - "POSIX ERE"
 ---
 
-Claude Code UserPromptSubmit hook that catches 13 PAT classes at chat-time — before secrets enter the transcript, not after. MIT-licensed OSS plugin. v0.1.0 + v0.1.1 shipped 2026-07-27 with 18/18 tests passing.
+Claude Code UserPromptSubmit hook that catches 13 PAT classes at chat-time — before secrets enter the transcript, not after. BUSL-1.1 (converts to MIT 2030). v0.1.0 + v0.1.1 shipped 2026-07-27 with 18/18 tests passing; v0.1.2 current.
 
 ## Install
 
@@ -42,13 +42,13 @@ Claude Code UserPromptSubmit hook that catches 13 PAT classes at chat-time — b
 /plugin install pat-scanner
 ```
 
-Or copy `scan-secrets.sh` directly into `~/.claude/hooks/`.
+Or clone and add locally via `/plugin marketplace add`.
 
 ## What it catches
 
-GitHub (`ghp_`, `gho_`, `ghu_`, `ghs_`, `ghr_`, `github_pat_`), Anthropic (`sk-ant-`), OpenAI (`sk-`), PyPI (`pypi-`), npm (`npm_`), Stripe (`sk_live_`, `rk_live_`), Slack (`xox`-family), Discord (`MTA`-format bot tokens), AWS (`AKIA`-prefix), GCP (`ya29.`), Linear (`lin_api_`), Figma (`figd_`/`figu_`).
+GitHub (`ghp_`-family, `github_pat_`), Anthropic (`sk-ant-`), OpenAI (legacy `T3BlbkFJ` + `sk-proj-`), Stripe (`sk_`/`rk_`/`pk_`), Slack (`xox`-family), PyPI (`pypi-`), AWS (`AKIA`), Figma (`figd_`), Z.ai/Zhipu (`32hex.16alnum`), generic JWTs (`eyJ…`), Natural.com (`ak_ntl_prod_`).
 
-Plus a bypass keyword — `BYPASS_SECRET_SCAN` — for legitimate test fixtures. Audit log at `~/.claude/hooks/scan-secrets.log`.
+Plus a bypass keyword — `BYPASS_SECRET_SCAN` — for legitimate test fixtures. Audit log at `~/.pat-scanner/audit.log`.
 
 ## Why
 

@@ -178,20 +178,3 @@
 .murphy-mode .post-content {
   color: var(--color-fg);
 }
-
-/* Live status badge (footer) — state classes set by public/js/main.js */
-.status-badge .status-dot {
-  background: var(--color-amber);
-}
-.status-badge .status-text {
-  color: var(--color-amber);
-}
-.status-badge.is-up .status-dot {
-  background: var(--color-green);
-}
-.status-badge.is-up .status-text {
-  color: var(--color-green);
-}
-
-/* Dev mirror avatar (footer emoji row) — links to dev.jordannewell.com */
-.footer-avatar { display: block; border-radius: 50%; }

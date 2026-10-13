@@ -2,7 +2,7 @@
 title: "Anatomy of a bug report that actually got fixed: my OpenClaw submission"
 description: "What a good bug report looks like, demonstrated via a real one I filed against OpenClaw — community-confirmed, then fixed upstream in six days."
 pubDate: 2026-07-15
-tags: ["contributions", "oss"]
+tags: ["contributions", "oss", "rebuild"]
 mode: "hobart"
 project: "openclaw-fleet"
 kind: "tooling"
@@ -97,7 +97,7 @@ If you file bugs against OSS projects, the template below will improve your hit 
 ## Actual
 [one line]
 
-#***REMOVED***
+## Versions
 - OSS project: [exact version]
 - Plugin/module: [exact version, if applicable]
 - Host OS: [exact version]

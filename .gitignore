@@ -41,3 +41,6 @@ scripts/opsec-patterns.local
 
 # local agent worktrees + scratch
 .claude/
+*.log
+Thumbs.db
+desktop.ini

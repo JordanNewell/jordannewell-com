@@ -12,7 +12,6 @@ export const SITE = {
       "https://bsky.app/profile/jordannewell.com",
     ],
   },
-  social: {},
 } as const;
 
 export const NAV_LINKS = [

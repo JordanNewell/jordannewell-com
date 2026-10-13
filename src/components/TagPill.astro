@@ -1,13 +1,12 @@
 ---
 import { TAG_COLORS } from "../lib/site";
-const { tag, size = "sm" } = Astro.props as { tag: string; size?: "sm" | "md" };
+const { tag } = Astro.props as { tag: string };
 const color = TAG_COLORS[tag] ?? "#7A7683";
-const sizeClass = size === "md" ? "text-sm" : "text-xs";
 ---
 
 <a
-  href={`/tags/${tag}`}
-  class={`inline-block font-mono ${sizeClass}`}
+  href={`/tags/${tag}/`}
+  class="inline-block font-mono text-xs"
   style={`color: ${color};`}
 >
   /{tag}

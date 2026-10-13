@@ -4,7 +4,6 @@ export function GET() {
   const lines = [
     `User-agent: *`,
     `Allow: /`,
-    `Disallow: /assets/`,
     ``,
     `# Explicit AI crawler allowlist`,
     `User-agent: GPTBot`,

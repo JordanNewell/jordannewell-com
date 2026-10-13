@@ -13,7 +13,7 @@ facts:
   - k: "model"
     v: "Source-available"
   - k: "license"
-    v: "BSL / FFL / SSPL (TBD)"
+    v: "BSL / FSL / SSPL (TBD)"
   - k: "tier"
     v: "Hosted pro"
   - k: "base"

@@ -18,7 +18,7 @@ The line has been scattered across a plugin directory, two repos, and an npm pac
 
 Three pieces, one line. A small amount about each, from the site's own copy:
 
-**Chat.** [Curtis AI Chat](https://curtisai.tech/chat/) — "on your own keys, in your own vault, kept as files." v2.0.1, cut 2026-10-11. 53 built-in carriers, any OpenAI-compatible endpoint welcome. Named agents read, search, and edit your notes when you ask, run on a schedule, spawn swarm specialists, connect to your own MCP tools. "No account with us. No history held hostage." MIT, free core. Install from the Obsidian directory.
+**Chat.** [Curtis AI Chat](https://curtisai.tech/chat/) — "on your own keys, in your own vault, kept as files." v2.0.1, cut 2026-10-11. 53 built-in carriers, any OpenAI-compatible endpoint welcome. Named agents read, search, and edit your notes when you ask, run on a schedule, spawn swarm specialists, connect to your own MCP tools. "No account with us. No history held hostage." BUSL-1.1, free core. Install from the Obsidian directory.
 
 **Port.** [Curtis AI Porter](https://curtisai.tech/porter/) — "port your AI chat history anywhere." ChatGPT, Claude, Grok, Gemini Takeout, DeepSeek (paste), and `.curt` come in; Curtis records, Obsidian-ready markdown, continuation packs, ChatGPT-shape JSON, and API JSONL go back out. v0.2.0 converts entirely in your browser. Zero network calls, per the page: verify in your browser's devtools. Round-trip verified — files must re-serialize byte-for-byte.
 

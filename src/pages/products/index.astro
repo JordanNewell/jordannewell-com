@@ -51,7 +51,7 @@ const platformLabel = (url: string): string => {
           {p.data.status}
         </span>
         <span class="lg-pkg">
-          {p.data.platform ? `${platformLabel(p.data.platform.url)} ↗` : "—"}
+          {p.data.platform ? platformLabel(p.data.platform.url) : "—"}
         </span>
         <span class="lg-desc">{p.data.description}</span>
       </a>

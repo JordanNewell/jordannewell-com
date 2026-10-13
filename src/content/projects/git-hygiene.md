@@ -36,7 +36,7 @@ stack:
   - "gitleaks (optional, Layer 2)"
 ---
 
-Three positions, held firmly.
+Four positions, held firmly.
 
 1. **AI tools are tools.** Claude, Copilot, Cursor, Gemini, ChatGPT, ZCode — they're how the work gets done, not who did the work. The author is the human; the tool is the tool. You don't credit DeWalt on the shed you built with their drill.
 2. **Secrets stay out of git.** API keys, tokens, passwords — pre-commit's regex layer catches the high-precision patterns, gitleaks catches the long tail when installed.

@@ -17,7 +17,7 @@ const dateStr = pubDate.toLocaleDateString("en-US", {
     <time datetime={pubDate.toISOString()} class="pe-date">{dateStr}</time>
     <div>
       <h3 class="pe-title">
-        <a href={`/posts/${post.id}`} class="pe-link">{title}</a>
+        <a href={`/posts/${post.id}/`} class="pe-link">{title}</a>
       </h3>
       <p class="pe-desc">{description}</p>
       <div class="pe-tags">

@@ -36,7 +36,7 @@ Re-running an import is idempotent: conversations already seen are skipped, so y
 
 The container is JSON with a magic field and a version: `curt: "curtis-conversation"`, `version: 1`. One conversation per file. Ids, timestamps, token stats, base64 images, tool-call metadata survive byte-perfect.
 
-JSON over markdown for the container is deliberate: no escaping edge cases, nothing to ambiguity-corrupt. Markdown is what you read — every port also writes a plain transcript you can drop in any folder. `.curt` is what you move. Curtis-to-Curtis is now a file copy.
+JSON over markdown for the container is deliberate: no escaping edge cases, nothing for ambiguity to corrupt. Markdown is what you read — every port also writes a plain transcript you can drop in any folder. `.curt` is what you move. Curtis-to-Curtis is now a file copy.
 
 ## Both directions
 

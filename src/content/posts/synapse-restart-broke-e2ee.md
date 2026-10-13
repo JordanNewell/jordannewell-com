@@ -63,7 +63,7 @@ Synapse restarts are not safe by default. Wrap them.
 
 **Treat OTK exhaustion as a known failure mode, not a surprise.** This pattern — server-side crypto state drifts from agent crypto state, neither recovers without intervention — has happened before on this server, on a smaller scale. I fixed the one agent. I didn't fix the class. The class is what comes back at 4:30 in the morning.
 
-The wrapper is shipped. The next homeserver restart won't be a coin flip on whether the fleet recovers. That's the win. The four hours of silence already happened.
+The wrapper is shipped. The next homeserver restart won't be a coin flip on whether the fleet recovers. That's the win. The four and a half hours of silence already happened.
 
 ---
 

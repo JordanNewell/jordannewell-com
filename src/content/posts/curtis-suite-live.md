@@ -9,12 +9,12 @@ era: "2026-fleet"
 kind: "decision"
 project: "curtis-chat"
 draft: false
-ogImage: "/posts/curtis-suite-coming-soon/og.png"
+ogImage: "/posts/curtis-suite-live/og.png"
 ---
 
 The line has been scattered across a plugin directory, two repos, and an npm package. That ends. Everything Curtis converges at **[curtisai.tech](https://curtisai.tech)** — live now. The ledger's own words: "AI chats, kept like records."
 
-[![Curtis — AI chats, kept like records.](/posts/curtis-suite-coming-soon/hero.jpg)](https://curtisai.tech)
+[![Curtis — AI chats, kept like records.](/posts/curtis-suite-live/hero.jpg)](https://curtisai.tech)
 
 Three pieces, one line. A small amount about each, from the site's own copy:
 

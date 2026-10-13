@@ -4,7 +4,7 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="border-t border-border mt-24">
-  <div class="max-w-prose mx-auto px-5 py-12 text-center text-sm text-fg-muted font-mono">
+  <div class="footer-inner max-w-prose mx-auto px-5 py-12 text-center text-sm text-fg-muted font-mono">
     <p class="mb-4">
       {FOOTER_PAGE_LINKS.map((link, i) => (
         <>
@@ -27,3 +27,14 @@ const year = new Date().getFullYear();
     <p class="mb-6">© {year} {SITE.author.name} <span class="text-accent" aria-hidden="true">·</span> <a href="/license" class="hover:text-accent">license</a></p>
   </div>
 </footer>
+
+<style>
+  /* Mobile: raise footer link tap targets to the 40px comfort floor.
+     Desktop (>640px) is untouched. Link text is already 14px (text-sm). */
+  @media (max-width: 640px) {
+    footer p a {
+      display: inline-block;
+      padding-block: 0.75rem;
+    }
+  }
+</style>

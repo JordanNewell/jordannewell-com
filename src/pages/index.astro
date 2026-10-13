@@ -24,7 +24,6 @@ const heroFor = (id: string): string | null => {
   </div>
 
   <section class="section">
-    <div class="section-label">featured</div>
     <div>
       {posts.map((post, i) => {
         const hero = i === 0 ? heroFor(post.id) : null;
@@ -80,7 +79,7 @@ const heroFor = (id: string): string | null => {
     align-items: center;
     text-align: center;
     gap: 20px;
-    margin-bottom: 48px;
+    margin-bottom: 36px;
   }
   .mast-intro {
     font-family: var(--font-sans);
@@ -92,20 +91,11 @@ const heroFor = (id: string): string | null => {
     max-width: 24ch;
   }
 
-  .section { margin-bottom: 64px; }
-  .section:last-of-type { margin-bottom: 0; }
-  .section-label {
-    font-family: var(--font-mono);
-    font-size: 0.65rem; color: var(--color-fg-muted);
-    letter-spacing: 0.18em; text-transform: uppercase;
-    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--color-rule-strong);
-  }
+  .section { margin-bottom: 0; }
 
   @media (max-width: 480px) {
     .mast-n { width: 96px; }
-    .masthead { margin-bottom: 32px; }
+    .masthead { margin-bottom: 28px; }
     .mast-intro { font-size: 1.3rem; }
   }
 

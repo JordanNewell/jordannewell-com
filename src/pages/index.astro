@@ -19,9 +19,6 @@ const heroFor = (id: string): string | null => {
   <div class="mast-n-row">
     <img src="/images/newell-icon.png" alt="" width="1024" height="1024" class="mast-n" loading="eager" />
   </div>
-  <div class="masthead">
-    <h1 class="mast-intro">I build and operate the systems behind ambitious ventures.</h1>
-  </div>
 
   <section class="section">
     <div>
@@ -67,36 +64,18 @@ const heroFor = (id: string): string | null => {
     /* main is py-12; pull up so the N sits right under the header rule,
        same slot the character occupies on other pages */
     margin-top: -2.25rem;
-    margin-bottom: 24px;
+    margin-bottom: 40px;
   }
   .mast-n {
     width: 132px;
     height: auto;
-  }
-  .masthead {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    margin-bottom: 36px;
-  }
-  .mast-intro {
-    font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 1.5rem;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
-    color: var(--color-fg);
-    max-width: 24ch;
   }
 
   .section { margin-bottom: 0; }
 
   @media (max-width: 480px) {
     .mast-n { width: 96px; }
-    .masthead { margin-bottom: 28px; }
-    .mast-intro { font-size: 1.3rem; }
+    .mast-n-row { margin-bottom: 32px; }
   }
 
   .post-item {

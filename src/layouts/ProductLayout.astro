@@ -59,7 +59,7 @@ const schema = [
           <span class="stat-n" style={`color: ${statusColors[status] ?? "#7A7683"}`}>{status}</span>
           {platform && <> · <a href={platform.url} target="_blank" rel="noopener" class="ph-stat-link">{platform.name.toLowerCase()} ↗</a></>}
           · {license}
-          · shipped {shipDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" })}
+          · {status === "released" ? "shipped" : "in development since"} {shipDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" })}
         </p>
       </div>
       <p class="ph-tag">{tagline}</p>
@@ -68,7 +68,7 @@ const schema = [
         {install.filter((i) => i.kind === "directory" || i.kind === "brat" || i.kind === "npm" || i.kind === "pip").slice(0, 1).map((i) => (
           <a href={i.href ?? repo} target="_blank" rel="noopener">install {i.label} ↗</a>
         ))}
-        <a href={repo} target="_blank" rel="noopener">source ↗</a>
+        {repo && <a href={repo} target="_blank" rel="noopener">source ↗</a>}
         {homepage && <a href={homepage} target="_blank" rel="noopener">homepage ↗</a>}
       </p>
       {stats.length > 0 && (

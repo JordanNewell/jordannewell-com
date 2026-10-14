@@ -55,7 +55,7 @@ const products = defineCollection({
     description: z.string(),
     status: z.enum(["released", "beta", "preview"]).default("released"),
     shipDate: z.coerce.date(),
-    repo: z.string().url(),
+    repo: z.string().url().optional(),
     homepage: z.string().url().optional(),
     logo: z.string().optional(),
     platform: z

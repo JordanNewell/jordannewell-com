@@ -89,7 +89,7 @@ const resolvedOgImage = ogImage
       <Header path={path} />
       <a href="/" class="under-header-character max-w-prose mx-auto px-5" aria-label="Jordan Newell — home">
         <img src="/images/jordan-character.svg" alt="" width="380" height="435" />
-        <img src="/images/jordan-character-dark.png" alt="" width="515" height="870" class="character-dark" />
+        <img src="/images/jordan-character-dark.png" alt="" width="277" height="453" class="character-dark" />
       </a>
       <main class="max-w-prose mx-auto px-5 py-12">
         <slot />
@@ -108,10 +108,17 @@ const resolvedOgImage = ogImage
       .under-header-character img { width: 132px; height: auto; }
       .under-header-character:hover { opacity: 1; }
       .character-dark { display: none; }
-      :global([data-theme="dark"]) .character-dark { display: block; }
+      /* Dark art is tighter-cropped than the light SVG — match rendered
+         HEIGHT (132px-wide light SVG renders ~151px tall), not width. */
+      :global([data-theme="dark"]) .under-header-character .character-dark {
+        display: block;
+        width: auto;
+        height: 151px;
+      }
       :global([data-theme="dark"]) .under-header-character img:not(.character-dark) { display: none; }
       @media (max-width: 560px) {
         .under-header-character img { width: 96px; height: auto; }
+        :global([data-theme="dark"]) .under-header-character .character-dark { width: auto; height: 110px; }
       }
     </style>
   </body>

@@ -46,6 +46,16 @@ const resolvedOgImage = ogImage
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script is:inline>
+      // Set theme before first paint to avoid a flash of the wrong palette.
+      const stored = localStorage.getItem("theme");
+      document.documentElement.dataset.theme =
+        stored === "dark" || stored === "light"
+          ? stored
+          : matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{ogTitle}</title>
     <meta name="description" content={metaDescription} />
@@ -79,6 +89,7 @@ const resolvedOgImage = ogImage
       <Header path={path} />
       <a href="/" class="under-header-character max-w-prose mx-auto px-5" aria-label="Jordan Newell — home">
         <img src="/images/jordan-character.svg" alt="" width="380" height="435" />
+        <img src="/images/jordan-character-dark.png" alt="" width="527" height="870" class="character-dark" />
       </a>
       <main class="max-w-prose mx-auto px-5 py-12">
         <slot />
@@ -96,6 +107,9 @@ const resolvedOgImage = ogImage
       }
       .under-header-character img { width: 132px; height: auto; }
       .under-header-character:hover { opacity: 1; }
+      .character-dark { display: none; }
+      :global([data-theme="dark"]) .character-dark { display: block; }
+      :global([data-theme="dark"]) .under-header-character img:not(.character-dark) { display: none; }
       @media (max-width: 560px) {
         .under-header-character img { width: 96px; height: auto; }
       }

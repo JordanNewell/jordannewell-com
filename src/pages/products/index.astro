@@ -12,19 +12,6 @@ const shippedCount = products.filter(
 ).length;
 
 const statusColors = PRODUCT_STATUS_COLORS;
-
-const platformLabel = (url: string): string => {
-  try {
-    const host = new URL(url).hostname;
-    if (host.includes("obsidian.md")) return "obsidian";
-    if (host.includes("npmjs")) return "npm";
-    if (host.includes("pypi.org")) return "pypi";
-    if (host.includes("crates.io")) return "crates";
-    return "pkg";
-  } catch {
-    return "pkg";
-  }
-};
 ---
 
 <BaseLayout title="Products" description="Polished software Jordan Newell ships and stands behind." ogImage="/og-products.png">
@@ -35,7 +22,7 @@ const platformLabel = (url: string): string => {
 
   <div class="ledger">
     <div class="ledger-head">
-      <span>product</span><span>status</span><span>pkg</span><span>what it is</span>
+      <span></span><span>product</span><span>status</span><span>what it is</span>
     </div>
     {products.map((p) => (
       <a href={`/products/${p.id}/`} class="ledger-row">
@@ -46,9 +33,6 @@ const platformLabel = (url: string): string => {
           style={`color: ${statusColors[p.data.status] ?? "#7A7683"}`}
         >
           {p.data.status}
-        </span>
-        <span class="lg-pkg">
-          {p.data.platform ? platformLabel(p.data.platform.url) : "—"}
         </span>
         <span class="lg-desc">{p.data.description}</span>
       </a>
@@ -63,7 +47,7 @@ const platformLabel = (url: string): string => {
   /* Grid + spacing are products-specific; base ledger styles live in global.css */
   .ledger-head, .ledger-row {
     display: grid;
-    grid-template-columns: 26px minmax(0, 1.1fr) auto minmax(0, 0.45fr) minmax(0, 1.7fr);
+    grid-template-columns: 26px minmax(0, 1.1fr) auto minmax(0, 1.7fr);
     gap: 14px;
     align-items: baseline;
   }
@@ -97,26 +81,12 @@ const platformLabel = (url: string): string => {
   .lg-st {
     white-space: nowrap;
   }
-  .lg-pkg {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--color-fg-muted);
-    white-space: nowrap;
-  }
-  @media (max-width: 900px) {
-    .ledger-head span:nth-child(3) { display: none; }
-    .lg-pkg { display: none; }
-    .ledger-head, .ledger-row {
-      grid-template-columns: 26px minmax(0, 1.1fr) auto minmax(0, 1.7fr);
-    }
-  }
   @media (max-width: 640px) {
     .ledger-head { display: none; }
     .ledger-row {
       grid-template-columns: 26px 1fr auto;
       row-gap: 0.3rem;
     }
-    .lg-pkg { display: none; }
     .lg-desc { grid-column: 1 / -1; }
   }
 </style>

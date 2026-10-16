@@ -292,3 +292,37 @@
 .murphy-mode .post-content {
   color: var(--color-fg);
 }
+
+/* Dark mode — the Ledger at night. Brand soft-black paper (#0A0A0A, never
+   pure black), cream ink, hairlines inverted, accent hues lifted for
+   contrast. data-theme is set before first paint by the inline script in
+   BaseLayout (stored preference, else prefers-color-scheme). */
+[data-theme="dark"] {
+  --color-bg: #0A0A0A;
+  --color-bg-card: #0F0F0F;
+  --color-bg-card-hover: #16161A;
+  --color-border: #1F1F1F;
+  --color-border-light: #2A2A2E;
+  --color-rule-strong: #F2EFE6;
+  --color-fg: #F2EFE6;
+  --color-fg-secondary: #C9C5BD;
+  --color-fg-muted: #A09C94;
+  --color-accent: #82A7FF;
+  --color-green: #2FD57A;
+  --color-blue: #82A7FF;
+  --color-amber: #F5A623;
+  --color-violet: #A78BFA;
+  --color-cyan: #3FD4E0;
+  --color-red: #F26D5F;
+  --color-pink: #F06FA8;
+  --color-ink: #121114;
+  --color-ink-border: #2A2830;
+  --color-ink-fg: #F2EFE6;
+}
+[data-theme="dark"] .prose a {
+  color: var(--color-accent);
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+}
+[data-theme="dark"] .prose code {
+  background-color: #15151A;
+}

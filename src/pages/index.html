@@ -116,11 +116,6 @@ h1 em{font-style:italic;font-weight:500}
   z-index:1;opacity:.5;pointer-events:none;
 }
 .treeline svg{display:block;width:100%;height:100%}
-.ground-caption{
-  position:absolute;top:0;right:0;text-align:right;
-  font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
-  transition:color .9s ease;
-}
 
 /* ============ ATTRACTIONS: shared ============ */
 .attraction{position:absolute;z-index:5}
@@ -432,18 +427,62 @@ body.movie .tonight .t-b{display:inline}
 
 /* hatch line weights: structure 3 · object 2.6 · detail 2 · fine 1.6 */
 
-/* ============ BOARDWALK: pills under the scene, og-card style ============ */
-.boardwalk{padding:16px 32px 10px}
-.legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.pill{
-  display:inline-flex;align-items:center;gap:7px;
-  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  border:2px solid var(--ink);border-radius:999px;
-  padding:4px 12px;background:var(--card);
+/* ============ BOARDWALK: the admission ticket under the scene ============ */
+.boardwalk{padding:16px 32px 10px;position:relative}
+.admit-row{display:flex;justify-content:center}
+.admit-stub{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink);background:var(--card);
+  border:2px solid var(--ink);border-radius:4px;
+  padding:9px 16px;cursor:pointer;
+  transform:rotate(-1.4deg);
+  box-shadow:2px 2px 0 rgba(22,22,27,.16);
+  transition:transform .3s var(--ease-spring),box-shadow .3s ease;
 }
-.pill i{width:7px;height:7px;border-radius:50%;background:var(--bright);border:1.5px solid var(--ink);flex:none}
-.pill-on{background:var(--bright)}
-.pill-on i{background:var(--ink);border-color:var(--ink)}
+.admit-stub:hover,.admit-stub:focus-visible{transform:rotate(0deg) translateY(-1px);box-shadow:3px 3px 0 rgba(22,22,27,.2)}
+.admit-stub:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.admit-stub i{width:7px;height:7px;border-radius:50%;background:var(--bright);border:1.5px solid var(--ink);flex:none;transition:background .6s ease}
+body.duskfall .admit-stub i,body.movie .admit-stub i{background:var(--orange)}
+body.movie .admit-stub{color:#8A8578;border-color:#5A564C;background:transparent;box-shadow:none}
+.admit-card{
+  position:absolute;bottom:calc(100% + 2px);left:50%;
+  width:min(330px,86vw);
+  background:var(--card);border:2px solid var(--ink);border-radius:6px;
+  color:var(--ink);text-align:left;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transform:translateX(-50%) rotate(-.8deg) translateY(10px);
+  transition:opacity .28s ease,transform .38s var(--ease-spring),visibility 0s linear .3s;
+  box-shadow:4px 4px 0 rgba(22,22,27,.14);
+  z-index:60;
+}
+.admit-card.open{
+  opacity:1;visibility:visible;pointer-events:auto;
+  transform:translateX(-50%) rotate(-.8deg) translateY(0);
+  transition:opacity .28s ease,transform .38s var(--ease-spring);
+}
+/* perforation: dashed tear line, punched notches biting in from both edges */
+.tk-tear{border-top:2px dashed var(--ink);margin:0 12px;position:relative}
+.tk-tear::before,.tk-tear::after{content:"";position:absolute;top:-9px;width:16px;height:16px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+.tk-tear::before{left:-19px}
+.tk-tear::after{right:-19px}
+.tk-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 42px 10px 16px}
+.tk-name{font-family:var(--serif);font-style:italic;font-size:20px;font-weight:500}
+.tk-no{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em}
+.tk-rides{list-style:none;margin:0;padding:10px 16px 4px}
+.tk-rides li{
+  display:flex;align-items:center;gap:9px;
+  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 0;
+}
+.tk-rides li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c,var(--bright));border:1.5px solid var(--ink);flex:none}
+.tk-fine{margin:0;padding:10px 16px 14px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--muted)}
+.tk-close{
+  position:absolute;top:10px;right:10px;width:22px;height:22px;
+  border:2px solid var(--ink);border-radius:50%;background:var(--card);
+  color:var(--ink);font:700 11px/1 var(--mono);cursor:pointer;padding:0;
+}
+.tk-close:hover,.tk-close:focus-visible{background:var(--bright)}
 
 /* ============ FOOTER ============ */
 footer{padding:14px 0 26px}
@@ -478,7 +517,7 @@ body.ink-enter header.wrap .sub{animation-delay:.3s}
 
 /* ============ MOVIE MODE: page chrome goes dusk-dark ============ */
 body.movie,body.duskfall{background:#161412;color:var(--nightpaper)}
-body.movie .kicker,body.duskfall .kicker,body.movie .sub,body.duskfall .sub,body.movie .sub b,body.duskfall .sub b,body.movie .ground-caption,body.duskfall .ground-caption{color:#8A8578}
+body.movie .kicker,body.duskfall .kicker,body.movie .sub,body.duskfall .sub,body.movie .sub b,body.duskfall .sub b{color:#8A8578}
 body.movie .bunting,body.duskfall .bunting{filter:brightness(.32) saturate(.35)}
 body.movie .sub b,body.duskfall .sub b{color:var(--nightpaper)}
 body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
@@ -490,7 +529,7 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   .bunting{width:64vw;opacity:.9}
   .viewport{perspective:none;padding:4px 0 0}
   .scene{height:auto;transform:none !important;display:flex;flex-direction:column;gap:16px;padding:10px 0 4px}
-  .horizon,.treeline,.ground-caption,.di-posts,.popper,.parade{display:none}
+  .horizon,.treeline,.di-posts,.popper,.parade{display:none}
   .viewport .attraction,.viewport .drivein{opacity:1;transform:none;animation:none}
   .drivein{position:static;width:100%;order:-1}
   .attraction{position:static;width:100%;border:2px solid var(--ink);background:var(--card);box-shadow:3px 3px 0 var(--ink);padding:12px 14px 14px}
@@ -510,7 +549,11 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   .di-marquee{margin:0 4%}
   .di-marquee .name{white-space:nowrap}
   .tonight{font-size:10px;padding:7px 10px;white-space:nowrap}
-  .legend{gap:8px}
+  .boardwalk{padding:10px 16px 6px}
+  .admit-stub{font-size:9px;padding:8px 12px;letter-spacing:.1em}
+  .admit-card{bottom:calc(100% + 6px)}
+  /* the picture runs longer on the small screen — time to actually read it */
+  .reel-inner{animation-duration:64s}
 }
 
 /* ============ REDUCED MOTION: hold one legible frame ============ */
@@ -615,6 +658,7 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
               <p class="reel-line"><span class="h">fa11ba1</span><span class="m">chore: butter budget exceeded</span><span class="d">3 weeks ago</span></p>
               <p class="reel-branch">## release/midway-no-6</p>
               <p class="reel-line"><span class="h">t4g0up1</span><span class="m">release: map no. 6 — lights down, showtime</span><span class="d">tonight</span></p>
+              <div id="reelFeed" aria-hidden="true"></div>
               <p class="reel-fin">— fin —</p>
             </div>
             <svg class="grain" aria-hidden="true">
@@ -893,20 +937,35 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     <span class="sparkle" style="right:3%;top:34%;width:24px;animation-delay:-.6s" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1 L14.6 9.4 L23 12 L14.6 14.6 L12 23 L9.4 14.6 L1 12 L9.4 9.4 Z"/></svg></span>
     <span class="sparkle" style="left:44%;top:2%;width:14px;animation-delay:-2.8s" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1 L14.6 9.4 L23 12 L14.6 14.6 L12 23 L9.4 14.6 L1 12 L9.4 9.4 Z"/></svg></span>
 
-    <p class="ground-caption" aria-hidden="true">— SELECT AN ATTRACTION · SIX RIDES · SIX REPOS · NO REFUNDS —</p>
-
     <!-- the strollers: ink figures built by JS; they stroll left-to-right,
          slow to a stop at duskfall, and three ushers carry blankets to the front row -->
     <div class="parade dim" aria-hidden="true"></div>
   </div>
 </main>
 
-<!-- pill badges, og-card style -->
+<!-- admission ticket: the fine print lives on a stub — tap to tear off the full ticket -->
 <div class="boardwalk wrap">
-  <div class="legend" aria-hidden="true">
-    <span class="pill pill-on"><i></i><b id="pillTxt">Midway open</b></span>
-    <span class="pill"><i></i>Map No. 6</span>
-    <span class="pill"><i></i>Six rides · six repos</span>
+  <div class="admit-row">
+    <button id="admitBtn" class="admit-stub" aria-expanded="false" aria-controls="admitCard">
+      <i aria-hidden="true"></i>ADMIT ONE · <b id="pillTxt">Midway open</b>
+    </button>
+  </div>
+  <div id="admitCard" class="admit-card" role="dialog" aria-label="Midway admission ticket">
+    <button class="tk-close" aria-label="Tear off the ticket">✕</button>
+    <div class="tk-head">
+      <span class="tk-name">The Midway</span>
+      <span class="tk-no">MAP Nº 6</span>
+    </div>
+    <div class="tk-tear" aria-hidden="true"></div>
+    <ul class="tk-rides">
+      <li style="--c:#FFB000">Tractum · The Coaster</li>
+      <li style="--c:#0E7490">Curtis · Ferris Wheel</li>
+      <li style="--c:#BE185D">Newell Typeface · Carousel</li>
+      <li style="--c:#0E8A4A">TokenHunt · Hi-Striker</li>
+      <li style="--c:#A16207">WrangleBot · Game Stall</li>
+      <li style="--c:#6D28D9">Interleaf · Fortune Tent</li>
+    </ul>
+    <p class="tk-fine">SELECT AN ATTRACTION · SIX RIDES · SIX REPOS · NO REFUNDS</p>
   </div>
 </div>
 
@@ -1003,6 +1062,8 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   var wide = window.matchMedia("(min-width: 861px)");
   var SUN_SET = "translate(-560px,520px)", SUN_SINK = "translate(-540px,560px)", SUN_DAWN = "translate(-540px,440px)";
   var seq = { on:false, t:0, step:0, rev:false, rt:0, rstep:0, last:0 };
+  /* small screens get a longer picture: every beat and the film itself run slower */
+  function filmScale(){ return wide.matches ? 1 : 1.55; }
   var figs = [], blankets = [];
 
   function popBurst(){
@@ -1208,7 +1269,7 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     }
     if (pillTxt) pillTxt.textContent = "Now showing: Git Log";
     popBurst();
-    if (!reduce) popTimer = setInterval(popBurst, 9000);
+    if (!reduce) popTimer = setInterval(popBurst, wide.matches ? 9000 : 13500);
   }
   function endReverse(){
     [skyEls.dawn, townEls.dawn, skyEls.day, townEls.day, skyEls.dusk, townEls.dusk, skyEls.night, townEls.night,
@@ -1235,8 +1296,8 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     seq.last = now;
     if (seq.on){
       seq.t += dt;
-      while (seq.step < PHASES.length && seq.t >= PHASES[seq.step][0]){ PHASES[seq.step][1](); seq.step++; }
-      if (seq.t > 8300) seq.on = false;
+      while (seq.step < PHASES.length && seq.t >= PHASES[seq.step][0] * filmScale()){ PHASES[seq.step][1](); seq.step++; }
+      if (seq.t > 8300 * filmScale()) seq.on = false;
     }
     if (seq.rev){
       seq.rt += dt;
@@ -1284,8 +1345,8 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     if (pillTxt) pillTxt.textContent = "Showtime at sundown";
     startLoop();
     if (jump){
-      while (seq.step < PHASES.length && seq.t >= PHASES[seq.step][0]){ PHASES[seq.step][1](); seq.step++; }
-      if (seq.t > 8300) seq.on = false;
+      while (seq.step < PHASES.length && seq.t >= PHASES[seq.step][0] * filmScale()){ PHASES[seq.step][1](); seq.step++; }
+      if (seq.t > 8300 * filmScale()) seq.on = false;
     }
   }
   function lightsUp(){
@@ -1404,6 +1465,110 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
         sec.addEventListener("focusin", wake);
         sec.addEventListener("focusout", sleep);
       });
+    }
+  }catch(e){}
+
+/* ============ ADMISSION TICKET: tap the stub, the ticket tears off ============ */
+  try{
+    var admitBtn = document.getElementById("admitBtn");
+    var admitCard = document.getElementById("admitCard");
+    function admitSet(open){
+      admitCard.classList.toggle("open", open);
+      admitBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    admitBtn.addEventListener("click", function(e){
+      e.stopPropagation();
+      admitSet(!admitCard.classList.contains("open"));
+    });
+    admitCard.addEventListener("click", function(e){ e.stopPropagation(); });
+    document.addEventListener("click", function(){ admitSet(false); });
+    admitCard.querySelector(".tk-close").addEventListener("click", function(){
+      admitSet(false); admitBtn.focus();
+    });
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape" && admitCard.classList.contains("open")){ admitSet(false); admitBtn.focus(); }
+    });
+  }catch(e){}
+
+  /* ============ THE GIT LOG: the film shows real commits, placeholders on failure ============ */
+  try{
+    var reelFeed = document.getElementById("reelFeed");
+    var FEED_TTL = 30 * 60 * 1000;
+    function ago(iso){
+      var sec = (Date.now() - new Date(iso).getTime()) / 1000;
+      if (sec < 3600) return "just now";
+      if (sec < 86400) return Math.floor(sec / 3600) + "h ago";
+      var d = Math.floor(sec / 86400);
+      return d === 1 ? "1 day ago" : d + " days ago";
+    }
+    function feedLine(type, h, m, d){
+      var row = document.createElement("p");
+      row.className = type;
+      [[h, "h"], [m, "m"], [d, "d"]].forEach(function(pair){
+        var sp = document.createElement("span");
+        sp.className = pair[1];
+        sp.textContent = pair[0];
+        row.appendChild(sp);
+      });
+      reelFeed.appendChild(row);
+    }
+    function paintFeed(lines){
+      if (!lines.length) return;
+      [].slice.call(document.querySelectorAll(".reel-inner .reel-line, .reel-inner .reel-branch")).forEach(function(el){
+        el.style.display = "none";
+      });
+      reelFeed.textContent = "";
+      lines.forEach(function(l){ feedLine(l[0], l[1], l[2], l[3]); });
+    }
+    function collect(items){
+      var lines = [], seen = {};
+      for (var i = 0; i < items.length && lines.length < 13; i++){
+        var it = items[i];
+        var full = ((it.repository && it.repository.full_name) || "").replace(/^JordanNewell\//, "");
+        if (!full) continue;
+        if (!seen[full]){ seen[full] = 1; lines.push(["reel-branch", "## " + full, "", ""]); }
+        lines.push(["reel-line", (it.sha || "").slice(0, 7),
+          String((it.commit && it.commit.message) || "").split("\n")[0].slice(0, 46),
+          ago(it.commit && it.commit.committer && it.commit.committer.date)]);
+      }
+      return lines;
+    }
+    function stamp(it){
+      return new Date((it.commit && it.commit.committer && it.commit.committer.date) || 0).getTime();
+    }
+    var cached = null;
+    try{ cached = JSON.parse(sessionStorage.getItem("midwayFeed") || "null"); }catch(err){}
+    if (cached && cached.lines && cached.lines.length && Date.now() - cached.ts < FEED_TTL){
+      paintFeed(cached.lines);
+    } else {
+      /* the four most recently pushed repos, four commits each, merged newest-first
+         (search/commits rejects browser requests; these two endpoints are CORS-clean) */
+      fetch("https://api.github.com/users/JordanNewell/repos?sort=pushed&per_page=4")
+        .then(function(r){ return r.ok ? r.json() : []; })
+        .then(function(repos){
+          var names = repos.map(function(r){ return r.name; }).filter(Boolean);
+          return Promise.all(names.map(function(name){
+            return fetch("https://api.github.com/repos/JordanNewell/" + encodeURIComponent(name) + "/commits?per_page=4")
+              .then(function(r){ return r.ok ? r.json() : []; })
+              .then(function(cs){
+                return (Array.isArray(cs) ? cs : []).map(function(c){
+                  c.repository = { full_name: "JordanNewell/" + name };
+                  return c;
+                });
+              })
+              .catch(function(){ return []; });
+          }));
+        })
+        .then(function(groups){
+          var items = [];
+          groups.forEach(function(g){ items = items.concat(g); });
+          items.sort(function(a, b){ return stamp(b) - stamp(a); });
+          var lines = collect(items);
+          if (!lines.length) return;
+          try{ sessionStorage.setItem("midwayFeed", JSON.stringify({ ts: Date.now(), lines: lines })); }catch(err){}
+          paintFeed(lines);
+        })
+        .catch(function(){ /* placeholders keep rolling */ });
     }
   }catch(e){}
 

@@ -91,7 +91,8 @@ const resolvedOgImage = ogImage
         <img src="/images/jordan-character.svg" alt="" width="380" height="435" />
         <img src="/images/jordan-character-dark.png" alt="" width="277" height="453" class="character-dark" />
       </a>
-      <main class="max-w-prose mx-auto px-5 py-12">
+      <!-- Now page (path "/") pulls content up 40px: 48px → 8px top pad -->
+      <main class:list={["max-w-prose mx-auto px-5", path === "/" ? "pt-2 pb-12" : "py-12"]}>
         <slot />
       </main>
       <Footer mt={path === "/" ? "mt-12" : "mt-24"} />

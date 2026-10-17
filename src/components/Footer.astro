@@ -7,14 +7,13 @@ const { mt = "mt-24" } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
-<!-- N mark sits above the footer links -->
-<div class="balloon-n" aria-hidden="true">
-  <img src="/n-balloon.png" alt="" class="character-light" width="200" height="200" loading="lazy" />
-  <img src="/n-balloon-dark.png" alt="" class="character-dark" width="200" height="200" loading="lazy" />
-</div>
-
 <footer class={mt}>
   <div class="footer-inner max-w-prose mx-auto px-5 py-12 text-center text-sm text-fg-muted font-mono">
+    <!-- N mark caps the footer like a pyramidion -->
+    <div class="balloon-n" aria-hidden="true">
+      <img src="/n-balloon.png" alt="" class="character-light" width="200" height="200" loading="lazy" />
+      <img src="/n-balloon-dark.png" alt="" class="character-dark" width="200" height="200" loading="lazy" />
+    </div>
     <p class="mb-4">
       {FOOTER_PAGE_LINKS.map((link, i) => (
         <>
@@ -42,8 +41,7 @@ const year = new Date().getFullYear();
   .balloon-n {
     display: flex;
     justify-content: center;
-    padding-top: 3rem;
-    padding-bottom: 0.75rem;
+    padding-bottom: 1.5rem;
   }
   .balloon-n img {
     height: 1.6rem;

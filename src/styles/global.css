@@ -12,7 +12,7 @@
   --color-fg: #16161B;
   --color-fg-secondary: #4A4852;
   --color-fg-muted: #6E6A73;
-  --color-accent: #1F4FD8;
+  --color-accent: #0E8A4A;
   --color-green: #0E8A4A;
   --color-amber: #B45309;
   --color-cyan: #0E7490;
@@ -92,13 +92,13 @@
     color: var(--color-fg);
   }
   .prose a {
-    color: color-mix(in srgb, var(--color-accent) 45%, #EDEFF7);
+    color: var(--color-accent);
     text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
     text-underline-offset: 3px;
   }
   .prose a:hover {
-    color: color-mix(in srgb, var(--color-accent) 60%, #EDEFF7);
+    color: color-mix(in srgb, var(--color-accent) 80%, var(--color-fg));
     text-decoration-color: var(--color-accent);
   }
   .prose code {
@@ -293,7 +293,7 @@
   --color-fg: #F2EFE6;
   --color-fg-secondary: #C9C5BD;
   --color-fg-muted: #A09C94;
-  --color-accent: #82A7FF;
+  --color-accent: #2FD57A;
   --color-green: #2FD57A;
   --color-amber: #F5A623;
   --color-cyan: #3FD4E0;

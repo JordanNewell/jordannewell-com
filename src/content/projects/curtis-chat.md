@@ -6,7 +6,7 @@ successor: "curtis-ai-chat"
 deprecatedDate: 2026-07-22
 shipDate: 2026-07-21
 tags: ["projects", "ai", "tools", "oss"]
-repo: "https://github.com/JordanNewell/curtis-ai-chat"
+repo: "https://github.com/JordanNewell/curtis"
 liveUrl: "https://jordannewell.com/products/curtis-ai-chat/"
 order: 99
 facts:

@@ -129,7 +129,7 @@ h1 em{font-style:italic;font-weight:500}
   font:inherit;color:inherit;text-align:center;padding:0;
   -webkit-tap-highlight-color:transparent;
 }
-.attraction .pad:focus-visible{outline:2px solid var(--blue);outline-offset:6px;border-radius:4px}
+.attraction .pad:focus-visible{outline:2px solid var(--c,var(--blue));outline-offset:6px;border-radius:4px}
 .attraction svg{display:block;width:100%;height:auto;overflow:visible}
 .attraction:hover{z-index:40}
 .attraction .tag{
@@ -205,13 +205,7 @@ h1 em{font-style:italic;font-weight:500}
 .viewport .a-tent{animation-delay:.58s}
 @keyframes arrive{to{opacity:1;transform:translateY(0)}}
 
-/* ============ REFRESH PASS: the midway wakes up ============ */
-/* rides quicken when you walk up to them — small motions only; big arcs (wheel, coaster)
-   would phase-jump on a duration change, so those stay ambient */
-.a-carousel:hover{--t-prance:.85s}
-.a-stall:hover{--t-sway:2.2s;--t-bob:1.6s}
-.a-tent:hover{--t-flag:1.2s}
-.a-tent:hover .tent-glow{animation-duration:1.4s}
+/* ============ REFRESH PASS: the midway wakes up (JS wake below — WAAPI, no phase jump) ============ */
 
 /* ============ DRIVE-IN — the dominant mid-field focal point ============ */
 .drivein{position:absolute;left:24%;bottom:26.5%;width:52%;z-index:8}
@@ -476,6 +470,11 @@ footer .dot{color:var(--ink);opacity:.4}
 .sparkle path{fill:var(--bright);stroke:var(--ink);stroke-width:1.8;stroke-linejoin:round}
 .sparkle{animation:twinkleS var(--t-twinkle) ease-in-out infinite}
 @keyframes twinkleS{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.72);opacity:.6}}
+
+/* one-shot masthead settle, added only on the ink-draw session */
+body.ink-enter header.wrap h1,body.ink-enter header.wrap .sub{animation:mastheadSettle 1.1s var(--ease-out) .15s backwards}
+body.ink-enter header.wrap .sub{animation-delay:.3s}
+@keyframes mastheadSettle{from{opacity:0;transform:translateY(6px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
 
 /* ============ MOVIE MODE: page chrome goes dusk-dark ============ */
 body.movie,body.duskfall{background:#161412;color:var(--nightpaper)}
@@ -1388,6 +1387,26 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     if (hb) hb.setAttribute("aria-expanded", "true");
   }
 })();
+/* ============ RIDE WAKE: hover or focus quickens a ride's ambient ink, no phase jump ============ */
+  try{
+    var reduceWake = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduceWake){
+      var WAKE = 1.75;
+      [].slice.call(document.querySelectorAll(".attraction")).forEach(function(sec){
+        var wake = function(){
+          sec.getAnimations({ subtree: true }).forEach(function(a){ a.playbackRate = WAKE; });
+        };
+        var sleep = function(){
+          sec.getAnimations({ subtree: true }).forEach(function(a){ a.playbackRate = 1; });
+        };
+        sec.addEventListener("mouseenter", wake);
+        sec.addEventListener("mouseleave", sleep);
+        sec.addEventListener("focusin", wake);
+        sec.addEventListener("focusout", sleep);
+      });
+    }
+  }catch(e){}
+
 /* ============ INK DRAW-ON: the midway draws itself in ink, once per visit ============ */
   try{
     var reduceInk = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1401,6 +1420,8 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
       });
       if (geoms.length){
         sessionStorage.setItem("midwayInked", "1");
+        document.body.classList.add("ink-enter");
+        setTimeout(function(){ document.body.classList.remove("ink-enter"); }, 2200);
         geoms.forEach(function(el){
           var L = Math.min(el.getTotalLength(), 2400);
           el.style.transition = "none";

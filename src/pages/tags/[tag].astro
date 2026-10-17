@@ -44,7 +44,7 @@ const { tag, posts, projects } = Astro.props;
   <div>
     {posts.map((post) => <PostCard post={post} />)}
     {projects.map((project) => (
-      <article class="border-b border-border py-4">
+      <article class="py-4">
         <div class="flex items-baseline justify-between mb-1 gap-4">
           <h3 class="font-display font-semibold text-[0.95rem] tracking-tight">
             <a href={`/projects/${project.id}/`} class="hover:text-accent hover:underline underline-offset-4 transition-colors">{project.data.title}</a>

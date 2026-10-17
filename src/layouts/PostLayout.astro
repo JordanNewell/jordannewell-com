@@ -44,7 +44,7 @@ const schema = [articleSchema({
         {tags.map((tag) => <TagPill tag={tag} />)}
         {kind && <KindBadge kind={kind} />}
       </div>
-      <h1 class="font-display font-semibold text-2xl md:text-[1.9rem] tracking-tight leading-snug border-b border-rule-strong pb-2 mb-4">{title}</h1>
+      <h1 class="font-display font-semibold text-2xl md:text-[1.9rem] tracking-tight leading-snug mb-4">{title}</h1>
       <p class="text-xl text-fg-secondary mb-3">{description}</p>
       {era && <div class="mb-3"><EraBadge era={era} /></div>}
       {series.length > 0 && (

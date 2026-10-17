@@ -73,8 +73,6 @@
     font-size: 1.45rem;
     letter-spacing: -0.02em;
     color: var(--color-fg);
-    border-bottom: 1px solid var(--color-rule-strong);
-    padding-bottom: 0.5rem;
     margin-block: 0 1.5rem;
   }
   .prose h2 {
@@ -164,10 +162,9 @@
   letter-spacing: 0.14em;
   color: var(--color-fg-muted);
   padding-bottom: 0.55rem;
-  border-bottom: 1px solid var(--color-rule-strong);
 }
 .ledger-row {
-  border-bottom: 1px solid var(--color-border);
+  /* divider removed per Jordan 2026-10-17 */
 }
 .ph-stats {
   margin-bottom: 1.25rem;
@@ -223,7 +220,6 @@
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  border-bottom: 1px solid var(--color-rule-strong);
   padding-bottom: 0.5rem;
   margin-bottom: 0.8rem;
 }
@@ -251,7 +247,6 @@
   color: var(--color-fg-muted);
   margin-bottom: 0.25rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--color-rule-strong);
 }
 .lg-name-sm {
   font-family: var(--font-display);

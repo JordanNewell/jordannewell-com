@@ -19,12 +19,12 @@ game UI.
 
 | Project | Ride | Signage ink | One-liner angle |
 |---|---|---|---|
-| claudeway | Roller coaster (headline ride, biggest sweep) | orange `#C2410C` | agent workflows through loops/hairpins, never off the track |
-| curtis-ai | Ferris wheel (slow, sees everything) | teal `#0E7490` | conversational attendant with a view of every booth |
+| tractum | Roller coaster (headline ride, biggest sweep) | amber `#FFB000` | N of M keys board before the train leaves — quorum rides the hairpins, no single key starts the run |
+| curtis | Ferris wheel (slow, sees everything) | teal `#0E7490` | conversational attendant with a view of every booth on the midway |
 | newell-typeface | Carousel, "N" rides the lead horse | pink `#BE185D` | letters cut like carousel horses, carved for headlines |
-| crypto-key-classifier | High striker (ring the bell) | green `#0E8A4A` | every key weighed and judged in one clean hit |
-| git-hygiene | Balloon-dart game stall, "3 COMMITS = 5¢" | amber `#A16207` | rebase, squash, pop a balloon; sloppy history loses |
-| pat-scan | Fortune-teller tent, "SHE SEES PATTERNS" | violet `#6D28D9` | scans your patterns, tells you what happens next |
+| tokenhunt | High striker (ring the bell) | green `#0E8A4A` | every secret weighed in one clean hit across 53 providers; bell rings for the real thing |
+| wranglebot | Balloon-dart game stall, "3 BOTTLES = 5¢" | amber `#A16207` | wrangle the mess into order; chaos plays for free and loses |
+| interleaf | Fortune-teller tent, "SHE SEES THE SEALED" | violet `#6D28D9` | letters travel sealed between tents, unread until the right vault opens them |
 
 The six signage inks are the brief's semantic inks; they appear only as ride
 livery/plaques/card headings, never as UI chrome. NEWELL green `#00FF41` appears

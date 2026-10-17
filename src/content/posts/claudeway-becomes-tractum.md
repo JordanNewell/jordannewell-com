@@ -51,7 +51,7 @@ The MCP server got hardened in three directions, all the same instinct — the t
 
 ## What shipped
 
-v0.5.0 on [PyPI as `tractum`](https://pypi.org/project/tractum/): the rename, .curt linkage, MCP signing + dry-run hardening. 197 tests green. The docs moved to [jordannewell.github.io/tractum](https://jordannewell.github.io/tractum/), the MCP demo is a five-minute path (`docs/mcp-demo.md`), and the [no-code relay receipt from July](https://nostr.mom/e/3974ebfe688f1639a8534b46bbbfeddf354d18efcd190352da877756d1bac60b) still verifies — different name, same signatures.
+v0.5.0 on [PyPI as `tractum`](https://pypi.org/project/tractum/): the rename, .curt linkage, MCP signing + dry-run hardening. 197 tests green. The docs moved to [jordannewell.github.io/tractum](https://jordannewell.github.io/tractum/), the MCP demo is a five-minute path (`docs/mcp-demo.md`), and the [live relay receipt from July](https://nostr.mom/e/3974ebfe688f1639a8534b46bbbfeddf354d18efcd190352da877756d1bac60b) still verifies — different name, same signatures.
 
 The thesis hasn't moved since July: agent coordination records are long-lived artifacts, EU AI Act enforcement is live, and provenance is either born signed or it's hearsay. What changed is that the chain is complete. Signed evidence (.curt) → signed agreement (quorum receipt) → one artifact an auditor can verify end to end.
 

@@ -5,7 +5,7 @@ pubDate: 2026-07-26
 tags: ["projects", "ai", "oss"]
 mode: "hobart"
 kind: "win"
-project: "claudeway"
+project: "tractum"
 series: ["claude"]
 tool: "claude-code"
 draft: false
@@ -70,4 +70,4 @@ Agent output already decides things — merges, purchases, incident response. Th
 The receipts are on four relays right now. Verify one.
 
 ---
-*Filed under [/projects](/projects) and [/ai](/tags/ai). Project page: [Claudeway](/projects/claudeway). Source: [github.com/JordanNewell/claudeway](https://github.com/JordanNewell/claudeway). Docs: [jordannewell.github.io/claudeway](https://jordannewell.github.io/claudeway/).*
+*Filed under [/projects](/projects) and [/ai](/tags/ai). Project page: [Tractum](/projects/tractum) — Claudeway was renamed Tractum in v0.5.0, 2026-10-17. Source: [github.com/JordanNewell/tractum](https://github.com/JordanNewell/tractum). Docs: [jordannewell.github.io/tractum](https://jordannewell.github.io/tractum/).*

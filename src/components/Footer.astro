@@ -1,9 +1,7 @@
 ---
 import { SITE, FOOTER_PAGE_LINKS } from "../lib/site";
 
-// Tighter footer gap on the home page — READ → should sit symmetric
-// between the header and the footer rule.
-const { mt = "mt-24" } = Astro.props;
+const { mt = "mt-12" } = Astro.props;
 const year = new Date().getFullYear();
 ---
 

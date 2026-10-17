@@ -128,17 +128,24 @@ const resolvedOgImage = ogImage
         .under-header-character img { width: 96px; height: auto; }
         :global([data-theme="dark"]) .under-header-character .character-dark { width: auto; height: 110px; transform: translate(-14px, -5px); }
       }
-      /* Midway crowd — bottom-right, sign region is the clickable hotspot */
+      /* Midway crowd — desktop: pinned to the page's bottom-right corner,
+         flush with the page end (adds no height below the footer; overlays
+         the empty space right of the centered footer text). Image ignores
+         pointer events so it never blocks footer links; only the sign
+         hotspot is clickable. Mobile: in flow, full-bleed across the bottom. */
       .midway-crowd {
+        position: absolute;
+        right: 0;
+        bottom: 0;
         display: flex;
         justify-content: flex-end;
-        padding-bottom: 0.25rem;
+        pointer-events: none;
       }
       .midway-wrap {
         position: relative;
         line-height: 0;
       }
-      .midway-crowd img { width: 340px; height: auto; }
+      .midway-crowd img { width: clamp(240px, 26vw, 340px); height: auto; }
       .midway-sign {
         position: absolute;
         /* sign board occupies ~x 505–610, y 17–75 of 640×261 (measured on render) */
@@ -148,12 +155,14 @@ const resolvedOgImage = ogImage
         height: 29%;
         border-radius: 4px;
         z-index: 1;
+        pointer-events: auto;
       }
       .midway-sign:hover {
         background: color-mix(in srgb, var(--color-accent) 12%, transparent);
       }
       @media (max-width: 560px) {
-        .midway-crowd img { width: 230px; height: auto; }
+        .midway-crowd { position: static; width: 100%; }
+        .midway-crowd img { width: 100%; height: auto; }
       }
     </style>
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "960ac9db0dd14902b6cfe31e6b2e7fd1"}'></script>

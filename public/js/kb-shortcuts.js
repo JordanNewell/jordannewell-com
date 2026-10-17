@@ -106,7 +106,7 @@
   function updateFavicon() {
     const off = isPoweredOff();
     const light = off ? "#ffb8b8" : "#b8ffba";
-    const mid = off ? "#ff4040" : "#3FFF46";
+    const mid = off ? "#ff4040" : "#00FF41";
     const dark = off ? "#8a1f1f" : "#1f8a23";
     const svg =
       "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>" +
@@ -173,7 +173,7 @@
       "50%{filter:brightness(1.6)}",
       "}",
       "body.cs-powered-off .cs-power-btn{animation:kb-power-pulse 2.4s ease-in-out infinite}",
-      ".kb-power-hint{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;transform:translateX(-50%);font:600 11px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.22em;text-transform:uppercase;color:#3fff46;opacity:0;pointer-events:none;z-index:60;text-shadow:0 0 8px rgba(63,255,70,.35)}",
+      ".kb-power-hint{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;transform:translateX(-50%);font:600 11px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.22em;text-transform:uppercase;color:#00ff41;opacity:0;pointer-events:none;z-index:60;text-shadow:0 0 8px rgba(0,255,65,.35)}",
       "@keyframes kb-hint-blink{0%,100%{opacity:.55}50%{opacity:.18}}",
       "body.cs-powered-off .kb-power-hint{animation:kb-hint-blink 2.4s ease-in-out infinite}",
       "@media (prefers-reduced-motion:reduce){body.cs-powered-off .cs-power-btn{animation:none}body.cs-powered-off .kb-power-hint{animation:none;opacity:.55}}",

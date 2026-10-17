@@ -55,8 +55,16 @@ const CONTENT_H = ROWS.length * ROW_H;
 const W = CONTENT_W + PAD * 2;
 const H = CONTENT_H + PAD * 2;
 
-const GREEN = "#3FFF46";
+const GREEN = "#00FF41";
 const WHITE = "#ffffff";
+
+// Golden keys — one per interactive FX, wired to kb-shortcuts.js.
+const KEY_ACTIONS: Record<string, string> = {
+  "*bksp": "spin",
+  "*caps": "matrix",
+  "*enter": "launch",
+  "*space": "scanline",
+};
 ---
 
 <svg
@@ -78,32 +86,28 @@ const WHITE = "#ffffff";
       <stop offset="100%" stop-color="#040404" />
     </linearGradient>
     <radialGradient id="kb-glow" cx="50%" cy="100%" r="80%">
-      <stop offset="0%" stop-color="#3FFF46" stop-opacity="0.15" />
-      <stop offset="35%" stop-color="#3FFF46" stop-opacity="0.05" />
-      <stop offset="70%" stop-color="#3FFF46" stop-opacity="0.01" />
-      <stop offset="100%" stop-color="#3FFF46" stop-opacity="0" />
+      <stop offset="0%" stop-color="#00FF41" stop-opacity="0.15" />
+      <stop offset="35%" stop-color="#00FF41" stop-opacity="0.05" />
+      <stop offset="70%" stop-color="#00FF41" stop-opacity="0.01" />
+      <stop offset="100%" stop-color="#00FF41" stop-opacity="0" />
     </radialGradient>
     <radialGradient id="kb-glow-wide" cx="50%" cy="100%" r="100%">
-      <stop offset="0%" stop-color="#3FFF46" stop-opacity="0.08" />
-      <stop offset="50%" stop-color="#3FFF46" stop-opacity="0.02" />
-      <stop offset="100%" stop-color="#3FFF46" stop-opacity="0" />
+      <stop offset="0%" stop-color="#00FF41" stop-opacity="0.08" />
+      <stop offset="50%" stop-color="#00FF41" stop-opacity="0.02" />
+      <stop offset="100%" stop-color="#00FF41" stop-opacity="0" />
     </radialGradient>
   </defs>
 
   {/* Wide soft RGB-green underglow that bleeds beyond the chassis */}
   <ellipse cx={W / 2} cy={H + 8} rx={W * 0.65} ry="42" fill="url(#kb-glow-wide)" />
 
-  {/* Tighter underglow hugging the chassis bottom edge */}
-  <rect x="-8" y={H - 50} width={W + 16} height="60" fill="url(#kb-glow)" />
-
   {/* Chassis — pure-black body, bright neon-green rim */}
   <rect
     x="2" y="2" width={W - 4} height={H - 4} rx="9" ry="9"
     fill="url(#kb-chassis)"
-    stroke="#3FFF46"
+    stroke={GREEN}
     stroke-width="1.5"
   />
-  <rect x="3" y="3" width={W - 6} height="1" fill="#3FFF46" opacity="0.5" />
 
   {/* Render each key position */}
   {ROWS.map((row, r) => {
@@ -121,13 +125,15 @@ const WHITE = "#ffffff";
       cursor += size;
       keyIdx += 1;
 
+      const action = !isLetter ? KEY_ACTIONS[label] : undefined;
+
       return (
-        <g class="kb-key">
+        <g class="kb-key" data-action={action}>
           {/* Recessed socket */}
           <rect
             x={x} y={y} width={w} height={h} rx="3" ry="3"
             fill="url(#kb-socket)"
-            stroke="#1f1f23"
+            stroke="#1F1F1F"
             stroke-width="0.75"
           />
 
@@ -220,9 +226,13 @@ const WHITE = "#ffffff";
           })()}
 
           {/* Empty positions: just a darker recessed socket — no outline, no
-              letter. The keys are gone (they're floating elsewhere on the page). */}
+              letter. The keys are gone (they're floating elsewhere on the page).
+              data-letter + .kb-socket let kb-shortcuts.js light up the socket
+              when its letter is typed on a real keyboard. */}
           {isMissing && (
             <rect
+              class="kb-socket"
+              data-letter={upper}
               x={x + 2} y={y + 2} width={w - 4} height={h - 4} rx="2"
               fill="#000"
             />
@@ -251,7 +261,21 @@ const WHITE = "#ffffff";
   }
   .kb :global(.kb-key:hover) {
     transform: scale(1.35);
-    filter: drop-shadow(0 0 3px rgba(63, 255, 70, 0.28));
+    filter: drop-shadow(0 0 3px rgba(0, 255, 65, 0.28));
+  }
+  /* Golden FX keys (spin/matrix/launch/scanline) — pointer affordance + glow.
+     kb-typed: a missing-letter socket lights up when its letter is typed. */
+  .kb :global(.kb-key[data-action]) {
+    cursor: pointer;
+  }
+  .kb :global(.kb-key[data-action]:hover) {
+    filter: drop-shadow(0 0 6px rgba(0, 255, 65, 0.55));
+  }
+  :global(.kb-socket.kb-typed) {
+    fill: var(--color-green) !important;
+    transition: fill 60ms ease-out, filter 60ms ease-out;
+    filter: drop-shadow(0 0 6px var(--color-green))
+            drop-shadow(0 0 14px rgba(0, 255, 65, 0.5));
   }
 </style>
 

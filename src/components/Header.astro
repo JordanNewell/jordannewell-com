@@ -7,6 +7,7 @@ const isActive = (href: string) =>
 <header class="site-header">
   <div class="max-w-[720px] mx-auto px-3 sm:px-0 pt-3 pb-1 sm:pt-4 sm:pb-2 flex items-center justify-center gap-3 sm:gap-6">
     <div class="brand-cluster">
+      <span class="cs-status-led" aria-label="System status" title="System status"></span>
       <a href="/" class="brand-mark" aria-label="Jordan Newell — home">
         <img
           src="/images/coming-soon/newell-wordmark.png"
@@ -24,8 +25,11 @@ const isActive = (href: string) =>
   .brand-cluster {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     line-height: 0;
+  }
+  @media (min-width: 640px) {
+    .brand-cluster { gap: 14px; }
   }
   .brand-mark {
     display: inline-flex;
@@ -35,14 +39,76 @@ const isActive = (href: string) =>
   }
   .brand-mark img {
     display: block;
-    height: 28px;
+    height: 24px;
     width: auto;
-    transition: filter 0.18s ease;
-  }
-  .brand-mark:hover img {
-    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-green) 60%, transparent));
+    transition: filter 0.5s ease, opacity 0.5s ease;
   }
   @media (min-width: 640px) {
     .brand-mark img { height: 34px; }
+  }
+  /* Machine status LED — green when powered on, pulsing red while off. */
+  .cs-status-led {
+    background: radial-gradient(circle at 30% 28%,
+      #b8ffba 0%, #1AFF72 22%, var(--color-green) 55%, #1f8a23 100%);
+    border-radius: 50%;
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    transition: background 0.5s, box-shadow 0.5s;
+    position: relative;
+    box-shadow:
+      0 0 6px color-mix(in srgb, var(--color-green) 55%, transparent),
+      0 0 14px color-mix(in srgb, var(--color-green) 30%, transparent),
+      inset 0 1px 1px rgba(255, 255, 255, 0.6),
+      inset 0 -1.5px 2px rgba(0, 0, 0, 0.45),
+      0 0 0 1.5px #181818,
+      0 0 0 2.5px #050505,
+      0 1px 2px rgba(0, 0, 0, 0.6);
+  }
+  .cs-status-led::before {
+    content: "";
+    filter: blur(0.4px);
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 50%;
+    width: 4px;
+    height: 3px;
+    position: absolute;
+    top: 1.5px;
+    left: 2.5px;
+  }
+</style>
+
+<style is:global>
+  body.cs-powered-off .cs-status-led {
+    background: radial-gradient(circle at 30% 28%,
+      #ffb8b8 0%, #ff7070 22%, #ff4040 55%, #8a1f1f 100%);
+    animation: 1.8s ease-in-out infinite cs-status-pulse;
+  }
+  body.cs-powered-off .brand-mark img {
+    opacity: 0.15;
+    filter: brightness(0.4) grayscale(0.5);
+  }
+  @keyframes cs-status-pulse {
+    0%, to {
+      box-shadow:
+        0 0 5px rgba(255, 64, 64, 0.45),
+        0 0 12px rgba(255, 64, 64, 0.22),
+        inset 0 1px 1px rgba(255, 255, 255, 0.55),
+        inset 0 -1.5px 2px rgba(0, 0, 0, 0.45),
+        0 0 0 1.5px #181818,
+        0 0 0 2.5px #050505,
+        0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+    50% {
+      box-shadow:
+        0 0 10px rgba(255, 64, 64, 0.9),
+        0 0 22px rgba(255, 64, 64, 0.55),
+        inset 0 1px 1px rgba(255, 255, 255, 0.65),
+        inset 0 -1.5px 2px rgba(0, 0, 0, 0.45),
+        0 0 0 1.5px #181818,
+        0 0 0 2.5px #050505,
+        0 1px 2px rgba(0, 0, 0, 0.6);
+    }
   }
 </style>

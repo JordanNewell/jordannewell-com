@@ -8,7 +8,7 @@ const year = new Date().getFullYear();
 ---
 
 <footer class={mt}>
-  <div class="footer-inner max-w-prose mx-auto px-5 py-12 text-center text-sm text-fg-muted font-mono">
+  <div class="footer-inner max-w-prose mx-auto px-5 pt-12 pb-18 text-center text-sm text-fg-muted font-mono">
     <p class="mb-4">
       {FOOTER_PAGE_LINKS.map((link, i) => (
         <>
@@ -29,10 +29,33 @@ const year = new Date().getFullYear();
       <a href="https://github.com/JordanNewell/jordannewell-com" target="_blank" rel="noopener" class="hover:text-accent">source</a>
     </p>
     <p class="mb-6">© {year} {SITE.author.name} <span class="text-accent" aria-hidden="true">·</span> <a href="/license" class="hover:text-accent">license</a></p>
+    <!-- N mark closes the footer -->
+    <div class="balloon-n" aria-hidden="true">
+      <img src="/n-balloon.png" alt="" class="character-light" width="200" height="200" loading="lazy" />
+      <img src="/n-balloon-dark.png" alt="" class="character-dark" width="200" height="200" loading="lazy" />
+    </div>
   </div>
 </footer>
 
 <style>
+  .balloon-n {
+    display: flex;
+    justify-content: center;
+    padding-top: 1.5rem;
+  }
+  .balloon-n img {
+    height: 1.6rem;
+    width: auto;
+  }
+  .balloon-n .character-dark {
+    display: none;
+  }
+  :global([data-theme="dark"]) .balloon-n .character-dark {
+    display: block;
+  }
+  :global([data-theme="dark"]) .balloon-n .character-light {
+    display: none;
+  }
   /* Mobile: raise footer link tap targets to the 40px comfort floor.
      Desktop (>640px) is untouched. Link text is already 14px (text-sm). */
   @media (max-width: 640px) {

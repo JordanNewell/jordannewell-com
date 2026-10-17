@@ -1579,7 +1579,7 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     }
     function collect(items){
       var lines = [], seen = {};
-      for (var i = 0; i < items.length && lines.length < 13; i++){
+      for (var i = 0; i < items.length && lines.length < 26; i++){
         var it = items[i];
         var full = ((it.repository && it.repository.full_name) || "").replace(/^JordanNewell\//, "");
         if (!full) continue;
@@ -1598,14 +1598,14 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     if (cached && cached.lines && cached.lines.length && Date.now() - cached.ts < FEED_TTL){
       paintFeed(cached.lines);
     } else {
-      /* the four most recently pushed repos, four commits each, merged newest-first
+      /* the six most recently pushed repos, eight commits each, merged newest-first
          (search/commits rejects browser requests; these two endpoints are CORS-clean) */
-      fetch("https://api.github.com/users/JordanNewell/repos?sort=pushed&per_page=4")
+      fetch("https://api.github.com/users/JordanNewell/repos?sort=pushed&per_page=6")
         .then(function(r){ return r.ok ? r.json() : []; })
         .then(function(repos){
           var names = repos.map(function(r){ return r.name; }).filter(Boolean);
           return Promise.all(names.map(function(name){
-            return fetch("https://api.github.com/repos/JordanNewell/" + encodeURIComponent(name) + "/commits?per_page=4")
+            return fetch("https://api.github.com/repos/JordanNewell/" + encodeURIComponent(name) + "/commits?per_page=8")
               .then(function(r){ return r.ok ? r.json() : []; })
               .then(function(cs){
                 return (Array.isArray(cs) ? cs : []).map(function(c){

@@ -1598,33 +1598,45 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     if (cached && cached.lines && cached.lines.length && Date.now() - cached.ts < FEED_TTL){
       paintFeed(cached.lines);
     } else {
-      /* the six most recently pushed repos, eight commits each, merged newest-first
-         (search/commits rejects browser requests; these two endpoints are CORS-clean) */
-      fetch("https://api.github.com/users/JordanNewell/repos?sort=pushed&per_page=6")
-        .then(function(r){ return r.ok ? r.json() : []; })
-        .then(function(repos){
-          var names = repos.map(function(r){ return r.name; }).filter(Boolean);
-          return Promise.all(names.map(function(name){
-            return fetch("https://api.github.com/repos/JordanNewell/" + encodeURIComponent(name) + "/commits?per_page=8")
-              .then(function(r){ return r.ok ? r.json() : []; })
-              .then(function(cs){
-                return (Array.isArray(cs) ? cs : []).map(function(c){
-                  c.repository = { full_name: "JordanNewell/" + name };
-                  return c;
-                });
-              })
-              .catch(function(){ return []; });
-          }));
-        })
-        .then(function(groups){
-          var items = [];
-          groups.forEach(function(g){ items = items.concat(g); });
-          items.sort(function(a, b){ return stamp(b) - stamp(a); });
-          var lines = collect(items);
-          if (!lines.length) return;
-          try{ sessionStorage.setItem("midwayFeed", JSON.stringify({ ts: Date.now(), lines: lines })); }catch(err){}
-          paintFeed(lines);
-        })
+      /* the six most recently pushed repos, eight commits each, merged newest-first.
+         First try the PAT-backed edge proxy on the apex zone (every visitor shares
+         one upstream pull per ten minutes); anonymous direct calls stay as the
+         fallback (search/commits rejects browser requests; these are CORS-clean). */
+      var paintItems = function(items){
+        var lines = collect(items);
+        if (!lines.length) return;
+        try{ sessionStorage.setItem("midwayFeed", JSON.stringify({ ts: Date.now(), lines: lines })); }catch(err){}
+        paintFeed(lines);
+      };
+      var directItems = function(){
+        return fetch("https://api.github.com/users/JordanNewell/repos?sort=pushed&per_page=6")
+          .then(function(r){ return r.ok ? r.json() : []; })
+          .then(function(repos){
+            var names = repos.map(function(r){ return r.name; }).filter(Boolean);
+            return Promise.all(names.map(function(name){
+              return fetch("https://api.github.com/repos/JordanNewell/" + encodeURIComponent(name) + "/commits?per_page=8")
+                .then(function(r){ return r.ok ? r.json() : []; })
+                .then(function(cs){
+                  return (Array.isArray(cs) ? cs : []).map(function(c){
+                    c.repository = { full_name: "JordanNewell/" + name };
+                    return c;
+                  });
+                })
+                .catch(function(){ return []; });
+            }));
+          })
+          .then(function(groups){
+            var items = [];
+            groups.forEach(function(g){ items = items.concat(g); });
+            items.sort(function(a, b){ return stamp(b) - stamp(a); });
+            return items;
+          });
+      };
+      fetch("https://jordannewell.com/api/activity-reel.json")
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){ return (d && d.items && d.items.length) ? d.items : directItems(); })
+        .catch(directItems)
+        .then(paintItems)
         .catch(function(){ /* placeholders keep rolling */ });
     }
   }catch(e){}

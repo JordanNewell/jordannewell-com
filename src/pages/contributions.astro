@@ -46,7 +46,7 @@ const projects = [...new Set(allContributions.map((c) => c.data.project))];
           <span class="lg-meta">
             <span class="lg-type">{c.data.type}</span> · <span class="lg-project">{projectLogos[c.data.project] && <img src={projectLogos[c.data.project]} alt="" width="14" height="14" class="lg-logo" loading="lazy" />}{c.data.project}</span> · <span style={`color: ${statusColor[c.data.status] ?? "var(--color-fg-muted)"}`}>{statusLabel[c.data.status] ?? c.data.status}</span>
           </span>
-          <a href={c.data.url} target="_blank" rel="noopener" class="lg-link">{c.data.title} ↗</a>
+          <a href={c.data.url} target="_blank" rel="noopener" class="lg-link">{c.data.title} ↗︎</a>
           <span class="lg-desc">{c.data.description}</span>
           <span class="lg-outcome">→ {c.data.outcome}</span>
         </span>

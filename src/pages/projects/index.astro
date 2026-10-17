@@ -60,9 +60,9 @@ const pkgLabel = (url: string): string => {
           {p.data.status}
         </span>
         <span class="lg-links">
-          {p.data.repo && <a href={p.data.repo} target="_blank" rel="noopener" class="lk lk-green">src ↗</a>}
-          {p.data.pkg && <a href={p.data.pkg} target="_blank" rel="noopener" class="lk lk-cyan">{pkgLabel(p.data.pkg)} ↗</a>}
-          {p.data.liveUrl && <a href={p.data.liveUrl} target="_blank" rel="noopener" class="lk lk-green">live ↗</a>}
+          {p.data.repo && <a href={p.data.repo} target="_blank" rel="noopener" class="lk lk-green">src ↗︎</a>}
+          {p.data.pkg && <a href={p.data.pkg} target="_blank" rel="noopener" class="lk lk-cyan">{pkgLabel(p.data.pkg)} ↗︎</a>}
+          {p.data.liveUrl && <a href={p.data.liveUrl} target="_blank" rel="noopener" class="lk lk-green">live ↗︎</a>}
           {!p.data.repo && !p.data.pkg && !p.data.liveUrl && <span class="lg-muted">—</span>}
         </span>
         <span class="lg-desc">{p.data.description}</span>

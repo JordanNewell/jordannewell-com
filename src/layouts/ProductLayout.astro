@@ -57,7 +57,7 @@ const schema = [
         </div>
         <p class="ph-stats">
           <span class="stat-n" style={`color: ${statusColors[status] ?? "#7A7683"}`}>{status}</span>
-          {platform && <> · <a href={platform.url} target="_blank" rel="noopener" class="ph-stat-link">{platform.name.toLowerCase()} ↗</a></>}
+          {platform && <> · <a href={platform.url} target="_blank" rel="noopener" class="ph-stat-link">{platform.name.toLowerCase()} ↗︎</a></>}
           · {license}
           · {status === "released" ? "shipped" : "in development since"} {shipDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" })}
         </p>
@@ -66,10 +66,10 @@ const schema = [
       <p class="ph-desc">{description}</p>
       <p class="ph-links">
         {install.filter((i) => i.kind === "directory" || i.kind === "brat" || i.kind === "npm" || i.kind === "pip").slice(0, 1).map((i) => (
-          <a href={i.href ?? repo} target="_blank" rel="noopener">install {i.label} ↗</a>
+          <a href={i.href ?? repo} target="_blank" rel="noopener">install {i.label} ↗︎</a>
         ))}
-        {repo && <a href={repo} target="_blank" rel="noopener">source ↗</a>}
-        {homepage && <a href={homepage} target="_blank" rel="noopener">homepage ↗</a>}
+        {repo && <a href={repo} target="_blank" rel="noopener">source ↗︎</a>}
+        {homepage && <a href={homepage} target="_blank" rel="noopener">homepage ↗︎</a>}
       </p>
       {stats.length > 0 && (
         <p class="ph-stats-row">
@@ -94,7 +94,7 @@ const schema = [
               <span class="lg-name-sm">{i.label}</span>
               {i.href ? (
                 <a href={i.href} target="_blank" rel="noopener" class="lg-link-sm">
-                  {i.detail ?? i.href.replace(/^https?:\/\//, "").replace(/\/$/, "")} ↗
+                  {i.detail ?? i.href.replace(/^https?:\/\//, "").replace(/\/$/, "")} ↗︎
                 </a>
               ) : (
                 <span class="lg-link-sm lg-muted">{i.detail}</span>
@@ -114,7 +114,7 @@ const schema = [
               <span class="lg-name-sm">{f.icon ? `${f.icon} ` : ""}{f.title}</span>
               <span class="lg-desc-sm">
                 {f.body}
-                {f.docUrl && (<a href={f.docUrl} target="_blank" rel="noopener" class="doc-link">learn more ↗</a>)}
+                {f.docUrl && (<a href={f.docUrl} target="_blank" rel="noopener" class="doc-link">learn more ↗︎</a>)}
               </span>
             </div>
           ))}

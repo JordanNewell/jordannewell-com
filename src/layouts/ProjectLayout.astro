@@ -60,9 +60,9 @@ const schema = [
         <h1 class="ph-title">{title}</h1>
         <p class="ph-stats">
           <span class="stat-n" style={`color: ${statusColors[status] ?? "#7A7683"}`}>{status}</span>
-          {repo && <> · <a href={repo} target="_blank" rel="noopener" class="ph-stat-link">source ↗</a></>}
-          {liveUrl && <> · <a href={liveUrl} target="_blank" rel="noopener" class="ph-stat-link">live ↗</a></>}
-          {pkg && <> · <a href={pkg} target="_blank" rel="noopener" class="ph-stat-link">{pkgLabel(pkg)} ↗</a></>}
+          {repo && <> · <a href={repo} target="_blank" rel="noopener" class="ph-stat-link">source ↗︎</a></>}
+          {liveUrl && <> · <a href={liveUrl} target="_blank" rel="noopener" class="ph-stat-link">live ↗︎</a></>}
+          {pkg && <> · <a href={pkg} target="_blank" rel="noopener" class="ph-stat-link">{pkgLabel(pkg)} ↗︎</a></>}
         </p>
       </div>
       <p class="ph-tag">{description}</p>

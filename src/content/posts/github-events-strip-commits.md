@@ -55,7 +55,7 @@ The knowledge sat in the repo for three months — applied in one code path, ign
 
 ## The hint that didn't match the clock
 
-Coda, 12:38, commit a96bd25. The status line read `next refresh in 60s` — a leftover from the terminal's original 60-second tick. The poll had long since moved to `POLL_MS = 300_000`. Visitors spent three weeks being promised a refresh at 12× the actual rate. One line: `next refresh in ${POLL_MS / 60_000}m`.
+Coda, 12:38, commit a96bd25. The status line read `next refresh in 60s` — a leftover from the terminal's original 60-second tick. The poll had long since moved to `POLL_MS = 300_000`. Visitors spent three weeks being promised a refresh at 5× the actual rate. One line: `next refresh in ${POLL_MS / 60_000}m`.
 
 ## The rule
 

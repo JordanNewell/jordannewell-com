@@ -17,7 +17,7 @@ stats:
   - k: "form"
     v: "Obsidian plugin"
   - k: "status"
-    v: "in development"
+    v: "beta (in development)"
   - k: "license"
     v: "BUSL-1.1"
 features:

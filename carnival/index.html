@@ -231,19 +231,18 @@ h1 em{font-style:italic;font-weight:500}
 @keyframes skyDusk{0%,50%{opacity:0}60%{opacity:1}72%{opacity:1}82%{opacity:0}100%{opacity:0}}
 @keyframes skyNight{0%,76%{opacity:0}86%{opacity:1}94%{opacity:1}100%{opacity:0}}
 .sun{
-  position:absolute;left:50%;top:100%;width:54px;height:54px;margin-left:-27px;border-radius:50%;
+  position:absolute;left:50%;top:0;width:54px;height:54px;margin-left:-27px;border-radius:50%;
   background:#F4B04A;border:3px solid var(--ink);
   animation:sunArc var(--t-sky) linear infinite;
 }
 @keyframes sunArc{
-  0%{transform:translate(-430px,14px);opacity:1}
-  8%{transform:translate(-150px,-40px);opacity:1}
-  14%{transform:translate(-40px,-120px);opacity:1}
-  22%{transform:translate(-46px,-190px)}
-  38%{transform:translate(-46px,-190px);opacity:1}
-  48%{transform:translate(100px,-70px);opacity:1}
-  56%{transform:translate(320px,20px);opacity:0}
-  100%{transform:translate(-430px,14px);opacity:0}
+  0%{transform:translate(-575px,610px);opacity:1}
+  8%{transform:translate(-565px,380px);opacity:1}
+  20%{transform:translate(-500px,150px);opacity:1}
+  38%{transform:translate(-480px,140px);opacity:1}
+  48%{transform:translate(-420px,300px);opacity:1}
+  56%{transform:translate(-560px,520px);opacity:0}
+  100%{transform:translate(-575px,610px);opacity:0}
 }
 .moon{
   position:absolute;right:14%;top:12%;width:32px;height:32px;border-radius:50%;
@@ -267,13 +266,6 @@ h1 em{font-style:italic;font-weight:500}
 .stars i:nth-child(8){left:54%;top:52%;width:2px;height:2px;animation:twinkle 2s ease-in-out infinite 1.4s}
 @keyframes starsIn{0%,80%{opacity:0}88%,96%{opacity:1}100%{opacity:0}}
 @keyframes twinkle{0%,100%{opacity:1}50%{opacity:.25}}
-/* tiny "feature" on the screen at night — a little car chase in ink */
-.feature{position:absolute;left:0;bottom:12%;width:100%;height:30px;opacity:0;animation:featIn var(--t-sky) linear infinite}
-.feature svg{width:100%;height:100%}
-@keyframes featIn{0%,82%{opacity:0}88%,96%{opacity:1}100%{opacity:0}}
-.feature .flick{animation:flick .16s steps(2) infinite}
-@keyframes flick{50%{opacity:.55}}
-
 /* ── movie mode: the git-log film ── */
 .movie-reel{position:absolute;inset:0;background:var(--night);color:var(--nightpaper);overflow:hidden;opacity:0;visibility:hidden;transition:opacity 1.6s ease,visibility 0s linear 1.6s}
 body.movie .movie-reel{opacity:1;visibility:visible;transition:opacity 1.6s ease}
@@ -308,7 +300,7 @@ body.duskfall .sparkle,body.movie .sparkle{animation:none;opacity:0;transition:o
 body.duskfall .sun{animation:none}
 body.duskfall .tcard,body.movie .tcard{opacity:0 !important;visibility:hidden !important;pointer-events:none !important}
 /* the screen loop starts mid-morning on load, so the sun is already well up */
-.di-screen .sky,.di-screen .sun,.di-screen .moon,.di-screen .stars,.di-screen .feature{animation-delay:calc(var(--t-sky) * -.2)}
+.di-screen .sky{animation-delay:calc(var(--t-sky) * -.2)}
 /* ============ TOWN SKY — the same 26s sky runs page-wide behind the whole midway ============ */
 .town{position:fixed;inset:0;z-index:-1;overflow:hidden;background:var(--night);pointer-events:none}
 .town .sky,.town .sun,.town .moon,.town .stars{animation-delay:calc(var(--t-sky) * -.2)}
@@ -519,9 +511,9 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   .viewport .attraction,.viewport .drivein{opacity:1;transform:none;animation:none}
   /* hold a legible single moment: day sky with sun up */
-  .sky-dawn,.sky-dusk,.sky-night,.moon,.stars,.feature{opacity:0}
+  .sky-dawn,.sky-dusk,.sky-night,.moon,.stars{opacity:0}
   .sky-day{opacity:1}
-  .sun{transform:translate(-46px,-190px);opacity:1}
+  .sun{transform:translate(-480px,140px);opacity:1}
   .striker-puck{transform:none}
   .reel-inner{animation:none !important;transform:none !important}
   .movie-flicker,.grain{animation:none !important;opacity:0 !important}
@@ -597,9 +589,6 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
           <div class="sky sky-day"></div>
           <div class="sky sky-dusk"></div>
           <div class="sky sky-night"></div>
-          <div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          <div class="sun" aria-hidden="true"></div>
-          <div class="moon" aria-hidden="true"></div>
           <div class="movie-reel" aria-hidden="true">
             <div class="reel-inner">
               <p class="reel-title">Jordan Newell presents</p>
@@ -626,19 +615,6 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
               <rect width="100%" height="100%" filter="url(#grainF)"/>
             </svg>
             <div class="movie-flicker"></div>
-          </div>
-          <div class="feature" aria-hidden="true">
-            <svg viewBox="0 0 400 26" fill="none" preserveAspectRatio="none">
-              <path d="M0 13 H400" stroke="#FDFBF3" stroke-width="1" opacity=".35"/>
-              <g class="flick">
-                <rect x="40" y="6" width="26" height="9" rx="3" fill="#FDFBF3"/>
-                <rect x="180" y="5" width="30" height="10" rx="3" fill="#FDFBF3"/>
-                <rect x="320" y="7" width="24" height="8" rx="3" fill="#FDFBF3"/>
-                <circle cx="50" cy="17" r="3" fill="#FDFBF3"/><circle cx="62" cy="17" r="3" fill="#FDFBF3"/>
-                <circle cx="190" cy="17" r="3" fill="#FDFBF3"/><circle cx="204" cy="17" r="3" fill="#FDFBF3"/>
-                <circle cx="328" cy="17" r="3" fill="#FDFBF3"/><circle cx="338" cy="17" r="3" fill="#FDFBF3"/>
-              </g>
-            </svg>
           </div>
         </div>
       </div>
@@ -1007,10 +983,6 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     dusk: screenBox && screenBox.querySelector(".sky-dusk"),
     night: screenBox && screenBox.querySelector(".sky-night")
   };
-  var starsEl = screenBox && screenBox.querySelector(".stars");
-  var moonEl = screenBox && screenBox.querySelector(".moon");
-  var featEl = screenBox && screenBox.querySelector(".feature");
-  var sunEl = screenBox && screenBox.querySelector(".sun");
   var townBox = document.querySelector(".town");
   var townEls = {
     dawn: townBox && townBox.querySelector(".sky-dawn"),
@@ -1022,7 +994,7 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   var townMoon = townBox && townBox.querySelector(".moon");
   var townSun = townBox && townBox.querySelector(".sun");
   var wide = window.matchMedia("(min-width: 861px)");
-  var SUN_SET = "translate(310px,88px)", SUN_SINK = "translate(-430px,46px)", SUN_DAWN = "translate(-430px,14px)";
+  var SUN_SET = "translate(-560px,520px)", SUN_SINK = "translate(-540px,560px)", SUN_DAWN = "translate(-540px,440px)";
   var seq = { on:false, t:0, step:0, rev:false, rt:0, rstep:0, last:0 };
   var figs = [], blankets = [];
 
@@ -1133,25 +1105,26 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   }
   function freezeScreen(){
     [skyEls.dawn, townEls.dawn, skyEls.day, townEls.day, skyEls.dusk, townEls.dusk, skyEls.night, townEls.night,
-     starsEl, townStars, moonEl, townMoon, featEl].forEach(function(el){
+     townStars, townMoon].forEach(function(el){
       if (!el) return;
       el.style.opacity = getComputedStyle(el).opacity;
       el.style.animation = "none";
     });
-    [moonEl, townMoon].forEach(function(m){ if (m) m.style.transform = getComputedStyle(m).transform; });
-    [sunEl, townSun].forEach(function(s){
-      if (!s) return;
-      s.style.transform = getComputedStyle(s).transform;
-      s.style.animation = "none";
-      void s.offsetWidth;
-      s.style.transition = "transform 6.5s cubic-bezier(.45,0,.6,1),opacity 4.5s ease 2.2s";
-      s.style.transform = SUN_SET;
-      s.style.opacity = "0";
-    });
+    if (townMoon) townMoon.style.transform = getComputedStyle(townMoon).transform;
+    /* the sun always sets on cue: snap it to a visible dusk perch first, then sink it */
+    if (townSun){
+      townSun.style.transition = "none";
+      townSun.style.animation = "none";
+      townSun.style.transform = "translate(-520px,300px)";
+      townSun.style.opacity = "1";
+      void townSun.offsetWidth;
+      townSun.style.transition = "transform 6.5s cubic-bezier(.45,0,.6,1),opacity 4.5s ease 2.2s";
+      townSun.style.transform = SUN_SET;
+      townSun.style.opacity = "0";
+    }
     setSky({ day: 0, dusk: 1 }, 3);
-    fadeEl([starsEl, townStars], 0, 2);
-    riseEl([moonEl, townMoon], 0, 1);
-    fadeEl(featEl, 0, 1);
+    fadeEl(townStars, 0, 2);
+    riseEl(townMoon, 0, 1);
   }
   function setBtnBusy(label){
     if (!tonight) return;
@@ -1166,9 +1139,8 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     [3600, dispatchUshers],
     [5000, function(){
       setSky({ dusk: 0, night: 1 }, 4);
-      fadeEl([starsEl, townStars], 1, 4);
-      riseEl([moonEl, townMoon], 1, 4);
-      fadeEl(featEl, 0, 1);
+      fadeEl(townStars, 1, 4);
+      riseEl(townMoon, 1, 4);
     }],
     [7200, layBlankets],
     [7900, startFilm]
@@ -1176,23 +1148,21 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   var REV = [
     [0, function(){
       setSky({ night: 0, dusk: 1 }, 2.2);
-      fadeEl([starsEl, townStars], 0, 2);
-      riseEl([moonEl, townMoon], 0, 2);
-      [sunEl, townSun].forEach(function(s){
-        if (!s) return;
-        s.style.transition = "transform 2.8s ease,opacity 1.6s ease";
-        s.style.transform = SUN_SINK;
-        s.style.opacity = "0";
-      });
+      fadeEl(townStars, 0, 2);
+      riseEl(townMoon, 0, 2);
+      if (townSun){
+        townSun.style.transition = "transform 2.8s ease,opacity 1.6s ease";
+        townSun.style.transform = SUN_SINK;
+        townSun.style.opacity = "0";
+      }
     }],
     [2700, function(){
       setSky({ dusk: 0, dawn: 1 }, 2.2);
-      [sunEl, townSun].forEach(function(s){
-        if (!s) return;
-        s.style.transition = "transform 1.6s ease,opacity 1.2s ease";
-        s.style.transform = SUN_DAWN;
-        s.style.opacity = "1";
-      });
+      if (townSun){
+        townSun.style.transition = "transform 1.6s ease,opacity 1.2s ease";
+        townSun.style.transform = SUN_DAWN;
+        townSun.style.opacity = "1";
+      }
     }],
     [5100, endReverse]
   ];
@@ -1235,7 +1205,7 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   }
   function endReverse(){
     [skyEls.dawn, townEls.dawn, skyEls.day, townEls.day, skyEls.dusk, townEls.dusk, skyEls.night, townEls.night,
-     starsEl, townStars, moonEl, townMoon, featEl, sunEl, townSun].forEach(function(el){
+     townStars, townMoon, townSun].forEach(function(el){
       if (!el) return;
       el.style.transition = "";
       el.style.opacity = "";
@@ -1342,10 +1312,15 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
       el.style.animation = "none";
       el.style.opacity = k === "night" ? "1" : "0";
     }
-    if (starsEl){ starsEl.style.animation = "none"; starsEl.style.opacity = "1"; }
-    if (moonEl){ moonEl.style.animation = "none"; moonEl.style.opacity = "1"; moonEl.style.transform = "translateY(0)"; }
-    if (featEl){ featEl.style.animation = "none"; featEl.style.opacity = "0"; }
-    if (sunEl){ sunEl.style.animation = "none"; sunEl.style.opacity = "0"; }
+    for (var tk in townEls){
+      var tel = townEls[tk];
+      if (!tel) continue;
+      tel.style.animation = "none";
+      tel.style.opacity = tk === "night" ? "1" : "0";
+    }
+    if (townStars){ townStars.style.animation = "none"; townStars.style.opacity = "1"; }
+    if (townMoon){ townMoon.style.animation = "none"; townMoon.style.opacity = "1"; townMoon.style.transform = "translateY(0)"; }
+    if (townSun){ townSun.style.animation = "none"; townSun.style.opacity = "0"; }
     if (tonight){
       tonight.setAttribute("aria-pressed", "true");
       var a = tonight.querySelector(".t-a");
@@ -1389,10 +1364,10 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   if (sky && /^(dawn|day|dusk|night)$/.test(sky)) {
     var st = document.createElement("style");
     var css = ".di-screen *,.town *,.di-screen .sky,.town .sky{animation:none !important}.di-screen .sky,.town .sky{opacity:0 !important}.di-screen .sky-" + sky + ",.town .sky-" + sky + "{opacity:1 !important}";
-    if (sky === "night") css += ".stars,.moon,.feature{opacity:1 !important}.sun{opacity:0 !important}.town-wash{opacity:1 !important}";
-    if (sky === "day") css += ".sun{transform:translate(-46px,-190px) !important;opacity:1 !important}";
-    if (sky === "dawn") css += ".sun{transform:translate(-150px,-40px) !important;opacity:1 !important}";
-    if (sky === "dusk") css += ".sun{transform:translate(100px,-70px) !important;opacity:1 !important}";
+    if (sky === "night") css += ".stars,.moon{opacity:1 !important}.sun{opacity:0 !important}.town-wash{opacity:1 !important}";
+    if (sky === "day") css += ".sun{transform:translate(-480px,140px) !important;opacity:1 !important}";
+    if (sky === "dawn") css += ".sun{transform:translate(-560px,420px) !important;opacity:1 !important}";
+    if (sky === "dusk") css += ".sun{transform:translate(-500px,300px) !important;opacity:1 !important}";
     st.textContent = css;
     document.head.appendChild(st);
   }

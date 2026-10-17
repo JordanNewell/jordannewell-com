@@ -205,6 +205,14 @@ h1 em{font-style:italic;font-weight:500}
 .viewport .a-tent{animation-delay:.58s}
 @keyframes arrive{to{opacity:1;transform:translateY(0)}}
 
+/* ============ REFRESH PASS: the midway wakes up ============ */
+/* rides quicken when you walk up to them — small motions only; big arcs (wheel, coaster)
+   would phase-jump on a duration change, so those stay ambient */
+.a-carousel:hover{--t-prance:.85s}
+.a-stall:hover{--t-sway:2.2s;--t-bob:1.6s}
+.a-tent:hover{--t-flag:1.2s}
+.a-tent:hover .tent-glow{animation-duration:1.4s}
+
 /* ============ DRIVE-IN — the dominant mid-field focal point ============ */
 .drivein{position:absolute;left:24%;bottom:26.5%;width:52%;z-index:8}
 .di-frame{position:relative;border:3px solid var(--ink);background:var(--ink)}
@@ -326,7 +334,7 @@ body.duskfall .town-wash,body.movie .town-wash{opacity:0 !important;transition:o
 .fig.sit .lg-walk{display:none}
 .fig.sit .lg-sit{display:block}
 .fig.sit svg{transform:translateY(5px)}
-.blanket{position:absolute;bottom:0;width:58px;transform:scaleX(.12);transform-origin:50% 100%;opacity:0;transition:transform .7s var(--ease-out),opacity .5s ease}
+.blanket{position:absolute;bottom:0;width:58px;transform:scaleX(.12);transform-origin:50% 100%;opacity:0;transition:transform .7s var(--ease-out),opacity .5s ease;transition:transform .8s linear(0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077 20.4%, 1.121, 1.149 24.3%, 1.159, 1.163 27%, 1.154, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1.004 83.8%, 1),opacity .5s ease}
 .blanket.out{transform:scaleX(1);opacity:1}
 .blanket svg{display:block;width:100%;height:auto}
 
@@ -408,7 +416,7 @@ body.movie .tonight .t-b{display:inline}
 
 /* ============ STRONGMAN — signed on top; it stands tall in the open strip ============ */
 .a-strong{left:20.4%;bottom:2%;width:6.8%;min-width:90px;color:var(--green)}
-.striker-puck{transition:transform .55s var(--ease-spring)}
+.striker-puck{transition:transform .55s var(--ease-spring);transition:transform .6s linear(0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077 20.4%, 1.121, 1.149 24.3%, 1.159, 1.163 27%, 1.154, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1.004 83.8%, 1)}
 .a-strong:hover .striker-puck,.a-strong.open .striker-puck{transform:translateY(-138px)}
 .bell-ring{opacity:0;transition:opacity .2s .3s;transform-box:fill-box;transform-origin:center}
 .a-strong:hover .bell-ring,.a-strong.open .bell-ring{opacity:1;animation:ding .5s ease-out .3s 2}
@@ -1380,6 +1388,41 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     if (hb) hb.setAttribute("aria-expanded", "true");
   }
 })();
+/* ============ INK DRAW-ON: the midway draws itself in ink, once per visit ============ */
+  try{
+    var reduceInk = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduceInk && !sessionStorage.getItem("midwayInked")){
+      var geoms = [].slice.call(document.querySelectorAll(".viewport svg *, svg.bunting *")).filter(function(el){
+        if (!el.getTotalLength || el.closest("defs")) return false;
+        var cs = getComputedStyle(el);
+        if (cs.stroke === "none" || parseFloat(cs.strokeWidth) === 0) return false;
+        if (el.getAttribute("stroke-dasharray")) return false; /* dashed detail keeps its dash */
+        return true;
+      });
+      if (geoms.length){
+        sessionStorage.setItem("midwayInked", "1");
+        geoms.forEach(function(el){
+          var L = Math.min(el.getTotalLength(), 2400);
+          el.style.transition = "none";
+          el.style.strokeDasharray = (L + 2) + " " + (L + 2);
+          el.style.strokeDashoffset = L;
+        });
+        void document.body.offsetWidth;
+        geoms.forEach(function(el, i){
+          var d = 0.45 + Math.min(i * 0.014, 0.9);
+          el.style.transition = "stroke-dashoffset .9s cubic-bezier(.4,0,.2,1) " + d + "s";
+          el.style.strokeDashoffset = "0";
+        });
+        setTimeout(function(){
+          geoms.forEach(function(el){
+            el.style.strokeDasharray = "";
+            el.style.strokeDashoffset = "";
+            el.style.transition = "";
+          });
+        }, 2800);
+      }
+    }
+  }catch(e){}
 </script>
 </body>
 </html>

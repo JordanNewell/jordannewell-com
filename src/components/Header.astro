@@ -6,10 +6,7 @@ const { path } = Astro.props;
 <header>
   <div class="header-inner max-w-prose mx-auto px-5 py-3.5 flex flex-wrap items-center gap-x-4 gap-y-2">
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle day/night">
-      <svg viewBox="0 0 14 20" width="12" height="17" fill="none" aria-hidden="true">
-        <rect x="1.25" y="1.25" width="11.5" height="17.5" rx="2.5" stroke="currentColor" stroke-width="1.5" />
-        <rect class="switch-nub" x="4.5" y="3.75" width="5" height="4.5" rx="1.25" fill="currentColor" />
-      </svg>
+      <span class="switch3d" aria-hidden="true"><span class="rocker"></span></span>
     </button>
     <nav class="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[0.72rem]">
       {NAV_LINKS.map((link, i) => (
@@ -58,9 +55,42 @@ const { path } = Astro.props;
     transition: color 0.15s;
   }
   .theme-toggle:hover { color: var(--color-fg); }
-  /* Light switch: nub up = day, nub flips down = night */
-  .switch-nub { transition: transform 0.15s ease; }
-  :global([data-theme="dark"]) .switch-nub { transform: translateY(7.75px); }
+  /* B/W light switch — rocker physically flips on its X axis.
+     Day: bottom pressed in (lights on). Night: top pressed in (off). */
+  .switch3d {
+    display: inline-block;
+    width: 16px;
+    height: 25px;
+    padding: 2.5px;
+    background: #111114;
+    border-radius: 3.5px;
+    border: 1px solid #2a2a2e;
+    box-shadow:
+      inset 0 1px 2px rgba(0, 0, 0, 0.7),
+      0 1px 0 rgba(255, 255, 255, 0.12);
+    perspective: 80px;
+  }
+  .rocker {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(#ffffff, #d9d9d9);
+    box-shadow:
+      0 1px 1px rgba(0, 0, 0, 0.55),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+    transform: rotateX(24deg);
+    transform-style: preserve-3d;
+    transition: transform 0.18s ease;
+  }
+  .theme-toggle:hover .rocker { background: linear-gradient(#ffffff, #e6e6e6); }
+  :global([data-theme="dark"]) .rocker {
+    transform: rotateX(-24deg);
+    background: linear-gradient(#e9e9e9, #bdbdbd);
+    box-shadow:
+      0 -1px 1px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
 </style>
 
 <script>

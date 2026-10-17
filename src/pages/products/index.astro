@@ -7,18 +7,11 @@ const products = (await getCollection("products")).sort(
   (a, b) => a.data.order - b.data.order,
 );
 
-const shippedCount = products.filter(
-  (p) => p.data.status === "released",
-).length;
-
 const statusColors = PRODUCT_STATUS_COLORS;
 ---
 
 <BaseLayout title="Products" description="Polished software Jordan Newell ships and stands behind." ogImage="/og-products.png">
   <h1 class="sr-only">Products</h1>
-  <p class="ph-stats">
-    <span class="stat-n">{shippedCount}</span> shipped · <span class="stat-n">1</span> proprietary · <span class="stat-n">0</span> telemetry
-  </p>
 
   <div class="ledger">
     <div class="ledger-head">

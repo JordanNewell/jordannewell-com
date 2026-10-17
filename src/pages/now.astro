@@ -1,22 +1,4 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+// The Now page moved to / — this stub keeps old /now links alive.
+return Astro.redirect("/");
 ---
-
-<BaseLayout title="Now" description="What I'm focused on right now." ogImage="/og-now.png">
-  <article class="prose">
-    <h1 class="sr-only">Now — what I'm focused on</h1>
-    <p class="text-fg-muted text-sm font-mono">Updated 2026-10-16.</p>
-
-    <h2>Current focus</h2>
-    <p>One thing gets the attention. Everything else runs quiet.</p>
-    <ul>
-      <li>
-        <strong>Curtis.</strong> Your AI, on record — the records office for AI work. Chats, receipts, and deals kept as files you own in the open <code>.curt</code> format; Chat, Porter, Audit, and CRM are the line. Obsidian today, the editors next year. <a href="https://curtisai.tech">curtisai.tech ↗</a>.
-      </li>
-    </ul>
-  </article>
-</BaseLayout>
-
-<style>
-  .prose ul li { margin-block: 1.1rem; line-height: 1.75; }
-</style>

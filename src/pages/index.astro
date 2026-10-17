@@ -1,122 +1,22 @@
 ---
-import { existsSync } from "node:fs";
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-const posts = (await getCollection("posts", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-  .slice(0, 1);
-
-const heroFor = (id: string): string | null => {
-  for (const ext of ["webp", "jpg", "jpeg", "png"]) {
-    if (existsSync(`public/posts/${id}/hero.${ext}`)) return `/posts/${id}/hero.${ext}`;
-  }
-  return null;
-};
 ---
 
-<BaseLayout title="Jordan Newell" description="I build and operate the systems behind ambitious ventures." path="/">
+<BaseLayout title="Now" description="What I'm focused on right now." ogImage="/og-now.png" path="/">
+  <article class="prose">
+    <h1 class="sr-only">Now — what I'm focused on</h1>
+    <p class="text-fg-muted text-sm font-mono">Updated 2026-10-16.</p>
 
-  <section class="section">
-    <div>
-      {posts.map((post, i) => {
-        const hero = i === 0 ? heroFor(post.id) : null;
-        return (
-          <a href={`/posts/${post.id}/`} class={`post-item${hero ? " post-featured" : ""}`}>
-            {hero ? (
-              <>
-                <div class="featured-head">
-                  <div class="post-date">
-                    {post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" })}
-                  </div>
-                  <div class="featured-title">{post.data.title}</div>
-                </div>
-                <span class="featured-cover">
-                  <img src={hero} alt="" width="1936" height="1024" loading="eager" />
-                </span>
-              </>
-            ) : (
-              <div class="post-grid">
-                <div class="post-date">
-                  {post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" })}
-                </div>
-                <div>
-                  <div class="post-title">{post.data.title}</div>
-                  <div class="post-desc">{post.data.description}</div>
-                </div>
-              </div>
-            )}
-            <div class="read-this">read →</div>
-          </a>
-        );
-      })}
-    </div>
-  </section>
+    <h2>Current focus</h2>
+    <p>One thing gets the attention. Everything else runs quiet.</p>
+    <ul>
+      <li>
+        <strong>Curtis.</strong> Your AI, on record — the records office for AI work. Chats, receipts, and deals kept as files you own in the open <code>.curt</code> format; Chat, Porter, Audit, and CRM are the line. Obsidian today, the editors next year. <a href="https://curtisai.tech">curtisai.tech ↗</a>.
+      </li>
+    </ul>
+  </article>
 </BaseLayout>
 
 <style>
-  .section { margin-bottom: 0; }
-
-  .post-item {
-    display: block; text-decoration: none;
-    padding-block: 1.35rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .post-item.post-featured { border-bottom: none; padding-bottom: 0; }
-  .featured-head {
-    text-align: center;
-    margin-bottom: 0.9rem;
-  }
-  .featured-head .post-date { padding-top: 0; }
-  .featured-title {
-    font-family: var(--font-sans);
-    font-weight: 600; font-size: 1.45rem; letter-spacing: -0.005em;
-    line-height: 1.25;
-    color: var(--color-fg);
-    margin-top: 5px;
-    transition: color 0.15s;
-  }
-  .post-item:hover .featured-title { color: var(--color-accent); }
-  .featured-cover {
-    display: block;
-  }
-  .featured-cover img {
-    display: block; width: 100%; height: auto;
-    border: 1px solid var(--color-border);
-  }
-  .post-grid {
-    display: grid; grid-template-columns: 110px 1fr; gap: 0 18px;
-  }
-  .post-date {
-    font-family: var(--font-mono);
-    font-size: 0.7rem; color: var(--color-fg-muted);
-    letter-spacing: 0.03em; padding-top: 0.3rem;
-  }
-  .post-title {
-    font-family: var(--font-display);
-    font-weight: 600; font-size: 0.95rem; letter-spacing: -0.01em;
-    color: var(--color-fg); margin-bottom: 4px;
-    transition: color 0.15s;
-  }
-  .post-item:hover .post-title {
-    color: var(--color-accent);
-    text-decoration: underline; text-underline-offset: 4px;
-  }
-  .post-desc {
-    font-size: 0.92rem; color: var(--color-fg-secondary);
-    line-height: 1.5;
-  }
-  .read-this {
-    margin-top: 0.9rem; text-align: center;
-    font-family: var(--font-mono);
-    font-size: 0.7rem; color: var(--color-fg-muted);
-    letter-spacing: 0.08em; text-transform: uppercase;
-    transition: color 0.15s;
-  }
-  .post-item:hover .read-this { color: var(--color-accent); }
-
-  @media (max-width: 560px) {
-    .post-grid { grid-template-columns: 1fr; }
-    .post-date { margin-bottom: 0.3rem; }
-  }
+  .prose ul li { margin-block: 1.1rem; line-height: 1.75; }
 </style>

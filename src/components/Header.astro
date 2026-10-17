@@ -5,7 +5,12 @@ const { path } = Astro.props;
 
 <header>
   <div class="header-inner max-w-prose mx-auto px-5 py-3.5 flex flex-wrap items-center gap-x-4 gap-y-2">
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">◐</button>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle day/night">
+      <svg viewBox="0 0 14 20" width="12" height="17" fill="none" aria-hidden="true">
+        <rect x="1.25" y="1.25" width="11.5" height="17.5" rx="2.5" stroke="currentColor" stroke-width="1.5" />
+        <rect class="switch-nub" x="4.5" y="3.75" width="5" height="4.5" rx="1.25" fill="currentColor" />
+      </svg>
+    </button>
     <nav class="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[0.72rem]">
       {NAV_LINKS.map((link, i) => (
         <>
@@ -53,6 +58,9 @@ const { path } = Astro.props;
     transition: color 0.15s;
   }
   .theme-toggle:hover { color: var(--color-fg); }
+  /* Light switch: nub up = day, nub flips down = night */
+  .switch-nub { transition: transform 0.15s ease; }
+  :global([data-theme="dark"]) .switch-nub { transform: translateY(7.75px); }
 </style>
 
 <script>

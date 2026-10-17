@@ -6,7 +6,20 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import { existsSync } from "node:fs";
 
 const { project } = Astro.props as { project: CollectionEntry<"projects"> };
-const { title, description, status, repo, liveUrl, tags } = project.data;
+const { title, description, status, repo, liveUrl, pkg, tags } = project.data;
+
+const pkgLabel = (url: string): string => {
+  try {
+    const host = new URL(url).hostname;
+    if (host.includes("npmjs")) return "npm";
+    if (host.includes("pypi.org")) return "pypi";
+    if (host.includes("obsidian.md")) return "obsidian";
+    if (host.includes("crates.io")) return "crates";
+    return "pkg";
+  } catch {
+    return "pkg";
+  }
+};
 
 // Share card: public/projects/<id>/card.png when present.
 const cardOg = existsSync(`public/projects/${project.id}/card.png`)
@@ -49,6 +62,7 @@ const schema = [
           <span class="stat-n" style={`color: ${statusColors[status] ?? "#7A7683"}`}>{status}</span>
           {repo && <> · <a href={repo} target="_blank" rel="noopener" class="ph-stat-link">source ↗</a></>}
           {liveUrl && <> · <a href={liveUrl} target="_blank" rel="noopener" class="ph-stat-link">live ↗</a></>}
+          {pkg && <> · <a href={pkg} target="_blank" rel="noopener" class="ph-stat-link">{pkgLabel(pkg)} ↗</a></>}
         </p>
       </div>
       <p class="ph-tag">{description}</p>

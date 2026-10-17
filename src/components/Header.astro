@@ -45,6 +45,12 @@ const { path } = Astro.props;
       padding-block: 0.75rem;
     }
   }
+  /* Desktop: pull the centered nav left to halve the gap to the switch */
+  @media (min-width: 641px) {
+    nav {
+      transform: translateX(-85px);
+    }
+  }
   .theme-toggle {
     font-family: var(--font-mono);
     font-size: 0.8rem;

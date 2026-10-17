@@ -35,3 +35,6 @@ scripts/opsec-patterns.local
 !.dev.vars.example
 !.env.example
 !.env.dev.example
+
+# Music player tracks — copyrighted commercial audio, deploy-time only
+public/audio/

@@ -1,15 +1,6 @@
 ---
 import StatusTerminal from "./StatusTerminal.astro";
 import KeyboardBase from "./KeyboardBase.astro";
-import EmojiDock from "./EmojiDock.astro";
-
-const now = new Date();
-const stamp = now.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-  timeZone: "UTC",
-});
 
 const FONT_URL = "https://jordannewell.github.io/newell-typeface/";
 
@@ -34,6 +25,27 @@ const keys = [
   { top: "89vh", right: "19vw", rot: -2,  variant: "green" }, // L
 ];
 const LETTERS = [...LEFT, ...RIGHT];
+
+// Streamdeck launch grid — NEWELL product family. Class names map to the
+// per-product accent colors in the styles below (deliberate color coding,
+// exempt from the green-only token rule).
+const LAUNCH_KEYS = [
+  { cls: "c1",  cap: "CL", label: "claudeway",   title: "claudeway",           href: "https://jordannewell.github.io/claudeway-site/" },
+  { cls: "c3",  cap: "CA", label: "curtis-ai",   title: "curtis-ai-chat",      href: "https://jordannewell.github.io/curtis-ai-chat/" },
+  { cls: "c5",  cap: "K",  label: "crypto-key",  title: "crypto-key-classifier", href: "https://jordannewell.github.io/crypto-key-classifier/" },
+  { cls: "c7",  cap: "N",  label: "typeface",    title: "newell-typeface",     href: FONT_URL },
+  { cls: "c10", cap: "G",  label: "git-hygiene", title: "git-hygiene",         href: "https://jordannewell.github.io/git-hygiene/" },
+  { cls: "c2",  cap: "P",  label: "pat-scan",    title: "pat-scanner",         href: "https://jordannewell.github.io/pat-scanner/" },
+];
+
+const TRANSPORT_KEYS = [
+  { t: "prev",       cap: "◀◀", label: "prev", title: "Previous track" },
+  { t: "play-pause", cap: "▶",  label: "play", title: "Play / Pause", pp: true },
+  { t: "stop",       cap: "■",  label: "stop", title: "Stop" },
+  { t: "next",       cap: "▶▶", label: "next", title: "Next track" },
+  { t: "vol-down",   cap: "−",  label: "vol-", title: "Volume down" },
+  { t: "vol-up",     cap: "+",  label: "vol+", title: "Volume up" },
+];
 ---
 
 <section class="cs">
@@ -65,21 +77,77 @@ const LETTERS = [...LEFT, ...RIGHT];
 
   <StatusTerminal />
 
-  {/* Mechanical keyboard in 3D perspective — desk gradient removed per request. */}
+  {/* Mobile-only key strip — same 12 letters in one row. Sits between the
+      terminal and the keyboard in DOM order. */}
+  <div class="cs-key-strip" aria-label="Newell typeface keys">
+    <div class="cs-strip-word">
+      {/* Variants match the deployed strip exactly — pairs flip halfway
+          through the word rather than strict alternation. */}
+      {LETTERS.map((letter, i) => (
+        <a
+          class={`cs-strip-key cs-key-${["green","white","green","white","green","white","white","green","white","green","white","green"][i]}`}
+          href={FONT_URL}
+          target="_blank"
+          rel="noopener"
+          aria-label="Newell typeface"
+          title="Newell typeface"
+        >
+          <span class="cs-strip-cap">{letter}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  {/* Mechanical keyboard in 3D perspective, with the streamdeck docked to its
+      right on desktop (stacked below on mobile). */}
   <div class="cs-keyboard-stage">
     <div class="cs-keyboard">
       <KeyboardBase />
     </div>
+
+    <div class="cs-streamdeck" aria-label="NEWELL product family">
+      <div class="cs-sd-bezel">
+        <div class="cs-sd-grid-stack">
+          <div class="cs-sd-grid cs-sd-grid-6 cs-sd-launch-grid">
+            {LAUNCH_KEYS.map((k) => (
+              <a class={`cs-sd-key cs-sd-${k.cls}`} href={k.href} target="_blank" rel="noopener" title={k.title}>
+                <span class="cs-sd-cap">{k.cap}</span>
+                <span class="cs-sd-label">{k.label}</span>
+              </a>
+            ))}
+          </div>
+          <div class="cs-sd-grid cs-sd-grid-6 cs-sd-transport-grid" aria-label="Music transport">
+            {TRANSPORT_KEYS.map((k) => (
+              <button class="cs-sd-key cs-sd-transport" data-transport={k.t} title={k.title}>
+                <span class={`cs-sd-cap${k.pp ? " cs-sd-pp-cap" : ""}`}>{k.cap}</span>
+                <span class={`cs-sd-label${k.pp ? " cs-sd-pp-label" : ""}`}>{k.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div class="cs-fx-rack" aria-label="Effects and indicators">
+          <div class="cs-fx-led" aria-hidden="true" data-led="1"></div>
+          <button class="cs-fx-key cs-fx-music" data-music-toggle aria-label="Open music player" title="Music player">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+          </button>
+          <button class="cs-fx-key" data-fx="spotlight" aria-label="Spotlight a random launch key" title="Spotlight">
+            <img class="cs-fx-key-img" src="/images/coming-soon/nmoji-button.png" alt="" width="14" height="14" decoding="async" loading="lazy" />
+          </button>
+          <button class="cs-fx-key" data-fx="glitch" aria-label="Glitch the launch pad" title="Glitch">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  {/* Pinned portrait bottom-right — tall card, subtle, hoverable.
-      Stays visible across all viewports. */}
-  <a href="/" class="cs-pfp" aria-label="Jordan Newell">
-    <img src="/images/jordan-portrait.png?v=3" alt="Jordan Newell" width="120" height="180" loading="lazy" decoding="async" />
-  </a>
-
-  {/* Curtis AI badge bottom-left — mirrors the PFP. Same hover treatment
-      (lift + neon green glow), links to the Obsidian plugin page. */}
+  {/* Curtis AI badge bottom-left — hidden for now, kept for revival. */}
   <a
     href="https://community.obsidian.md/plugins/curtis-ai-chat"
     target="_blank"
@@ -91,49 +159,37 @@ const LETTERS = [...LEFT, ...RIGHT];
   >
     <img src="/images/curtis-ai-corner.png?v=4" alt="Curtis AI" width="155" height="120" loading="lazy" decoding="async" />
   </a>
+</section>
 
-  {/* Mobile-only key strip — same 12 letters in 2 rows (JORDAN / NEWELL).
-      Sits below the terminal as a footer accent. Hidden on >=769px where the
-      scattered fixed keycaps take over. */}
-  <div class="cs-key-strip" aria-label="Newell typeface keys">
-    <div class="cs-strip-word">
-      {LEFT.map((letter, i) => (
-        <a
-          class={`cs-strip-key cs-key-${i % 2 === 0 ? "green" : "white"}`}
-          href={FONT_URL}
-          target="_blank"
-          rel="noopener"
-          aria-label="Newell typeface"
-          title="Newell typeface"
-        >
-          <span class="cs-strip-cap">{letter}</span>
-        </a>
-      ))}
-    </div>
-    <div class="cs-strip-word">
-      {RIGHT.map((letter, i) => (
-        <a
-          class={`cs-strip-key cs-key-${i % 2 === 0 ? "white" : "green"}`}
-          href={FONT_URL}
-          target="_blank"
-          rel="noopener"
-          aria-label="Newell typeface"
-          title="Newell typeface"
-        >
-          <span class="cs-strip-cap">{letter}</span>
-        </a>
-      ))}
+{/* Power controls — below the splash section so the CRT metaphor owns the
+    whole viewport: audio toggle + vintage power knob with the name plate. */}
+<footer class="cs-bottom-bar">
+  <div class="cs-controls-row">
+    <button class="cs-audio-btn" data-audio-toggle aria-pressed="false" aria-label="Toggle ambient audio" title="Ambient audio (opt-in)">
+      <svg class="cs-audio-icon cs-audio-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <line x1="22" y1="9" x2="16" y2="15"></line>
+        <line x1="16" y1="9" x2="22" y2="15"></line>
+      </svg>
+      <svg class="cs-audio-icon cs-audio-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+      </svg>
+    </button>
+    <div class="cs-knob-col">
+      <button class="cs-power-btn cs-power-btn-vintage" aria-label="Power toggle" title="Power">
+        <span class="cs-power-btn-vintage-icon" aria-hidden="true"></span>
+      </button>
+      <div class="cs-knob-name" aria-hidden="true">
+        <span>JORDAN</span>
+        <span>NEWELL</span>
+      </div>
     </div>
   </div>
-
-  {/* "Newell font →" — single link, positioned under the name letters. */}
-  <a class="cs-typelink cs-typelink-desktop" href={FONT_URL} target="_blank" rel="noopener" title="Newell font">
-    Newell font <span aria-hidden="true">→</span>
-  </a>
-
-  <EmojiDock />
-</section>
-<script src="/js/status-hero.js?v=7" defer></script>
+</footer>
+<script src="/js/status-hero.js?v=8" defer></script>
+<script src="/js/kb-shortcuts.js?v=40" defer></script>
 
 <style is:global>
   @font-face {
@@ -146,139 +202,33 @@ const LETTERS = [...LEFT, ...RIGHT];
 </style>
 
 <style is:global>
-  body { background-color: #000; }
+  body { background-color: var(--color-bg); }
   .dot-grid { display: none; }
   main { padding-top: 10px !important; padding-bottom: 0 !important; max-width: none !important; }
   /* Lock ALL viewports — no page scroll anywhere. */
   html, body { height: 100%; overflow: hidden; }
+  @media (min-width: 769px) {
+    html, body { min-height: 100%; }
+  }
+  /* Freeze all transitions until kb-shortcuts.js signals the desk is ready —
+     prevents the power-on animation from racing the initial paint. */
+  body:not(.cs-ready) * { transition: none !important; }
 </style>
 
-<style>
+<style is:global>
   .cs {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 10px;
-    padding: 0 0 0;
+    padding: 0 0 32px;
     /* Fit fully inside viewport on desktop. Header (~60px) + main padding (~28px)
        leave ~calc(100vh - 90px) for splash content. Body overflow:hidden backs this up. */
     min-height: calc(100vh - 90px);
   }
-  .cs :global([data-terminal]) {
+  .cs [data-terminal] {
     margin-top: 0;
-  }
-  .cs-keyboard-stage {
-    width: 100%;
-    max-width: 720px; /* match terminal width so the two read as proportional siblings */
-    margin-top: 0;
-    position: relative;
-    perspective: 1500px;
-    perspective-origin: 50% 20%;
-  }
-  .cs-keyboard {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-    transform: rotateX(10deg) scale(0.92);
-    transform-origin: center 80%;
-    transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2),
-                filter 0.35s ease;
-    filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.75));
-  }
-  /* Stationary 3D pose — hover just magnifies, no tilt change. */
-  .cs-keyboard-stage:hover .cs-keyboard {
-    transform: rotateX(16deg) scale(1.04);
-    filter: drop-shadow(0 28px 26px rgba(0, 0, 0, 0.8))
-            drop-shadow(0 0 14px rgba(63, 255, 70, 0.12));
-  }
-  /* Desk surface — a tilted plane that recedes from foreground to background.
-     Drawn as a CSS gradient: light hit near the keyboard, fading to deep shadow
-     toward the back. Slight green tint near the keyboard's underglow. */
-  .cs-desk {
-    position: absolute;
-    left: 50%;
-    bottom: -10px;
-    width: 110%;
-    height: 80px;
-    transform: translateX(-50%) perspective(600px) rotateX(60deg);
-    transform-origin: center top;
-    background:
-      radial-gradient(ellipse at 50% 0%,
-        rgba(63, 255, 70, 0.10) 0%,
-        rgba(20, 20, 22, 0.6) 25%,
-        rgba(8, 8, 10, 0.95) 60%,
-        rgba(0, 0, 0, 1) 100%);
-    z-index: 1;
-    pointer-events: none;
-  }
-  /* Subtle desk grain via repeating gradient overlay */
-  .cs-desk::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      transparent 2px,
-      rgba(255, 255, 255, 0.012) 2px,
-      rgba(255, 255, 255, 0.012) 3px
-    );
-  }
-  /* Portrait standing free at bottom-right — no frame, no box, no border.
-     Just the figure on the page. Subtle ground shadow only. */
-  .cs-pfp {
-    position: fixed;
-    left: -30px;
-    bottom: -30px;
-    width: 200px;
-    height: auto;
-    text-decoration: none;
-    transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
-    z-index: 50;
-    opacity: 0.7;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
-  }
-  .cs-pfp img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  .cs-pfp:hover {
-    opacity: 1;
-    transform: translateY(-4px);
-    filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.7))
-            drop-shadow(0 0 18px rgba(63, 255, 70, 0.25));
-  }
-  @media (max-width: 768px) {
-    .cs-pfp { width: 160px; left: -20px; bottom: -20px; }
-  }
-  /* Curtis AI badge — visual sibling of the PFP, anchored bottom-left. */
-  .cs-curtis {
-    position: fixed;
-    left: 28px;
-    bottom: 0;
-    width: 205px;
-    height: auto;
-    text-decoration: none;
-    transition: transform 0.2s ease, filter 0.2s ease;
-    z-index: 50;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
-  }
-  .cs-curtis img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  .cs-curtis:hover {
-    transform: translateY(-4px);
-    filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.7))
-            drop-shadow(0 0 18px rgba(63, 255, 70, 0.25));
-  }
-  @media (max-width: 768px) {
-    .cs-curtis { width: 110px; left: 12px; bottom: 0; }
   }
   .cs-logo-wrap {
     width: 100%;
@@ -291,70 +241,6 @@ const LETTERS = [...LEFT, ...RIGHT];
     width: 100%;
     height: auto;
     display: block;
-  }
-  @media (max-width: 480px) {
-    .cs-logo-wrap { max-width: 220px; }
-  }
-  .cs-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-  .cs-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-green);
-    background: color-mix(in srgb, var(--color-green) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-green) 35%, transparent);
-    padding: 4px 10px;
-  }
-  .cs-eyebrow-lg {
-    font-size: 0.9rem;
-    letter-spacing: 0.22em;
-    padding: 6px 14px;
-    gap: 10px;
-    box-shadow: 0 0 24px color-mix(in srgb, var(--color-green) 18%, transparent);
-  }
-  .cs-eyebrow-lg .cs-pulse {
-    width: 8px;
-    height: 8px;
-  }
-  .cs-pulse {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-green);
-    box-shadow: 0 0 8px var(--color-green);
-    animation: cs-blink 2s ease-in-out infinite;
-  }
-  @keyframes cs-blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-  .cs-stamp {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-fg-muted);
-    margin: 0;
-  }
-  /* Tiny status line anchoring the top of the page — no full header. */
-  .cs-status-line {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--color-fg-muted);
-    opacity: 0.5;
-    text-align: center;
-    margin-bottom: 4px;
   }
 
   /* Premium mechanical key-caps — matte PBT, black inner cap, colored frame + legend.
@@ -403,27 +289,27 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-key-green {
     background: #0a0a0a; /* thin black ring */
     box-shadow:
-      0 0 0 1.5px #3FFF46,           /* outer rim = neon green frame */
-      0 1px 0 #3FFF46,                /* subtle lift */
+      0 0 0 1.5px var(--color-green),           /* outer rim = neon green frame */
+      0 1px 0 var(--color-green),                /* subtle lift */
       0 3px 5px rgba(0, 0, 0, 0.6),
-      0 0 12px rgba(63, 255, 70, 0.15);
+      0 0 12px rgba(0, 255, 65, 0.15);
   }
   .cs-key-green .cs-key-cap {
     color: #fff;
-    box-shadow: inset 0 0 0 1px #1a1a1a; /* hairline inner edge */
+    box-shadow: inset 0 0 0 1px #1F1F1F; /* hairline inner edge */
   }
   /* Variant B: white frame, green legend */
   .cs-key-white {
     background: #0a0a0a;
     box-shadow:
-      0 0 0 1.5px #fafafa,             /* outer rim = off-white frame */
-      0 1px 0 #fafafa,
+      0 0 0 1.5px #ffffff,             /* outer rim = white frame */
+      0 1px 0 #ffffff,
       0 3px 5px rgba(0, 0, 0, 0.6),
       0 0 12px rgba(255, 255, 255, 0.08);
   }
   .cs-key-white .cs-key-cap {
-    color: #3FFF46;
-    box-shadow: inset 0 0 0 1px #1a1a1a;
+    color: var(--color-green);
+    box-shadow: inset 0 0 0 1px #1F1F1F;
   }
   /* Hover: tiny lift, frame brightens */
   .cs-key:hover {
@@ -431,15 +317,15 @@ const LETTERS = [...LEFT, ...RIGHT];
   }
   .cs-key-green:hover {
     box-shadow:
-      0 0 0 1.5px #5fff66,
-      0 3px 0 #3FFF46,
+      0 0 0 1.5px #1AFF72,
+      0 3px 0 var(--color-green),
       0 6px 10px rgba(0, 0, 0, 0.7),
-      0 0 22px rgba(63, 255, 70, 0.4);
+      0 0 22px rgba(0, 255, 65, 0.4);
   }
   .cs-key-white:hover {
     box-shadow:
       0 0 0 1.5px #ffffff,
-      0 3px 0 #fafafa,
+      0 3px 0 #ffffff,
       0 6px 10px rgba(0, 0, 0, 0.7),
       0 0 22px rgba(255, 255, 255, 0.18);
   }
@@ -449,19 +335,18 @@ const LETTERS = [...LEFT, ...RIGHT];
   }
   .cs-key-green:active {
     box-shadow:
-      0 0 0 1.5px #3FFF46,
-      0 1px 0 #29a62e,
+      0 0 0 1.5px var(--color-green),
+      0 1px 0 color-mix(in srgb, var(--color-green) 65%, #000),
       0 2px 3px rgba(0, 0, 0, 0.5),
-      0 0 8px rgba(63, 255, 70, 0.1);
+      0 0 8px rgba(0, 255, 65, 0.1);
   }
   .cs-key-white:active {
     box-shadow:
-      0 0 0 1.5px #fafafa,
+      0 0 0 1.5px #ffffff,
       0 1px 0 #c0c0c0,
       0 2px 3px rgba(0, 0, 0, 0.5);
   }
-  /* Hide on phones — scattered fixed keys clutter a 375px viewport.
-     The horizontal .cs-key-strip below replaces them on mobile. */
+  /* Hide on phones — scattered fixed keys clutter a 375px viewport. */
   @media (max-width: 768px) {
     .cs-key { display: none; }
   }
@@ -470,29 +355,40 @@ const LETTERS = [...LEFT, ...RIGHT];
     .cs-key { width: 38px; height: 38px; }
     .cs-key-cap { width: 30px; height: 30px; font-size: 1rem; }
   }
+  /* Spin — kb-shortcuts.js fires this on the backtick golden key. */
+  .cs-key.kb-spin {
+    animation: 0.7s ease-in-out kb-letter-spin;
+  }
+  @keyframes kb-letter-spin {
+    0% { transform: rotate(var(--k-rot, 0deg)) scale(1); }
+    50% { transform: rotate(calc(var(--k-rot, 0deg) + 360deg)) scale(1.35); opacity: 1; }
+    to { transform: rotate(calc(var(--k-rot, 0deg) + 720deg)) scale(1); }
+  }
 
-  /* Mobile-only key strip — JORDAN row + NEWELL row, centered */
+  /* Mobile key strip — 12 letters in one row. Hidden at every breakpoint in
+     the shipped layout; kept for a fast revival. */
   .cs-key-strip {
-    display: none; /* hidden on desktop, scattered fixed keys take over */
-    flex-direction: column;
+    display: none;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    gap: 6px;
+    gap: 3px;
     padding: 4px 2px 8px;
   }
   .cs-strip-word {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 3px;
   }
   .cs-strip-key {
     flex: 0 0 auto;
-    width: 34px;
-    height: 34px;
+    width: 24px;
+    height: 24px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 4px;
     background: #0a0a0a;
     transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
                 box-shadow 0.18s ease;
@@ -502,72 +398,761 @@ const LETTERS = [...LEFT, ...RIGHT];
     transform: scale(1.18);
     z-index: 2;
   }
-  .cs-strip-key.cs-key-green:hover,
-  .cs-strip-key.cs-key-green:active {
-    box-shadow: 0 0 0 1.2px #3FFF46, 0 1px 2px rgba(0,0,0,0.5), 0 0 14px rgba(63,255,70,0.4);
-  }
-  .cs-strip-key.cs-key-white:hover,
-  .cs-strip-key.cs-key-white:active {
-    box-shadow: 0 0 0 1.2px #fafafa, 0 1px 2px rgba(0,0,0,0.5), 0 0 14px rgba(255,255,255,0.25);
-  }
   .cs-strip-cap {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 26px;
-    height: 26px;
-    border-radius: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
     background: #0a0a0a;
     font-family: "Newell", var(--font-mono);
-    font-size: 0.95rem;
+    font-size: 0.7rem;
     line-height: 1;
   }
-  /* Same variant styling as fixed keys but with thinner rims for small sizes */
   .cs-strip-key.cs-key-green {
-    box-shadow: 0 0 0 1.2px #3FFF46, 0 1px 2px rgba(0,0,0,0.5), 0 0 8px rgba(63,255,70,0.15);
+    box-shadow: 0 0 0 1.2px var(--color-green), 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 255, 65, 0.15);
   }
   .cs-strip-key.cs-key-green .cs-strip-cap { color: #fff; }
   .cs-strip-key.cs-key-white {
-    box-shadow: 0 0 0 1.2px #fafafa, 0 1px 2px rgba(0,0,0,0.5);
+    box-shadow: 0 0 0 1.2px #ffffff, 0 1px 2px rgba(0, 0, 0, 0.5);
   }
-  .cs-strip-key.cs-key-white .cs-strip-cap { color: #3FFF46; }
-  /* :active subsumed by the :hover/:active block above — both enlarge now. */
-  @media (max-width: 768px) {
-    .cs-key-strip {
-      display: flex;
-      width: 100%;
-      margin-top: 10px;
+  .cs-strip-key.cs-key-white .cs-strip-cap { color: var(--color-green); }
+  .cs-strip-key.cs-key-green:hover,
+  .cs-strip-key.cs-key-green:active {
+    box-shadow: 0 0 0 1.2px var(--color-green), 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 14px rgba(0, 255, 65, 0.4);
+  }
+  .cs-strip-key.cs-key-white:hover,
+  .cs-strip-key.cs-key-white:active {
+    box-shadow: 0 0 0 1.2px #ffffff, 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 14px rgba(255, 255, 255, 0.25);
+  }
+
+  /* Keyboard stage — tighter footprint than the terminal so the docked
+     streamdeck fits inside the same visual column. */
+  .cs-keyboard-stage {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 0;
+    position: relative;
+    perspective: 1200px;
+    perspective-origin: 50% 20%;
+  }
+  .cs-keyboard {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    transform: translate(-10px) scale(1.12);
+    transform-origin: 50% 80%;
+    margin-top: 10px;
+    transition: box-shadow 0.3s, filter 0.5s, opacity 0.5s;
+    filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.75));
+  }
+  .cs-keyboard svg.kb {
+    max-width: 100%;
+    height: auto;
+  }
+  /* Stationary 3D pose — hover just magnifies, no tilt change. */
+  .cs-keyboard:hover {
+    transform: translate(-10px) scale(1.14);
+    filter: drop-shadow(0 28px 26px rgba(0, 0, 0, 0.8))
+            drop-shadow(0 0 14px rgba(0, 255, 65, 0.06));
+  }
+  @media (min-width: 769px) {
+    .cs-keyboard-stage {
+      margin-top: 25px;
+      /* Counter-shift: the streamdeck hangs off left:100%, so pull the whole
+         stage left to keep the composition optically centered. */
+      transform: translate(-89px);
+      text-align: center;
+    }
+    .cs-keyboard-stage:hover .cs-streamdeck .cs-sd-bezel {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.4, 1);
+      transform: scale(1.02);
     }
   }
 
-  /* "Newell font →" — rendered in the Newell typeface itself.
-     Mobile copy lives inside .cs-key-strip (under the letters).
-     Desktop copy is a separate element under the keyboard. */
-  .cs-typelink {
-    font-family: "Newell", var(--font-mono);
-    font-size: 0.95rem;
-    letter-spacing: -0.01em;
-    color: var(--color-fg-muted);
+  /* Streamdeck — NEWELL product family launcher. */
+  .cs-streamdeck {
+    perspective: 1200px;
+    perspective-origin: 50% 20%;
+    width: 180px;
+    margin: 0 auto;
+    transition: filter 0.5s, opacity 0.5s;
+  }
+  .cs-sd-bezel {
+    background: #060606;
+    border-radius: 8px;
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    padding: 10px;
+    transition: box-shadow 0.3s;
+    transform: none;
+    box-shadow:
+      inset 0 1px rgba(0, 255, 65, 0.06),
+      0 0 0 1.5px var(--color-green),
+      0 3px #0d0d0d,
+      0 8px 16px rgba(0, 0, 0, 0.7),
+      0 0 20px rgba(0, 255, 65, 0.06);
+  }
+  .cs-streamdeck:hover .cs-sd-bezel {
+    box-shadow:
+      inset 0 1px rgba(0, 255, 65, 0.1),
+      0 0 0 1.5px var(--color-green),
+      0 4px #0d0d0d,
+      0 12px 24px rgba(0, 0, 0, 0.8),
+      0 0 18px rgba(0, 255, 65, 0.12),
+      0 0 18px rgba(255, 255, 255, 0.12);
+  }
+  .cs-sd-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
+  .cs-sd-key {
+    aspect-ratio: 1;
+    will-change: transform;
+    background: #0a0a0a;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
     text-decoration: none;
-    border-bottom: 1px dotted color-mix(in srgb, #3FFF46 35%, transparent);
-    transition: color 0.15s, border-color 0.15s;
-    margin-top: 10px;
-    padding-bottom: 1px;
+    transition: transform 0.14s cubic-bezier(0.2, 0.9, 0.4, 1.2), box-shadow 0.14s;
+    position: relative;
+    transform: translateZ(0);
   }
-  .cs-typelink-desktop {
+  .cs-sd-cap,
+  .cs-sd-label {
+    backface-visibility: hidden;
+  }
+  .cs-sd-key:hover {
+    z-index: 5;
+    transform: translateY(-3px) scale(1.06);
+  }
+  .cs-sd-key:active {
+    transform: translateY(0) scale(0.97);
+  }
+  /* Per-product accent rims — deliberate color coding, exempt from the
+     green-only token rule (green = NEWELL house products, blue = utilities,
+     cyan = tools, purple/amber = experiments). */
+  .cs-sd-c1  { box-shadow: 0 0 0 1.5px var(--color-green), 0 1px var(--color-green), 0 3px 5px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 255, 65, 0.15); }
+  .cs-sd-c2  { box-shadow: 0 0 0 1.5px #3b82f6, 0 1px #3b82f6, 0 3px 5px rgba(0, 0, 0, 0.6), 0 0 10px rgba(59, 130, 246, 0.15); }
+  .cs-sd-c3  { box-shadow: 0 0 0 1.5px #06b6d4, 0 1px #06b6d4, 0 3px 5px rgba(0, 0, 0, 0.6), 0 0 10px rgba(6, 182, 212, 0.15); }
+  .cs-sd-c4  { box-shadow: 0 0 0 1.5px #a855f7, 0 1px #a855f7, 0 3px 5px rgba(0, 0, 0, 0.6), 0 0 10px rgba(168, 85, 247, 0.15); }
+  .cs-sd-c5  { box-shadow: 0 0 0 1.5px var(--color-green), 0 1px var(--color-green), 0 3px 5px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 255, 65, 0.15); }
+  .cs-sd-c6  { box-shadow: 0 0 0 1.5px #3b82f6, 0 1px #3b82f6, 0 3px 5px rgba(0, 0, 0, 0.6), 0 0 10px rgba(59, 130, 246, 0.15); }
+  .cs-sd-c7  { box-shadow: 0 0 0 1.5px #06b6d4, 0 1px #06b6d4, 0 3px 5px rgba(0, 0, 0, 0.6), 0 0 10px rgba(6, 182, 212, 0.15); }
+  .cs-sd-c8  { box-shadow: 0 0 0 1.5px var(--color-green), 0 1px var(--color-green), 0 3px 5px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 255, 65, 0.15); }
+  .cs-sd-c9  { box-shadow: 0 0 0 1.5px #f59e0b, 0 1px #f59e0b, 0 3px 5px rgba(0, 0, 0, 0.6), 0 0 10px rgba(245, 158, 11, 0.15); }
+  .cs-sd-c10 { box-shadow: 0 0 0 1.5px #ffffff, 0 1px #ffffff, 0 3px 5px rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 255, 255, 0.1); }
+  .cs-sd-c1:hover  { box-shadow: 0 0 0 2px var(--color-green), 0 4px rgba(0, 255, 65, 0.4), 0 6px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 255, 65, 0.4); }
+  .cs-sd-c2:hover  { box-shadow: 0 0 0 2px #3b82f6, 0 4px rgba(59, 130, 246, 0.4), 0 6px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(59, 130, 246, 0.4); }
+  .cs-sd-c3:hover  { box-shadow: 0 0 0 2px #06b6d4, 0 4px rgba(6, 182, 212, 0.4), 0 6px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(6, 182, 212, 0.4); }
+  .cs-sd-c4:hover  { box-shadow: 0 0 0 2px #a855f7, 0 4px rgba(168, 85, 247, 0.4), 0 6px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(168, 85, 247, 0.4); }
+  .cs-sd-c5:hover  { box-shadow: 0 0 0 2px var(--color-green), 0 4px rgba(0, 255, 65, 0.4), 0 6px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 255, 65, 0.4); }
+  .cs-sd-c6:hover  { box-shadow: 0 0 0 2px #3b82f6, 0 4px rgba(59, 130, 246, 0.4), 0 6px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(59, 130, 246, 0.4); }
+  .cs-sd-c7:hover  { box-shadow: 0 0 0 2px #06b6d4, 0 4px rgba(6, 182, 212, 0.4), 0 6px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(6, 182, 212, 0.4); }
+  .cs-sd-c8:hover  { box-shadow: 0 0 0 2px var(--color-green), 0 4px rgba(0, 255, 65, 0.4), 0 6px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 255, 65, 0.4); }
+  .cs-sd-c9:hover  { box-shadow: 0 0 0 2px #f59e0b, 0 4px rgba(245, 158, 11, 0.4), 0 6px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(245, 158, 11, 0.4); }
+  .cs-sd-c10:hover { box-shadow: 0 0 0 2px #ffffff, 0 4px rgba(255, 255, 255, 0.4), 0 6px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.25); }
+  .cs-sd-cap {
+    color: #fff;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .cs-sd-label {
+    color: #b0b0b0;
+    letter-spacing: 0.02em;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.55rem;
+  }
+  .cs-sd-c1:hover .cs-sd-cap, .cs-sd-c5:hover .cs-sd-cap, .cs-sd-c8:hover .cs-sd-cap { color: var(--color-green); }
+  .cs-sd-c2:hover .cs-sd-cap, .cs-sd-c6:hover .cs-sd-cap { color: #3b82f6; }
+  .cs-sd-c3:hover .cs-sd-cap, .cs-sd-c7:hover .cs-sd-cap { color: #06b6d4; }
+  .cs-sd-c4:hover .cs-sd-cap { color: #a855f7; }
+  .cs-sd-c9:hover .cs-sd-cap { color: #f59e0b; }
+  .cs-sd-c10:hover .cs-sd-cap { color: #ffffff; }
+  .cs-sd-key:hover .cs-sd-label { color: #fff; }
+  /* Music mode — transport grid swaps in for the launch grid. */
+  .cs-sd-grid-stack { position: relative; }
+  .cs-sd-transport-grid { display: none; position: absolute; inset: 0; }
+  .cs-sd-bezel.music-active .cs-sd-launch-grid { visibility: hidden; }
+  .cs-sd-bezel.music-active .cs-sd-transport-grid { display: grid; }
+  .cs-sd-transport {
+    cursor: pointer;
+    color: inherit;
+    appearance: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+  }
+  .cs-sd-transport:hover .cs-sd-cap { color: var(--color-green); }
+  @media (min-width: 769px) {
+    .cs-streamdeck {
+      z-index: 6;
+      width: 168px;
+      margin-left: 13px;
+      position: absolute;
+      top: -2.5px;
+      left: 100%;
+    }
+    .cs-sd-grid.cs-sd-grid-6 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* FX rack — LED + golden keys, docked inside the streamdeck bezel. */
+  .cs-fx-rack {
+    border-left: 1px solid rgba(0, 255, 65, 0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 34px;
+    padding-left: 6px;
+  }
+  .cs-fx-led {
+    background: #0a0a0a;
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    border-radius: 4px;
+    flex: 1 1 0;
+    width: 100%;
+    transition: border-color 0.3s, background 0.3s;
+    position: relative;
+  }
+  .cs-fx-led::after {
+    content: "";
+    background: rgba(0, 255, 65, 0.18);
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .cs-fx-led.is-lit {
+    background: rgba(0, 255, 65, 0.08);
+    border-color: var(--color-green);
+  }
+  .cs-fx-led.is-lit::after {
+    background: var(--color-green);
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 8px var(--color-green), 0 0 16px rgba(0, 255, 65, 0.7), inset 0 0 4px rgba(255, 255, 255, 0.4);
+  }
+  .cs-fx-key {
+    color: var(--color-green);
+    cursor: pointer;
+    background: #0a0a0a;
+    border: 1px solid rgba(0, 255, 65, 0.35);
+    border-radius: 4px;
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    transition: transform 0.14s cubic-bezier(0.2, 0.9, 0.4, 1.2), box-shadow 0.14s, border-color 0.14s, color 0.14s;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.05), 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
+  .cs-fx-key svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+  }
+  .cs-fx-key-img {
+    object-fit: contain;
+    filter: drop-shadow(0 0 4px rgba(0, 255, 65, 0.5));
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+  .cs-fx-key:hover {
+    color: #fff;
+    border-color: var(--color-green);
+    transform: translateY(-2px);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 0 0 1px var(--color-green), 0 3px 6px rgba(0, 0, 0, 0.7), 0 0 12px rgba(0, 255, 65, 0.4);
+  }
+  .cs-fx-key:active {
+    color: var(--color-green);
+    transform: translateY(0);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 255, 65, 0.5);
+  }
+  .cs-fx-key:focus-visible {
+    outline: 2px solid var(--color-green);
+    outline-offset: 2px;
+  }
+  /* Spotlight — kb-shortcuts.js flashes a random launch key. */
+  .cs-sd-key.cs-sd-spotlight {
+    z-index: 10;
+    animation: 1.5s cubic-bezier(0.2, 0.8, 0.4, 1) cs-sd-spotlight;
+  }
+  @keyframes cs-sd-spotlight {
+    0%, to { filter: brightness(1); transform: translateY(0) scale(1); }
+    30% { filter: brightness(1.5) drop-shadow(0 0 18px var(--color-green)) drop-shadow(0 0 32px rgba(0, 255, 65, 0.6)); transform: translateY(-8px) scale(1.3); }
+  }
+  /* Glitch — four flavors, picked by kb-shortcuts.js. RGB-split colors are
+     deliberate chromatic-aberration devices, exempt from the token rule. */
+  .cs-sd-bezel.cs-glitch { animation: 0.5s steps(5, end) cs-glitch; }
+  .cs-sd-bezel.cs-glitch-rgb { animation: 0.5s steps(5, end) cs-glitch-rgb; }
+  .cs-sd-bezel.cs-glitch-shake { animation: 0.5s steps(8, end) cs-glitch-shake; }
+  .cs-sd-bezel.cs-glitch-flash { animation: 0.5s steps(5, end) cs-glitch-flash; }
+  @keyframes cs-glitch {
+    0% { filter: none; transform: translate(0) skew(0); }
+    18% { filter: hue-rotate(90deg) saturate(2); transform: translate(-3px, 1px) skew(2deg); }
+    36% { filter: invert(0.12) contrast(1.3); transform: translate(2px, -2px) skew(-2deg); }
+    54% { filter: hue-rotate(-90deg) brightness(1.3); transform: translate(-2px, 2px) skew(1deg); }
+    72% { filter: saturate(2.5); transform: translate(3px, -1px) skew(-1deg); }
+    to { filter: none; transform: translate(0) skew(0); }
+  }
+  @keyframes cs-glitch-rgb {
+    0% { filter: none; transform: translate(0); }
+    20% { filter: drop-shadow(2px 0 #ff0040) drop-shadow(-2px 0 #0ff); transform: translate(2px); }
+    40% { filter: drop-shadow(-3px 0 #ff0040) drop-shadow(3px 0 #0ff); transform: translate(-2px, 1px); }
+    60% { filter: drop-shadow(1px 1px #ff0040) drop-shadow(-1px -1px #0ff); transform: translate(1px, -1px); }
+    80% { filter: drop-shadow(-1px 0 #ff0040) drop-shadow(1px 0 #0ff); transform: translateY(1px); }
+    to { filter: none; transform: translate(0); }
+  }
+  @keyframes cs-glitch-shake {
+    0% { transform: translate(0); }
+    15% { transform: translate(-5px, 1px); }
+    30% { transform: translate(4px, -1px); }
+    45% { transform: translate(-3px, 2px); }
+    60% { transform: translate(5px); }
+    75% { transform: translate(-4px, -1px); }
+    90% { transform: translate(2px, 1px); }
+    to { transform: translate(0); }
+  }
+  @keyframes cs-glitch-flash {
+    0% { filter: none; transform: translate(0); }
+    20% { filter: invert(1); transform: translateY(-1px); }
+    40% { filter: invert(0) contrast(2); transform: translate(1px); }
+    60% { filter: invert(1) brightness(1.3); transform: translate(-1px, 1px); }
+    80% { filter: invert(0.15) saturate(0.4); transform: translateY(-1px); }
+    to { filter: none; transform: translate(0); }
+  }
+
+  /* Bottom bar — ambient audio toggle + vintage power knob. */
+  .cs-bottom-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    padding: 32px 16px 40px;
+  }
+  .cs-controls-row {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .cs-knob-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .cs-audio-btn {
+    color: #707070;
+    cursor: pointer;
+    background: radial-gradient(circle at 35% 28%, #1F1F1F 0%, #0a0a0a 55%, #000 100%);
+    border: 1.5px solid #1F1F1F;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s, color 0.2s;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.08), inset 0 -1px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+  .cs-audio-btn:hover {
+    color: #aaa;
+    border-color: rgba(0, 255, 65, 0.4);
+    transform: translateY(-1px);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 3px 6px rgba(0, 0, 0, 0.7);
+  }
+  .cs-audio-btn:focus-visible {
+    outline: 2px solid var(--color-green);
+    outline-offset: 3px;
+  }
+  .cs-audio-btn[aria-pressed="true"] {
+    color: var(--color-green);
+    background: radial-gradient(circle at 35% 28%, rgba(0, 255, 65, 0.18) 0%, #0a0a0a 60%, #000 100%);
+    border-color: rgba(0, 255, 65, 0.55);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.08), inset 0 -1px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.6), 0 0 14px rgba(0, 255, 65, 0.25);
+  }
+  .cs-audio-btn[aria-pressed="true"]:hover {
+    color: #1AFF72;
+    border-color: var(--color-green);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 3px 6px rgba(0, 0, 0, 0.7), 0 0 22px rgba(0, 255, 65, 0.5);
+  }
+  .cs-audio-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+  .cs-audio-btn[aria-pressed="false"] .cs-audio-on,
+  .cs-audio-btn[aria-pressed="true"] .cs-audio-off {
+    display: none;
+  }
+  /* Vintage power knob — recessed bezel ring, glowing tick + center dot. */
+  .cs-power-btn {
+    color: var(--color-green);
+    cursor: pointer;
+    text-shadow: 0 0 4px rgba(0, 255, 65, 0.55);
+    background: radial-gradient(circle at 30% 30%, rgba(0, 255, 65, 0.18), transparent 60%), #0a0a0a;
+    border: 1px solid rgba(0, 255, 65, 0.45);
+    border-radius: 50%;
     display: inline-flex;
-    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.95rem;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s, background 0.25s;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.06), inset 0 -1px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.35);
   }
-  .cs-typelink:hover {
-    color: #3FFF46;
-    border-bottom-color: #3FFF46;
+  .cs-power-btn:hover {
+    background: radial-gradient(circle at 30% 30%, rgba(0, 255, 65, 0.28), transparent 60%), #0c0c0c;
+    border-color: rgba(0, 255, 65, 0.7);
+    transform: translateY(-1px);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.08), inset 0 -1px rgba(0, 0, 0, 0.7), 0 2px 4px rgba(0, 0, 0, 0.5), 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 16px rgba(0, 255, 65, 0.25);
   }
-  .cs-typelink span[aria-hidden] {
-    display: inline-block;
-    margin-left: 4px;
-    transition: transform 0.15s;
+  .cs-power-btn:active {
+    transform: translateY(0);
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.4);
   }
-  .cs-typelink:hover span[aria-hidden] {
-    transform: translateX(2px);
+  .cs-power-btn:focus-visible {
+    outline: 2px solid var(--color-green);
+    outline-offset: 2px;
+  }
+  .cs-power-btn.cs-power-btn-vintage {
+    color: transparent;
+    background: radial-gradient(circle at 35% 28%, #2c2c2c 0%, #0e0e0e 55%, #000 100%);
+    border: 3px solid #1a1a1a;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s;
+    position: relative;
+    box-shadow:
+      0 0 0 4px #050505,
+      0 0 0 6px #2f2f2f,
+      inset 0 4px 8px rgba(255, 255, 255, 0.14),
+      inset 0 -5px 10px rgba(0, 0, 0, 0.9),
+      0 6px 14px rgba(0, 0, 0, 0.75),
+      0 16px 32px rgba(0, 0, 0, 0.55);
+  }
+  .cs-power-btn.cs-power-btn-vintage .cs-power-btn-vintage-icon {
+    background: var(--color-green);
+    border-radius: 2px;
+    width: 4px;
+    height: 14px;
+    transition: opacity 0.3s;
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    transform: translate(-50%);
+    box-shadow: 0 0 6px var(--color-green), 0 0 14px rgba(0, 255, 65, 0.6);
+  }
+  .cs-power-btn.cs-power-btn-vintage::after {
+    content: "";
+    background: radial-gradient(circle at 35% 35%, #1AFF72 0%, var(--color-green) 60%, #00A72A 100%);
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px var(--color-green), 0 0 20px rgba(0, 255, 65, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+  }
+  .cs-power-btn.cs-power-btn-vintage:hover {
+    border-color: rgba(0, 255, 65, 0.5);
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 4px #050505,
+      0 0 0 6px #3a3a3a,
+      inset 0 4px 8px rgba(255, 255, 255, 0.16),
+      inset 0 -5px 10px rgba(0, 0, 0, 0.9),
+      0 8px 18px rgba(0, 0, 0, 0.75),
+      0 20px 38px rgba(0, 0, 0, 0.55),
+      0 0 36px rgba(0, 255, 65, 0.4);
+  }
+  .cs-power-btn.cs-power-btn-vintage:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 0 0 4px #050505,
+      0 0 0 6px #1a1a1a,
+      inset 0 3px 6px rgba(0, 0, 0, 0.85),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+  .cs-power-btn.cs-power-btn-vintage:focus-visible {
+    outline: 2px solid var(--color-green);
+    outline-offset: 6px;
+  }
+  .cs-knob-name {
+    line-height: 1;
+    font-family: "Newell", var(--font-mono);
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.35);
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6px;
+    font-size: 0.85rem;
+    transition: color 0.18s;
+  }
+  .cs-knob-name span { display: block; }
+  .cs-knob-name span + span { margin-top: 1px; }
+  .cs-bottom-bar:hover .cs-knob-name { color: rgba(0, 255, 65, 0.65); }
+
+  /* POWERED-OFF STATE — body starts here (born dead). kb-shortcuts.js flips
+     cs-powering-on / cs-ready on the first interaction. */
+  body.cs-powered-off .cs-audio-btn {
+    color: rgba(255, 64, 64, 0.55);
+    border-color: rgba(255, 64, 64, 0.28);
+  }
+  body.cs-powered-off .cs-knob-name {
+    background: linear-gradient(100deg,
+      rgba(255, 255, 255, 0.18) 0%, rgba(0, 255, 65, 0.55) 35%,
+      rgba(255, 255, 255, 0.95) 50%, rgba(0, 255, 65, 0.55) 65%,
+      rgba(255, 255, 255, 0.18) 100%) 200% 0 / 250% 100%;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 0 6px rgba(0, 255, 65, 0.45));
+    background-clip: text;
+    animation: 3.5s linear infinite cs-name-shimmer;
+  }
+  @keyframes cs-name-shimmer {
+    0% { background-position: 200% 0; }
+    to { background-position: -50% 0; }
+  }
+  body.cs-powered-off .cs-power-btn-vintage .cs-power-btn-vintage-icon {
+    background: #ff4040;
+    animation: 1.8s ease-in-out infinite cs-vintage-pulse;
+  }
+  @keyframes cs-vintage-pulse {
+    0%, to { box-shadow: 0 0 6px #ff4040, 0 0 14px rgba(255, 64, 64, 0.6); }
+    50% { box-shadow: 0 0 10px #ff4040, 0 0 22px rgba(255, 64, 64, 0.95); }
+  }
+  body.cs-powered-off .cs-power-btn-vintage::after {
+    background: radial-gradient(circle at 35% 35%, #ff7070 0%, #ff4040 60%, #a62929 100%);
+    box-shadow: 0 0 10px #ff4040, 0 0 20px rgba(255, 64, 64, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+  }
+  body.cs-powered-off .cs-power-btn-vintage-label {
+    color: #ff4040;
+    opacity: 0.7;
+  }
+  body.cs-powered-off .cs-power-btn:not(.cs-power-btn-vintage) {
+    color: #ff4040;
+    text-shadow: 0 0 4px rgba(255, 64, 64, 0.55);
+    background: radial-gradient(circle at 30% 30%, rgba(255, 64, 64, 0.22), transparent 60%), #0a0a0a;
+    border-color: rgba(255, 64, 64, 0.7);
+    animation: 1.8s ease-in-out infinite cs-power-pulse;
+  }
+  @keyframes cs-power-pulse {
+    0%, to { box-shadow: 0 0 16px rgba(255, 64, 64, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.4); }
+    50% { box-shadow: 0 0 28px rgba(255, 64, 64, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.4); }
+  }
+  body.cs-powered-off .cs-sd-cap,
+  body.cs-powered-off .cs-sd-label,
+  body.cs-powered-off .cs-fx-key svg,
+  body.cs-powered-off .cs-fx-key-img {
+    animation: 0.5s ease-out forwards cs-text-fuzz-out;
+  }
+  @keyframes cs-text-fuzz-out {
+    0% { filter: blur(0); opacity: 1; }
+    60% { filter: blur(6px); opacity: 0.4; }
+    to { filter: blur(12px); opacity: 0; }
+  }
+  body.cs-powered-off .kb text,
+  body.cs-powered-off .kb image {
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  body.cs-powered-off .cs-keyboard,
+  body.cs-powered-off .cs-streamdeck {
+    opacity: 0.18;
+    filter: grayscale(1) brightness(0.35);
+    pointer-events: none;
+    transition: opacity 0.5s 0.4s, filter 0.5s 0.4s;
+  }
+  body.cs-powered-off .cs-key {
+    opacity: 0;
+    filter: grayscale(1) brightness(0.4);
+    pointer-events: none;
+    transition: opacity 0.5s 0.4s, filter 0.5s 0.4s;
+  }
+  /* While off, only the power/audio controls stay alive. */
+  body.cs-powered-off a,
+  body.cs-powered-off button:not(.cs-power-btn):not(.cs-fx-music):not(.cs-audio-btn) {
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cs-pulse { opacity: 0.7; animation: none !important; }
+    body.cs-powered-off .cs-power-btn,
+    body.cs-powered-off .cs-power-btn-vintage-icon {
+      animation: none !important;
+    }
+  }
+
+  /* Mobile — stack keyboard over streamdeck, shrink the power knob. */
+  @media (max-width: 768px) {
+    .cs-keyboard-stage {
+      display: flex;
+      flex-direction: column;
+      order: 2;
+      align-items: center;
+      gap: 40px;
+      width: 100%;
+      max-width: 360px;
+      margin: 24px 10px 0;
+      padding: 0 10px;
+      overflow: visible;
+      transform: none;
+    }
+    .cs-keyboard {
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.65));
+      width: 100%;
+      display: flex;
+      margin: 0 !important;
+      transform: none !important;
+    }
+    .cs-keyboard:hover { transform: none !important; }
+    .cs-keyboard svg.kb {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
+    .cs-streamdeck {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      display: block;
+      position: static;
+    }
+    .cs-sd-bezel .cs-sd-grid { flex: auto; }
+    .cs-sd-grid .cs-sd-key { aspect-ratio: 2; }
+    .cs-sd-cap { font-size: 1.1rem; }
+    .cs-sd-label { font-size: 0.6rem; }
+    .cs-fx-rack {
+      border-left: 1px solid rgba(0, 255, 65, 0.18);
+      width: 28px;
+      padding-left: 5px;
+    }
+    .cs-fx-key svg,
+    .cs-fx-key-img { width: 12px; height: 12px; }
+    .terminal .terminal-body {
+      height: 400px !important;
+      padding: 10px 14px 14px !important;
+      font-size: 0.82rem !important;
+      line-height: 1.55 !important;
+    }
+    .terminal .terminal-bar { padding: 6px 10px !important; }
+    .terminal .terminal-foot {
+      padding: 6px 12px 8px !important;
+      font-size: 0.6rem !important;
+    }
+    .cs-bottom-bar { gap: 16px; padding: 24px 16px 32px; }
+    .cs-controls-row { gap: 18px; }
+    .cs-power-btn.cs-power-btn-vintage {
+      border-width: 2px;
+      width: 60px;
+      height: 60px;
+      box-shadow:
+        0 0 0 3px #050505,
+        0 0 0 4px #2f2f2f,
+        inset 0 3px 6px rgba(255, 255, 255, 0.14),
+        inset 0 -4px 8px rgba(0, 0, 0, 0.9),
+        0 4px 10px rgba(0, 0, 0, 0.75),
+        0 10px 22px rgba(0, 0, 0, 0.55);
+    }
+    .cs-power-btn.cs-power-btn-vintage .cs-power-btn-vintage-icon {
+      width: 3px;
+      height: 10px;
+      top: 7px;
+    }
+    .cs-power-btn.cs-power-btn-vintage::after {
+      width: 8px;
+      height: 8px;
+    }
+    .cs [data-terminal] { margin-top: 40px; }
+  }
+</style>
+
+<style is:global>
+  /* Scanline sweep — kb-shortcuts.js golden key (right shift). Injected
+     element, so global scope. */
+  .kb-scanline {
+    pointer-events: none;
+    z-index: 99999;
+    background: linear-gradient(transparent, var(--color-green) 50%, transparent);
+    height: 4px;
+    animation: 0.75s linear forwards kb-scanline-sweep;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 24px var(--color-green), 0 0 60px rgba(0, 255, 65, 0.6);
+  }
+  @keyframes kb-scanline-sweep {
+    0% { transform: translateY(-4px); }
+    to { transform: translateY(100vh); }
+  }
+  /* Matrix rain — caps-lock golden key. */
+  .kb-matrix {
+    z-index: 99998;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.78);
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+  .kb-matrix-col {
+    color: var(--color-green);
+    text-shadow: 0 0 6px var(--color-green), 0 0 12px rgba(0, 255, 65, 0.6);
+    white-space: pre;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+    line-height: 1.1;
+    animation: 2s linear forwards kb-matrix-fall;
+    position: absolute;
+    top: -200px;
+  }
+  @keyframes kb-matrix-fall {
+    0% { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(120vh); }
+  }
+  /* Konami hint — appears after a few golden-key finds. */
+  .kb-konami-hint {
+    letter-spacing: 0.18em;
+    color: #606060;
+    z-index: 99997;
+    pointer-events: none;
+    text-shadow: 0 0 6px rgba(0, 255, 65, 0.6);
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 255, 65, 0.4);
+    padding: 6px 12px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  .kb-konami-hint .kb-konami-done {
+    color: var(--color-green);
+    text-shadow: 0 0 8px rgba(0, 255, 65, 0.8);
   }
 </style>

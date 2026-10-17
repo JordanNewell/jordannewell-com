@@ -4,18 +4,14 @@
 
 (function () {
   const USER = "JordanNewell";
-  // Production: same-origin Worker proxy at /api/activity.json (avoids CSP + rate limit).
-  // Dev fallback: hit GitHub directly so the terminal works on localhost — and
-  // on any host where the proxy route isn't deployed (see proxyDead below).
-  const PROD_URL = "/api/activity.json";
-  const DEV_URL = `https://api.github.com/users/${USER}/events/public`;
-  const EVENTS_URL = location.hostname === "localhost" || location.hostname === "127.0.0.1"
-    ? DEV_URL
-    : PROD_URL;
+  // Hit GitHub directly — the old Worker proxy at /api/activity.json died
+  // when DNS swapped to GitHub Pages. Unauthenticated rate limit is 60/hr
+  // per visitor IP, which is plenty for a splash.
+  const EVENTS_URL = `https://api.github.com/users/${USER}/events/public`;
   // 5min poll keeps per-visitor burn ≤12/hr — well under GitHub's 60/hr
   // unauthenticated core limit. Tab must stay open 5+ hours to hit the wall.
   const POLL_MS = 300_000;
-  const MAX_COMMITS = 10;
+  const MAX_COMMITS = 20;
   const MAX_RELEASES = 2;
 
   const terminal = document.querySelector("[data-terminal]");
@@ -26,54 +22,31 @@
 
   let firstRender = true;
 
-  // Set when the same-origin /api/activity proxy is missing (404/5xx — e.g.
-  // the Cloudflare Worker route isn't live on this host). Once set, all
-  // refreshes go straight to api.github.com, which is CORS-open (*).
-  let proxyDead = false;
-
   async function fetchEvents() {
-    const isProxy = !proxyDead && (EVENTS_URL.startsWith("/") || EVENTS_URL.includes("/api/activity"));
-    if (isProxy) {
-      // 5-minute-bucket cache-bust: URL stays stable within a 5-min window so
-      // the edge cache actually hits. New bucket every 5 min forces a fresh
-      // Worker call (and fresh GitHub fetch). Aligned with the Worker's 300s TTL.
-      const url = `${EVENTS_URL}?t=${Math.floor(Date.now() / 300_000)}`;
-      try {
-        const res = await fetch(url);
-        if (res.status === 403 || res.status === 429) throw new Error("rate-limited");
-        if (res.ok) {
-          const data = await res.json();
-          if (data.error) throw new Error(data.error);
-          // Worker proxy returns { commits, releases } directly.
-          return {
-            parsed: true,
-            commits: (data.commits || []).map((c) => ({ ...c, time: new Date(c.time) })),
-            releases: (data.releases || []).map((r) => ({ ...r, time: new Date(r.time) })),
-          };
-        }
-        if (res.status === 404 || res.status === 405 || res.status >= 500) {
-          // Proxy endpoint absent/broken on this host — fall back to direct
-          // GitHub instead of showing an error terminal.
-          proxyDead = true;
-        } else {
-          throw new Error(`upstream ${res.status}`);
-        }
-      } catch (err) {
-        if (err && (err.message === "rate-limited" || String(err.message).startsWith("upstream"))) throw err;
-        // Network-level failure reaching the proxy — also fall back.
-        proxyDead = true;
-      }
-    }
-    // Direct GitHub (localhost dev path, or proxy-degraded fallback).
-    // Dev direct-GitHub returns an array of event objects that need parsing.
-    const res = await fetch(DEV_URL, {
+    const isProxy = EVENTS_URL.startsWith("/") || EVENTS_URL.includes("/api/activity");
+    // Cache-bust every poll: GitHub's response carries Cache-Control: max-age=300,
+    // so without a query param the browser serves stale data for up to 5 min.
+    // Polling at 60s with a unique query forces revalidation each tick.
+    const url = `${EVENTS_URL}?t=${Math.floor(Date.now() / 60_000)}`;
+    const res = await fetch(url, isProxy ? {} : {
       headers: { Accept: "application/vnd.github+json" },
     });
     if (res.status === 403 || res.status === 429) {
       throw new Error("rate-limited");
     }
     if (!res.ok) throw new Error(`upstream ${res.status}`);
-    return { parsed: false, raw: await res.json() };
+    const data = await res.json();
+    // Worker proxy returns { commits, releases } directly. Dev direct-GitHub
+    // returns an array of event objects that need parsing.
+    if (isProxy) {
+      if (data.error) throw new Error(data.error);
+      return {
+        parsed: true,
+        commits: (data.commits || []).map((c) => ({ ...c, time: new Date(c.time) })),
+        releases: (data.releases || []).map((r) => ({ ...r, time: new Date(r.time) })),
+      };
+    }
+    return { parsed: false, raw: data };
   }
 
   function parseEvents(events) {
@@ -83,41 +56,42 @@
     const seenRelease = new Set();
 
     for (const ev of events) {
-    if (ev.type === "PushEvent" && commits.length < MAX_COMMITS) {
-      const repo = ev.repo?.name?.replace(/^JordanNewell\//, "") || "?";
-      const listed = ev.payload?.commits || [];
-      if (listed.length) {
-        for (const c of listed) {
-          if (commits.length >= MAX_COMMITS) break;
-          const key = `${repo}:${c.sha}`;
+      if (ev.type === "PushEvent" && commits.length < MAX_COMMITS) {
+        const repo = ev.repo?.name?.replace(/^JordanNewell\//, "") ?? "?";
+        // GitHub's public events API truncates payload.commits — only the head
+        // SHA + ref come through. Fall back to per-commit fetch when commits
+        // are missing, else render one row per push using the head SHA.
+        const commitsArray = ev.payload?.commits || [];
+        if (commitsArray.length > 0) {
+          for (const c of commitsArray) {
+            if (commits.length >= MAX_COMMITS) break;
+            const key = `${repo}:${c.sha}`;
+            if (seenCommit.has(key)) continue;
+            seenCommit.add(key);
+            commits.push({
+              sha: c.sha.slice(0, 7),
+              repo,
+              message: firstLine(c.message),
+              url: `https://github.com/JordanNewell/${repo}/commit/${c.sha}`,
+              time: new Date(ev.created_at),
+            });
+          }
+        } else {
+          // Truncated payload — render the push itself as one row.
+          const sha = ev.payload?.head?.slice(0, 7) ?? "?";
+          const ref = (ev.payload?.ref || "").replace(/^refs\/heads\//, "");
+          const key = `${repo}:${sha}`;
           if (seenCommit.has(key)) continue;
           seenCommit.add(key);
           commits.push({
-            sha: c.sha.slice(0, 7),
+            sha,
             repo,
-            message: firstLine(c.message),
-            url: `https://github.com/JordanNewell/${repo}/commit/${c.sha}`,
+            message: ref ? `push → ${ref}` : "push",
+            url: `https://github.com/JordanNewell/${repo}/commit/${ev.payload?.head || ""}`,
             time: new Date(ev.created_at),
           });
         }
-      } else {
-        // GitHub's public events endpoint strips payload.commits — fall back
-        // to the push head SHA + branch ref, same as the Worker proxy does.
-        const head = ev.payload?.head;
-        if (!head) continue;
-        const key = `${repo}:${head}`;
-        if (seenCommit.has(key)) continue;
-        seenCommit.add(key);
-        const ref = String(ev.payload?.ref || "").replace(/^refs\/(heads|tags)\//, "");
-        commits.push({
-          sha: head.slice(0, 7),
-          repo,
-          message: ref ? `→ ${ref}` : "",
-          url: `https://github.com/JordanNewell/${repo}/commit/${head}`,
-          time: new Date(ev.created_at),
-        });
-      }
-    } else if (ev.type === "ReleaseEvent" && releases.length < MAX_RELEASES) {
+      } else if (ev.type === "ReleaseEvent" && releases.length < MAX_RELEASES) {
         const repo = ev.repo?.name?.replace(/^JordanNewell\//, "") ?? "?";
         const key = `${repo}:${ev.payload?.release?.tag_name}`;
         if (key && !seenRelease.has(key)) {
@@ -269,7 +243,7 @@
         render(parsed);
       }
       const total = parsed.commits.length + parsed.releases.length;
-      setStatus(`ok · ${total} items · next refresh in ${POLL_MS / 60_000}m`);
+      setStatus(`ok · ${total} items · next refresh in 60s`);
     } catch (err) {
       setStatus(`error: ${err.message}`);
     } finally {

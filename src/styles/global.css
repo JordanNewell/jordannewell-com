@@ -7,22 +7,16 @@
   /* Colors — The Ledger: near-white page, ink structure, hairline rows.
      One accent (blue ink). Status inks for state. Code = ink panel. */
   --color-bg: #FAFAF8;
-  --color-bg-card: #FFFFFF;
-  --color-bg-card-hover: #F4F2EC;
   --color-border: #E4E2DA;
-  --color-border-light: #CFCDC2;
   --color-rule-strong: #16161B;
   --color-fg: #16161B;
   --color-fg-secondary: #4A4852;
   --color-fg-muted: #6E6A73;
   --color-accent: #1F4FD8;
   --color-green: #0E8A4A;
-  --color-blue: #1F4FD8;
   --color-amber: #B45309;
-  --color-violet: #6D28D9;
   --color-cyan: #0E7490;
   --color-red: #D9453F;
-  --color-pink: #BE185D;
 
   /* Ink panel — code blocks are printed dark */
   --color-ink: #26242B;
@@ -299,22 +293,16 @@
    BaseLayout (stored preference, else prefers-color-scheme). */
 [data-theme="dark"] {
   --color-bg: #0A0A0A;
-  --color-bg-card: #0F0F0F;
-  --color-bg-card-hover: #16161A;
   --color-border: #1F1F1F;
-  --color-border-light: #2A2A2E;
   --color-rule-strong: #F2EFE6;
   --color-fg: #F2EFE6;
   --color-fg-secondary: #C9C5BD;
   --color-fg-muted: #A09C94;
   --color-accent: #82A7FF;
   --color-green: #2FD57A;
-  --color-blue: #82A7FF;
   --color-amber: #F5A623;
-  --color-violet: #A78BFA;
   --color-cyan: #3FD4E0;
   --color-red: #F26D5F;
-  --color-pink: #F06FA8;
   --color-ink: #121114;
   --color-ink-border: #2A2830;
   --color-ink-fg: #F2EFE6;

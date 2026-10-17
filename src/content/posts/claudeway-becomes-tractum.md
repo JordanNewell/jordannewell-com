@@ -22,7 +22,7 @@ Claudeway was always the wrong name. It said Claude; the layer underneath isn't 
 
 *Tractum* is Latin: "a drawing together" — the root of contract and treaty. That is the product. Agents drawn together into one signed agreement.
 
-The rename economics worked out because of a decision made in July: the `claudeway` name never shipped to PyPI (v0.2.0–v0.4.0 were GitHub-only), so the rename cost a grep, not a migration. `pip install tractum` just works, first try.
+The rename economics worked out because of a decision made in July: the last claudeway release to PyPI was v0.4.0, and it stays there frozen — a tombstone pointing at the new name rather than an abandoned package. Tractum took a fresh slot and shipped straight to v0.5.0, so the version number never went backwards even though the name did. `pip install tractum` just works, first try.
 
 One deliberate fossil: the wire-format type tags are unchanged. Receipts still carry `claudeway.consensus.v1`/`v2`, `claudeway.agent-statement.v1`, and the `claudeway.receipt.v1` envelope, and the verifier accepts them forever. Receipts published in July still verify under v0.5.0. Artifacts don't get rewritten because branding did.
 

@@ -8,7 +8,7 @@ shipDate: 2026-07-26
 repo: "https://github.com/JordanNewell/tractum"
 liveUrl: "https://tractum.dev"
 pkg: "https://pypi.org/project/tractum/"
-order: 11
+order: 17
 facts:
   - k: "current"
     v: "v0.5.0 2026-10-17"

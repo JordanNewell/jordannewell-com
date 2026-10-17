@@ -45,7 +45,7 @@ The message points at the obvious suspect: a missing or half-filled config. The 
 
 `[ -f .env ]` checks the working directory. Bash's `source` does not: for a filename with no slash, it searches `PATH` first and only falls back to the current directory on a miss. An agent tool's env directory earlier in `PATH` carried its own `.env`, so the test passed against the project file while the dot command read the shadow. The shadow had no `REMOTE_HOST`, and the fail-loud guard did exactly what it was built to do — on the wrong evidence.
 
-**Fix:** `ENV_FILE="${ENV_FILE:-.env}"` became `ENV_FILE="${ENV_FILE:-./.env}"`. One character, committed as `6fd6e1b` at 11:26:04 with the full mechanics in the message.
+**Fix:** `ENV_FILE="${ENV_FILE:-.env}"` became `ENV_FILE="${ENV_FILE:-./.env}"`. Two characters, committed as `6fd6e1b` at 11:26:04 with the full mechanics in the message.
 
 **The rule:** a slash-free filename means one file to your `-f` test and another to your `source`. Slash-prefix everything you dot into.
 

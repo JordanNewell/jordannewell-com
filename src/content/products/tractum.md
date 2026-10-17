@@ -42,7 +42,7 @@ faq:
     a: "They coordinate; Tractum agrees. Frameworks run the agents. Tractum produces what none of them do: per-agent signed, quorum-verifiable artifacts you can hand to an auditor, a regulator, or a future teammate — with adapters that drop into those frameworks."
   - q: "Why post-quantum signatures?"
     a: "An Ed25519 signature is 64 bytes; ML-DSA-65 (FIPS 204, NIST level 3) is ~3.3KB. Bytes are cheap; an attestation that stops being evidence the day a cryptographically relevant quantum computer lands is not. Sign big on day one — retrofit after the fact costs the whole archive."
-privacy: "Nothing about your prompts or answers leaves the process except the model calls you configure. Receipts sign canonical payloads — answer, confidence, model, role, task — and verification is local. The Nostr transport is opt-in: when you publish, you publish exactly the signed receipt you chose to emit."
+privacy: "Your prompts and answers go to exactly one place: the model provider you configure. Nothing else leaves the process. Receipts sign canonical payloads — answer, confidence, model, role, task — and verification is local. The Nostr transport is opt-in: when you publish, you publish exactly the signed receipt you chose to emit."
 ---
 
 Frameworks coordinate. Tractum agrees — on the record.

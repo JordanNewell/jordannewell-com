@@ -6,12 +6,7 @@ const year = new Date().getFullYear();
 ---
 
 <footer class={mt}>
-  <div class="footer-inner max-w-prose mx-auto px-5 pt-6 pb-12 text-center text-sm text-fg-muted font-mono">
-    <!-- N mark caps the footer like a pyramidion -->
-    <div class="balloon-n" aria-hidden="true">
-      <img src="/n-balloon.png" alt="" class="character-light" width="200" height="200" loading="lazy" />
-      <img src="/n-balloon-dark.png" alt="" class="character-dark" width="200" height="200" loading="lazy" />
-    </div>
+  <div class="footer-inner max-w-prose mx-auto px-5 pt-6 pb-4 text-center text-sm text-fg-muted font-mono">
     <p class="mb-4">
       {FOOTER_PAGE_LINKS.map((link, i) => (
         <>
@@ -33,13 +28,18 @@ const year = new Date().getFullYear();
     </p>
     <p class="mb-6">© {year} {SITE.author.name} <span class="text-green" aria-hidden="true">·</span> <a href="/license" class="hover:text-green">license</a></p>
   </div>
+  <!-- N mark sits under the footer, near the page bottom -->
+  <div class="balloon-n" aria-hidden="true">
+    <img src="/n-balloon.png" alt="" class="character-light" width="200" height="200" loading="lazy" />
+    <img src="/n-balloon-dark.png" alt="" class="character-dark" width="200" height="200" loading="lazy" />
+  </div>
 </footer>
 
 <style>
   .balloon-n {
     display: flex;
     justify-content: center;
-    padding-bottom: 1.5rem;
+    padding: 0.5rem 0 1rem;
   }
   .balloon-n img {
     height: 1.6rem;

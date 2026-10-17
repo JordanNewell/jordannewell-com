@@ -38,10 +38,15 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
+  footer {
+    position: relative;
+  }
+  /* pinned to the footer's bottom-left corner, out of the content flow */
   .balloon-n {
-    display: flex;
-    justify-content: center;
-    padding-top: 1.5rem;
+    position: absolute;
+    left: 1.25rem;
+    bottom: 1rem;
+    line-height: 0;
   }
   .balloon-n img {
     height: 1.6rem;

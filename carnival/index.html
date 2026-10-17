@@ -50,6 +50,7 @@
 ::selection{background:var(--blue);color:var(--paper)}
 body.movie ::selection,body.duskfall ::selection{background:var(--bright);color:var(--night)}
 html{scrollbar-color:var(--hair) var(--paper)}
+html,body{overflow-x:clip}
 ::-webkit-scrollbar{width:12px;height:12px}
 ::-webkit-scrollbar-track{background:var(--paper)}
 ::-webkit-scrollbar-thumb{background:var(--hair);border:3px solid var(--paper);border-radius:6px}
@@ -273,6 +274,20 @@ h1 em{font-style:italic;font-weight:500}
 @keyframes starsIn{0%,80%{opacity:0}88%,96%{opacity:1}100%{opacity:0}}
 @keyframes twinkle{0%,100%{opacity:1}50%{opacity:.25}}
 /* ── movie mode: the git-log film ── */
+.di-slate{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  transition:opacity .6s ease;pointer-events:none;
+}
+.di-slate .card{
+  display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;
+  background:var(--card);border:2px solid var(--ink);outline:1px solid var(--ink);outline-offset:3px;
+  padding:12px 22px 14px;box-shadow:3px 3px 0 rgba(22,22,27,.18);
+  transform:rotate(-.6deg);
+}
+.di-slate .slate-a{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.3em;color:var(--muted)}
+.di-slate .slate-b{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.6vw,30px);color:var(--ink);line-height:1.1}
+.di-slate .slate-c{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.22em;color:var(--ink)}
+body.movie .di-slate{opacity:0}
 .movie-reel{position:absolute;inset:0;background:var(--night);color:var(--nightpaper);overflow:hidden;opacity:0;visibility:hidden;transition:opacity 1.6s ease,visibility 0s linear 1.6s}
 body.movie .movie-reel{opacity:1;visibility:visible;transition:opacity 1.6s ease}
 .reel-inner{position:absolute;left:7%;right:7%;top:9%;animation:reelUp 38s linear infinite}
@@ -488,6 +503,8 @@ body.movie .admit-stub{color:#8A8578;border-color:#5A564C;background:transparent
   transition:background-color .18s ease;
 }
 .tk-rides li:hover{background:var(--card2)}
+.tk-rides li{cursor:pointer}
+.tk-rides li:focus-visible{outline:2px solid var(--ink);outline-offset:-1px}
 .tk-rides li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c,var(--bright));border:1.5px solid var(--ink);flex:none}
 .tk-fine{margin:0;padding:10px 16px 14px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--muted)}
 .tk-close{
@@ -549,8 +566,8 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   .attraction .pad{display:flex;flex-direction:row-reverse;align-items:center;justify-content:space-between;gap:14px}
   .attraction .pad svg{width:42%;max-width:220px;flex:none}
   .a-strong .pad svg{width:auto;max-height:260px;margin-left:auto}
-  .attraction .tag{align-self:flex-start}
-  .attraction:active{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--ink)}
+  .attraction .tag{align-self:flex-start;white-space:normal;letter-spacing:.08em}
+  .attraction:active{transform:translateY(1px);box-shadow:2px 2px 0 var(--ink)}
   .tcard{
     position:static;transform:none;width:100%;margin-top:12px;padding:12px 0 0;
     border:0;border-top:1px dashed var(--hair);box-shadow:none;
@@ -624,7 +641,7 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   </div>
 
   <h1>The <em>Midway</em></h1>
-  <p class="sub">Jordan Newell&rsquo;s dev playground — six attractions, one midway, drawn in ink on ledger paper. <b>The drive-in keeps the time</b>; shows run dawn till dusk. Step up to any ride for its particulars.</p>
+  <p class="sub">Six attractions, one midway, drawn in ink on ledger paper. <b>The drive-in keeps the time</b> — shows run dawn till dusk. Tap a ride for its particulars.</p>
 </header>
 
 <main class="viewport">
@@ -655,6 +672,13 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
           <div class="sky sky-day"></div>
           <div class="sky sky-dusk"></div>
           <div class="sky sky-night"></div>
+          <div class="di-slate" aria-hidden="true">
+            <div class="card">
+              <span class="slate-a">A MIDWAY PICTURE</span>
+              <span class="slate-b">&ldquo;The Git Log&rdquo;</span>
+              <span class="slate-c">SHOWS AT SUNDOWN · ADMISSION FREE</span>
+            </div>
+          </div>
           <div class="movie-reel" aria-hidden="true">
             <div class="reel-inner">
               <p class="reel-title">Jordan Newell presents</p>
@@ -974,12 +998,12 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     </div>
     <div class="tk-tear" aria-hidden="true"></div>
     <ul class="tk-rides">
-      <li style="--c:#FFB000">Tractum · The Coaster</li>
-      <li style="--c:#0E7490">Curtis · Ferris Wheel</li>
-      <li style="--c:#BE185D">Newell Typeface · Carousel</li>
-      <li style="--c:#0E8A4A">TokenHunt · Hi-Striker</li>
-      <li style="--c:#A16207">WrangleBot · Game Stall</li>
-      <li style="--c:#6D28D9">Interleaf · Fortune Tent</li>
+      <li style="--c:#FFB000" data-ride="a-coaster" role="button" tabindex="0">Tractum · The Coaster</li>
+      <li style="--c:#0E7490" data-ride="a-ferris" role="button" tabindex="0">Curtis · Ferris Wheel</li>
+      <li style="--c:#BE185D" data-ride="a-carousel" role="button" tabindex="0">Newell Typeface · Carousel</li>
+      <li style="--c:#0E8A4A" data-ride="a-strong" role="button" tabindex="0">TokenHunt · Hi-Striker</li>
+      <li style="--c:#A16207" data-ride="a-stall" role="button" tabindex="0">WrangleBot · Game Stall</li>
+      <li style="--c:#6D28D9" data-ride="a-tent" role="button" tabindex="0">Interleaf · Fortune Tent</li>
     </ul>
     <p class="tk-fine">SELECT AN ATTRACTION · SIX RIDES · SIX REPOS · NO REFUNDS</p>
   </div>
@@ -1497,6 +1521,23 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
       admitSet(!admitCard.classList.contains("open"));
     });
     admitCard.addEventListener("click", function(e){ e.stopPropagation(); });
+    /* a ticket row is a promise: pick a ride, the midway walks you there */
+    Array.prototype.forEach.call(document.querySelectorAll(".tk-rides li"), function(li){
+      function go(){
+        var sec = document.querySelector(".attraction." + li.getAttribute("data-ride"));
+        if (!sec) return;
+        admitSet(false);
+        Array.prototype.forEach.call(document.querySelectorAll(".attraction.open"), function(o){
+          if (o !== sec) o.classList.remove("open");
+        });
+        sec.classList.add("open");
+        sec.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      li.addEventListener("click", go);
+      li.addEventListener("keydown", function(e){
+        if (e.key === "Enter" || e.key === " "){ e.preventDefault(); go(); }
+      });
+    });
     document.addEventListener("click", function(){ admitSet(false); });
     admitCard.querySelector(".tk-close").addEventListener("click", function(){
       admitSet(false); admitBtn.focus();

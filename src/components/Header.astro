@@ -14,7 +14,7 @@ const { path } = Astro.props;
     <nav class="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[0.72rem]">
       {NAV_LINKS.map((link, i) => (
         <>
-          {i > 0 && <span class="text-green" aria-hidden="true">·</span>}
+          {i > 0 && <span class="text-green" aria-hidden="true">|</span>}
           <a
             href={link.href}
             class={`font-mono transition-colors whitespace-nowrap ${

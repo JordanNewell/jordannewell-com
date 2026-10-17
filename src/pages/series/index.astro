@@ -31,7 +31,7 @@ const visibleSeries = series
     ) : (
       <div class="space-y-4">
         {visibleSeries.map((s) => (
-          <a href={`/series/${s.slug}/`} class="block border-b border-border py-4 group">
+          <a href={`/series/${s.slug}/`} class="block py-4 group">
             <div class="flex items-baseline justify-between mb-1">
               <h2 class="font-display font-semibold text-[0.95rem] tracking-tight group-hover:text-accent group-hover:underline group-hover:underline-offset-4 transition-colors">{s.name}</h2>
               <span class="text-xs font-mono text-fg-muted">{postCountBySeries.get(s.slug)} posts</span>

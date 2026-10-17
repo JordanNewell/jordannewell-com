@@ -37,7 +37,7 @@ const posts = allPosts
     <div>
       {
         posts.map((p) => (
-          <article class="border-b border-border py-4">
+          <article class="py-4">
             <div class="flex items-center gap-3 text-xs font-mono text-fg-muted mb-2">
               <time datetime={p.data.pubDate.toISOString()}>
                 {p.data.pubDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })}

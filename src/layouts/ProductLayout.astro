@@ -231,7 +231,6 @@ const schema = [
     gap: 0.4rem 1.5rem;
     margin-top: 0.9rem;
     padding-top: 0.7rem;
-    border-top: 1px solid var(--color-border);
     font-family: var(--font-mono);
     font-size: 0.68rem;
     color: var(--color-fg-muted);
@@ -280,7 +279,6 @@ const schema = [
   .comparison-table td {
     padding: 0.625rem 0.875rem;
     text-align: left;
-    border-bottom: 1px solid var(--color-border);
   }
   .comparison-table th {
     font-family: var(--font-mono);
@@ -301,10 +299,9 @@ const schema = [
     .comparison-table { display: block; font-size: 0.8rem; }
     .comparison-table thead { display: none; }
     .comparison-table tbody, .comparison-table tr, .comparison-table td { display: block; width: 100%; }
-    .comparison-table tr { padding-block: 0.9rem; border-bottom: 1px solid var(--color-border); }
-    .comparison-table tr:last-child { border-bottom: none; }
+    .comparison-table tr { padding-block: 0.9rem; }
     .comparison-table th,
-    .comparison-table td { padding: 0.15rem 0.875rem; border-bottom: none; }
+    .comparison-table td { padding: 0.15rem 0.875rem; }
     .comparison-table td.row-label { padding-bottom: 0.3rem; }
     .comparison-table td[data-label]::before {
       content: attr(data-label);

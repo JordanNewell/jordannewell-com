@@ -9,11 +9,12 @@ Google Fonts links for JetBrains Mono + Newsreader).
 > A hand-inked ledger-paper carnival diorama, and the thing you remember is the
 > drive-in screen running dawn→night while the flat midway tilts under your cursor.
 
-The conceit: the page is a *map* of a midway drawn in a ledger book. The paper
-background is ruled (hairline rows + the classic blue margin line at 48px), the
-sky only exists *on the drive-in screen* — outside the screen the world is paper
-and ink. That single constraint keeps an illustration from turning into a glossy
-game UI.
+The conceit: the page is a *map* of a midway under an open sky. The same 26s
+dawn-to-night sky runs page-wide behind the whole town (a fixed `.town` layer
+synced to the screen's loop by a shared negative animation-delay) — sun arcs
+across the viewport, stars and moon rise town-wide. When the movie plays, the
+sun goes down on the whole town, not just the screen. A moonlight paper wash
+keeps the ink type readable during the night phase of the ambient loop.
 
 ## Attraction mapping (project → ride)
 
@@ -32,7 +33,7 @@ exactly once: the blinking **OPEN** chip on the drive-in marquee.
 
 ## Motion inventory
 
-- Drive-in screen: 26s master loop — dawn → day → dusk → night → dawn. Four
+- Town + drive-in screen: the same 26s master loop — dawn → day → dusk → night → dawn. Four
   crossfading gradient layers + sun arc + moon + twinkling stars; at night a
   flickering "film" (tiny white cars on a road) plays on the screen.
 - Ferris wheel: spokes rotate 16s; cabins counter-rotate so they stay upright

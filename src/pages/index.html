@@ -309,6 +309,13 @@ body.duskfall .sun{animation:none}
 body.duskfall .tcard,body.movie .tcard{opacity:0 !important;visibility:hidden !important;pointer-events:none !important}
 /* the screen loop starts mid-morning on load, so the sun is already well up */
 .di-screen .sky,.di-screen .sun,.di-screen .moon,.di-screen .stars,.di-screen .feature{animation-delay:calc(var(--t-sky) * -.2)}
+/* ============ TOWN SKY — the same 26s sky runs page-wide behind the whole midway ============ */
+.town{position:fixed;inset:0;z-index:-1;overflow:hidden;background:var(--night);pointer-events:none}
+.town .sky,.town .sun,.town .moon,.town .stars{animation-delay:calc(var(--t-sky) * -.2)}
+/* moonlight paper wash at night so the ink type stays readable under the stars */
+.town-wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(242,238,226,.82),rgba(242,238,226,.9));opacity:0;animation:townWash var(--t-sky) linear infinite;animation-delay:calc(var(--t-sky) * -.2)}
+@keyframes townWash{0%,72%{opacity:0}80%,94%{opacity:1}100%{opacity:0}}
+body.duskfall .town-wash,body.movie .town-wash{opacity:0 !important;transition:opacity 2.5s ease}
 
 /* ── the strollers: ink figures on the midways, blankets for the front row ── */
 .parade{position:absolute;left:0;right:0;bottom:.4%;height:0;z-index:22}
@@ -523,6 +530,17 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
 </style>
 </head>
 <body>
+
+<div class="town" aria-hidden="true">
+  <div class="sky sky-dawn"></div>
+  <div class="sky sky-day"></div>
+  <div class="sky sky-dusk"></div>
+  <div class="sky sky-night"></div>
+  <div class="stars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="sun"></div>
+  <div class="moon"></div>
+  <div class="town-wash"></div>
+</div>
 
 <div class="frame" aria-hidden="true"></div>
 
@@ -993,6 +1011,16 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   var moonEl = screenBox && screenBox.querySelector(".moon");
   var featEl = screenBox && screenBox.querySelector(".feature");
   var sunEl = screenBox && screenBox.querySelector(".sun");
+  var townBox = document.querySelector(".town");
+  var townEls = {
+    dawn: townBox && townBox.querySelector(".sky-dawn"),
+    day: townBox && townBox.querySelector(".sky-day"),
+    dusk: townBox && townBox.querySelector(".sky-dusk"),
+    night: townBox && townBox.querySelector(".sky-night")
+  };
+  var townStars = townBox && townBox.querySelector(".stars");
+  var townMoon = townBox && townBox.querySelector(".moon");
+  var townSun = townBox && townBox.querySelector(".sun");
   var wide = window.matchMedia("(min-width: 861px)");
   var SUN_SET = "translate(310px,88px)", SUN_SINK = "translate(-430px,46px)", SUN_DAWN = "translate(-430px,14px)";
   var seq = { on:false, t:0, step:0, rev:false, rt:0, rstep:0, last:0 };
@@ -1078,41 +1106,51 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   /* — screen helpers: pin the animated sky, then drive it by hand — */
   function setSky(t, dur){
     for (var k in t){
-      var el = skyEls[k];
-      if (!el) continue;
-      el.style.transition = "opacity " + dur + "s ease";
-      el.style.opacity = t[k];
+      var els = [skyEls[k], townEls[k]];
+      for (var i = 0; i < els.length; i++){
+        if (!els[i]) continue;
+        els[i].style.transition = "opacity " + dur + "s ease";
+        els[i].style.opacity = t[k];
+      }
     }
   }
   function fadeEl(el, o, dur){
-    if (!el) return;
-    el.style.transition = "opacity " + dur + "s ease";
-    el.style.opacity = o;
+    var els = [].concat(el || []);
+    for (var i = 0; i < els.length; i++){
+      if (!els[i]) continue;
+      els[i].style.transition = "opacity " + dur + "s ease";
+      els[i].style.opacity = o;
+    }
   }
   function riseEl(el, o, dur){
-    if (!el) return;
-    el.style.transition = "opacity " + dur + "s ease,transform " + dur + "s ease";
-    el.style.opacity = o;
-    el.style.transform = o ? "translateY(0)" : "translateY(16px)";
+    var els = [].concat(el || []);
+    for (var i = 0; i < els.length; i++){
+      if (!els[i]) continue;
+      els[i].style.transition = "opacity " + dur + "s ease,transform " + dur + "s ease";
+      els[i].style.opacity = o;
+      els[i].style.transform = o ? "translateY(0)" : "translateY(16px)";
+    }
   }
   function freezeScreen(){
-    [skyEls.dawn, skyEls.day, skyEls.dusk, skyEls.night, starsEl, moonEl, featEl].forEach(function(el){
+    [skyEls.dawn, townEls.dawn, skyEls.day, townEls.day, skyEls.dusk, townEls.dusk, skyEls.night, townEls.night,
+     starsEl, townStars, moonEl, townMoon, featEl].forEach(function(el){
       if (!el) return;
       el.style.opacity = getComputedStyle(el).opacity;
       el.style.animation = "none";
     });
-    if (moonEl) moonEl.style.transform = getComputedStyle(moonEl).transform;
-    if (sunEl){
-      sunEl.style.transform = getComputedStyle(sunEl).transform;
-      sunEl.style.animation = "none";
-      void sunEl.offsetWidth;
-      sunEl.style.transition = "transform 6.5s cubic-bezier(.45,0,.6,1),opacity 4.5s ease 2.2s";
-      sunEl.style.transform = SUN_SET;
-      sunEl.style.opacity = "0";
-    }
+    [moonEl, townMoon].forEach(function(m){ if (m) m.style.transform = getComputedStyle(m).transform; });
+    [sunEl, townSun].forEach(function(s){
+      if (!s) return;
+      s.style.transform = getComputedStyle(s).transform;
+      s.style.animation = "none";
+      void s.offsetWidth;
+      s.style.transition = "transform 6.5s cubic-bezier(.45,0,.6,1),opacity 4.5s ease 2.2s";
+      s.style.transform = SUN_SET;
+      s.style.opacity = "0";
+    });
     setSky({ day: 0, dusk: 1 }, 3);
-    fadeEl(starsEl, 0, 2);
-    riseEl(moonEl, 0, 1);
+    fadeEl([starsEl, townStars], 0, 2);
+    riseEl([moonEl, townMoon], 0, 1);
     fadeEl(featEl, 0, 1);
   }
   function setBtnBusy(label){
@@ -1128,8 +1166,8 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     [3600, dispatchUshers],
     [5000, function(){
       setSky({ dusk: 0, night: 1 }, 4);
-      fadeEl(starsEl, 1, 4);
-      riseEl(moonEl, 1, 4);
+      fadeEl([starsEl, townStars], 1, 4);
+      riseEl([moonEl, townMoon], 1, 4);
       fadeEl(featEl, 0, 1);
     }],
     [7200, layBlankets],
@@ -1138,21 +1176,23 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   var REV = [
     [0, function(){
       setSky({ night: 0, dusk: 1 }, 2.2);
-      fadeEl(starsEl, 0, 2);
-      riseEl(moonEl, 0, 2);
-      if (sunEl){
-        sunEl.style.transition = "transform 2.8s ease,opacity 1.6s ease";
-        sunEl.style.transform = SUN_SINK;
-        sunEl.style.opacity = "0";
-      }
+      fadeEl([starsEl, townStars], 0, 2);
+      riseEl([moonEl, townMoon], 0, 2);
+      [sunEl, townSun].forEach(function(s){
+        if (!s) return;
+        s.style.transition = "transform 2.8s ease,opacity 1.6s ease";
+        s.style.transform = SUN_SINK;
+        s.style.opacity = "0";
+      });
     }],
     [2700, function(){
       setSky({ dusk: 0, dawn: 1 }, 2.2);
-      if (sunEl){
-        sunEl.style.transition = "transform 1.6s ease,opacity 1.2s ease";
-        sunEl.style.transform = SUN_DAWN;
-        sunEl.style.opacity = "1";
-      }
+      [sunEl, townSun].forEach(function(s){
+        if (!s) return;
+        s.style.transition = "transform 1.6s ease,opacity 1.2s ease";
+        s.style.transform = SUN_DAWN;
+        s.style.opacity = "1";
+      });
     }],
     [5100, endReverse]
   ];
@@ -1194,7 +1234,8 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
     if (!reduce) popTimer = setInterval(popBurst, 9000);
   }
   function endReverse(){
-    [skyEls.dawn, skyEls.day, skyEls.dusk, skyEls.night, starsEl, moonEl, featEl, sunEl].forEach(function(el){
+    [skyEls.dawn, townEls.dawn, skyEls.day, townEls.day, skyEls.dusk, townEls.dusk, skyEls.night, townEls.night,
+     starsEl, townStars, moonEl, townMoon, featEl, sunEl, townSun].forEach(function(el){
       if (!el) return;
       el.style.transition = "";
       el.style.opacity = "";
@@ -1347,8 +1388,8 @@ body.movie .kicker .no,body.duskfall .kicker .no{color:var(--bright)}
   var sky = new URLSearchParams(location.search).get("sky");
   if (sky && /^(dawn|day|dusk|night)$/.test(sky)) {
     var st = document.createElement("style");
-    var css = ".di-screen *,.di-screen .sky{animation:none !important}.di-screen .sky{opacity:0 !important}.di-screen .sky-" + sky + "{opacity:1 !important}";
-    if (sky === "night") css += ".stars,.moon,.feature{opacity:1 !important}.di-screen .sun{opacity:0 !important}";
+    var css = ".di-screen *,.town *,.di-screen .sky,.town .sky{animation:none !important}.di-screen .sky,.town .sky{opacity:0 !important}.di-screen .sky-" + sky + ",.town .sky-" + sky + "{opacity:1 !important}";
+    if (sky === "night") css += ".stars,.moon,.feature{opacity:1 !important}.sun{opacity:0 !important}.town-wash{opacity:1 !important}";
     if (sky === "day") css += ".sun{transform:translate(-46px,-190px) !important;opacity:1 !important}";
     if (sky === "dawn") css += ".sun{transform:translate(-150px,-40px) !important;opacity:1 !important}";
     if (sky === "dusk") css += ".sun{transform:translate(100px,-70px) !important;opacity:1 !important}";

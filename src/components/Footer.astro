@@ -32,7 +32,31 @@ const year = new Date().getFullYear();
   </div>
 </footer>
 
+<!-- TEMP PREVIEW: balloon N below the footer — not for deploy without Jordan's call -->
+<div class="balloon-n" aria-hidden="true">
+  <img src="/n-balloon.png" alt="" class="character-light" width="200" height="200" loading="lazy" />
+  <img src="/n-balloon-dark.png" alt="" class="character-dark" width="200" height="200" loading="lazy" />
+</div>
+
 <style>
+  .balloon-n {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+  }
+  .balloon-n img {
+    height: 1.6rem;
+    width: auto;
+  }
+  .balloon-n .character-dark {
+    display: none;
+  }
+  :global([data-theme="dark"]) .balloon-n .character-dark {
+    display: block;
+  }
+  :global([data-theme="dark"]) .balloon-n .character-light {
+    display: none;
+  }
   /* Mobile: raise footer link tap targets to the 40px comfort floor.
      Desktop (>640px) is untouched. Link text is already 14px (text-sm). */
   @media (max-width: 640px) {

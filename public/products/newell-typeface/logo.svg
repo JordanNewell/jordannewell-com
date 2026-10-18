@@ -1,9 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 990.0 755" role="img" aria-label="NEWELL N mark">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" role="img" aria-label="NEWELL N mark">
   <!--
-    NEWELL N — generated from UFO source (N_.glif).
+    NEWELL N logo — green variant for accent contexts (against black backgrounds).
+    Same construction as newell-n.svg, color swapped to brand primary #00FF41.
+    Use sparingly — the white version on dark is the canonical lockup.
   -->
-  <rect width="100%" height="100%" fill="#0A0A0A"/>
-  <g>      <path d="M 90.0 55.0 L 89.0 55.0 L 90.0 56.0 L 90.0 755.0 L 200.0 755.0 L 200.0 166.0 L 90.0 56.0 Z" fill="#FFFFFF"/>
-      <path d="M 789.0 755.0 L 790.0 755.0 L 790.0 644.0 L 201.0 55.0 L 200.0 55.0 L 200.0 166.0 Z" fill="#FFFFFF"/>
-      <path d="M 900.0 55.0 L 790.0 55.0 L 790.0 644.0 L 900.0 754.0 L 900.0 755.0 L 901.0 755.0 L 900.0 754.0 Z" fill="#FFFFFF"/></g>
+  <line x1="20" y1="20" x2="20" y2="100" stroke="#00FF41" stroke-width="12" stroke-linecap="round"/>
+  <line x1="80" y1="20" x2="80" y2="100" stroke="#00FF41" stroke-width="12" stroke-linecap="round"/>
+  <line x1="20" y1="20" x2="80" y2="100" stroke="#00FF41" stroke-width="12" stroke-linecap="round"/>
 </svg>

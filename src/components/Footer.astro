@@ -39,7 +39,9 @@ const year = new Date().getFullYear();
   .balloon-n {
     display: flex;
     justify-content: center;
-    padding: 0.5rem 0 1rem;
+    /* bottom padding ~0: N's baseline sits level with the crowd's feet
+       on desktop (both grounded on the page-bottom line) */
+    padding: 0.5rem 0 0;
   }
   .balloon-n img {
     height: 1.6rem;

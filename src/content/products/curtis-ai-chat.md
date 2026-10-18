@@ -6,7 +6,7 @@ status: "released"
 shipDate: 2026-10-12
 repo: "https://github.com/JordanNewell/curtis"
 homepage: "https://curtisai.tech"
-logo: "/products/curtis-ai-chat/logo.svg"
+logo: "/products/curtis-ai-chat/curtis-ai-chat-logo.svg"
 platform:
   name: "Obsidian"
   url: "https://obsidian.md"

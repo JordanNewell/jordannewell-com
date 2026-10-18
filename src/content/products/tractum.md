@@ -6,7 +6,7 @@ status: "released"
 shipDate: 2026-10-17
 repo: "https://github.com/JordanNewell/tractum"
 homepage: "https://tractum.dev"
-logo: "/products/tractum/logo.png"
+logo: "/products/tractum/tractum-logo.png"
 ogImage: "/products/tractum/og.png"
 platform:
   name: "Python 3.11+"

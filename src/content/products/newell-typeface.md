@@ -5,7 +5,7 @@ description: "Newell is a parametric display typeface where every glyph is built
 status: "released"
 shipDate: 2026-07-25
 homepage: "https://newell.ink"
-logo: "/products/newell-typeface/logo.svg"
+logo: "/products/newell-typeface/newell-typeface-logo.svg"
 pricing: "free-oss"
 license: "OFL-1.1"
 order: 7

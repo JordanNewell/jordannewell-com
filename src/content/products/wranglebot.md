@@ -5,7 +5,7 @@ description: "A supervisor daemon for AI coding agents — gates the tools, brea
 status: "preview"
 shipDate: 2026-10-16
 homepage: "https://wranglebot.com"
-logo: "/products/wranglebot/logo.png"
+logo: "/products/wranglebot/wranglebot-logo.png"
 pricing: "free-oss"
 license: "TBD at v0.1"
 order: 5

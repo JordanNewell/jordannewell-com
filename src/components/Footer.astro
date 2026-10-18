@@ -68,12 +68,15 @@ const year = new Date().getFullYear();
     display: inline-block;
     padding-block: 0.75rem;
   }
-  /* Desktop only: rows 6px tighter; top padding follows (keeps logo→first row
-     at half the row gap). Bottom row stays anchored to the page bottom — the
-     footer just gets shorter, so the N logo rides down with the top edge. */
+  /* N logo gap equals the row gap (center-to-center pitch) at every width:
+     mobile ~59px, desktop ~52px. Bottom row stays anchored to the page
+     bottom — the footer just grows/shrinks, so the logo rides the top edge. */
+  .footer-inner {
+    padding-top: 48px; /* mobile: was pt-6 (24px) */
+  }
   @media (min-width: 561px) {
     .footer-inner {
-      padding-top: 18px; /* was pt-6 (24px) */
+      padding-top: 41px;
     }
     .footer-inner p.mb-4 {
       margin-bottom: 10px; /* was mb-4 (16px) */

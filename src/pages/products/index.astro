@@ -42,6 +42,10 @@ const statusColors = PRODUCT_STATUS_COLORS;
       <p class="text-[0.92rem] text-fg-muted italic">No products listed yet — check back soon.</p>
     )}
   </div>
+
+  <p class="ledger-foot">
+    Every product started as a project — the full <a href="/projects/">ledger</a>.
+  </p>
 </BaseLayout>
 
 <style>
@@ -85,6 +89,17 @@ const statusColors = PRODUCT_STATUS_COLORS;
   .lg-st {
     white-space: nowrap;
   }
+  .ledger-foot {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-fg-muted);
+    margin-top: 2rem;
+  }
+  .ledger-foot a {
+    color: var(--color-green);
+    text-decoration: none;
+  }
+  .ledger-foot a:hover { text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 640px) {
     .ledger-head { display: none; }
     .ledger-row {

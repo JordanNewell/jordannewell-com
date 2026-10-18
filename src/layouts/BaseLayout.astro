@@ -85,13 +85,13 @@ const resolvedOgImage = ogImage
     <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "012b8a7bc7594c91aff6f05cab5951fd"}'></script>
   </head>
   <body>
-    <div class="relative z-1">
+    <div class="relative z-1 flex flex-col min-h-dvh">
       <Header path={path} />
       <a href="/" class="under-header-character max-w-prose mx-auto px-5" aria-label="Jordan Newell — home">
         <img src="/images/jordan-character.svg" alt="" width="380" height="435" />
         <img src="/images/jordan-character-dark.png" alt="" width="277" height="453" class="character-dark" />
       </a>
-      <main class="max-w-prose mx-auto px-5 py-12">
+      <main class="max-w-prose mx-auto px-5 py-12 flex-1">
         <slot />
       </main>
       <Footer mt="mt-12" />

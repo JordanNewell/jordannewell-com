@@ -112,6 +112,31 @@ card(str(ROOT / "public/og/license.png"),
      title="License", sub="CC BY-NC 4.0 — share, adapt, attribute.",
      crumb="JORDANNEWELL.COM", footer=[("dot", "CC BY-NC 4.0")])
 
+print("== tags ==")
+# Same tag universe as tags/[tag].astro getStaticPaths: posts (non-draft) +
+# projects. Draft filtering happens in Astro; here we count everything.
+tag_count = {}
+for f in list(POSTS.glob("*.md")) + list(PROJECTS.glob("*.md")):
+    for t in tags_of(f.read_text(encoding="utf-8")):
+        tag_count[t] = tag_count.get(t, 0) + 1
+for t, n in sorted(tag_count.items()):
+    card(str(ROOT / "public/og/tags" / f"{t}.png"),
+         title=f"/{t}", sub=f"Work tagged {t}.",
+         crumb="JORDANNEWELL.COM / TAGS",
+         footer=[("dot", f"{n} ENTRIES")])
+
+print("== series index ==")
+card(str(ROOT / "public/og/series.png"),
+     title="Series",
+     sub="Recurring content series: Off-Model (LLM sessions), Heritage (pre-fleet origin).",
+     crumb="JORDANNEWELL.COM / SERIES", footer=[("dot", "OFF-MODEL"), ("dot", "HERITAGE")])
+
+print("== signature ==")
+card(str(ROOT / "public/og/signature.png"),
+     title="Code signature",
+     sub="Style tells, a __signature__ constant, and PGP-signed commits. Recognize it, declare it, or verify it.",
+     crumb="JORDANNEWELL.COM", footer=[("dot", "PGP"), ("pill", "SIGNED")])
+
 print(f"\n== {len(warnings_log)} warnings ==")
 for w in warnings_log:
     print(" ", w)

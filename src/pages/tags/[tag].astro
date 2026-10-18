@@ -34,7 +34,7 @@ export async function getStaticPaths() {
 const { tag, posts, projects } = Astro.props;
 ---
 
-<BaseLayout title={`/${tag}`} description={`Work tagged ${tag}`}>
+<BaseLayout title={`/${tag}`} description={`Work tagged ${tag}`} ogImage={`/og/tags/${tag}.png`}>
   <header class="mb-10">
     <h1 class="sr-only">/{tag}</h1>
     <p class="text-[0.68rem] font-mono text-fg-muted">

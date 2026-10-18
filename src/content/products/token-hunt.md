@@ -6,7 +6,7 @@ status: "released"
 shipDate: 2026-10-15
 repo: "https://github.com/JordanNewell/token-hunt"
 homepage: "https://tokenhunt.dev"
-logo: "/products/token-hunt/logo.png"
+logo: "/products/token-hunt/token-hunt-logo.png"
 platform:
   name: "PyPI"
   url: "https://pypi.org/project/token-hunt/"

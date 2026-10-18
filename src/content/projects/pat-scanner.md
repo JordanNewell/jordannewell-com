@@ -2,6 +2,7 @@
 title: "PAT Scanner"
 description: "Block credential leaks at chat-time. Claude Code UserPromptSubmit hook that catches 13 PAT classes before they enter the transcript."
 status: "shipped"
+promotedTo: "/products/token-hunt/"
 tags: ["projects", "security", "oss", "claude-code"]
 shipDate: 2026-07-27
 repo: "https://github.com/JordanNewell/pat-scanner"

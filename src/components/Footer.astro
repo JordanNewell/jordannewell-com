@@ -28,7 +28,7 @@ const year = new Date().getFullYear();
     </p>
     <p>© {year} {SITE.author.name} <span class="text-green" aria-hidden="true">·</span> <a href="/license" class="hover:text-green">license</a></p>
   </div>
-  <!-- N mark sits under the footer, near the page bottom -->
+  <!-- N mark at true page bottom, centered — interleaf canonical footer pattern -->
   <div class="balloon-n" aria-hidden="true">
     <img src="/n-balloon-light.png" alt="" class="character-light" width="200" height="200" />
     <img src="/n-balloon-dark.png" alt="" class="character-dark" width="200" height="200" />
@@ -36,22 +36,24 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  /* N mark sits on top of the footer, centered — both viewports. Gap from
-     logo to the first footer row is HALF the row-to-row gap (mb-4 = 16px
-     -> 8px): footer is the positioned ancestor. */
-  footer {
-    position: relative;
-  }
+  /* N mark at true page bottom — centered, below the last footer row.
+     Interleaf canonical footer pattern (never left-align, never mid-page). */
   .balloon-n {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
     line-height: 0;
   }
   .balloon-n img {
-    height: 1.3rem; /* was 1.6rem — 5px smaller per Jordan */
+    height: 1.75rem; /* 28px */
     width: auto;
+    opacity: 0.9;
+  }
+  @media (max-width: 640px) {
+    .balloon-n img {
+      height: 1.5rem; /* 24px */
+    }
   }
   .balloon-n .character-dark {
     display: none;
@@ -68,11 +70,8 @@ const year = new Date().getFullYear();
     display: inline-block;
     padding-block: 0.75rem;
   }
-  /* N logo gap equals the row gap (center-to-center pitch) at every width:
-     mobile ~59px, desktop ~52px. Bottom row stays anchored to the page
-     bottom — the footer just grows/shrinks, so the logo rides the top edge. */
   .footer-inner {
-    padding-top: 48px; /* mobile: was pt-6 (24px) */
+    padding-top: 48px;
   }
   @media (min-width: 561px) {
     .footer-inner {

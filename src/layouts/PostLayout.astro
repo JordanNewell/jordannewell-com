@@ -11,12 +11,16 @@ import { existsSync } from "node:fs";
 const { post } = Astro.props as { post: CollectionEntry<"posts"> };
 const { title, description, pubDate, updatedDate, tags, mode, series, era, kind, ogImage } = post.data;
 
-// Fall back to the post's hero art as its share card; frontmatter ogImage wins.
+// Share card: frontmatter ogImage wins, then hero art, then the generated
+// Ledger-style card (scripts/og_batch.py -> public/og/posts/<id>.png).
 const heroOg = existsSync(`public/posts/${post.id}/hero.webp`)
   ? `/posts/${post.id}/hero.webp`
   : existsSync(`public/posts/${post.id}/hero.jpg`)
     ? `/posts/${post.id}/hero.jpg`
     : undefined;
+const generatedOg = existsSync(`public/og/posts/${post.id}.png`)
+  ? `/og/posts/${post.id}.png`
+  : undefined;
 
 const dateStr = pubDate.toLocaleDateString("en-US", {
   year: "numeric",
@@ -36,7 +40,7 @@ const schema = [articleSchema({
 })];
 ---
 
-<BaseLayout title={title} description={description} schema={schema} ogImage={ogImage ?? heroOg} ogType="article">
+<BaseLayout title={title} description={description} schema={schema} ogImage={ogImage ?? heroOg ?? generatedOg} ogType="article">
   <article class:list={["prose", isMurphy && "murphy-mode"]}>
     <header class="mb-10">
       <div class="flex items-center gap-3 text-sm font-mono text-fg-muted mb-3 flex-wrap">

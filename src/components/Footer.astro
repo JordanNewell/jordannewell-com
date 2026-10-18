@@ -6,7 +6,7 @@ const year = new Date().getFullYear();
 ---
 
 <footer class={mt}>
-  <div class="footer-inner max-w-prose mx-auto px-5 pt-6 pb-4 text-center text-sm text-fg-muted font-mono">
+  <div class="footer-inner max-w-prose mx-auto px-5 pt-6 text-center text-sm text-fg-muted font-mono">
     <p class="mb-4">
       {FOOTER_PAGE_LINKS.map((link, i) => (
         <>
@@ -26,7 +26,7 @@ const year = new Date().getFullYear();
       <span class="mx-3 text-green" aria-hidden="true">·</span>
       <a href="https://github.com/JordanNewell/jordannewell-com" target="_blank" rel="noopener" class="hover:text-green">source</a>
     </p>
-    <p class="mb-6">© {year} {SITE.author.name} <span class="text-green" aria-hidden="true">·</span> <a href="/license" class="hover:text-green">license</a></p>
+    <p>© {year} {SITE.author.name} <span class="text-green" aria-hidden="true">·</span> <a href="/license" class="hover:text-green">license</a></p>
   </div>
   <!-- N mark sits under the footer, near the page bottom -->
   <div class="balloon-n" aria-hidden="true">

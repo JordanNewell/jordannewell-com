@@ -5,7 +5,8 @@ description: "MedRecall reads every adverse-event report the FDA publishes and r
 status: "beta"
 shipDate: 2026-10-14
 homepage: "https://getmedrecall.com"
-logo: "/products/medrecall/logo.png"
+logo: "/products/medrecall/medrecall-logo-dark.png"
+logoLight: "/products/medrecall/medrecall-logo-light.png"
 pricing: "paid"
 license: "Proprietary"
 order: 3

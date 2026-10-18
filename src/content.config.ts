@@ -58,6 +58,7 @@ const products = defineCollection({
     repo: z.string().url().optional(),
     homepage: z.string().url().optional(),
     logo: z.string().optional(),
+    logoLight: z.string().optional(),
     platform: z
       .object({
         name: z.string(),

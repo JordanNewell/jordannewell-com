@@ -17,7 +17,9 @@ facts:
   - k: "providers"
     v: "53"
   - k: "form"
-    v: "Obsidian plugin + ACP agent"
+    v: "Obsidian plugin + ACP agent + web"
+  - k: "web"
+    v: "curtisai.tech"
   - k: "license"
     v: "BUSL-1.1 (free to use)"
 highlights:

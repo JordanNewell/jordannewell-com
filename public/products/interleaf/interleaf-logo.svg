@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Multi-color C: gradient over strand (Seal Violet to Vault Ink), Quiet Gray under. Transparent background. -->
+  <defs>
+    <linearGradient id="overGrad" gradientUnits="userSpaceOnUse" x1="140" y1="140" x2="372" y2="372">
+      <stop offset="0" stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#1C1830"/>
+    </linearGradient>
+    <mask id="gapC" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="512" height="512">
+      <rect width="512" height="512" fill="#fff"/>
+      <path d="M140 140 C140 300 372 212 372 372" fill="none" stroke="#000" stroke-width="58" stroke-linecap="round"/>
+    </mask>
+  </defs>
+  <path d="M372 140 C372 300 140 212 140 372" fill="none" stroke="#6B6480" stroke-width="36" stroke-linecap="round" mask="url(#gapC)"/>
+  <path d="M140 140 C140 300 372 212 372 372" fill="none" stroke="url(#overGrad)" stroke-width="36" stroke-linecap="round"/>
+</svg>

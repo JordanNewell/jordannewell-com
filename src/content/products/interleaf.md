@@ -5,7 +5,7 @@ description: "Interleaf turns any vault into a mail endpoint: every message seal
 status: "beta"
 shipDate: 2026-10-14
 homepage: "https://interleaf.dev"
-logo: "/products/interleaf/interleaf-logo.png"
+logo: "/products/interleaf/interleaf-logo.svg"
 platform:
   name: "Obsidian"
   url: "https://obsidian.md"

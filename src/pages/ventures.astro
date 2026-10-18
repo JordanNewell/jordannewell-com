@@ -18,13 +18,19 @@ const curtisAi = organizationSchema({
   pageUrl: "https://jordannewell.com/curtis/",
 });
 
-const schema = [dwTrim, curtisAi];
+const onionbreath = organizationSchema({
+  name: "Onionbreath",
+  description: "Onion-themed food reseller migrating winners to private label. Luxury onion pipeline, field to mouth.",
+  employeeRole: "Founder",
+});
+
+const schema = [dwTrim, curtisAi, onionbreath];
 ---
 
 <BaseLayout title="Ventures" description="Operating roles and founder stakes — not advisory, not passive." schema={schema} ogImage="/og-ventures.png">
   <h1 class="sr-only">Ventures</h1>
   <p class="ph-stats">
-    <span class="stat-n">2</span> active · <span class="stat-n">0</span> advisory · <span class="stat-n">0</span> passive
+    <span class="stat-n">3</span> active · <span class="stat-n">0</span> advisory · <span class="stat-n">0</span> passive
   </p>
 
   <div class="ledger">
@@ -47,6 +53,15 @@ const schema = [dwTrim, curtisAi];
       <span class="lg-role">Founder</span>
       <span class="lg-notes">
         <p class="note">Local-first AI agents — the Curtis line, bound by portable .curt history you own. Source-available, free, no telemetry. The ledger and the receipts: <a href="/curtis">/curtis</a>.</p>
+      </span>
+    </div>
+    <div class="ledger-row">
+      <span class="lg-name">
+        <a href="/posts/new-ventures-onionbreath/" class="lg-link">Onionbreath</a>
+      </span>
+      <span class="lg-role">Founder</span>
+      <span class="lg-notes">
+        <p class="note">Onion-themed food under the Onionbreath brand — resell first, watch what moves, migrate the movers to private label. The luxury onion pipeline, field to mouth. Store opening soon; the <a href="/posts/new-ventures-onionbreath/">story</a> is already up.</p>
       </span>
     </div>
   </div>

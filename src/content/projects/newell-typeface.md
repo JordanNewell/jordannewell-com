@@ -5,8 +5,10 @@ status: "shipped"
 promotedTo: "/products/newell-typeface/"
 tags: ["projects", "oss", "typeface"]
 shipDate: 2026-07-25
+startDate: 2026-07-25
 repo: "https://github.com/JordanNewell/newell-typeface"
 pkg: "https://jordannewell.github.io/newell-typeface/specimen/"
+liveUrl: "https://newell.ink"
 order: 8
 facts:
   - k: "shipped"

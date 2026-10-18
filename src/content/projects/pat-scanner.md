@@ -5,6 +5,7 @@ status: "shipped"
 promotedTo: "/products/token-hunt/"
 tags: ["projects", "security", "oss", "claude-code"]
 shipDate: 2026-07-27
+startDate: 2026-07-28
 repo: "https://github.com/JordanNewell/pat-scanner"
 liveUrl: "https://github.com/JordanNewell/pat-scanner"
 order: 10

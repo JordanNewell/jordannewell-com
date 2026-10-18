@@ -4,6 +4,7 @@ description: "Port your AI chat history — ChatGPT, Claude, Grok, Gemini, DeepS
 status: "shipped"
 tags: ["projects", "ai", "oss", "data"]
 shipDate: 2026-10-14
+startDate: 2026-10-12
 repo: "https://github.com/JordanNewell/curtis-ai-porter"
 liveUrl: "https://curtisai.tech/porter/"
 order: 12

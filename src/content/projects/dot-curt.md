@@ -4,6 +4,7 @@ description: "The open single-file AI conversation format — spec, reference im
 status: "shipped"
 tags: ["projects", "ai", "oss", "standards"]
 shipDate: 2026-10-16
+startDate: 2026-10-11
 repo: "https://github.com/JordanNewell/dot_curt"
 pkg: "https://www.npmjs.com/package/curt-format"
 order: 13

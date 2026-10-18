@@ -4,6 +4,7 @@ description: "A focused set of bash git hooks that keep AI-tool attribution out 
 status: "shipped"
 tags: ["projects", "tools", "oss"]
 shipDate: 2026-07-18
+startDate: 2026-07-21
 repo: "https://github.com/JordanNewell/git-hygiene"
 order: 6
 facts:

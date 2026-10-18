@@ -4,11 +4,12 @@ import { getCollection } from "astro:content";
 
 const allProjects = await getCollection("projects");
 const projects = [...allProjects].sort((a, b) => a.data.order - b.data.order);
-const graduated = projects.filter((p) => p.data.promotedTo);
-const ledgerProjects = projects.filter((p) => !p.data.promotedTo);
 
 const fmtSince = (d?: Date) =>
   d ? `${d.getUTCFullYear()}.${String(d.getUTCMonth() + 1).padStart(2, "0")}` : "—";
+
+// slug → display title, for successor links in the name column
+const titleBySlug = Object.fromEntries(projects.map((p) => [p.id, p.data.title]));
 
 const countBy = (status: string) => allProjects.filter((p) => p.data.status === status).length;
 const counts = {
@@ -18,6 +19,7 @@ const counts = {
   exploratory: countBy("exploratory"),
   deprecated: countBy("deprecated"),
 };
+const productCount = allProjects.filter((p) => p.data.promotedTo).length;
 
 // NOTE: intentionally different from ProjectLayout's statusColors — this index
 // uses quieter inks for exploratory/venture-track/deprecated. Do not merge.
@@ -46,37 +48,25 @@ const pkgLabel = (url: string): string => {
 <BaseLayout title="Projects" description="What I've built, in public." ogImage="/og-projects.png">
   <h1 class="sr-only">Projects</h1>
   <p class="ph-stats">
-    <span class="stat-n">{counts.total}</span> total · <span class="stat-n">{counts.shipped}</span> shipped · <span class="stat-n">{counts.active}</span> active · <span class="stat-n">{counts.exploratory}</span> exploratory{counts.deprecated > 0 && (<> · <span class="stat-n">{counts.deprecated}</span> deprecated</>)}
+    <span class="stat-n">{counts.total}</span> total · <span class="stat-n">{counts.shipped}</span> shipped · <span class="stat-n">{counts.active}</span> active{counts.exploratory > 0 && (<> · <span class="stat-n">{counts.exploratory}</span> exploratory</>)}{counts.deprecated > 0 && (<> · <span class="stat-n">{counts.deprecated}</span> deprecated</>)}{productCount > 0 && (<> · <span class="stat-n">{productCount}</span> products</>)}
   </p>
-
-  {graduated.length > 0 && (
-    <div class="graduated">
-      <p class="grad-head">graduated — projects that became products</p>
-      {graduated.map((p) => (
-        <div class="grad-row">
-          <a href={`/projects/${p.id}/`} class="grad-name">{p.data.title}</a>
-          <span class="grad-arrow">→</span>
-          <a href={p.data.promotedTo} class="grad-link">{p.data.promotedTo.split("/")[2]}</a>
-        </div>
-      ))}
-    </div>
-  )}
 
   <div class="ledger">
     <div class="ledger-head">
       <span>project</span><span>status</span><span>since</span><span>links</span><span>what it is</span>
     </div>
-    {ledgerProjects.map((p) => (
+    {projects.map((p) => (
       <div class="ledger-row">
         <span class="lg-name">
           <a href={`/projects/${p.id}/`} class="lg-link">{p.data.title}</a>
-          {p.data.successor && <span class="lg-succ">→ <a href={`/projects/${p.data.successor}/`}>{p.data.successor}</a></span>}
+          {p.data.successor && <span class="lg-succ">→ <a href={`/projects/${p.data.successor}/`}>{titleBySlug[p.data.successor] ?? p.data.successor}</a></span>}
         </span>
         <span
           class="lg-st"
           style={`color: ${statusColors[p.data.status] ?? "#7A7683"}`}
         >
           {p.data.status}
+          {p.data.promotedTo && <> · <a href={p.data.promotedTo} class="lg-prod">product ↗</a></>}
         </span>
         <span class="lg-since">{fmtSince(p.data.startDate)}</span>
         <span class="lg-links">
@@ -113,30 +103,12 @@ const pkgLabel = (url: string): string => {
     white-space: nowrap;
   }
   .lg-succ a { color: inherit; }
-  .graduated {
-    margin-bottom: 2.5rem;
+  .lg-prod {
+    color: var(--color-green);
+    text-decoration: none;
+    white-space: nowrap;
   }
-  .grad-head {
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-fg-muted, #7A7683);
-    margin-bottom: 0.6rem;
-  }
-  .grad-row {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    padding-block: 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-  }
-  .grad-name { color: var(--color-fg); text-decoration: none; }
-  .grad-name:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .grad-arrow { color: var(--color-green); }
-  .grad-link { color: var(--color-green); text-decoration: none; }
-  .grad-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .lg-prod:hover { text-decoration: underline; text-underline-offset: 3px; }
   .ledger-row {
     padding-block: 0.85rem;
   }

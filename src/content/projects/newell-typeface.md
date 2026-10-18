@@ -1,5 +1,5 @@
 ---
-title: "newell-typeface"
+title: "Newell Typeface"
 description: "Original geometric display typeface built from three primitives — rails, 45° diagonals, and squared junctions. Squared terminals, parametric generation, no curves. OFL-1.1."
 status: "shipped"
 promotedTo: "/products/newell-typeface/"

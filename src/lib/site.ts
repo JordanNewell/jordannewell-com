@@ -23,6 +23,7 @@ export const NAV_LINKS = [
 export const FOOTER_PAGE_LINKS = [
   { href: "/about", label: "about" },
   { href: "/posts", label: "posts" },
+  { href: "/projects", label: "projects" },
 ] as const;
 
 // Categorical inks — ledger-safe ink hues, one per tag family

@@ -62,12 +62,10 @@ const year = new Date().getFullYear();
   :global([data-theme="dark"]) .balloon-n .character-light {
     display: none;
   }
-  /* Mobile: raise footer link tap targets to the 40px comfort floor.
-     Desktop (>640px) is untouched. Link text is already 14px (text-sm). */
-  @media (max-width: 640px) {
-    footer p a {
-      display: inline-block;
-      padding-block: 0.75rem;
-    }
+  /* Footer link tap targets — applies at ALL widths so the footer rhythm
+     matches mobile (Jordan 2026-10-17: mobile spacing looks better). */
+  footer p a {
+    display: inline-block;
+    padding-block: 0.75rem;
   }
 </style>

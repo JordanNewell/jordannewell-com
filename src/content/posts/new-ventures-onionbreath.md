@@ -24,6 +24,8 @@ Months later it surfaced again, and this time I went to check half-certain it wo
 
 Resell onion-themed food first, watch what actually moves, and put the movers under our own brand. No launch date — the store opens when the products are ready, and not before. Announcing a date is how a side venture turns into a deadline with no product.
 
+That's the visible layer. The store is where people look, not the whole of what's being built — there's more moving underneath than a gag-shop read suggests. It'll show when it shows.
+
 And yes, one of the early candidates is onion cotton candy. It photographs like a fever dream. Nobody needs it — which is exactly what "viral" is made of.
 
 Onionbreath joins the [ventures](/ventures/) row. DW Trim runs jobs, Curtis ships tools, and now something for the shelf. Different industries, same ledger.

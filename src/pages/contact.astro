@@ -1,0 +1,172 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
+---
+
+<BaseLayout title="Contact" description="One inbox for jordannewell.com — say hello, flag an error, or ask about a project.">
+  <article class="prose">
+    <h1 class="sr-only">Contact</h1>
+    <p>
+      One inbox, no forms louder than needed. Name is optional, a message is
+      required — everything else the wire already carries.
+    </p>
+
+    <form id="contact-form" novalidate>
+      <div class="field">
+        <label for="cf-name">Name <span class="opt">(optional)</span></label>
+        <input type="text" id="cf-name" name="name" autocomplete="name" maxlength="200" />
+      </div>
+
+      <div class="field">
+        <label for="cf-email">Reply-to</label>
+        <input type="email" id="cf-email" name="replyTo" autocomplete="email" required maxlength="320" />
+      </div>
+
+      <div class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="7" required maxlength="4000"></textarea>
+      </div>
+
+      {/* Honeypot — hidden from humans, irresistible to bots */}
+      <div class="hp" aria-hidden="true">
+        <label for="cf-website">Website</label>
+        <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      {turnstileSiteKey && (
+        <div class="field">
+          <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto"></div>
+        </div>
+      )}
+
+      <div class="actions">
+        <button type="submit" id="cf-submit">Send</button>
+        <p id="cf-status" class="status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </article>
+</BaseLayout>
+
+<style>
+  .hp {
+    position: absolute;
+    left: -9999px;
+    height: 0;
+    overflow: hidden;
+  }
+  .field {
+    margin-bottom: 1.25rem;
+  }
+  label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-fg-secondary);
+    margin-bottom: 0.375rem;
+  }
+  .opt {
+    color: var(--color-fg-muted);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    padding: 0.5rem 0.625rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--color-fg);
+  }
+  textarea {
+    resize: vertical;
+  }
+  input:focus,
+  textarea:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -1px;
+  }
+  button {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border: 1px solid var(--color-accent);
+    border-radius: 0;
+    padding: 0.5rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: color-mix(in srgb, var(--color-accent) 85%, var(--color-fg));
+  }
+  button:disabled {
+    opacity: 0.55;
+    cursor: wait;
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .status {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-fg-muted);
+    margin: 0;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var form = document.getElementById("contact-form");
+    if (!form) return;
+    var submitBtn = document.getElementById("cf-submit");
+    var status = document.getElementById("cf-status");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var data = new FormData(form);
+      var payload = {
+        name: (data.get("name") || "").toString().trim(),
+        replyTo: (data.get("replyTo") || "").toString().trim(),
+        message: (data.get("message") || "").toString(),
+        website: (data.get("website") || "").toString(),
+        turnstileToken: (data.get("cf-turnstile-response") || "").toString(),
+      };
+
+      if (!payload.replyTo || !payload.message.trim()) {
+        status.textContent = "reply-to and message required";
+        return;
+      }
+
+      submitBtn.disabled = true;
+      status.textContent = "sending…";
+
+      fetch("/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+        .then(function (res) {
+          if (res.ok) {
+            status.textContent = "sent";
+            form.reset();
+          } else {
+            status.textContent = "failed — retry";
+          }
+        })
+        .catch(function () {
+          status.textContent = "failed — retry";
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+        });
+    });
+  })();
+</script>

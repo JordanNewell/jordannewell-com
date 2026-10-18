@@ -23,6 +23,7 @@ export const NAV_LINKS = [
 export const FOOTER_PAGE_LINKS = [
   { href: "/about", label: "about" },
   { href: "/posts", label: "posts" },
+  { href: "/contact", label: "contact" },
   { href: "/projects", label: "projects" },
 ] as const;
 

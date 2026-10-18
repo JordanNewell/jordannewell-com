@@ -32,6 +32,7 @@ const projects = defineCollection({
     shipDate: z.coerce.date().optional(),
     deprecatedDate: z.coerce.date().optional(),
     successor: z.string().optional(),
+    promotedTo: z.string().optional(),
     tags: z.array(z.string()).default([]),
     repo: z.string().url().optional(),
     liveUrl: z.string().url().optional(),

@@ -2,6 +2,7 @@
 title: "Tractum"
 description: "Verifiable multi-agent consensus. Every agent signs its own stance, decisions ship as k-of-n signed quorum receipts, and the .curt transcripts they were computed from are bound inside the same signature. Formerly claudeway."
 status: "active"
+promotedTo: "/products/tractum/"
 tags: ["projects", "ai", "oss", "agents"]
 startDate: 2026-02-07
 shipDate: 2026-07-26

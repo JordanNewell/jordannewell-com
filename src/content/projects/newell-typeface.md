@@ -2,6 +2,7 @@
 title: "newell-typeface"
 description: "Original geometric display typeface built from three primitives — rails, 45° diagonals, and squared junctions. Squared terminals, parametric generation, no curves. OFL-1.1."
 status: "shipped"
+promotedTo: "/products/newell-typeface/"
 tags: ["projects", "oss", "typeface"]
 shipDate: 2026-07-25
 repo: "https://github.com/JordanNewell/newell-typeface"

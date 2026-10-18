@@ -7,6 +7,7 @@ import { existsSync } from "node:fs";
 
 const { project } = Astro.props as { project: CollectionEntry<"projects"> };
 const { title, description, status, repo, liveUrl, pkg, tags } = project.data;
+const promotedTo = project.data.promotedTo;
 
 const pkgLabel = (url: string): string => {
   try {
@@ -27,8 +28,12 @@ const cardOg = existsSync(`public/projects/${project.id}/card.png`)
   : undefined;
 
 const allPosts = await getCollection("posts");
+// A graduated project's writing lives under its successor's slug — pull both.
+const relatedSlugs = new Set(
+  [project.id, project.data.successor].filter(Boolean) as string[]
+);
 const relatedPosts = allPosts
-  .filter((p) => p.data.project === project.id)
+  .filter((p) => p.data.project && relatedSlugs.has(p.data.project))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 // NOTE: intentionally different from /projects index statusColors — this detail
@@ -60,6 +65,8 @@ const schema = [
         <h1 class="ph-title">{title}</h1>
         <p class="ph-stats">
           <span class="stat-n" style={`color: ${statusColors[status] ?? "#7A7683"}`}>{status}</span>
+          {project.data.startDate && <> · started {project.data.startDate.getUTCFullYear()}.{String(project.data.startDate.getUTCMonth() + 1).padStart(2, "0")}</>}
+          {promotedTo && <> · <a href={promotedTo} class="ph-stat-link">now a product ↗︎</a></>}
           {repo && <> · <a href={repo} target="_blank" rel="noopener" class="ph-stat-link">source ↗︎</a></>}
           {liveUrl && <> · <a href={liveUrl} target="_blank" rel="noopener" class="ph-stat-link">live ↗︎</a></>}
           {pkg && <> · <a href={pkg} target="_blank" rel="noopener" class="ph-stat-link">{pkgLabel(pkg)} ↗︎</a></>}

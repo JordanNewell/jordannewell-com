@@ -1,23 +1,27 @@
 ---
-title: "I had the OS piece a year ago. I had to stop building the OS to ship it."
-description: "Curtis started as an AI operating system — control plane, IDP, policy engine, the whole stack diagram. It sat for a year. Shipping it meant pulling the OS back out: three tools, one history format, and a rebrand done by reclaiming the name instead of inventing one."
+title: "I had the OS piece before OpenClaw existed. I had to stop building the OS to ship it."
+description: "Curtis started as an AI operating system built months before OpenClaw dropped — control plane, IDP, policy engine, the whole stack diagram. When OpenClaw arrived I spent months comparing systems instead of shipping. What unstuck it was pulling the OS back out: three tools, one history format, and a rebrand done by reclaiming the name instead of inventing one."
 pubDate: 2026-10-18
 tags: ["ai", "oss", "business"]
 mode: "hobart"
 era: "2026-fleet"
 kind: "decision"
-draft: true
+draft: false
 ---
 
-A year ago I had the hard part. I just didn't know which part the hard part was.
+I had the hard part early. I just didn't know which part the hard part was.
 
-August 2025: I wrote down the thesis — *the unit is the operating system, not the tool.* Models are commodity, integration is the moat. I still believe that. So I did what the thesis seemed to order: I built the operating system. Control plane. Identity provider. Policy engine. Message bus. Vault. The full stack diagram, as a monorepo, with real code behind every box.
+Before the summer of 2025, I was already building the personal AI stack — local model routing through Ollama, a unified proxy across cloud providers, an MCP tool layer, an agent console. Not because a category existed. Nobody was calling this anything yet. It was just the obvious thing to build if you were living inside these models daily.
 
-It worked. And then it sat. For about a year.
+By August it had a name for itself. I wrote down the thesis on August 19, 2025 — *the unit is the operating system, not the tool.* Models are commodity, integration is the moat. A week later the monorepo had its initial commit: the operating system, for real. Control plane. Identity provider. Policy engine. Message bus. Vault. The full stack diagram, with working code behind every box.
+
+For scale: that was months before OpenClaw launched (November 2025, under its first name). When OpenClaw did drop, and then Hermes, and the rest of the wave — I wasn't discovering the problem space like everyone else. I was running comparisons. My OS against theirs, my architecture decisions against ones made in public, re-litigating my own stack against every new entrant. That comparison habit was useful and it was also the trap.
+
+The OS worked. And then it sat — through the entire era where personal agent infrastructure went from my private project to a category with weeks-old projects trending on GitHub.
 
 ## Why the OS sat
 
-Not because it was vapor — it ran. It sat because an OS is a platform with nothing on it. Every new feature required re-litigating an architecture decision. Every integration touched four layers. The docs were honest about it: this was an AI development operating system, not a tool collection. What the docs couldn't say was that nobody — including me — needed an operating system yet. They needed the things an OS was supposed to do for them.
+Not because it was vapor — it ran. It sat because an OS is a platform with nothing on it. Every new feature required re-litigating an architecture decision. Every integration touched four layers. The docs were honest about it: this was an AI development operating system, not a tool collection. What the docs couldn't say was that nobody — including me — needed an operating system yet. They needed the things an OS was supposed to do for them. And the new entrants proved it: OpenClaw shipped as a single assistant that does chores, not a kernel, and it took the category anyway.
 
 The thesis wasn't wrong. The build order was.
 
@@ -39,9 +43,9 @@ And the piece that finally stitches the three together isn't a control plane. It
 
 ## What came together
 
-The OS thesis said the value is in the integration layer. A year of sitting taught me the follow-up: the integration layer isn't a process supervisor. It's a shared definition of what a conversation *is*, and who holds the receipt.
+The OS thesis said the value is in the integration layer. A year of sitting — and a year of comparing my stack against every new entrant — taught me the follow-up: the integration layer isn't a process supervisor. It's a shared definition of what a conversation *is*, and who holds the receipt.
 
-That's what shipped. A year late by the original plan, exactly on time by every other measure:
+That's what shipped. Later than the August 2025 version of me planned, exactly on time by every other measure:
 
 - **[curtisai.tech](https://curtisai.tech)** — the suite, live
 - **[.curt](/posts/curtis-porter-curt-format/)** — the standard the suite hangs on

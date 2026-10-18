@@ -33,7 +33,10 @@ async function verifyTurnstile(
       method: "POST",
       body,
     });
-    const result = (await res.json()) as { success?: boolean };
+    const result = (await res.json()) as { success?: boolean; "error-codes"?: string[] };
+    if (result.success !== true) {
+      console.error("turnstile siteverify failed:", JSON.stringify(result["error-codes"] ?? []));
+    }
     return result.success === true;
   } catch {
     return false;

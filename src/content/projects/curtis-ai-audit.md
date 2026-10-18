@@ -4,17 +4,20 @@ description: "Append-only receipts for AI agent activity in your Obsidian vault.
 status: "shipped"
 tags: ["projects", "ai", "oss", "obsidian"]
 shipDate: 2026-10-15
+startDate: 2026-10-12
 repo: "https://github.com/JordanNewell/curtis-ai-audit"
 order: 11
 facts:
   - k: "shipped"
-    v: "2026-10-15 (v0.3.0)"
+    v: "2026-10-16 (v0.3.1)"
   - k: "form"
     v: "Obsidian plugin"
   - k: "tests"
     v: "267"
   - k: "license"
     v: "BUSL-1.1"
+  - k: "post"
+    v: "three-agents-one-file"
 highlights:
   - title: "Receipts, not logs"
     body: "Agent activity lands in an append-only local-first markdown ledger. The record is the point — you can prove what the agent did, when, and with what input."

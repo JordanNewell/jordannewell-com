@@ -4,6 +4,7 @@ description: "Source-available compliance checks for fintech code (BUSL-1.1 — 
 status: "shipped"
 tags: ["projects", "source-available", "fintech"]
 shipDate: 2026-07-20
+startDate: 2026-07-20
 repo: "https://github.com/JordanNewell/curtis-compliance"
 pkg: "https://www.npmjs.com/package/@jordannewell/curtis-compliance"
 order: 7

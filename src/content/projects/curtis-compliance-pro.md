@@ -4,6 +4,7 @@ description: "Pro tier folded into the Curtis AI suite — multi-repo audit roll
 status: "deprecated"
 tags: ["projects", "fintech", "compliance"]
 shipDate: 2026-07-27
+startDate: 2026-07-28
 repo: "https://github.com/JordanNewell/curtis-compliance-pro"
 liveUrl: "https://github.com/JordanNewell/curtis-compliance"
 order: 9

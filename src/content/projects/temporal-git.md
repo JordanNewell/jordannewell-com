@@ -4,6 +4,7 @@ description: "Automated git bisect — find which commit introduced a bug with o
 status: "shipped"
 tags: ["projects", "tools", "oss"]
 shipDate: 2026-07-21
+startDate: 2026-07-19
 repo: "https://github.com/JordanNewell/temporal-git"
 pkg: "https://www.npmjs.com/package/temporal-git"
 order: 21

@@ -19,7 +19,15 @@ const statusColors = PRODUCT_STATUS_COLORS;
     </div>
     {products.map((p) => (
       <a href={`/products/${p.id}/`} class="ledger-row">
-        <span class="lg-logo-cell">{p.data.logo && <img src={`${p.data.logo}?v=11`} alt="" width="18" height="18" class="lg-logo" loading="lazy" />}</span>
+        <span class="lg-logo-cell">
+          {p.data.logo && !p.data.logoLight && <img src={`${p.data.logo}?v=11`} alt="" width="18" height="18" class="lg-logo" loading="lazy" />}
+          {p.data.logo && p.data.logoLight && (
+            <>
+              <img src={`${p.data.logo}?v=11`} alt="" width="18" height="18" class="lg-logo lg-logo-dark" loading="lazy" />
+              <img src={`${p.data.logoLight}?v=11`} alt="" width="18" height="18" class="lg-logo lg-logo-light" loading="lazy" />
+            </>
+          )}
+        </span>
         <span class="lg-name">{p.data.title}</span>
         <span
           class="lg-st"
@@ -58,6 +66,9 @@ const statusColors = PRODUCT_STATUS_COLORS;
     border-radius: 4px;
     display: block;
   }
+  .lg-logo-light { display: none; }
+  :global([data-theme="dark"]) .lg-logo-dark { display: none; }
+  :global([data-theme="dark"]) .lg-logo-light { display: block; }
   .lg-name {
     font-family: var(--font-display);
     font-weight: 600;

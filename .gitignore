@@ -44,3 +44,4 @@ scripts/opsec-patterns.local
 *.log
 Thumbs.db
 desktop.ini
+__pycache__/

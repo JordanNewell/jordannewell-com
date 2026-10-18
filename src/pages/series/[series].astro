@@ -26,7 +26,7 @@ const posts = allPosts
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 
-<BaseLayout title={meta.name} description={meta.description}>
+<BaseLayout title={meta.name} description={meta.description} ogImage={`/og/series/${slug}.png`}>
   <div>
     <header class="mb-12">
       <p class="text-sm font-mono text-fg-muted mb-2"><a href="/series/" class="hover:text-fg">series</a></p>

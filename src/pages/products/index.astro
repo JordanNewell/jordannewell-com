@@ -20,11 +20,11 @@ const statusColors = PRODUCT_STATUS_COLORS;
     {products.map((p) => (
       <a href={`/products/${p.id}/`} class="ledger-row">
         <span class="lg-logo-cell">
-          {p.data.logo && !p.data.logoLight && <img src={`${p.data.logo}?v=11`} alt="" width="18" height="18" class="lg-logo" loading="lazy" />}
+          {p.data.logo && !p.data.logoLight && <img src={`${p.data.logo}?v=12`} alt="" width="18" height="18" class="lg-logo" loading="lazy" />}
           {p.data.logo && p.data.logoLight && (
             <>
-              <img src={`${p.data.logo}?v=11`} alt="" width="18" height="18" class="lg-logo lg-logo-dark" loading="lazy" />
-              <img src={`${p.data.logoLight}?v=11`} alt="" width="18" height="18" class="lg-logo lg-logo-light" loading="lazy" />
+              <img src={`${p.data.logo}?v=12`} alt="" width="18" height="18" class="lg-logo lg-logo-dark" loading="lazy" />
+              <img src={`${p.data.logoLight}?v=12`} alt="" width="18" height="18" class="lg-logo lg-logo-light" loading="lazy" />
             </>
           )}
         </span>

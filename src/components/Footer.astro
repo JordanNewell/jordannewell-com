@@ -36,12 +36,17 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
+  /* N mark sits on top of the footer, centered — both viewports. Gap from
+     logo to the first footer row is HALF the row-to-row gap (mb-4 = 16px
+     -> 8px): footer is the positioned ancestor. */
+  footer {
+    position: relative;
+  }
   .balloon-n {
-    /* N mark pinned to the page's top-right corner (nearest positioned
-       ancestor is the full-page wrapper in BaseLayout) */
     position: absolute;
-    top: 0.75rem;
-    right: 1.25rem;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     line-height: 0;
   }
   .balloon-n img {
@@ -56,20 +61,6 @@ const year = new Date().getFullYear();
   }
   :global([data-theme="dark"]) .balloon-n .character-light {
     display: none;
-  }
-  /* Mobile: absolute page-top pin is fragile down there — anchor to the
-     top of the footer instead (footer becomes the positioned ancestor).
-     Desktop keeps page-level anchoring (wrapper in BaseLayout). */
-  @media (max-width: 560px) {
-    footer {
-      position: relative;
-    }
-    .balloon-n {
-      top: 0.5rem;
-      right: auto;
-      left: 50%;
-      transform: translateX(-50%);
-    }
   }
   /* Mobile: raise footer link tap targets to the 40px comfort floor.
      Desktop (>640px) is untouched. Link text is already 14px (text-sm). */

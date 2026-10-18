@@ -82,7 +82,7 @@ I took the second path. v3 installs need to reinstall; conversation history keye
 | **Current release (v1.0.0+)** | [/products/curtis-ai-chat/](/products/curtis-ai-chat/) |
 | Source | [github.com/JordanNewell/curtis-ai-chat](https://github.com/JordanNewell/curtis-ai-chat) |
 | Old `curtis` directory entry | [community.obsidian.md/plugins/curtis](https://community.obsidian.md/plugins/curtis) — still lists v3.0.1, will be marked superseded once the v1 directory review clears |
-| Old GitHub repo | [github.com/JordanNewell/curtis-chat](https://github.com/JordanNewell/curtis-chat) — redirects to the new repo automatically |
+| Source, current | [github.com/JordanNewell/curtis](https://github.com/JordanNewell/curtis) — one repo, one lineage, current name |
 
 ## Lessons from three renames
 

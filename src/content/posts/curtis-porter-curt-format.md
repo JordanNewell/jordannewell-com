@@ -11,7 +11,7 @@ project: "curtis-chat"
 draft: false
 ---
 
-[The line post](/posts/curtis-line-2-0/) gave Curtis Porter one sentence: it owns the format boundary. As of today that sentence has a public repo behind it — [github.com/JordanNewell/curtis-ai-chat-porter](https://github.com/JordanNewell/curtis-ai-chat-porter). Initial release `d66b03b`, v0.2.0, MIT.
+[The line post](/posts/curtis-line-2-0/) gave Curtis Porter one sentence: it owns the format boundary. As of today that sentence has a public repo behind it — [github.com/JordanNewell/curtis-ai-porter](https://github.com/JordanNewell/curtis-ai-porter). Initial release `d66b03b`, v0.2.0, MIT.
 
 ## The hostage problem
 
@@ -50,7 +50,7 @@ v0.2.0 ports out as well as in. A `.curt` file or Curtis transcript goes back ou
 
 - **Web UI** — `npm start`, or double-click `dist/porter.html`: a single self-contained file that runs from disk, no server at all.
 - **CLI** — `curt-porter convert` / `export` / `serve`. Scriptable.
-- **Obsidian plugin** — standalone (`curtis-ai-chat-porter`; it works without Curtis AI Chat installed). When both are present, the shared format means ported chats appear in Curtis history immediately.
+- **Obsidian plugin** — standalone (`curtis-ai-porter`; it works without Curtis AI Chat installed). When both are present, the shared format means ported chats appear in Curtis history immediately.
 
 The engine is not a copy that will drift: `src/core` mirrors the plugin's `src/import` module file-for-file, and the contract suite runs live against the sibling repo. Change one side without the other and the build says so.
 
@@ -70,4 +70,4 @@ The durability argument from the v1 launch applies to chats the same as notes: f
 
 There will be more. Still true.
 
-[![Porter — one file, one chat, no hostages.](/posts/curtis-porter-curt-format/hero.webp)](https://github.com/JordanNewell/curtis-ai-chat-porter)
+[![Porter — one file, one chat, no hostages.](/posts/curtis-porter-curt-format/hero.webp)](https://github.com/JordanNewell/curtis-ai-porter)

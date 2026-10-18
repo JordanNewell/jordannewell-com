@@ -5,10 +5,72 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout title="404 — Not Found" description="Page not found.">
   <header class="mb-10">
     <h1 class="sr-only">404 — Not Found</h1>
+    <p class="code-404">404</p>
     <p class="text-fg-secondary">
-      That URL doesn't go anywhere. Try the <a href="/" class="text-green hover:underline">homepage</a>,
-      <a href="/now/" class="text-green hover:underline">now</a>, or
-      <a href="/products/" class="text-green hover:underline">products</a>.
+      Wrong turn. This page doesn't go anywhere — but the fair has two gates.
     </p>
   </header>
+
+  <div class="gates">
+    <a href="/" class="gate">
+      <span class="gate-label">the dot com</span>
+      <span class="gate-desc">everything shipped — projects, products, writing</span>
+      <span class="gate-arrow">→</span>
+    </a>
+    <a href="https://dev.jordannewell.com/" target="_blank" rel="noopener" class="gate">
+      <span class="gate-label">the midway</span>
+      <span class="gate-desc">the dev site — work in progress, in public</span>
+      <span class="gate-arrow">→</span>
+    </a>
+  </div>
 </BaseLayout>
+
+<style>
+  .code-404 {
+    font-family: var(--font-mono);
+    font-size: clamp(3rem, 9vw, 5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 1rem;
+  }
+  .gates {
+    display: grid;
+    gap: 0.5rem;
+    max-width: 34rem;
+  }
+  .gate {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.35rem 1rem;
+    align-items: baseline;
+    padding-block: 0.85rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border, #1F1F1F);
+  }
+  .gate:first-child { border-top: 1px solid var(--color-border, #1F1F1F); }
+  .gate-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  .gate-desc {
+    font-size: 0.85rem;
+    color: var(--color-fg-muted, #7A7683);
+  }
+  .gate-arrow {
+    font-family: var(--font-mono);
+    color: var(--color-green);
+    transition: transform 0.15s;
+  }
+  .gate:hover .gate-label {
+    color: var(--color-fg);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .gate:hover .gate-arrow { transform: translateX(3px); }
+  @media (max-width: 640px) {
+    .gate { grid-template-columns: 1fr auto; }
+    .gate-desc { grid-column: 1 / -1; }
+  }
+</style>

@@ -17,7 +17,7 @@ v1.0.0 shipped 2026-07-23 with a promise attached: *"Curtis AI Chat is one small
 
 **Curtis AI Chat** — the core. v1.0.0 shipped 2026-07-23; twelve releases have followed, the latest on 2026-10-07. Persistent model discovery, consent-first memory capture (facts propose, you Save or Skip), the two-model arena with context parity, the custom Curtis mark, right-to-left mirroring under Obsidian 1.14. Live in the community directory, MIT, no telemetry. [Product page](/products/curtis-ai-chat/).
 
-**[Curtis Porter](https://github.com/JordanNewell/curtis-ai-chat-porter)** — the standalone converter. Chats out of ChatGPT, Claude, Grok, Gemini, DeepSeek — any tool that can export — into `.curt`, Curtis's portable conversation format, and vault-ready markdown. v0.2.0 speaks both directions: Curtis chats export back out as continuation packs, ChatGPT-shape JSON, or API JSONL. Local-first, no accounts, no uploads. For people not in Obsidian yet.
+**[Curtis Porter](https://github.com/JordanNewell/curtis-ai-porter)** — the standalone converter. Chats out of ChatGPT, Claude, Grok, Gemini, DeepSeek — any tool that can export — into `.curt`, Curtis's portable conversation format, and vault-ready markdown. v0.2.0 speaks both directions: Curtis chats export back out as continuation packs, ChatGPT-shape JSON, or API JSONL. Local-first, no accounts, no uploads. For people not in Obsidian yet.
 
 **curtis-acp** — Curtis as an [ACP](https://agentclientprotocol.com) agent inside Zed's agent panel (or JetBrains, or any ACP client). One prompt fanned to every configured model, composed in-thread — the arena, in the editor. Protocol-complete and self-tested; the live-provider path is wired.
 
@@ -51,7 +51,7 @@ The reframe said models are commodity and integration is the moat. 2.0.0 is the 
 
 ## The plan, in public
 
-The [strategy doc](https://github.com/JordanNewell/curtis-ai-chat/blob/master/docs/MONETIZATION.md) lives in the repo, because the strategy is honest:
+The strategy is written down, because the strategy is honest:
 
 - The plugin stays free forever. MIT, BYOK, no feature ever paywalled. That's a contract with early users, written down.
 - The plugin's job is adoption, not revenue. It's the top of the funnel for a planned Curtis AI line.

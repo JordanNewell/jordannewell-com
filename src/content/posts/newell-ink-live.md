@@ -6,7 +6,7 @@ tags: ["typeface", "design"]
 mode: "hobart"
 kind: "win"
 project: "newell-typeface"
-draft: true
+draft: false
 ---
 
 Every glyph in [Newell](https://newell.ink) is built from three primitives: a vertical rail, a horizontal rail, and a 45° diagonal. Squared terminals. No curves anywhere — not because curves are hard, but because the constraint is the identity. Take the rails away and there's no typeface; there's just a font.

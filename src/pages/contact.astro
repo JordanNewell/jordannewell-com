@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined;
+// Site key is public by design (shipped in HTML) — hardcoded default beats
+// a build-env dependency; CF Pages API-set env vars don't reach git builds.
+const turnstileSiteKey = (import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | undefined) ?? "0x4AAAAAAFaqThXTXlgDGP36";
 ---
 
 <BaseLayout title="Contact" description="One inbox for jordannewell.com — say hello, flag an error, or ask about a project.">
@@ -37,6 +39,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | u
       {turnstileSiteKey && (
         <div class="field">
           <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto"></div>
+          <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
         </div>
       )}
 

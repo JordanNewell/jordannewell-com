@@ -5,7 +5,7 @@ pubDate: 2026-10-18
 tags: ["business", "construction"]
 mode: "hobart"
 kind: "win"
-draft: true
+draft: false
 ---
 
 Quick one. [The anchor is locked](/posts/dw-trim-anchor/) — the bar-and-restaurant buildout for the chain — and this week is about turning a signature into a mobilized job. The gearing-up phase is where well-run jobs are actually won; the build itself just records the result.

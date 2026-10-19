@@ -256,6 +256,164 @@ def _wrap(d, text, font, max_w):
     return lines
 
 
+# --- square variant (1080x1080) -------------------------------------------------
+# WhatsApp center-crops wide cards to ~1:1, gutting the composition. This is a
+# purpose-built square served ONLY to WhatsApp's crawler via the og-now.png
+# Pages Function (UA switch); every other platform keeps the wide card.
+# Same visual language as render(): frame, ruler, sticker+crumb, Newsreader
+# title, italic sub, dots/pill footer, character on hatched ground.
+
+S_W = S_H = 1080
+S_FX0, S_FY0, S_FX1, S_FY1 = 27, 27, 1052, 1052  # frame
+S_TITLE_LIMIT = 620   # title bottom-anchored here (sub starts below)
+S_SUB_FLOOR = 780     # sub must end above this (footer/ground zone)
+S_TEXT_MAX = 700      # max title width — same column rule as the wide card
+S_SUB_MAX = 660       # max sub width — same column rule as the wide card
+S_FOOTER_LIMIT = 660  # footer row must end before the character zone
+S_GROUND_Y = 958
+
+
+def render_square(out, title, sub, crumb="JORDANNEWELL.COM", footer=None):
+    """footer: list of ("dot", LABEL) pairs and/or ("pill", LABEL)."""
+    im = Image.new("RGB", (S_W, S_H), BG)
+    d = ImageDraw.Draw(im)
+    warnings = []
+
+    # frame + ruler ticks (same rhythm as the wide card)
+    d.rectangle([S_FX0, S_FY0, S_FX1, S_FY1], outline=BORDER, width=3)
+    x = 47
+    while x < S_FX1 - 10:
+        major = (x - 47) % 100 == 0
+        y0, y1 = (S_FY0 + 3, S_FY0 + 11) if major else (S_FY0 + 3, S_FY0 + 7)
+        d.line([(x, y0), (x, y1)], fill=INK, width=2)
+        x += 20
+
+    # header: sticker N + tracked breadcrumb
+    logo_h = 42
+    sticker = Image.open(NSTICKER)
+    lw = int(sticker.width * logo_h / sticker.height)
+    sticker = sticker.resize((lw, logo_h), Image.LANCZOS)
+    hx, hy = 55, 62
+    im.paste(sticker, (hx, hy), sticker)
+    cf = _mono(21, 700)
+    text = " / ".join(p.strip().upper() for p in crumb.split("/"))
+    for tracking in (5, 3):
+        if hx + lw + 18 + _tracked_len(d, text, cf, tracking) <= 950:
+            break
+    else:
+        while text and hx + lw + 18 + _tracked_len(d, text + "…", cf, 3) > 950:
+            text = text[:-1].rstrip()
+        text += "…"
+        warnings.append(f"crumb truncated: {crumb!r}")
+    _tracked(d, (hx + lw + 18, hy + 12), text, cf, CRUMB, tracking)
+
+    # title — Newsreader display, bottom-anchored at S_TITLE_LIMIT
+    size = 170
+    lines = None
+    while size >= 44:
+        tf = _serif(size)
+        lines = _wrap(d, title, tf, S_TEXT_MAX)
+        if len(lines) <= 3 and max(d.textlength(l, font=tf) for l in lines) <= S_TEXT_MAX:
+            break
+        size -= 6
+    if size < 44:
+        assert tf is not None and lines is not None
+        tf = _serif(44)
+        words, lines, cur = title.split(), [], ""
+        for w in words:
+            t = f"{cur} {w}".strip()
+            if d.textlength(t, font=tf) <= S_TEXT_MAX:
+                cur = t
+            else:
+                lines.append(cur)
+                if len(lines) == 3:
+                    break
+                cur = w
+        if len(lines) < 3 and cur:
+            lines.append(cur)
+        lines = lines[:3]
+        while d.textlength(lines[-1] + "…", font=tf) > S_TEXT_MAX:
+            lines[-1] = lines[-1][:-1].rstrip()
+        lines[-1] += "…"
+        warnings.append(f"title truncated at 3 lines/44px: {title!r}")
+        size = 44
+    assert lines is not None and size is not None
+    lh = int(size * 0.95)
+    ty = S_TITLE_LIMIT - len(lines) * lh
+    for line in lines:
+        d.text((62, ty), line, font=tf, fill=INK)
+        ty += lh
+
+    # sub — italic serif, max 2 lines, above S_SUB_FLOOR
+    for ssize in (36, 30, 26):
+        sf = _serif(ssize, wght=400, opsz=14, italic=True)
+        slines = _wrap(d, sub, sf, S_SUB_MAX)
+        if len(slines) <= 2:
+            break
+    else:
+        while sub and len(_wrap(d, sub + "…", sf, S_TEXT_MAX - 20)) > 2:
+            sub = sub[:-1].rstrip()
+        sub += "…"
+        slines = _wrap(d, sub, sf, S_SUB_MAX)
+        warnings.append(f"sub truncated: {sub!r}")
+    sy = S_TITLE_LIMIT + 14
+    for line in slines:
+        d.text((65, sy), line, font=sf, fill=SUB)
+        sy += ssize + 10
+
+    # footer row (bottom-left), same offsets as the wide card relative to ground
+    fy = S_GROUND_Y + 2
+    fx = 62
+    pill = next((lbl for kind, lbl in footer or [] if kind == "pill"), None)
+    dots = [lbl for kind, lbl in footer or [] if kind == "dot"]
+    if pill:
+        pf = _mono(27, 700)
+        pw = int(_tracked_len(d, pill, pf, 3)) + 56
+        df = _mono(19, 700)
+        dots_w = 0
+        for lbl in dots:
+            dots_w += 18 + _tracked_len(d, lbl, df, 4) + 26
+        if dots and 62 + dots_w + 6 + pw > S_FOOTER_LIMIT:
+            warnings.append(f"footer dots dropped (overflow): {dots}")
+            dots = []
+        px0 = 71
+        if dots:
+            for lbl in dots:
+                d.ellipse([fx, S_GROUND_Y - 2, fx + 10, S_GROUND_Y + 8], fill=GREEN_DARK)
+                fx = _tracked(d, (fx + 18, fy - 4), lbl, df, CRUMB, 4) + 26
+            px0 = fx + 6
+        if px0 + pw > S_FOOTER_LIMIT:
+            warnings.append(f"pill overflows character zone: {pill!r}")
+        d.rounded_rectangle([px0, S_GROUND_Y - 43, px0 + pw, S_GROUND_Y + 17],
+                            radius=30, fill=GREEN, outline=INK, width=3)
+        _tracked(d, (px0 + (pw - _tracked_len(d, pill, pf, 3)) // 2, S_GROUND_Y - 28),
+                 pill, pf, INK, 3)
+    elif dots:
+        df = _mono(19, 700)
+        for lbl in dots:
+            d.ellipse([fx, fy - 2, fx + 10, fy + 8], fill=GREEN_DARK)
+            fx = _tracked(d, (fx + 18, fy - 4), lbl, df, CRUMB, 4) + 26
+        if fx > S_FOOTER_LIMIT:
+            warnings.append(f"footer dots overflow: {dots}")
+
+    # ground line + hatches, character standing on it (bottom-right)
+    d.line([(690, S_GROUND_Y), (1025, S_GROUND_Y)], fill=INK, width=2)
+    hx2 = 700
+    while hx2 < 1020:
+        d.line([(hx2, S_GROUND_Y + 1), (hx2 - 7, S_GROUND_Y + 12)], fill=INK, width=2)
+        hx2 += 13
+    ch = Image.open(CHAR)
+    ch_h = 480
+    ch_w = int(ch.width * ch_h / ch.height)
+    ch = ch.resize((ch_w, ch_h), Image.LANCZOS)
+    im.paste(ch, (875 - ch_w // 2, S_GROUND_Y - ch_h), ch)
+    _sparkle(d, 985, 330, 15)
+
+    Path(out).parent.mkdir(parents=True, exist_ok=True)
+    im.save(out)
+    return out, warnings
+
+
 if __name__ == "__main__":
     # test: replicate the Synapse mockup + a long-title case
     render("C:/tmp/og-samples/gen-synapse.png", title="Synapse", sub="Restart broke encrypted replies.",

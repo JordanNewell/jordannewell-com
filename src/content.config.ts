@@ -130,4 +130,18 @@ const contributions = defineCollection({
   }),
 });
 
-export const collections = { posts, projects, products, contributions };
+const podcast = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "./src/content/podcast" }),
+  schema: z.object({
+    slug: z.string(),
+    title: z.string(),
+    pubDate: z.coerce.date(),
+    duration: z.string(),
+    enclosureUrl: z.string(),
+    fileSize: z.number(),
+    episode: z.number(),
+    description: z.string(),
+  }),
+});
+
+export const collections = { posts, projects, products, contributions, podcast };

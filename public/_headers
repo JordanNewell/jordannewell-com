@@ -2,12 +2,13 @@
 # CSP allows exactly what the site loads: the Cloudflare Web Analytics beacon
 # (static.cloudflareinsights.com script, cloudflareinsights.com RUM endpoint),
 # the Turnstile widget on /contact (challenges.cloudflare.com script + frame),
+# podcast audio on audio.jordannewell.com (media-src),
 # and Astro's inlined assets (stylesheets + data: fonts). Everything else is
 # same-origin. NOTE: Pages _headers applies ALL matching rules — one rule here,
 # no path overrides.
 
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://challenges.cloudflare.com https://cloudflareinsights.com; base-uri 'self'; object-src 'none'; frame-src https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; media-src 'self' https://audio.jordannewell.com; connect-src 'self' https://challenges.cloudflare.com https://cloudflareinsights.com; base-uri 'self'; object-src 'none'; frame-src https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()

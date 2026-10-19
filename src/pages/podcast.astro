@@ -1,0 +1,89 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const episodes = (await getCollection("podcast"))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const totalMinutes = episodes.reduce((sum, e) => {
+  const [m, s = "0"] = e.data.duration.split(":");
+  return sum + Number(m) * 60 + Number(s);
+}, 0);
+---
+
+<BaseLayout title="The Standup" description="The Standup reads this site's posts out loud — an ensemble of synthesized voices, generated from the blog. Same field notes, now audible." ogImage="/og-card.png">
+  <h1 class="sr-only">The Standup</h1>
+  <p class="ph-stats">
+    <span class="stat-n">{episodes.length}</span> episodes · <span class="stat-n">{Math.round(totalMinutes / 60)}</span> min · <a href="/podcast/feed.xml" class="feed-link">rss feed</a>
+  </p>
+
+  {episodes.length === 0 ? (
+    <p class="lg-desc">No episodes yet. The blog comes first; the audio follows.</p>
+  ) : (
+    <div class="ledger">
+      <div class="ledger-head">
+        <span>ep</span><span>entry</span>
+      </div>
+      {episodes.map((episode) => (
+        <div class="ledger-row">
+          <span class="lg-date">#{episode.data.episode}</span>
+          <span class="lg-body">
+            <span class="lg-meta">
+              {episode.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "short", timeZone: "UTC" })} · {episode.data.duration}
+            </span>
+            <span class="lg-link">{episode.data.title}</span>
+            <span class="lg-desc">{episode.data.description}</span>
+            <audio controls preload="none" src={episode.data.enclosureUrl}></audio>
+          </span>
+        </div>
+      ))}
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  /* Grid + spacing are podcast-specific; base ledger styles live in global.css */
+  .ledger-head, .ledger-row {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 0 18px;
+  }
+  .ledger-row {
+    padding-block: 0.9rem;
+  }
+  .lg-date {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-fg-muted);
+    padding-top: 0.25rem;
+  }
+  .lg-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .lg-meta {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--color-fg-muted);
+    text-transform: lowercase;
+  }
+  audio {
+    width: 100%;
+    max-width: 420px;
+    margin-top: 0.4rem;
+  }
+  .feed-link {
+    color: var(--color-fg-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .feed-link:hover {
+    color: var(--color-fg);
+  }
+  @media (max-width: 560px) {
+    .ledger-head { display: none; }
+    .ledger-row { grid-template-columns: 1fr; }
+    .lg-date { margin-bottom: 0.3rem; }
+  }
+</style>

@@ -33,7 +33,11 @@ const totalMinutes = episodes.reduce((sum, e) => {
             </span>
             <span class="lg-link">{episode.data.title}</span>
             <span class="lg-desc">{episode.data.description}</span>
-            <audio controls preload="none" src={episode.data.enclosureUrl}></audio>
+            <div class="player" data-src={episode.data.enclosureUrl} data-duration={episode.data.duration}>
+              <button type="button" class="pl-btn" aria-label={`Play episode ${episode.data.episode}: ${episode.data.title}`}>▶</button>
+              <input type="range" class="pl-seek" min="0" max="1000" value="0" step="1" aria-label={`Seek within episode ${episode.data.episode}`} />
+              <span class="pl-time">0:00 / {episode.data.duration}</span>
+            </div>
           </span>
         </div>
       ))}
@@ -68,10 +72,70 @@ const totalMinutes = episodes.reduce((sum, e) => {
     color: var(--color-fg-muted);
     text-transform: lowercase;
   }
-  audio {
+  /* Custom episode player — replaces the native <audio controls> widget,
+     which renders as an OS-default block that clashes with the ledger. */
+  .player {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
     width: 100%;
     max-width: 420px;
-    margin-top: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .pl-btn {
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--color-fg-muted);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-fg);
+    font-size: 0.8rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .pl-btn:hover, .pl-btn.is-playing {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .pl-seek {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 2px;
+    background: color-mix(in srgb, var(--color-fg-muted) 35%, transparent);
+    border-radius: 1px;
+    cursor: pointer;
+    outline-offset: 4px;
+  }
+  .pl-seek::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: none;
+    margin-top: 0; /* recenters the thumb on the 2px track in Blink */
+  }
+  .pl-seek::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: none;
+  }
+  .pl-time {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--color-fg-muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
   .feed-link {
     color: var(--color-fg-muted);
@@ -87,3 +151,71 @@ const totalMinutes = episodes.reduce((sum, e) => {
     .lg-date { margin-bottom: 0.3rem; }
   }
 </style>
+
+<script>
+  // Episode players: one shared Audio per click, one-at-a-time playback.
+  // Seek is a native range input so keyboard scrubbing comes for free.
+  const fmt = (s: number) => {
+    if (!isFinite(s)) return "0:00";
+    const m = Math.floor(s / 60);
+    const ss = Math.floor(s % 60).toString().padStart(2, "0");
+    return `${m}:${ss}`;
+  };
+
+  const parseDur = (d: string) => {
+    const [m, s = "0"] = d.split(":");
+    return Number(m) * 60 + Number(s);
+  };
+
+  let active: { audio: HTMLAudioElement; btn: HTMLButtonElement; seek: HTMLInputElement; time: HTMLElement } | null = null;
+
+  const stop = (p: NonNullable<typeof active>) => {
+    p.audio.pause();
+    p.btn.textContent = "▸";
+    p.btn.classList.remove("is-playing");
+    p.btn.setAttribute("aria-label", p.btn.getAttribute("aria-label")!.replace("Pause", "Play"));
+  };
+
+  document.querySelectorAll<HTMLElement>(".player").forEach((el) => {
+    const btn = el.querySelector<HTMLButtonElement>(".pl-btn")!;
+    const seek = el.querySelector<HTMLInputElement>(".pl-seek")!;
+    const time = el.querySelector<HTMLElement>(".pl-time")!;
+    const src = el.dataset.src!;
+    const total = parseDur(el.dataset.duration!);
+    let audio: HTMLAudioElement | null = null;
+
+    btn.addEventListener("click", () => {
+      if (audio && !audio.paused) {
+        stop({ audio, btn, seek, time });
+        return;
+      }
+      if (!audio) {
+        audio = new Audio(src);
+        audio.addEventListener("loadedmetadata", () => {
+          if (isFinite(audio!.duration)) time.textContent = `0:00 / ${fmt(audio!.duration)}`;
+        });
+        audio.addEventListener("timeupdate", () => {
+          if (active && active.audio === audio && document.activeElement === seek) return; // don't fight the user's scrub
+          if (isFinite(audio!.duration)) seek.value = String((audio!.currentTime / audio!.duration) * 1000);
+          time.textContent = `${fmt(audio!.currentTime)} / ${fmt(audio!.duration || total)}`;
+        });
+        audio.addEventListener("ended", () => {
+          seek.value = "0";
+          time.textContent = `0:00 / ${fmt(audio!.duration || total)}`;
+          stop({ audio: audio!, btn, seek, time });
+        });
+      }
+      if (active && active.audio !== audio) stop(active);
+      active = { audio, btn, seek, time };
+      audio.play();
+      btn.textContent = "❚❚";
+      btn.classList.add("is-playing");
+      btn.setAttribute("aria-label", btn.getAttribute("aria-label")!.replace("Play", "Pause"));
+    });
+
+    seek.addEventListener("input", () => {
+      if (!audio || !isFinite(audio.duration)) return;
+      audio.currentTime = (Number(seek.value) / 1000) * audio.duration;
+    });
+  });
+</script>

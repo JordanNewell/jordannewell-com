@@ -48,6 +48,7 @@ export const onRequestPost: PagesFunction = async ({ request, env }) => {
 
   const contentType = request.headers.get("Content-Type") || "";
   if (!contentType.includes("application/json")) {
+    console.error("contact reject 415: content-type", contentType);
     return json({ ok: false, error: "expected json" }, 415);
   }
 
@@ -64,6 +65,7 @@ export const onRequestPost: PagesFunction = async ({ request, env }) => {
     }
     payload = JSON.parse(raw);
   } catch {
+    console.error("contact reject 400: bad json, len", raw.length);
     return json({ ok: false, error: "bad json" }, 400);
   }
 
@@ -80,9 +82,11 @@ export const onRequestPost: PagesFunction = async ({ request, env }) => {
 
   // Basic email shape check — the address only feeds a webhook reply-to.
   if (!replyTo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(replyTo)) {
+    console.error("contact reject 400: bad reply-to, len", replyTo.length);
     return json({ ok: false, error: "valid reply-to required" }, 400);
   }
   if (!message.trim() || message.length > MAX_MESSAGE_CHARS) {
+    console.error("contact reject 400: bad message, len", message.length);
     return json({ ok: false, error: "message required, max 4000 chars" }, 400);
   }
 
@@ -90,6 +94,7 @@ export const onRequestPost: PagesFunction = async ({ request, env }) => {
   // stays usable pre-config, but a bound secret makes the check mandatory.
   if (e.TURNSTILE_SECRET) {
     if (!turnstileToken) {
+      console.error("contact reject 403: token empty — widget did not render or was not solved");
       return json({ ok: false, error: "verification missing" }, 403);
     }
     const ip = request.headers.get("CF-Connecting-IP");

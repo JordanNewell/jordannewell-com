@@ -161,7 +161,14 @@ const turnstileSiteKey = (import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string | 
             status.textContent = "sent";
             form.reset();
           } else {
-            status.textContent = "failed — retry";
+            res.json().then(function (body) {
+              var msg = (body && body.error) || "failed — retry";
+              if (msg === "verification missing") msg = "bot check not complete — wait for the checkbox";
+              if (msg === "verification failed") msg = "bot check failed — refresh the page and try again";
+              status.textContent = msg;
+            }).catch(function () {
+              status.textContent = "failed — retry";
+            });
           }
         })
         .catch(function () {

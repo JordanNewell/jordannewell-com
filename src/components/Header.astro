@@ -26,19 +26,26 @@ const { path } = Astro.props;
         </>
       ))}
     </nav>
-    <!-- Watch/listen icons — right end of the header, above the character's head -->
-    <div class="header-icons">
-      <a href="https://www.youtube.com/@newellops" class="icon-link" aria-label="YouTube" title="YouTube" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="1.5" y="4.5" width="13" height="9.5" rx="1.5" />
-          <path d="M5.5 1.5 8 4l2.5-2.5" />
+    <!-- Watch/listen tiles — cartoon TV + mic, centered over the character's
+         head (absolute: the character's center sits ~86px from the container's
+         right edge in both themes, ~68px on mobile). Same plate/LED treatment
+         as the light switch so they read as one hardware family. -->
+    <div class="watch-listen">
+      <a href="https://www.youtube.com/@newellops" aria-label="YouTube" title="YouTube" target="_blank" rel="noopener">
+        <svg width="27" height="22" viewBox="0 0 27 22" aria-hidden="true">
+          <path d="M8.5 6 4.5 1.5M18.5 6l4-4.5" stroke="#3ddc74" stroke-width="1.6" stroke-linecap="round" />
+          <rect x="1" y="5" width="25" height="16" rx="3.5" fill="#1a1a1e" stroke="#3a3a40" />
+          <rect class="tile-fill" x="4" y="8" width="13.5" height="10" rx="1.5" fill="#0E8A4A" />
+          <circle cx="21.2" cy="10.8" r="1.7" fill="#3ddc74" />
+          <circle cx="21.2" cy="16.2" r="1.7" fill="#55555c" />
         </svg>
       </a>
-      <a href="/podcast" class="icon-link" aria-label="The Standup — podcast" title="The Standup — podcast">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="6" y="1.5" width="4" height="8" rx="2" />
-          <path d="M3.5 7.5a4.5 4.5 0 0 0 9 0" />
-          <path d="M8 12v2.5" />
+      <a href="/podcast" aria-label="The Standup — podcast" title="The Standup — podcast">
+        <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+          <rect x="1" y="1" width="20" height="20" rx="6" fill="#1a1a1e" stroke="#3a3a40" />
+          <rect class="tile-fill" x="8" y="4.5" width="6" height="8" rx="3" fill="#0E8A4A" />
+          <path d="M6 10.5a5 5 0 0 0 10 0" stroke="#3ddc74" stroke-width="1.6" fill="none" stroke-linecap="round" />
+          <path d="M11 15.5v3" stroke="#3ddc74" stroke-width="1.6" stroke-linecap="round" />
         </svg>
       </a>
     </div>
@@ -46,22 +53,33 @@ const { path } = Astro.props;
 </header>
 
 <style>
-  /* Watch/listen icons — muted like the nav links, brighten on hover.
-     ml-auto parks them at the right edge, over the character's head. */
-  .header-icons {
-    margin-left: auto;
+  /* Watch/listen tiles — dark plates + green fills, lifted out of the flex
+     flow so they hover over the character's head without affecting header
+     height. The character's center lands ~86px from the container's right
+     edge in both themes (light: 20px pad + 66px half-width; dark: 20px pad
+     + 46px half-width + 20px translate), ~68px once the character shrinks
+     at 560px. translate(50%,…) centers the group on that point. */
+  .header-inner {
+    position: relative;
+  }
+  .watch-listen {
+    position: absolute;
+    right: 86px;
+    top: 50%;
+    transform: translate(50%, -50%);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
   }
-  .icon-link {
+  .watch-listen a {
     display: inline-flex;
-    align-items: center;
-    padding: 0.25rem;
-    color: var(--color-fg-muted);
-    transition: color 0.15s;
+    line-height: 0;
+    padding: 9px 8px;
+    transition: transform 0.15s;
   }
-  .icon-link:hover { color: var(--color-fg); }
+  .watch-listen a:hover { transform: translateY(-1px); }
+  .tile-fill { transition: fill 0.15s; }
+  .watch-listen a:hover .tile-fill { fill: #17c964; }
   /* Mobile: raise tap targets to the 40px comfort floor and legible font size.
      Desktop (>640px) is untouched. */
   @media (max-width: 640px) {
@@ -76,8 +94,11 @@ const { path } = Astro.props;
       display: inline-block;
       padding-block: 0.75rem;
     }
-    .icon-link {
-      padding: 0.625rem 0.25rem;
+  }
+  /* Character shrinks at 560px — follow its head. */
+  @media (max-width: 560px) {
+    .watch-listen {
+      right: 68px;
     }
   }
   .theme-toggle {

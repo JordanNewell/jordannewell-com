@@ -29,6 +29,6 @@ export async function GET(context: { site: URL }) {
       },
       customData: `<itunes:duration>${durationToSeconds(episode.data.duration)}</itunes:duration><guid isPermaLink="false">${episode.data.slug}</guid>`,
     })),
-    customData: `<language>en-us</language><link>${SITE.url}/podcast/</link><itunes:author>${SITE.author.name}</itunes:author><itunes:summary>The Standup reads this site's posts out loud — an ensemble of synthesized voices, generated from the blog. Same field notes, now audible.</itunes:summary><itunes:explicit>false</itunes:explicit><itunes:image href="${SITE.url}/og-card.png" /><itunes:owner><itunes:name>${SITE.author.name}</itunes:name><itunes:email>${SITE.author.email}</itunes:email></itunes:owner><itunes:category text="Technology" /><copyright>© ${year} Jordan Newell. Content licensed CC BY-NC 4.0. Code licensed MIT.</copyright>`,
+    customData: `<language>en-us</language><link>${SITE.url}/podcast/</link><itunes:author>${SITE.author.name}</itunes:author><itunes:summary>The Standup reads this site's posts out loud — an ensemble of synthesized voices, generated from the blog. Same field notes, now audible.</itunes:summary><itunes:explicit>false</itunes:explicit><itunes:image href="${SITE.url}/podcast-cover.png" /><itunes:owner><itunes:name>${SITE.author.name}</itunes:name><itunes:email>${SITE.author.email}</itunes:email></itunes:owner><itunes:category text="Technology" /><copyright>© ${year} Jordan Newell. Content licensed CC BY-NC 4.0. Code licensed MIT.</copyright>`,
   });
 }

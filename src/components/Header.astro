@@ -26,10 +26,42 @@ const { path } = Astro.props;
         </>
       ))}
     </nav>
+    <!-- Watch/listen icons — right end of the header, above the character's head -->
+    <div class="header-icons">
+      <a href="https://www.youtube.com/@newellops" class="icon-link" aria-label="YouTube" title="YouTube" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="1.5" y="4.5" width="13" height="9.5" rx="1.5" />
+          <path d="M5.5 1.5 8 4l2.5-2.5" />
+        </svg>
+      </a>
+      <a href="/podcast" class="icon-link" aria-label="The Standup — podcast" title="The Standup — podcast">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="6" y="1.5" width="4" height="8" rx="2" />
+          <path d="M3.5 7.5a4.5 4.5 0 0 0 9 0" />
+          <path d="M8 12v2.5" />
+        </svg>
+      </a>
+    </div>
   </div>
 </header>
 
 <style>
+  /* Watch/listen icons — muted like the nav links, brighten on hover.
+     ml-auto parks them at the right edge, over the character's head. */
+  .header-icons {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .icon-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem;
+    color: var(--color-fg-muted);
+    transition: color 0.15s;
+  }
+  .icon-link:hover { color: var(--color-fg); }
   /* Mobile: raise tap targets to the 40px comfort floor and legible font size.
      Desktop (>640px) is untouched. */
   @media (max-width: 640px) {
@@ -43,6 +75,9 @@ const { path } = Astro.props;
     nav a {
       display: inline-block;
       padding-block: 0.75rem;
+    }
+    .icon-link {
+      padding: 0.625rem 0.25rem;
     }
   }
   .theme-toggle {

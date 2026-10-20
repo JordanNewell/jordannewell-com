@@ -1,0 +1,10 @@
+{
+  "slug": "v8-heap-cgroup-half",
+  "title": "The Standup: half heaps and silent sizing",
+  "pubDate": "Fri, 25 Sep 2026 00:00:00 GMT",
+  "duration": "7:51",
+  "enclosureUrl": "https://audio.jordannewell.com/episodes/v8-heap-cgroup-half.mp3",
+  "fileSize": 7543580,
+  "episode": 21,
+  "description": "The fleet workshops \"Node sized its heap to half the memory cap. The fleet OOM-looped all day.\"."
+}

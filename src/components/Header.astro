@@ -33,19 +33,19 @@ const { path } = Astro.props;
     <div class="watch-listen">
       <a href="https://www.youtube.com/@newellops" aria-label="YouTube" title="YouTube" target="_blank" rel="noopener">
         <svg width="27" height="22" viewBox="0 0 27 22" aria-hidden="true">
-          <path d="M8.5 6 4.5 1.5M18.5 6l4-4.5" stroke="#3ddc74" stroke-width="1.6" stroke-linecap="round" />
+          <path class="tile-accent" d="M8.5 6 4.5 1.5M18.5 6l4-4.5" stroke-width="1.6" stroke-linecap="round" />
           <rect x="1" y="5" width="25" height="16" rx="3.5" fill="#1a1a1e" stroke="#3a3a40" />
-          <rect class="tile-fill" x="4" y="8" width="13.5" height="10" rx="1.5" fill="#0E8A4A" />
-          <circle cx="21.2" cy="10.8" r="1.7" fill="#3ddc74" />
+          <rect class="tile-fill" x="4" y="8" width="13.5" height="10" rx="1.5" />
+          <circle class="tile-accent-fill" cx="21.2" cy="10.8" r="1.7" />
           <circle cx="21.2" cy="16.2" r="1.7" fill="#55555c" />
         </svg>
       </a>
       <a href="/podcast" aria-label="The Standup — podcast" title="The Standup — podcast">
         <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
           <rect x="1" y="1" width="20" height="20" rx="6" fill="#1a1a1e" stroke="#3a3a40" />
-          <rect class="tile-fill" x="8" y="4.5" width="6" height="8" rx="3" fill="#0E8A4A" />
-          <path d="M6 10.5a5 5 0 0 0 10 0" stroke="#3ddc74" stroke-width="1.6" fill="none" stroke-linecap="round" />
-          <path d="M11 15.5v3" stroke="#3ddc74" stroke-width="1.6" stroke-linecap="round" />
+          <rect class="tile-fill" x="8" y="4.5" width="6" height="8" rx="3" />
+          <path class="tile-accent" d="M6 10.5a5 5 0 0 0 10 0" stroke-width="1.6" fill="none" stroke-linecap="round" />
+          <path class="tile-accent" d="M11 15.5v3" stroke-width="1.6" stroke-linecap="round" />
         </svg>
       </a>
     </div>
@@ -61,6 +61,16 @@ const { path } = Astro.props;
      at 560px. translate(50%,…) centers the group on that point. */
   .header-inner {
     position: relative;
+    /* Watch/listen color schedule — day: green; night: white. Same schedule
+       the switch rocker follows below. */
+    --wl-main: #0E8A4A;
+    --wl-accent: #3ddc74;
+    --wl-hover: #17c964;
+  }
+  :global([data-theme="dark"]) .header-inner {
+    --wl-main: #ffffff;
+    --wl-accent: #ffffff;
+    --wl-hover: #d9d9d9;
   }
   .watch-listen {
     position: absolute;
@@ -78,8 +88,12 @@ const { path } = Astro.props;
     transition: transform 0.15s;
   }
   .watch-listen a:hover { transform: translateY(-1px); }
-  .tile-fill { transition: fill 0.15s; }
-  .watch-listen a:hover .tile-fill { fill: #17c964; }
+  .tile-fill { fill: var(--wl-main); transition: fill 0.15s; }
+  .tile-accent { stroke: var(--wl-accent); transition: stroke 0.15s; }
+  .tile-accent-fill { fill: var(--wl-accent); transition: fill 0.15s; }
+  .watch-listen a:hover .tile-fill { fill: var(--wl-hover); }
+  .watch-listen a:hover .tile-accent { stroke: var(--wl-hover); }
+  .watch-listen a:hover .tile-accent-fill { fill: var(--wl-hover); }
   /* Mobile: raise tap targets to the 40px comfort floor and legible font size.
      Desktop (>640px) is untouched. */
   @media (max-width: 640px) {
@@ -148,16 +162,17 @@ const { path } = Astro.props;
     width: 100%;
     height: 100%;
     border-radius: 2px;
-    background: linear-gradient(#ffffff, #d9d9d9);
+    /* day: lights on, green rocker (same schedule as the watch/listen tiles) */
+    background: linear-gradient(#3ddc74, #0E8A4A);
     box-shadow:
       0 1px 1px rgba(0, 0, 0, 0.55),
       inset 0 -1px 0 rgba(0, 0, 0, 0.12);
     transform: rotateX(24deg);
     transform-style: preserve-3d;
     /* spring: flips past the settle point, then rocks back */
-    transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s;
   }
-  .theme-toggle:hover .rocker { background: linear-gradient(#ffffff, #e6e6e6); }
+  .theme-toggle:hover .rocker { background: linear-gradient(#3ddc74, #17c964); }
   .led {
     position: absolute;
     left: 50%;
@@ -173,10 +188,14 @@ const { path } = Astro.props;
   }
   :global([data-theme="dark"]) .rocker {
     transform: rotateX(-24deg);
-    background: linear-gradient(#e9e9e9, #bdbdbd);
+    /* night: lights off, white rocker */
+    background: linear-gradient(#ffffff, #d9d9d9);
     box-shadow:
       0 -1px 1px rgba(0, 0, 0, 0.55),
       inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+  :global([data-theme="dark"]) .theme-toggle:hover .rocker {
+    background: linear-gradient(#ffffff, #e6e6e6);
   }
   :global([data-theme="dark"]) .led {
     /* lights off */

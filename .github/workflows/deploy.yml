@@ -57,17 +57,22 @@ jobs:
       - name: Smoke-check the deployment
         if: env.HAS_CF_TOKEN == 'true'
         # main serves the production alias; any other branch gets <branch>.<project>.pages.dev.
+        # Branch previews sit behind Cloudflare Access — curl gets a 302 to the
+        # login, which means the deployment is serving. Only 200 proves content
+        # on the ungated production alias.
         run: |
           sleep 20
           if [ "${{ github.ref_name }}" = "main" ]; then
             base="https://jordannewell-com.pages.dev"
+            ok_codes="200"
           else
             base="https://${{ github.ref_name }}.jordannewell-com.pages.dev"
+            ok_codes="200 302"
           fi
           for path in / /posts/ /llms.txt /rss.xml /robots.txt; do
             code=$(curl -s -o /dev/null -w '%{http_code}' "${base}${path}")
             echo "${path} -> ${code}"
-            [ "$code" = "200" ] || { echo "FAIL: ${path} not 200"; exit 1; }
+            echo "$ok_codes" | grep -qw "$code" || { echo "FAIL: ${path} not in [$ok_codes]"; exit 1; }
           done
 
       - name: No token yet — skip deploy

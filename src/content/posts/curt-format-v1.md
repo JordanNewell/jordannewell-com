@@ -24,13 +24,11 @@ Three artifacts:
 - **[`curt-format@1.2.0`](https://www.npmjs.com/package/curt-format) on npm.** TypeScript, zero dependencies, MIT. `serializeCurt`, `parseCurt`, `curtFilename`. Serialize, parse, round-trip — the whole install.
 - **27 conformance vectors in CI.** L1 CORE through L4 per-extension, plain fixtures. "Compatible" is a claim you can run, not an adjective on a landing page.
 
-## The rules I'm holding myself to
+## Two rules
 
-Two matter.
+One: the core is frozen. Not "stable", not "mostly settled" — frozen. Expansion happens in the registry or at v2, never by editing v1 under people. Formats die by accretion: every "small" spec edit breaks a reader somewhere, and the readers find out last. Need something the core lacks? Add the field; unknown fields ride along on re-save. It catches on, it graduates to a named extension. If something genuinely can't be an extension, that's v2 — new version number, and every v1 archive on earth still parses.
 
-One: the core is frozen. Formats die by accretion — every "small" spec edit breaks a reader somewhere. .curt grows sideways through the registry or not at all.
-
-Two: an extension goes draft → stable only when two independent implementations round-trip it. I run six registry entries and they all share an author, so right now nothing is stable that I didn't prove against myself. That's the rule working, not an oversight. [consensus-receipt](https://github.com/JordanNewell/dot_curt/blob/main/EXTENSIONS.md) is draft and stays draft until someone else implements it.
+Two: an extension goes draft → stable only when two independent implementations round-trip it. Six registry entries today, one author. Nothing is stable that I didn't prove against myself — that's the rule working, not an oversight. [consensus-receipt](https://github.com/JordanNewell/dot_curt/blob/main/EXTENSIONS.md) stays draft until someone else implements it.
 
 ## The score
 

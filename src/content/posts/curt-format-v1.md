@@ -30,6 +30,8 @@ One: the core is frozen. Not "stable", not "mostly settled" — frozen. Expansio
 
 Two: an extension goes draft → stable only when two independent implementations round-trip it. Six registry entries today, one author. Nothing is stable that I didn't prove against myself — that's the rule working, not an oversight. [consensus-receipt](https://github.com/JordanNewell/dot_curt/blob/main/EXTENSIONS.md) stays draft until someone else implements it.
 
+Both rules protect the reader, not my ego. Rigid where it protects you — the core — and fast where it serves you: need a field today, add it; need it named, open a registry PR and I'll move on it same week. BDFL means decisions happen, not that the door is shut.
+
 ## The score
 
 Zero outside consumers. Six registry entries, one author. A spec, a library, a test suite, a site — all built in a vacuum, and I'm not going to dress that up. It's the current score, it's public in [capabilities.json](https://github.com/JordanNewell/dot_curt/blob/main/CAPABILITIES.md), and the first outside implementation sets the tone for everything after it.

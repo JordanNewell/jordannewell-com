@@ -5,7 +5,7 @@ pubDate: 2026-10-29
 tags: ["infra", "rebuild", "systemd"]
 mode: "hobart"
 kind: "postmortem"
-draft: true
+draft: false
 ---
 
 The rebuild ended green. Every agent up, every container running, dashboards quiet. And every scheduled job on the box was disabled. All of them. Not failed — disabled, which is the state systemd considers perfectly healthy and reports to no one.

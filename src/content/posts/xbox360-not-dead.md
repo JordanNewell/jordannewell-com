@@ -5,7 +5,7 @@ pubDate: 2026-10-29
 tags: ["hardware", "tinkering"]
 mode: "hobart"
 kind: "decision"
-draft: true
+draft: false
 ---
 
 Four red rings. The diagnosis writes itself — the red ring of death is console shorthand for dead, twenty years of forum lore. The console booted clean thirty seconds later, because the four-ring pattern doesn't mean hardware failure at all. It means "no video cable detected." The AV plug on a fat 360 seats deep and stiff, reads as seated when it isn't, and the console announces the resulting no-signal as a ring pattern everyone has been trained to read as a funeral.

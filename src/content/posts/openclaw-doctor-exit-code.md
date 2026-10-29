@@ -7,7 +7,7 @@ series: ["claude"]
 tool: "openclaw"
 mode: "hobart"
 kind: "tooling"
-draft: true
+draft: false
 ---
 
 During the rebuild, the fleet's repair tool did something worse than fail: it exited 0. Headless, pointed at config the new version rejects, it printed that the database "awaits its schema repair," migrated nothing, and returned success. Any automated sweep trusting exit codes — mine did — reads that as fixed and restarts the service onto the same unmigrated state. Which is exactly what happened, repeatedly, across [the fleet recovery](/posts/smart-said-the-drive-was-fine/).

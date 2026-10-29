@@ -7,7 +7,7 @@ series: ["claude"]
 tool: "openclaw"
 mode: "hobart"
 kind: "debug-story"
-draft: true
+draft: false
 ---
 
 Every agent in the fleet dropped off Discord at once. Not degraded — gone. No responses in any channel, presence lists empty, and the failure was identical across agents that share no config, no state, and no processes. Identical symptoms across independent systems is the most useful signal an outage gives you: stop debugging agents, start debugging what they share.

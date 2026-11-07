@@ -5,7 +5,7 @@ pubDate: 2026-11-07
 venue: "Zenodo (in prep)"
 audioUrl: "/papers/missing-contributor-class.mp3"
 audioDuration: "16:34"
-audioNote: "read by af_heart · bed: “I.H. Mix Wrk” by Dolo Jones (Inspire Heads Publishing)"
+audioNote: "read by af_heart · bed: “Naz T” by Dolo Jones (Inspire Heads Publishing)"
 tags: ["git", "attribution", "ai-contributors"]
 order: 2
 ---

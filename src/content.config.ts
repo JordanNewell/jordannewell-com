@@ -144,4 +144,23 @@ const podcast = defineCollection({
   }),
 });
 
-export const collections = { posts, projects, products, contributions, podcast };
+const papers = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/papers" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    draft: z.boolean().default(false),
+    venue: z.string().optional(),
+    doi: z.string().optional(),
+    pdfUrl: z.string().optional(),
+    audioUrl: z.string().optional(),
+    audioDuration: z.string().optional(),
+    audioNote: z.string().optional(),
+    transcriptUrl: z.string().url().optional(),
+    tags: z.array(z.string()).default([]),
+    order: z.number().default(99),
+  }),
+});
+
+export const collections = { posts, projects, products, contributions, podcast, papers };

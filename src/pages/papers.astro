@@ -1,0 +1,263 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const papers = (await getCollection("papers", ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order || b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const withAudio = papers.filter((p) => p.data.audioUrl);
+---
+
+<BaseLayout title="Papers" description="Long-form research, published and read aloud — papers with listening copies." ogImage="/og-card.png">
+  <h1 class="sr-only">Papers</h1>
+  <p class="ph-stats">
+    <span class="stat-n">{papers.length}</span> papers · <span class="stat-n">{withAudio.length}</span> with audio
+  </p>
+
+  {papers.length === 0 ? (
+    <p class="lg-desc">Nothing published yet.</p>
+  ) : (
+    <div class="ledger">
+      <div class="ledger-head">
+        <span>yr</span><span>paper</span>
+      </div>
+      {papers.map((paper) => (
+        <div class="ledger-row">
+          <span class="lg-date">{paper.data.pubDate.getFullYear()}</span>
+          <span class="lg-body">
+            <span class="lg-meta">
+              {paper.data.venue ?? "unpublished"}{paper.data.doi ? ` · doi ${paper.data.doi}` : ""}
+            </span>
+            <span class="lg-link">{paper.data.title}</span>
+            <span class="lg-desc">{paper.data.description}</span>
+            <div class="paper-links">
+              {paper.data.pdfUrl && (
+                <a class="paper-pill" href={paper.data.pdfUrl} target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M7 3.5h7L19 8.5V20.5H7z" stroke-width="1.5" stroke-linejoin="round" />
+                    <path d="M14 3.5v5h5" stroke-width="1.5" stroke-linejoin="round" />
+                  </svg>
+                  PDF
+                </a>
+              )}
+              {paper.data.audioUrl && (
+                <div class="player" data-src={paper.data.audioUrl} data-duration={paper.data.audioDuration}>
+                  <button type="button" class="pl-btn" aria-label={`Listen to ${paper.data.title}`}>▶</button>
+                  <input type="range" class="pl-seek" min="0" max="1000" value="0" step="1" aria-label={`Seek within ${paper.data.title}`} />
+                  <span class="pl-time">0:00 / {paper.data.audioDuration}</span>
+                </div>
+              )}
+              {paper.data.transcriptUrl && (
+                <a class="paper-pill" href={paper.data.transcriptUrl} target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M4.5 6.5h15M4.5 11h15M4.5 15.5h9" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                  transcript
+                </a>
+              )}
+            </div>
+            {paper.data.audioNote && <span class="lg-meta audio-note">{paper.data.audioNote}</span>}
+          </span>
+        </div>
+      ))}
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  /* Grid + spacing are papers-specific; base ledger styles live in global.css */
+  .ledger-head, .ledger-row {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 0 18px;
+  }
+  .ledger-row {
+    padding-block: 1.1rem;
+  }
+  .lg-date {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-fg-muted);
+    padding-top: 0.25rem;
+  }
+  .lg-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .lg-meta {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--color-fg-muted);
+    text-transform: lowercase;
+  }
+  .audio-note {
+    margin-top: 0.1rem;
+  }
+  .paper-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+  }
+  .paper-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--color-fg-muted) 40%, transparent);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-fg-muted);
+    text-decoration: none;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .paper-pill svg {
+    width: 15px;
+    height: 15px;
+  }
+  .paper-pill:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  /* Same custom player as the podcast ledger — native <audio controls> renders
+     as an OS-default block that clashes with the ledger. */
+  .player {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    width: 100%;
+    max-width: 420px;
+    margin-top: 0.25rem;
+  }
+  .pl-btn {
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--color-fg-muted);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-fg);
+    font-size: 0.8rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .pl-btn:hover, .pl-btn.is-playing {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .pl-seek {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 2px;
+    background: color-mix(in srgb, var(--color-fg-muted) 35%, transparent);
+    border-radius: 1px;
+    cursor: pointer;
+    outline-offset: 4px;
+  }
+  .pl-seek::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: none;
+    margin-top: 0; /* recenters the thumb on the 2px track in Blink */
+  }
+  .pl-seek::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: none;
+  }
+  .pl-time {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--color-fg-muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 560px) {
+    .ledger-head { display: none; }
+    .ledger-row { grid-template-columns: 1fr; }
+    .lg-date { margin-bottom: 0.3rem; }
+  }
+</style>
+
+<script>
+  // Paper players: one shared Audio per click, one-at-a-time playback.
+  // Seek is a native range input so keyboard scrubbing comes for free.
+  const fmt = (s: number) => {
+    if (!isFinite(s)) return "0:00";
+    const m = Math.floor(s / 60);
+    const ss = Math.floor(s % 60).toString().padStart(2, "0");
+    return `${m}:${ss}`;
+  };
+
+  const parseDur = (d: string) => {
+    const [m, s = "0"] = d.split(":");
+    return Number(m) * 60 + Number(s);
+  };
+
+  let active: { audio: HTMLAudioElement; btn: HTMLButtonElement; seek: HTMLInputElement; time: HTMLElement } | null = null;
+
+  const stop = (p: NonNullable<typeof active>) => {
+    p.audio.pause();
+    p.btn.textContent = "▸";
+    p.btn.classList.remove("is-playing");
+    p.btn.setAttribute("aria-label", p.btn.getAttribute("aria-label")!.replace("Pause", "Listen to"));
+  };
+
+  document.querySelectorAll<HTMLElement>(".player").forEach((el) => {
+    const btn = el.querySelector<HTMLButtonElement>(".pl-btn")!;
+    const seek = el.querySelector<HTMLInputElement>(".pl-seek")!;
+    const time = el.querySelector<HTMLElement>(".pl-time")!;
+    const src = el.dataset.src!;
+    const total = parseDur(el.dataset.duration!);
+    let audio: HTMLAudioElement | null = null;
+
+    btn.addEventListener("click", () => {
+      if (audio && !audio.paused) {
+        stop({ audio, btn, seek, time });
+        return;
+      }
+      if (!audio) {
+        audio = new Audio(src);
+        audio.addEventListener("loadedmetadata", () => {
+          if (isFinite(audio!.duration)) time.textContent = `0:00 / ${fmt(audio!.duration)}`;
+        });
+        audio.addEventListener("timeupdate", () => {
+          if (active && active.audio === audio && document.activeElement === seek) return; // don't fight the user's scrub
+          if (isFinite(audio!.duration)) seek.value = String((audio!.currentTime / audio!.duration) * 1000);
+          time.textContent = `${fmt(audio!.currentTime)} / ${fmt(audio!.duration || total)}`;
+        });
+        audio.addEventListener("ended", () => {
+          seek.value = "0";
+          time.textContent = `0:00 / ${fmt(audio!.duration || total)}`;
+          stop({ audio: audio!, btn, seek, time });
+        });
+      }
+      if (active && active.audio !== audio) stop(active);
+      active = { audio, btn, seek, time };
+      audio.play();
+      btn.textContent = "❚❚";
+      btn.classList.add("is-playing");
+      btn.setAttribute("aria-label", btn.getAttribute("aria-label")!.replace("Listen to", "Pause"));
+    });
+
+    seek.addEventListener("input", () => {
+      if (!audio || !isFinite(audio.duration)) return;
+      audio.currentTime = (Number(seek.value) / 1000) * audio.duration;
+    });
+  });
+</script>

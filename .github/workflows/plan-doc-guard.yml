@@ -21,7 +21,7 @@ jobs:
           # full tree scan — catches history already on the branch, not just new files
           HITS=$(git ls-tree -r --name-only HEAD | grep -iE "$PAT" || true)
           if [ -n "$HITS" ]; then
-            echo "::error::Plan/roadmap docs are not allowed in repos. Move to the vault (10_PROJECTS/<slug>/plans/)."
+            echo "::error::Plan/roadmap docs are not allowed in repos. Move to the vault (10_PROJECTS/your-project-slug/plans/)."
             echo "$HITS"
             exit 1
           fi

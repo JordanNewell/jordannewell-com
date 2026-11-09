@@ -4,8 +4,8 @@ description: "Git recognizes three contributor classes — author, Co-authored-b
 pubDate: 2026-11-07
 venue: "Zenodo (in prep)"
 audioUrl: "/papers/missing-contributor-class.mp3"
-audioDuration: "16:34"
-audioNote: "read by af_heart · bed: “Naz T” by Dolo Jones (Inspire Heads Publishing)"
+audioDuration: "46:49"
+audioNote: "read by af_heart · bed: “Naz T” by Dolo Jones (Inspire Heads Publishing) · beta — full-text v2, unabridged"
 tags: ["git", "attribution", "ai-contributors"]
 order: 2
 ---

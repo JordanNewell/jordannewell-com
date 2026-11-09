@@ -2,7 +2,9 @@
 title: "The Missing Contributor Class: A Fourth Contributor Taxonomy for AI-Assisted Commits"
 description: "Git recognizes three contributor classes — author, Co-authored-by, and [bot]. AI coding agents fit none of them, and both available classes are dishonest: co-authorship overclaims human agency, the bot class underclaims it to nothing. A fourth class, defined in the existing trailer-taxonomy tradition."
 pubDate: 2026-11-07
-venue: "Zenodo (in prep)"
+venue: "Zenodo"
+doi: "10.5281/zenodo.24031381"
+pdfUrl: "/papers/missing-contributor-class.pdf"
 audioUrl: "/papers/missing-contributor-class.mp3"
 audioDuration: "46:49"
 audioNote: "read by af_heart · bed: “Naz T” by Dolo Jones (Inspire Heads Publishing) · beta — full-text v2, unabridged"

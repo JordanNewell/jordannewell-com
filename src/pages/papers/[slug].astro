@@ -1,0 +1,327 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const papers = await getCollection("papers", ({ data }) => !data.draft);
+  return papers.map((paper) => ({
+    params: { slug: paper.id },
+    props: { paper },
+  }));
+}
+
+const { paper } = Astro.props;
+const { title, description, pubDate, venue, doi, pdfUrl, audioUrl, audioDuration, audioNote, transcriptUrl } = paper.data;
+const { Content } = await render(paper);
+
+const doiHref = doi ? `https://doi.org/${doi}` : undefined;
+// Self-hosted PDFs embed inline (read along with the player); external
+// links (Zenodo/doi.org) stay pills — cross-origin framing is unreliable.
+const localPdf = !!pdfUrl && pdfUrl.startsWith("/");
+---
+
+<BaseLayout title={title} description={description} ogType="article">
+  <article class="paper-page">
+    <header class="pp-head">
+      <p class="pp-meta">
+        <time datetime={pubDate.toISOString()}>{pubDate.getFullYear()}</time>
+        {venue && <span> · {venue}</span>}
+        {doi && <span> · doi {doi}</span>}
+      </p>
+      <h1 class="pp-title">{title}</h1>
+      <p class="pp-desc">{description}</p>
+      <div class="pp-links">
+        {pdfUrl && (
+          <a class="paper-pill" href={pdfUrl} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path d="M7 3.5h7L19 8.5V20.5H7z" stroke-width="1.5" stroke-linejoin="round" />
+              <path d="M14 3.5v5h5" stroke-width="1.5" stroke-linejoin="round" />
+            </svg>
+            PDF
+          </a>
+        )}
+        {doiHref && (
+          <a class="paper-pill" href={doiHref} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path d="M10 13.5a4.5 4.5 0 0 0 6.4 0l2.6-2.6a4.5 4.5 0 0 0-6.4-6.4L11.2 6" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M14 10.5a4.5 4.5 0 0 0-6.4 0l-2.6 2.6a4.5 4.5 0 0 0 6.4 6.4L12.8 18" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            doi.org
+          </a>
+        )}
+        {transcriptUrl && (
+          <a class="paper-pill" href={transcriptUrl} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path d="M4.5 6.5h15M4.5 11h15M4.5 15.5h9" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            transcript
+          </a>
+        )}
+      </div>
+      {audioUrl && (
+        <div class="pl-sticky">
+          <div class="player" data-src={audioUrl} data-duration={audioDuration}>
+            <button type="button" class="pl-btn" aria-label={`Listen to ${title}`}>▶</button>
+            <input type="range" class="pl-seek" min="0" max="1000" value="0" step="1" aria-label={`Seek within ${title}`} />
+            <span class="pl-time">0:00 / {audioDuration}</span>
+          </div>
+          {audioNote && <span class="pp-note">{audioNote}</span>}
+        </div>
+      )}
+    </header>
+
+    {localPdf ? (
+      <div class="pp-pdf">
+        <object data={pdfUrl} type="application/pdf" aria-label={`PDF of ${title}`}>
+          <p class="pp-pdf-fallback">Inline PDF not supported here — <a href={pdfUrl}>open the PDF</a>.</p>
+        </object>
+      </div>
+    ) : (
+      <div class="prose pp-body">
+        <Content />
+      </div>
+    )}
+
+    <p class="pp-back"><a href="/papers">← all papers</a></p>
+  </article>
+</BaseLayout>
+
+<style>
+  .paper-page {
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+  .pp-head {
+    margin-bottom: 2.5rem;
+  }
+  .pp-meta {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--color-fg-muted);
+    text-transform: lowercase;
+    margin-bottom: 0.75rem;
+  }
+  .pp-title {
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+  .pp-desc {
+    color: var(--color-fg-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .pp-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  /* Same pill as the papers ledger. */
+  .paper-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--color-fg-muted) 40%, transparent);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-fg-muted);
+    text-decoration: none;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .paper-pill svg {
+    width: 15px;
+    height: 15px;
+  }
+  .paper-pill:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  /* Player rides along while the reader scrolls the text. */
+  .pl-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin-top: 1.25rem;
+    padding: 0.75rem 0.25rem;
+    background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-fg-muted) 18%, transparent);
+  }
+  .pp-note {
+    display: block;
+    margin-top: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--color-fg-muted);
+  }
+  .pp-body {
+    margin-bottom: 2.5rem;
+  }
+  .pp-pdf {
+    margin-bottom: 2.5rem;
+  }
+  .pp-pdf object {
+    display: block;
+    width: 100%;
+    height: 85vh;
+    border: 1px solid color-mix(in srgb, var(--color-fg-muted) 25%, transparent);
+    border-radius: 4px;
+  }
+  .pp-pdf-fallback {
+    padding: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-fg-muted);
+  }
+  .pp-pdf-fallback a {
+    color: var(--color-accent);
+  }
+  .pp-back {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+  .pp-back a {
+    color: var(--color-fg-muted);
+    text-decoration: none;
+  }
+  .pp-back a:hover {
+    color: var(--color-accent);
+  }
+  /* Same custom player as the papers ledger — native <audio controls> renders
+     as an OS-default block that clashes with the page. */
+  .player {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    width: 100%;
+    max-width: 420px;
+  }
+  .pl-btn {
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--color-fg-muted);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-fg);
+    font-size: 0.8rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .pl-btn:hover, .pl-btn.is-playing {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .pl-seek {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 2px;
+    background: color-mix(in srgb, var(--color-fg-muted) 35%, transparent);
+    border-radius: 1px;
+    cursor: pointer;
+    outline-offset: 4px;
+  }
+  .pl-seek::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: none;
+    margin-top: 0; /* recenters the thumb on the 2px track in Blink */
+  }
+  .pl-seek::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: none;
+  }
+  .pl-time {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--color-fg-muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+
+<script>
+  // Same player logic as the papers ledger: one shared Audio per click,
+  // one-at-a-time playback, native range input for keyboard scrubbing.
+  const fmt = (s: number) => {
+    if (!isFinite(s)) return "0:00";
+    const m = Math.floor(s / 60);
+    const ss = Math.floor(s % 60).toString().padStart(2, "0");
+    return `${m}:${ss}`;
+  };
+
+  const parseDur = (d: string) => {
+    const [m, s = "0"] = d.split(":");
+    return Number(m) * 60 + Number(s);
+  };
+
+  let active: { audio: HTMLAudioElement; btn: HTMLButtonElement; seek: HTMLInputElement; time: HTMLElement } | null = null;
+
+  const stop = (p: NonNullable<typeof active>) => {
+    p.audio.pause();
+    p.btn.textContent = "▸";
+    p.btn.classList.remove("is-playing");
+    p.btn.setAttribute("aria-label", p.btn.getAttribute("aria-label")!.replace("Pause", "Listen to"));
+  };
+
+  document.querySelectorAll<HTMLElement>(".player").forEach((el) => {
+    const btn = el.querySelector<HTMLButtonElement>(".pl-btn")!;
+    const seek = el.querySelector<HTMLInputElement>(".pl-seek")!;
+    const time = el.querySelector<HTMLElement>(".pl-time")!;
+    const src = el.dataset.src!;
+    const total = parseDur(el.dataset.duration!);
+    let audio: HTMLAudioElement | null = null;
+
+    btn.addEventListener("click", () => {
+      if (audio && !audio.paused) {
+        stop({ audio, btn, seek, time });
+        return;
+      }
+      if (!audio) {
+        audio = new Audio(src);
+        audio.addEventListener("loadedmetadata", () => {
+          if (isFinite(audio!.duration)) time.textContent = `0:00 / ${fmt(audio!.duration)}`;
+        });
+        audio.addEventListener("timeupdate", () => {
+          if (active && active.audio === audio && document.activeElement === seek) return; // don't fight the user's scrub
+          if (isFinite(audio!.duration)) seek.value = String((audio!.currentTime / audio!.duration) * 1000);
+          time.textContent = `${fmt(audio!.currentTime)} / ${fmt(audio!.duration || total)}`;
+        });
+        audio.addEventListener("ended", () => {
+          seek.value = "0";
+          time.textContent = `0:00 / ${fmt(audio!.duration || total)}`;
+          stop({ audio: audio!, btn, seek, time });
+        });
+      }
+      if (active && active.audio !== audio) stop(active);
+      active = { audio, btn, seek, time };
+      audio.play();
+      btn.textContent = "❚❚";
+      btn.classList.add("is-playing");
+      btn.setAttribute("aria-label", btn.getAttribute("aria-label")!.replace("Listen to", "Pause"));
+    });
+
+    seek.addEventListener("input", () => {
+      if (!audio || !isFinite(audio.duration)) return;
+      audio.currentTime = (Number(seek.value) / 1000) * audio.duration;
+    });
+  });
+</script>

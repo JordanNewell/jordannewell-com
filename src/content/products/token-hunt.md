@@ -4,7 +4,7 @@ tagline: "Finds the secrets your AI agents leak — before someone else does."
 description: "A hook-based secret scanner for the agentic workflow: 48 credential rules across 53 provider families, six hook surfaces with block-and-rotate, and a runtime detector for the leak class regex can't see. Zero cloud, zero telemetry."
 status: "released"
 shipDate: 2026-10-15
-repo: "https://github.com/JordanNewell/token-hunt"
+repo: "https://github.com/tokenhunt/token-hunt"
 homepage: "https://tokenhunt.dev"
 logo: "/products/token-hunt/token-hunt-logo.svg"
 platform:

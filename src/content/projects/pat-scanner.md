@@ -6,8 +6,8 @@ promotedTo: "/products/token-hunt/"
 tags: ["projects", "security", "oss", "claude-code"]
 shipDate: 2026-07-27
 startDate: 2026-07-28
-repo: "https://github.com/JordanNewell/pat-scanner"
-liveUrl: "https://github.com/JordanNewell/pat-scanner"
+repo: "https://github.com/tokenhunt/pat-scanner"
+liveUrl: "https://github.com/tokenhunt/pat-scanner"
 order: 10
 facts:
   - k: "shipped"
@@ -40,7 +40,7 @@ Claude Code UserPromptSubmit hook that catches 13 PAT classes at chat-time — b
 ## Install
 
 ```bash
-/plugin marketplace add JordanNewell/pat-scanner
+/plugin marketplace add tokenhunt/pat-scanner
 /plugin install pat-scanner
 ```
 

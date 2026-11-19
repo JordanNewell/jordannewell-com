@@ -6,7 +6,7 @@ promotedTo: "/products/token-hunt/"
 tags: ["projects", "security", "oss", "python"]
 startDate: 2026-10-03
 shipDate: 2026-10-15
-repo: "https://github.com/JordanNewell/token-hunt"
+repo: "https://github.com/tokenhunt/token-hunt"
 liveUrl: "https://tokenhunt.dev"
 pkg: "https://pypi.org/project/token-hunt/"
 order: 18
